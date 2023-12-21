@@ -2,10 +2,19 @@ Imports Discord
 Imports Discord.WebSocket
 
 Module Program
+    Private tcs As TaskCompletionSource = New TaskCompletionSource
+    Private sigintReceived As Boolean = False
     Sub Main(args As String())
+        AddHandler Console.CancelKeyPress, AddressOf OnCancelKeyPress
         MainAsync(args).
             GetAwaiter().
             GetResult()
+    End Sub
+
+    Private Sub OnCancelKeyPress(sender As Object, e As ConsoleCancelEventArgs)
+        e.Cancel = True
+        tcs.SetResult()
+        sigintReceived = True
     End Sub
 
     Private Const DISCORD_TOKEN As String = "DISCORD_TOKEN"
@@ -17,7 +26,8 @@ Module Program
         Dim token = Environment.GetEnvironmentVariable(DISCORD_TOKEN)
         Await client.LoginAsync(TokenType.Bot, token)
         Await client.StartAsync()
-        Await Task.Delay(-1)
+        Await tcs.Task
+        DataStore.Close()
     End Function
 
     Private Async Function OnMessageReceived(message As SocketMessage) As Task

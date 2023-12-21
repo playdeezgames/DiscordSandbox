@@ -40,4 +40,11 @@ Friend Module DataStore
         End If
         Return connection
     End Function
+
+    Friend Sub Close()
+        If connection IsNot Nothing Then
+            connection.Close()
+            connection = Nothing
+        End If
+    End Sub
 End Module
