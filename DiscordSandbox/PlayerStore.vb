@@ -71,7 +71,14 @@ Friend Class PlayerStore
         End Using
     End Function
     Private Shared ReadOnly READ_AMOUNT As String = $"SELECT {FIELD_AMOUNT} FROM {TABLE_PLAYER_MONEY} WHERE {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
-    Private Shared ReadOnly UPDATE_AMOUNT As String = $"UPDATE {TABLE_PLAYER_MONEY} SET {FIELD_AMOUNT}={PARAMETER_AMOUNT} WHERE {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
+    Private Shared ReadOnly UPDATE_AMOUNT As String = $"
+UPDATE 
+    {TABLE_PLAYER_MONEY} 
+SET 
+    {FIELD_AMOUNT}={PARAMETER_AMOUNT}, 
+    {FIELD_PAYMENT_DUE}={PARAMETER_PAYMENT_DUE} 
+WHERE 
+    {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
     Friend Function AdditionalPay(playerId As Integer) As (Amount As Integer, Total As Integer)
         Dim amount As Integer
         Using command = connectionSource().CreateCommand
@@ -83,7 +90,9 @@ Friend Class PlayerStore
         Using command = connectionSource().CreateCommand
             command.CommandText = UPDATE_AMOUNT
             command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
+            command.Parameters.AddWithValue(PARAMETER_PAYMENT_DUE, PaymentDue(playerId).AddDays(PAY_INTERVAL))
             command.Parameters.AddWithValue(PARAMETER_AMOUNT, total)
+            command.ExecuteNonQuery()
         End Using
         Return (PAY_RATE, total)
     End Function
@@ -92,11 +101,12 @@ Friend Class PlayerStore
     Private Const FIELD_AMOUNT = "Amount"
     Private Shared ReadOnly INITIAL_PAYMENT As String = $"INSERT INTO {TABLE_PLAYER_MONEY} ({FIELD_PLAYER_ID},{FIELD_PAYMENT_DUE},{FIELD_AMOUNT}) VALUES ({PARAMETER_PLAYER_ID},{PARAMETER_PAYMENT_DUE},{PARAMETER_AMOUNT});"
     Private Const PAY_RATE = 100
+    Private Const PAY_INTERVAL = 1.0
     Friend Function InitialPay(playerId As Integer) As (Amount As Integer, Total As Integer)
         Using command = connectionSource().CreateCommand
             command.CommandText = INITIAL_PAYMENT
             command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
-            command.Parameters.AddWithValue(PARAMETER_PAYMENT_DUE, DateTimeOffset.Now.AddDays(1.0))
+            command.Parameters.AddWithValue(PARAMETER_PAYMENT_DUE, DateTimeOffset.Now.AddDays(PAY_INTERVAL))
             command.Parameters.AddWithValue(PARAMETER_AMOUNT, PAY_RATE)
             command.ExecuteNonQuery()
         End Using
