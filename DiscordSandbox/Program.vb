@@ -39,8 +39,10 @@ Module Program
     End Function
 
     Private Function HandleInput(authorId As ULong, text As String) As String
-        Dim playerId As Integer = DataStore.FindOrCreatePlayerForAuthor(CLng(authorId))
-        Return MainProcessor.Process(playerId, text.ToLower.Split(" "c))
+        Return MainProcessor.Process(
+            DataStore.Players.FindOrCreate(
+                CLng(authorId)),
+                text.ToLower.Split(" "c))
     End Function
 
     Private Async Function OnLog(message As LogMessage) As Task
