@@ -19,8 +19,10 @@ Module Program
 
     Private Const DISCORD_TOKEN As String = "DISCORD_TOKEN"
     Private client As DiscordSocketClient
+    Private dataStore As DataStore
     Public Async Function MainAsync(ByVal args() As String) As Task
         client = New DiscordSocketClient()
+        dataStore = New DataStore
         AddHandler client.Log, AddressOf OnLog
         AddHandler client.MessageReceived, AddressOf OnMessageReceived
         Dim token = Environment.GetEnvironmentVariable(DISCORD_TOKEN)
@@ -40,7 +42,8 @@ Module Program
 
     Private Function HandleInput(authorId As ULong, text As String) As String
         Return MainProcessor.Process(
-            DataStore.Players.FindOrCreate(
+            dataStore,
+            dataStore.Players.FindOrCreate(
                 CLng(authorId)),
                 text.ToLower.Split(" "c))
     End Function
