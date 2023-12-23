@@ -90,7 +90,7 @@ WHERE
         Using command = connectionSource().CreateCommand
             command.CommandText = UPDATE_AMOUNT
             command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
-            command.Parameters.AddWithValue(PARAMETER_PAYMENT_DUE, PaymentDue(playerId).AddDays(PAY_INTERVAL))
+            command.Parameters.AddWithValue(PARAMETER_PAYMENT_DUE, DateTimeOffset.Now.AddDays(PAY_INTERVAL))
             command.Parameters.AddWithValue(PARAMETER_AMOUNT, total)
             command.ExecuteNonQuery()
         End Using
