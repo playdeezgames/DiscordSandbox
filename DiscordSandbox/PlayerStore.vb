@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
-Public Class PlayerStore
+Friend Class PlayerStore
+    Implements IPlayerStore
     Private Const TABLE_PLAYERS = "Players"
     Private Const FIELD_PLAYER_ID = "PlayerId"
     Private Const FIELD_DISCORD_ID = "DiscordId"
@@ -11,7 +12,7 @@ Public Class PlayerStore
     Friend Sub New(connectionSource As Func(Of SqlConnection))
         Me.connectionSource = connectionSource
     End Sub
-    Friend Function FindOrCreate(discordId As Long) As Integer
+    Public Function FindOrCreate(discordId As Long) As Integer Implements IPlayerStore.FindOrCreate
         Using command = connectionSource().CreateCommand()
             command.CommandText = READ_PLAYER_ID_FOR_DISCORD_ID
             command.Parameters.AddWithValue(PARAMETER_DISCORD_ID, discordId)
@@ -38,7 +39,7 @@ Public Class PlayerStore
     Private Const TABLE_PLAYER_MONEY = "PlayerMoney"
     Private Const PARAMETER_PLAYER_ID = "@PlayerId"
     Private Shared ReadOnly CHECK_PAY_RECORD As String = $"SELECT COUNT(1) FROM {TABLE_PLAYER_MONEY} WHERE {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
-    Friend Function HasPayRecord(playerId As Integer) As Boolean
+    Public Function HasPayRecord(playerId As Integer) As Boolean Implements IPlayerStore.HasPayRecord
         Using command = connectionSource().CreateCommand()
             command.CommandText = CHECK_PAY_RECORD
             command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
@@ -47,7 +48,7 @@ Public Class PlayerStore
     End Function
     Private Const FIELD_PAYMENT_DUE = "PaymentDue"
     Private Shared ReadOnly READ_PAYMENT_DUE As String = $"SELECT {FIELD_PAYMENT_DUE} FROM {TABLE_PLAYER_MONEY} WHERE {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
-    Friend Function IsOwedPay(playerId As Integer) As Boolean
+    Public Function IsOwedPay(playerId As Integer) As Boolean Implements IPlayerStore.IsOwedPay
         Using command = connectionSource().CreateCommand()
             command.CommandText = READ_PAYMENT_DUE
             command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
@@ -60,14 +61,14 @@ Public Class PlayerStore
             End Using
         End Using
     End Function
-    Friend Function Wallet(playerId As Integer) As Integer
+    Public Function Wallet(playerId As Integer) As Integer Implements IPlayerStore.Wallet
         Using command = connectionSource().CreateCommand
             command.CommandText = READ_AMOUNT
             command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
             Return CInt(command.ExecuteScalar())
         End Using
     End Function
-    Friend Function PaymentDue(playerId As Integer) As DateTimeOffset
+    Public Function PaymentDue(playerId As Integer) As DateTimeOffset Implements IPlayerStore.PaymentDue
         Using command = connectionSource().CreateCommand()
             command.CommandText = READ_PAYMENT_DUE
             command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
@@ -86,7 +87,7 @@ SET
     {FIELD_PAYMENT_DUE}={PARAMETER_PAYMENT_DUE} 
 WHERE 
     {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
-    Friend Function AdditionalPay(playerId As Integer) As (Amount As Integer, Total As Integer)
+    Public Function AdditionalPay(playerId As Integer) As (Amount As Integer, Total As Integer) Implements IPlayerStore.AdditionalPay
         Dim amount As Integer = Wallet(playerId)
         Dim total As Integer = amount + PAY_RATE
         Using command = connectionSource().CreateCommand
@@ -104,7 +105,7 @@ WHERE
     Private Shared ReadOnly INITIAL_PAYMENT As String = $"INSERT INTO {TABLE_PLAYER_MONEY} ({FIELD_PLAYER_ID},{FIELD_PAYMENT_DUE},{FIELD_AMOUNT}) VALUES ({PARAMETER_PLAYER_ID},{PARAMETER_PAYMENT_DUE},{PARAMETER_AMOUNT});"
     Private Const PAY_RATE = 100
     Private Const PAY_INTERVAL = 1.0
-    Friend Function InitialPay(playerId As Integer) As (Amount As Integer, Total As Integer)
+    Public Function InitialPay(playerId As Integer) As (Amount As Integer, Total As Integer) Implements IPlayerStore.InitialPay
         Using command = connectionSource().CreateCommand
             command.CommandText = INITIAL_PAYMENT
             command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)

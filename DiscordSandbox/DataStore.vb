@@ -5,7 +5,7 @@ Friend Class DataStore
     Private Const CONNECTION_STRING As String = "CONNECTION_STRING"
     Private connection As SqlConnection = Nothing
 
-    Public ReadOnly Property Players As PlayerStore Implements IDataStore.Players
+    Public ReadOnly Property Players As IPlayerStore Implements IDataStore.Players
         Get
             Return New PlayerStore(AddressOf GetConnection)
         End Get
