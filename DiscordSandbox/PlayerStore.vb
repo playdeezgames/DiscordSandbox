@@ -60,6 +60,13 @@ Friend Class PlayerStore
             End Using
         End Using
     End Function
+    Friend Function Wallet(playerId As Integer) As Integer
+        Using command = connectionSource().CreateCommand
+            command.CommandText = READ_AMOUNT
+            command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
+            Return CInt(command.ExecuteScalar())
+        End Using
+    End Function
     Friend Function PaymentDue(playerId As Integer) As DateTimeOffset
         Using command = connectionSource().CreateCommand()
             command.CommandText = READ_PAYMENT_DUE
@@ -80,12 +87,7 @@ SET
 WHERE 
     {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
     Friend Function AdditionalPay(playerId As Integer) As (Amount As Integer, Total As Integer)
-        Dim amount As Integer
-        Using command = connectionSource().CreateCommand
-            command.CommandText = READ_AMOUNT
-            command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
-            amount = CInt(command.ExecuteScalar())
-        End Using
+        Dim amount As Integer = Wallet(playerId)
         Dim total As Integer = amount + PAY_RATE
         Using command = connectionSource().CreateCommand
             command.CommandText = UPDATE_AMOUNT
