@@ -1,6 +1,6 @@
 ﻿Imports Microsoft.Data.SqlClient
 
-Friend Class PlayerStore
+Public Class PlayerStore
     Private Const TABLE_PLAYERS = "Players"
     Private Const FIELD_PLAYER_ID = "PlayerId"
     Private Const FIELD_DISCORD_ID = "DiscordId"

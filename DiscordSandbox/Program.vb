@@ -19,7 +19,7 @@ Module Program
 
     Private Const DISCORD_TOKEN As String = "DISCORD_TOKEN"
     Private client As DiscordSocketClient
-    Private dataStore As DataStore
+    Private dataStore As IDataStore
     Public Async Function MainAsync(ByVal args() As String) As Task
         client = New DiscordSocketClient()
         dataStore = New DataStore

@@ -1,9 +1,11 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class DataStore
+    Implements IDataStore
     Private Const CONNECTION_STRING As String = "CONNECTION_STRING"
     Private connection As SqlConnection = Nothing
-    Friend ReadOnly Property Players As PlayerStore
+
+    Public ReadOnly Property Players As PlayerStore Implements IDataStore.Players
         Get
             Return New PlayerStore(AddressOf GetConnection)
         End Get
@@ -15,7 +17,7 @@ Friend Class DataStore
         End If
         Return connection
     End Function
-    Friend Sub Close()
+    Public Sub Close() Implements IDataStore.Close
         If connection IsNot Nothing Then
             connection.Close()
             connection = Nothing

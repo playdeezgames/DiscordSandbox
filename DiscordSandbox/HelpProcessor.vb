@@ -6,7 +6,7 @@
             {PAY_TOKEN, "You get yer current pay."},
             {STATUS_TOKEN, "Tells you yer status!"}
         }
-    Friend Function Process(dataStore As DataStore, playerId As Integer, tokens() As String) As String
+    Friend Function Process(dataStore As IDataStore, playerId As Integer, tokens() As String) As String
         If tokens.Length = 0 Then
             Return $"Commands: 
 - {HELP_TOKEN}

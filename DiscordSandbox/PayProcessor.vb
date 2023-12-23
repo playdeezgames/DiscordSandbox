@@ -1,5 +1,5 @@
 ﻿Friend Module PayProcessor
-    Friend Function Process(dataStore As DataStore, playerId As Integer, tokens() As String) As String
+    Friend Function Process(dataStore As IDataStore, playerId As Integer, tokens() As String) As String
         If tokens.Length <> 0 Then
             Return InvalidProcessor.Process(playerId)
         End If
