@@ -1,6 +1,4 @@
 ﻿Friend Module MainProcessor
-    Private Const PAY_TOKEN = "pay"
-    Private Const STATUS_TOKEN = "status"
     Private Const ERROR_MESSAGE As String = "Error!"
 
     Friend Function Process(dataStore As DataStore, playerId As Integer, tokens() As String) As String
@@ -8,11 +6,14 @@
             If tokens.Length = 0 Then
                 Return InvalidProcessor.Process(playerId)
             End If
+            Dim remainingTokens = tokens.Skip(1).ToArray
             Select Case tokens.First
-                Case STATUS_TOKEN
-                    Return StatusProcessor.Process(dataStore, playerId, tokens.Skip(1).ToArray)
+                Case HELP_TOKEN
+                    Return HelpProcessor.Process(dataStore, playerId, remainingTokens)
                 Case PAY_TOKEN
-                    Return PayProcessor.Process(dataStore, playerId, tokens.Skip(1).ToArray)
+                    Return PayProcessor.Process(dataStore, playerId, remainingTokens)
+                Case STATUS_TOKEN
+                    Return StatusProcessor.Process(dataStore, playerId, remainingTokens)
                 Case Else
                     Return InvalidProcessor.Process(playerId)
             End Select
