@@ -1,7 +1,7 @@
-﻿Friend Module MainProcessor
+﻿Public Module MainProcessor
     Private Const ERROR_MESSAGE As String = "Error!"
 
-    Friend Function Process(dataStore As IDataStore, playerId As Integer, tokens() As String) As String
+    Public Function Process(dataStore As IDataStore, playerId As Integer, tokens() As String) As String
         Try
             If tokens.Length = 0 Then
                 Return InvalidProcessor.Process(playerId)
