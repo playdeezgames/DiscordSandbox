@@ -22,7 +22,16 @@
     Private Function ProcessMessage(authorId As ULong, tokens() As String) As String
         Dim firstToken = tokens.First
         Dim remainingTokens = tokens.Skip(1).ToArray
-        If firstToken = TOKEN_STATUS AndAlso remainingTokens.Length = 0 Then
+        Select Case firstToken
+            Case TOKEN_STATUS
+                Return HandleStatusMessage(remainingTokens)
+            Case Else
+                Return MESSAGE_INVALID_INPUT
+        End Select
+    End Function
+
+    Private Shared Function HandleStatusMessage(tokens As String()) As String
+        If tokens.Length = 0 Then
             Return MESSAGE_NO_CHARACTER
         End If
         Return MESSAGE_INVALID_INPUT
