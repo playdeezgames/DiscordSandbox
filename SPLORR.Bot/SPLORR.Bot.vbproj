@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>SPLORR.Host</RootNamespace>
+    <RootNamespace>SPLORR.Bot</RootNamespace>
     <TargetFramework>net8.0</TargetFramework>
     <OptionStrict>On</OptionStrict>
   </PropertyGroup>
@@ -14,14 +13,5 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Discord.Net" Version="3.13.0" />
-    <PackageReference Include="Spectre.Console" Version="0.48.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\SPLORR.Bot\SPLORR.Bot.vbproj" />
-  </ItemGroup>
 
 </Project>

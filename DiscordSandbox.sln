@@ -11,6 +11,10 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "SPLORR.Host", "SPLORR.Host\
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SPLORR.Database", "SPLORR.Database\SPLORR.Database.sqlproj", "{903EE261-1042-4824-868A-9ACFB9BFA5EB}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SPLORR.Bot", "SPLORR.Bot\SPLORR.Bot.vbproj", "{405036DE-868A-407F-AA81-01216E57650B}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SPLORR.Bot.Tests", "SPLORR.Bot.Tests\SPLORR.Bot.Tests.vbproj", "{8C18F0EB-4B64-461A-A3F7-C8ECD7780827}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +39,14 @@ Global
 		{903EE261-1042-4824-868A-9ACFB9BFA5EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{903EE261-1042-4824-868A-9ACFB9BFA5EB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{903EE261-1042-4824-868A-9ACFB9BFA5EB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{405036DE-868A-407F-AA81-01216E57650B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{405036DE-868A-407F-AA81-01216E57650B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{405036DE-868A-407F-AA81-01216E57650B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{405036DE-868A-407F-AA81-01216E57650B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C18F0EB-4B64-461A-A3F7-C8ECD7780827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C18F0EB-4B64-461A-A3F7-C8ECD7780827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C18F0EB-4B64-461A-A3F7-C8ECD7780827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C18F0EB-4B64-461A-A3F7-C8ECD7780827}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

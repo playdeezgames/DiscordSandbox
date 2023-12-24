@@ -1,6 +1,7 @@
 Imports Discord
 Imports Discord.WebSocket
 Imports Spectre.Console
+Imports SPLORR.Bot
 
 Module Program
     Private completionSource As TaskCompletionSource = New TaskCompletionSource
@@ -20,8 +21,11 @@ Module Program
     Private Const START_MESSAGE As String = "[olive]Starting SPLORR.Host[/]"
     Private Const WAITING_MESSAGE As String = "[olive]Awaiting SIGINT[/]"
     Private Const STOPPING_MESSAGE As String = "[olive]Stopping SPLORR.Host[/]"
+    Private bot As IBot
 
     Public Async Function MainAsync(ByVal args() As String) As Task
+        bot = New Bot.SPLORRBot()
+        bot.Start()
         AnsiConsole.MarkupLine(START_MESSAGE)
         Dim client = New DiscordSocketClient
         AddHandler client.Log, AddressOf OnLog
@@ -31,6 +35,8 @@ Module Program
         AnsiConsole.MarkupLine(WAITING_MESSAGE)
         Await completionSource.Task
         AnsiConsole.MarkupLine(STOPPING_MESSAGE)
+        bot.Stop()
+        bot = Nothing
     End Function
 
     Private Async Function OnMessageReceived(message As SocketMessage) As Task
