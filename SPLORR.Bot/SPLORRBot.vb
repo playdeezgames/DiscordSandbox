@@ -10,8 +10,8 @@
     Public Function HandleMessage(authorId As ULong, message As String) As String Implements IBot.HandleMessage
         message = message.ToLower
         If message = "status" Then
-            Return "TODO: give you yer status!"
+            Return "You have no character!"
         End If
-        Return "OHAI!"
+        Return "Invalid input!"
     End Function
 End Class
