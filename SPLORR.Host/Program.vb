@@ -3,7 +3,7 @@ Imports Discord.WebSocket
 Imports Spectre.Console
 
 Module Program
-    Private tcs As TaskCompletionSource = New TaskCompletionSource
+    Private completionSource As TaskCompletionSource = New TaskCompletionSource
     Sub Main(args As String())
         AddHandler Console.CancelKeyPress, AddressOf OnCancelKeyPress
         MainAsync(args).
@@ -13,20 +13,24 @@ Module Program
 
     Private Sub OnCancelKeyPress(sender As Object, e As ConsoleCancelEventArgs)
         e.Cancel = True
-        tcs.SetResult()
+        completionSource.SetResult()
     End Sub
 
+    Private Const ENV_VAR_DISCORD_TOKEN = "DISCORD_TOKEN"
+    Private Const START_MESSAGE As String = "[olive]Starting SPLORR.Host[/]"
+    Private Const WAITING_MESSAGE As String = "[olive]Awaiting SIGINT[/]"
+    Private Const STOPPING_MESSAGE As String = "[olive]Stopping SPLORR.Host[/]"
+
     Public Async Function MainAsync(ByVal args() As String) As Task
-        Const DISCORD_TOKEN = "DISCORD_TOKEN"
-        AnsiConsole.MarkupLine("[olive]Starting SPLORR.Host[/]")
+        AnsiConsole.MarkupLine(START_MESSAGE)
         Dim client = New DiscordSocketClient
         AddHandler client.Log, AddressOf OnLog
         AddHandler client.MessageReceived, AddressOf OnMessageReceived
-        Await client.LoginAsync(TokenType.Bot, Environment.GetEnvironmentVariable(DISCORD_TOKEN))
+        Await client.LoginAsync(TokenType.Bot, Environment.GetEnvironmentVariable(ENV_VAR_DISCORD_TOKEN))
         Await client.StartAsync()
-        AnsiConsole.MarkupLine("[olive]Awaiting SIGINT[/]")
-        Await tcs.Task
-        AnsiConsole.MarkupLine("[olive]Stopping SPLORR.Host[/]")
+        AnsiConsole.MarkupLine(WAITING_MESSAGE)
+        Await completionSource.Task
+        AnsiConsole.MarkupLine(STOPPING_MESSAGE)
     End Function
 
     Private Async Function OnMessageReceived(message As SocketMessage) As Task
