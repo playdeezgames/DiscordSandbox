@@ -5,6 +5,5 @@
     End Sub
 
     Public Sub [Stop]() Implements IBot.Stop
-        Throw New NotImplementedException()
     End Sub
 End Class

@@ -7,6 +7,11 @@ Namespace SPLORR.Bot.Tests
             Dim subject As IBot = New SPLORRBot()
             subject.Start()
         End Sub
+        <Fact>
+        Sub [stop]()
+            Dim subject As IBot = New SPLORRBot()
+            subject.Stop()
+        End Sub
     End Class
 End Namespace
 
