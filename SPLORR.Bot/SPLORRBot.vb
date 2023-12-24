@@ -12,8 +12,17 @@
     End Sub
 
     Public Function HandleMessage(authorId As ULong, message As String) As String Implements IBot.HandleMessage
-        message = message.ToLower
-        If message = TOKEN_STATUS Then
+        Dim tokens = message.ToLower.Split(" "c)
+        If tokens.Length > 0 Then
+            Return ProcessMessage(authorId, tokens)
+        End If
+        Return MESSAGE_INVALID_INPUT
+    End Function
+
+    Private Function ProcessMessage(authorId As ULong, tokens() As String) As String
+        Dim firstToken = tokens.First
+        Dim remainingTokens = tokens.Skip(1).ToArray
+        If firstToken = TOKEN_STATUS AndAlso remainingTokens.Length = 0 Then
             Return MESSAGE_NO_CHARACTER
         End If
         Return MESSAGE_INVALID_INPUT
