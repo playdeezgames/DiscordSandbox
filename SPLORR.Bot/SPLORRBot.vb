@@ -8,6 +8,6 @@
     End Sub
 
     Public Function HandleMessage(authorId As ULong, message As String) As String Implements IBot.HandleMessage
-        Return String.Empty
+        Return "OHAI!"
     End Function
 End Class

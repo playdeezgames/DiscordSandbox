@@ -19,7 +19,7 @@ Namespace SPLORR.Bot.Tests
             Const message As String = ""
             Dim subject As IBot = New SPLORRBot()
             Dim actual = subject.HandleMessage(authorId, message)
-            actual.ShouldBe("")
+            actual.ShouldBe("OHAI!")
         End Sub
     End Class
 End Namespace
