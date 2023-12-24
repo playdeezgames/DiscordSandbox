@@ -20,6 +20,7 @@ Namespace SPLORR.Bot.Tests
         <InlineData(0, "Status", STATUS_RESULT)>
         <InlineData(0, "statuS", STATUS_RESULT)>
         <InlineData(0, "STATUS", STATUS_RESULT)>
+        <InlineData(0, "status asdflkasdkfjal", "Invalid input!")>
         Sub handle_message(authorId As ULong, message As String, expectedMessage As String)
             Dim subject As IBot = New SPLORRBot()
             Dim actual = subject.HandleMessage(authorId, message)
