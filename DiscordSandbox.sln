@@ -7,7 +7,9 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "DiscordSandbox", "DiscordSa
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "DiscordSandboxTests", "DiscordSandboxTests\DiscordSandboxTests.vbproj", "{0908FCE7-1269-4A2C-8BF3-CBDA5FCF2C45}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SPLORR.Host", "SPLORR.Host\SPLORR.Host.vbproj", "{8952CC62-3625-4896-9E1C-90494DC88BDD}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "SPLORR.Host", "SPLORR.Host\SPLORR.Host.vbproj", "{8952CC62-3625-4896-9E1C-90494DC88BDD}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SPLORR.Database", "SPLORR.Database\SPLORR.Database.sqlproj", "{903EE261-1042-4824-868A-9ACFB9BFA5EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,12 @@ Global
 		{8952CC62-3625-4896-9E1C-90494DC88BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8952CC62-3625-4896-9E1C-90494DC88BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8952CC62-3625-4896-9E1C-90494DC88BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{903EE261-1042-4824-868A-9ACFB9BFA5EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{903EE261-1042-4824-868A-9ACFB9BFA5EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{903EE261-1042-4824-868A-9ACFB9BFA5EB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{903EE261-1042-4824-868A-9ACFB9BFA5EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{903EE261-1042-4824-868A-9ACFB9BFA5EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{903EE261-1042-4824-868A-9ACFB9BFA5EB}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
