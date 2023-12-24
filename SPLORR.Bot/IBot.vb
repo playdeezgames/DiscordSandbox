@@ -1,5 +1,5 @@
 Public Interface IBot
     Sub Start()
     Sub [Stop]()
-    Function HandleMessage() As String
+    Function HandleMessage(authorId As ULong, message As String) As String
 End Interface

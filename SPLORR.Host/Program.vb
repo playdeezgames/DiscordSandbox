@@ -1,3 +1,4 @@
+Imports System.Threading.Channels
 Imports Discord
 Imports Discord.WebSocket
 Imports Spectre.Console
@@ -40,9 +41,19 @@ Module Program
     End Function
 
     Private Async Function OnMessageReceived(message As SocketMessage) As Task
-        Await Task.Run(Sub()
-                           AnsiConsole.MarkupLine($"[green]Message From {message.Author.GlobalName}: {message.CleanContent}[/]")
-                       End Sub)
+        Try
+            Dim author = message.Author
+            Dim channel = message.Channel
+            Dim channelType = channel.GetChannelType
+            Dim cleanContent = message.CleanContent
+            If Not author.IsBot AndAlso
+                                channelType = Discord.ChannelType.DM AndAlso
+                                Not String.IsNullOrEmpty(cleanContent) Then
+                Dim result = bot.HandleMessage(author.Id, cleanContent)
+                Await channel.SendMessageAsync(result)
+            End If
+        Catch ex As Exception
+        End Try
     End Function
 
     Private Async Function OnLog(message As LogMessage) As Task

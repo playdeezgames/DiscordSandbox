@@ -7,7 +7,7 @@
     Public Sub [Stop]() Implements IBot.Stop
     End Sub
 
-    Public Function HandleMessage() As String Implements IBot.HandleMessage
+    Public Function HandleMessage(authorId As ULong, message As String) As String Implements IBot.HandleMessage
         Return String.Empty
     End Function
 End Class
