@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{20
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bot", "Bot", "{DB6A3014-D263-4C0A-B961-AF696D6D009B}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SPLORR.ConsoleHost", "SPLORR.ConsoleHost\SPLORR.ConsoleHost.vbproj", "{1242DDF8-A4DD-40BF-98F8-0984F286999C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{8C18F0EB-4B64-461A-A3F7-C8ECD7780827}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C18F0EB-4B64-461A-A3F7-C8ECD7780827}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C18F0EB-4B64-461A-A3F7-C8ECD7780827}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1242DDF8-A4DD-40BF-98F8-0984F286999C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1242DDF8-A4DD-40BF-98F8-0984F286999C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1242DDF8-A4DD-40BF-98F8-0984F286999C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1242DDF8-A4DD-40BF-98F8-0984F286999C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

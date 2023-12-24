@@ -13,13 +13,13 @@ Namespace SPLORR.Bot.Tests
             Dim subject As IBot = New SPLORRBot()
             subject.Stop()
         End Sub
-        <Fact>
-        Sub handle_message()
-            Const authorId As ULong = 0
-            Const message As String = ""
+        <Theory>
+        <InlineData(0, "", "OHAI!")>
+        <InlineData(0, "status", "TODO: give you yer status!")>
+        Sub handle_message(authorId As ULong, message As String, expectedMessage As String)
             Dim subject As IBot = New SPLORRBot()
             Dim actual = subject.HandleMessage(authorId, message)
-            actual.ShouldBe("OHAI!")
+            actual.ShouldBe(expectedMessage)
         End Sub
     End Class
 End Namespace
