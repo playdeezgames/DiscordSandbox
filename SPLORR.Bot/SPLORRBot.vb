@@ -8,6 +8,7 @@
     End Sub
 
     Public Function HandleMessage(authorId As ULong, message As String) As String Implements IBot.HandleMessage
+        message = message.ToLower
         If message = "status" Then
             Return "TODO: give you yer status!"
         End If
