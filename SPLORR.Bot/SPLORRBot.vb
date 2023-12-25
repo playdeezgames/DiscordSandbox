@@ -15,6 +15,7 @@ Public Class SPLORRBot
     End Sub
 
     Public Sub [Stop]() Implements IBot.Stop
+        worldModel.CleanUp()
     End Sub
 
     Public Function HandleMessage(authorId As ULong, message As String) As String Implements IBot.HandleMessage

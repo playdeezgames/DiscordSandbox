@@ -9,6 +9,7 @@ Namespace SPLORR.Bot.Tests
             Dim subject As IBot = New SPLORRBot(worldModel)
             subject.Start()
             worldModel.InitializeCalled.ShouldBe(True)
+            worldModel.CleanUpCalled.ShouldBe(False)
         End Sub
         <Fact>
         Sub [stop]()
