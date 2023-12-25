@@ -1,16 +1,19 @@
 Imports Xunit
 Imports Shouldly
+Imports SPLORR.Model
 
 Namespace SPLORR.Bot.Tests
     Public Class Bot_should
         <Fact>
         Sub start()
-            Dim subject As IBot = New SPLORRBot()
+            Dim worldModel As IWorldModel = Nothing
+            Dim subject As IBot = New SPLORRBot(worldModel)
             subject.Start()
         End Sub
         <Fact>
         Sub [stop]()
-            Dim subject As IBot = New SPLORRBot()
+            Dim worldModel As IWorldModel = Nothing
+            Dim subject As IBot = New SPLORRBot(worldModel)
             subject.Stop()
         End Sub
         Const STATUS_RESULT = "You have no character!"
@@ -22,7 +25,8 @@ Namespace SPLORR.Bot.Tests
         <InlineData(0, "STATUS", STATUS_RESULT)>
         <InlineData(0, "status asdflkasdkfjal", "Invalid input!")>
         Sub handle_message(authorId As ULong, message As String, expectedMessage As String)
-            Dim subject As IBot = New SPLORRBot()
+            Dim worldModel As IWorldModel = Nothing
+            Dim subject As IBot = New SPLORRBot(worldModel)
             Dim actual = subject.HandleMessage(authorId, message)
             actual.ShouldBe(expectedMessage)
         End Sub

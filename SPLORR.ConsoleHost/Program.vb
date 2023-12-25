@@ -1,11 +1,13 @@
 
 Imports SPLORR.Bot
+Imports SPLORR.Model
 
 Module Program
     Private bot As IBot
+    Private worldModel As IWorldModel = Nothing
     Sub Main(args As String())
         AddHandler Console.CancelKeyPress, AddressOf OnCancelKeyPress
-        bot = New SPLORRBot
+        bot = New SPLORRBot(worldModel)
         bot.Start()
         Do
             Console.Write("> ")

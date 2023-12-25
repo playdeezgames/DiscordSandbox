@@ -1,9 +1,15 @@
-﻿Public Class SPLORRBot
+﻿Imports SPLORR.Model
+
+Public Class SPLORRBot
     Implements IBot
 
     Private Const TOKEN_STATUS As String = "status"
     Private Const MESSAGE_NO_CHARACTER As String = "You have no character!"
     Private Const MESSAGE_INVALID_INPUT As String = "Invalid input!"
+    Private ReadOnly worldModel As IWorldModel
+    Sub New(worldModel As IWorldModel)
+        Me.worldModel = worldModel
+    End Sub
 
     Public Sub Start() Implements IBot.Start
     End Sub
