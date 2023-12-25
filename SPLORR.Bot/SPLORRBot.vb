@@ -36,7 +36,7 @@ Public Class SPLORRBot
             Case TOKEN_CREATE
                 Return HandleCreateMessage(authorId, player, remainingTokens)
             Case TOKEN_STATUS
-                Return HandleStatusMessage(authorId, player, remainingTokens)
+                Return HandleStatusMessage(player, remainingTokens)
             Case Else
                 Return MESSAGE_INVALID_INPUT
         End Select
@@ -47,7 +47,7 @@ Public Class SPLORRBot
         Return "success"
     End Function
 
-    Private Shared Function HandleStatusMessage(authorId As ULong, player As IPlayerModel, tokens As String()) As String
+    Private Shared Function HandleStatusMessage(player As IPlayerModel, tokens As String()) As String
         If tokens.Length = 0 Then
             Return MESSAGE_NO_CHARACTER
         End If
