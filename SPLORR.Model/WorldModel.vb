@@ -8,6 +8,6 @@
     End Sub
 
     Public Function GetPlayer(authorId As ULong) As IPlayerModel Implements IWorldModel.GetPlayer
-        Throw New NotImplementedException()
+        Return New PlayerModel
     End Function
 End Class
