@@ -21,10 +21,9 @@ Public Class SPLORRBot
     End Sub
 
     Public Function HandleMessage(authorId As ULong, message As String) As String Implements IBot.HandleMessage
-        Dim player As IPlayerModel = worldModel.GetPlayer(authorId)
         Dim tokens = message.ToLower.Split(" "c)
         If tokens.Length > 0 Then
-            Return ProcessMessage(player, tokens)
+            Return ProcessMessage(worldModel.GetPlayer(authorId), tokens)
         End If
         Return MESSAGE_INVALID_INPUT
     End Function
