@@ -6,13 +6,14 @@ Namespace SPLORR.Bot.Tests
     Public Class Bot_should
         <Fact>
         Sub start()
-            Dim worldModel As IWorldModel = Nothing
+            Dim worldModel As FakeWorldModel = New FakeWorldModel
             Dim subject As IBot = New SPLORRBot(worldModel)
             subject.Start()
+            worldModel.InitializeCalled.ShouldBe(True)
         End Sub
         <Fact>
         Sub [stop]()
-            Dim worldModel As IWorldModel = Nothing
+            Dim worldModel As FakeWorldModel = New FakeWorldModel
             Dim subject As IBot = New SPLORRBot(worldModel)
             subject.Stop()
         End Sub
@@ -25,7 +26,7 @@ Namespace SPLORR.Bot.Tests
         <InlineData(0, "STATUS", STATUS_RESULT)>
         <InlineData(0, "status asdflkasdkfjal", "Invalid input!")>
         Sub handle_message(authorId As ULong, message As String, expectedMessage As String)
-            Dim worldModel As IWorldModel = Nothing
+            Dim worldModel As FakeWorldModel = New FakeWorldModel
             Dim subject As IBot = New SPLORRBot(worldModel)
             Dim actual = subject.HandleMessage(authorId, message)
             actual.ShouldBe(expectedMessage)
