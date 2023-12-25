@@ -34,7 +34,7 @@ Public Class SPLORRBot
         Dim remainingTokens = tokens.Skip(1).ToArray
         Select Case firstToken
             Case TOKEN_CREATE
-                Return HandleCreateMessage(authorId, player, remainingTokens)
+                Return HandleCreateMessage(player, remainingTokens)
             Case TOKEN_STATUS
                 Return HandleStatusMessage(player, remainingTokens)
             Case Else
@@ -42,7 +42,7 @@ Public Class SPLORRBot
         End Select
     End Function
 
-    Private Function HandleCreateMessage(authorId As ULong, player As IPlayerModel, remainingTokens() As String) As String
+    Private Function HandleCreateMessage(player As IPlayerModel, remainingTokens() As String) As String
         player.CreateCharacter()
         Return "success"
     End Function
