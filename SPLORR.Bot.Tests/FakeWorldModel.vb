@@ -22,4 +22,15 @@ Friend Class FakeWorldModel
     Public Sub Initialize() Implements IWorldModel.Initialize
         _initializeCalled = True
     End Sub
+
+    Public Function GetPlayer(authorId As ULong) As IPlayerModel Implements IWorldModel.GetPlayer
+        _fakePlayers(authorId) = New FakePlayerModel
+        Return _fakePlayers(authorId)
+    End Function
+    Private ReadOnly _fakePlayers As New Dictionary(Of ULong, FakePlayerModel)
+    Public ReadOnly Property FakePlayers As IReadOnlyDictionary(Of ULong, FakePlayerModel)
+        Get
+            Return _fakePlayers
+        End Get
+    End Property
 End Class
