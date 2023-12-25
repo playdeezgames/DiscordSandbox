@@ -24,12 +24,12 @@ Public Class SPLORRBot
         Dim player As IPlayerModel = worldModel.GetPlayer(authorId)
         Dim tokens = message.ToLower.Split(" "c)
         If tokens.Length > 0 Then
-            Return ProcessMessage(authorId, player, tokens)
+            Return ProcessMessage(player, tokens)
         End If
         Return MESSAGE_INVALID_INPUT
     End Function
 
-    Private Function ProcessMessage(authorId As ULong, player As IPlayerModel, tokens() As String) As String
+    Private Shared Function ProcessMessage(player As IPlayerModel, tokens() As String) As String
         Dim firstToken = tokens.First
         Dim remainingTokens = tokens.Skip(1).ToArray
         Select Case firstToken
