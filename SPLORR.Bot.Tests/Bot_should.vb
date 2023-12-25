@@ -1,3 +1,4 @@
+Imports Microsoft.VisualStudio.TestPlatform.CommunicationUtilities
 Imports Shouldly
 Imports Xunit
 
@@ -61,6 +62,20 @@ Namespace SPLORR.Bot.Tests
 
             Dim actual = subject.HandleMessage(authorId, message)
             actual.ShouldBe(expectedMessage)
+
+            worldModel.FakePlayers.ShouldHaveSingleItem
+        End Sub
+        <Fact>
+        Sub handle_rolling_up_character_when_player_has_no_character()
+            Const authorId As ULong = 0
+            Const message = "create character"
+            Const expectedMessage = "success"
+
+            Dim worldModel As FakeWorldModel = New FakeWorldModel()
+            Dim subject As IBot = New SPLORRBot(worldModel)
+
+            Dim actual = subject.HandleMessage(authorId, Message)
+            actual.ShouldContain(expectedMessage)
 
             worldModel.FakePlayers.ShouldHaveSingleItem
         End Sub

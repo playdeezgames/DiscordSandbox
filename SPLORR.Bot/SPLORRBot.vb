@@ -3,6 +3,7 @@
 Public Class SPLORRBot
     Implements IBot
 
+    Private Const TOKEN_CREATE As String = "create"
     Private Const TOKEN_STATUS As String = "status"
     Private Const MESSAGE_NO_CHARACTER As String = "You have no character!"
     Private Const MESSAGE_INVALID_INPUT As String = "Invalid input!"
@@ -32,11 +33,17 @@ Public Class SPLORRBot
         Dim firstToken = tokens.First
         Dim remainingTokens = tokens.Skip(1).ToArray
         Select Case firstToken
+            Case TOKEN_CREATE
+                Return HandleCreateMessage(authorId, remainingTokens)
             Case TOKEN_STATUS
                 Return HandleStatusMessage(authorId, remainingTokens)
             Case Else
                 Return MESSAGE_INVALID_INPUT
         End Select
+    End Function
+
+    Private Function HandleCreateMessage(authorId As ULong, remainingTokens() As String) As String
+        Return "success"
     End Function
 
     Private Shared Function HandleStatusMessage(authorId As ULong, tokens As String()) As String
