@@ -12,6 +12,7 @@ Public Class SPLORRBot
     End Sub
 
     Public Sub Start() Implements IBot.Start
+        worldModel.Initialize()
     End Sub
 
     Public Sub [Stop]() Implements IBot.Stop

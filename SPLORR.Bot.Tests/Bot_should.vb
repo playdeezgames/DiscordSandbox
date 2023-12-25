@@ -4,19 +4,27 @@ Imports Xunit
 Namespace SPLORR.Bot.Tests
     Public Class Bot_should
         <Fact>
+        Sub have_a_blank_initial_state()
+            Dim worldModel As FakeWorldModel = New FakeWorldModel
+            Dim subject As IBot = New SPLORRBot(worldModel)
+            worldModel.InitializeCalled.ShouldBeFalse
+            worldModel.CleanUpCalled.ShouldBeFalse
+        End Sub
+        <Fact>
         Sub start()
             Dim worldModel As FakeWorldModel = New FakeWorldModel
             Dim subject As IBot = New SPLORRBot(worldModel)
             subject.Start()
-            worldModel.InitializeCalled.ShouldBe(True)
-            worldModel.CleanUpCalled.ShouldBe(False)
+            worldModel.InitializeCalled.ShouldBeTrue
+            worldModel.CleanUpCalled.ShouldBeFalse
         End Sub
         <Fact>
         Sub [stop]()
             Dim worldModel As FakeWorldModel = New FakeWorldModel
             Dim subject As IBot = New SPLORRBot(worldModel)
             subject.Stop()
-            worldModel.CleanUpCalled.ShouldBe(True)
+            worldModel.InitializeCalled.ShouldBeFalse
+            worldModel.CleanUpCalled.ShouldBeTrue
         End Sub
         Const STATUS_RESULT = "You have no character!"
         <Theory>
