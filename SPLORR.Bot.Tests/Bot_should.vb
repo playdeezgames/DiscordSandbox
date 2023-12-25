@@ -78,6 +78,9 @@ Namespace SPLORR.Bot.Tests
             actual.ShouldContain(expectedMessage)
 
             worldModel.FakePlayers.ShouldHaveSingleItem
+            Dim playerModel = worldModel.FakePlayers.Single.Value
+
+            playerModel.FakeCharacter.ShouldNotBeNull
         End Sub
     End Class
 End Namespace

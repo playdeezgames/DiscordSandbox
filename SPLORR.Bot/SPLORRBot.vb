@@ -43,6 +43,7 @@ Public Class SPLORRBot
     End Function
 
     Private Function HandleCreateMessage(authorId As ULong, remainingTokens() As String) As String
+        worldModel.GetPlayer(authorId).CreateCharacter()
         Return "success"
     End Function
 
