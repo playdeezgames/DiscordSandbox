@@ -24,30 +24,30 @@ Public Class SPLORRBot
         Dim player As IPlayerModel = worldModel.GetPlayer(authorId)
         Dim tokens = message.ToLower.Split(" "c)
         If tokens.Length > 0 Then
-            Return ProcessMessage(authorId, tokens)
+            Return ProcessMessage(authorId, player, tokens)
         End If
         Return MESSAGE_INVALID_INPUT
     End Function
 
-    Private Function ProcessMessage(authorId As ULong, tokens() As String) As String
+    Private Function ProcessMessage(authorId As ULong, player As IPlayerModel, tokens() As String) As String
         Dim firstToken = tokens.First
         Dim remainingTokens = tokens.Skip(1).ToArray
         Select Case firstToken
             Case TOKEN_CREATE
-                Return HandleCreateMessage(authorId, remainingTokens)
+                Return HandleCreateMessage(authorId, player, remainingTokens)
             Case TOKEN_STATUS
-                Return HandleStatusMessage(authorId, remainingTokens)
+                Return HandleStatusMessage(authorId, player, remainingTokens)
             Case Else
                 Return MESSAGE_INVALID_INPUT
         End Select
     End Function
 
-    Private Function HandleCreateMessage(authorId As ULong, remainingTokens() As String) As String
-        worldModel.GetPlayer(authorId).CreateCharacter()
+    Private Function HandleCreateMessage(authorId As ULong, player As IPlayerModel, remainingTokens() As String) As String
+        player.CreateCharacter()
         Return "success"
     End Function
 
-    Private Shared Function HandleStatusMessage(authorId As ULong, tokens As String()) As String
+    Private Shared Function HandleStatusMessage(authorId As ULong, player As IPlayerModel, tokens As String()) As String
         If tokens.Length = 0 Then
             Return MESSAGE_NO_CHARACTER
         End If
