@@ -26,14 +26,15 @@ Namespace SPLORR.Bot.Tests
             worldModel.InitializeCalled.ShouldBeFalse
             worldModel.CleanUpCalled.ShouldBeTrue
         End Sub
-        Const STATUS_RESULT = "You have no character!"
+        Const NO_CHARACTER_RESULT = "You have no character!"
+        Const INVALID_INPUT_RESULT = "Invalid input!"
         <Theory>
-        <InlineData(0, "", "Invalid input!")>
-        <InlineData(0, "status", STATUS_RESULT)>
-        <InlineData(0, "Status", STATUS_RESULT)>
-        <InlineData(0, "statuS", STATUS_RESULT)>
-        <InlineData(0, "STATUS", STATUS_RESULT)>
-        <InlineData(0, "status asdflkasdkfjal", "Invalid input!")>
+        <InlineData(0, "", INVALID_INPUT_RESULT)>
+        <InlineData(0, "status", NO_CHARACTER_RESULT)>
+        <InlineData(0, "Status", NO_CHARACTER_RESULT)>
+        <InlineData(0, "statuS", NO_CHARACTER_RESULT)>
+        <InlineData(0, "STATUS", NO_CHARACTER_RESULT)>
+        <InlineData(0, "status asdflkasdkfjal", INVALID_INPUT_RESULT)>
         Sub handle_message(authorId As ULong, message As String, expectedMessage As String)
             Dim worldModel As FakeWorldModel = New FakeWorldModel()
             Dim subject As IBot = New SPLORRBot(worldModel)
