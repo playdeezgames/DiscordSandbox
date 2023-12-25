@@ -87,10 +87,9 @@ Namespace SPLORR.Bot.Tests
             Const authorId As ULong = 0
             Const message = "create character"
             Const expectedMessage = "failure"
-            Dim characterModel As FakeCharacterModel = New FakeCharacterModel
+            Dim characterModel As New FakeCharacterModel
 
-            Dim worldModel As FakeWorldModel =
-                New FakeWorldModel(
+            Dim worldModel As New FakeWorldModel(
                     getPlayerHook:=Function(id) New FakePlayerModel(characterModel:=characterModel))
             Dim subject As IBot = New SPLORRBot(worldModel)
 
