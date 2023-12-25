@@ -42,7 +42,7 @@ Public Class SPLORRBot
         End Select
     End Function
 
-    Private Function HandleCreateMessage(player As IPlayerModel, remainingTokens() As String) As String
+    Private Shared Function HandleCreateMessage(player As IPlayerModel, remainingTokens() As String) As String
         player.CreateCharacter()
         Return "success"
     End Function
