@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>SPLORR.Bot</RootNamespace>
+    <RootNamespace>SPLORR.Model</RootNamespace>
     <TargetFramework>net8.0</TargetFramework>
     <OptionStrict>On</OptionStrict>
   </PropertyGroup>
@@ -13,9 +13,5 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\SPLORR.Model\SPLORR.Model.vbproj" />
-  </ItemGroup>
 
 </Project>
