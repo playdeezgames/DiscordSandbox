@@ -4,6 +4,10 @@ Friend Class FakeWorldModel
     Implements IWorldModel
     Private _initializeCalled As Boolean = False
     Private _cleanUpCalled As Boolean = False
+    Private _getPlayerHook As Func(Of ULong, FakePlayerModel)
+    Friend Sub New(Optional getPlayerHook As Func(Of ULong, FakePlayerModel) = Nothing)
+
+    End Sub
     Friend ReadOnly Property InitializeCalled As Boolean
         Get
             Return _initializeCalled
@@ -24,6 +28,9 @@ Friend Class FakeWorldModel
     End Sub
 
     Public Function GetPlayer(authorId As ULong) As IPlayerModel Implements IWorldModel.GetPlayer
+        Return DefaultGetPlayer(authorId)
+    End Function
+    Private Function DefaultGetPlayer(authorId As ULong) As IPlayerModel
         _fakePlayers(authorId) = New FakePlayerModel
         Return _fakePlayers(authorId)
     End Function
