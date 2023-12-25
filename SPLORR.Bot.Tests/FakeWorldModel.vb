@@ -7,4 +7,9 @@ Friend Class FakeWorldModel
             Return True
         End Get
     End Property
+    Friend ReadOnly Property CleanUpCalled As Boolean
+        Get
+            Return True
+        End Get
+    End Property
 End Class

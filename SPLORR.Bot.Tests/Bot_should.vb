@@ -1,6 +1,5 @@
-Imports Xunit
 Imports Shouldly
-Imports SPLORR.Model
+Imports Xunit
 
 Namespace SPLORR.Bot.Tests
     Public Class Bot_should
@@ -16,6 +15,7 @@ Namespace SPLORR.Bot.Tests
             Dim worldModel As FakeWorldModel = New FakeWorldModel
             Dim subject As IBot = New SPLORRBot(worldModel)
             subject.Stop()
+            worldModel.CleanUpCalled.ShouldBe(True)
         End Sub
         Const STATUS_RESULT = "You have no character!"
         <Theory>
