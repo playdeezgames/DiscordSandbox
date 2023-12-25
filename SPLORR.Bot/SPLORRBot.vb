@@ -42,8 +42,12 @@ Public Class SPLORRBot
     End Function
 
     Private Shared Function HandleCreateMessage(player As IPlayerModel, remainingTokens() As String) As String
-        player.CreateCharacter()
-        Return "success"
+        If player.HasCharacter Then
+            Return "failure"
+        Else
+            player.CreateCharacter()
+            Return "success"
+        End If
     End Function
 
     Private Shared Function HandleStatusMessage(player As IPlayerModel, tokens As String()) As String

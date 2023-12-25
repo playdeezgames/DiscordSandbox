@@ -82,6 +82,26 @@ Namespace SPLORR.Bot.Tests
 
             playerModel.FakeCharacter.ShouldNotBeNull
         End Sub
+        <Fact>
+        Sub handle_rolling_up_character_when_player_has_character_already()
+            Const authorId As ULong = 0
+            Const message = "create character"
+            Const expectedMessage = "failure"
+            Dim characterModel As FakeCharacterModel = New FakeCharacterModel
+
+            Dim worldModel As FakeWorldModel =
+                New FakeWorldModel(
+                    getPlayerHook:=Function(id) New FakePlayerModel(characterModel:=characterModel))
+            Dim subject As IBot = New SPLORRBot(worldModel)
+
+            Dim actual = subject.HandleMessage(authorId, message)
+            actual.ShouldContain(expectedMessage)
+
+            worldModel.FakePlayers.ShouldHaveSingleItem
+            Dim playerModel = worldModel.FakePlayers.Single.Value
+
+            playerModel.FakeCharacter.ShouldBe(characterModel)
+        End Sub
     End Class
 End Namespace
 

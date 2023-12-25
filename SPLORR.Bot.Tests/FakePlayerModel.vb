@@ -3,9 +3,18 @@
 Friend Class FakePlayerModel
     Implements IPlayerModel
     Private _fakeCharacter As FakeCharacterModel = Nothing
+    Sub New(Optional characterModel As FakeCharacterModel = Nothing)
+        _fakeCharacter = characterModel
+    End Sub
     ReadOnly Property FakeCharacter As FakeCharacterModel
         Get
             Return _fakeCharacter
+        End Get
+    End Property
+
+    Public ReadOnly Property HasCharacter As Boolean Implements IPlayerModel.HasCharacter
+        Get
+            Return _fakeCharacter IsNot Nothing
         End Get
     End Property
 
