@@ -7,7 +7,9 @@ Friend Class FakeWorldModel
     Private ReadOnly _getPlayerHook As Func(Of ULong, FakePlayerModel)
     Private ReadOnly _fakePlayers As New Dictionary(Of ULong, FakePlayerModel)
     Friend Sub New(Optional getPlayerHook As Func(Of ULong, FakePlayerModel) = Nothing)
-        _getPlayerHook = If(getPlayerHook, AddressOf DefaultGetPlayer)
+        _getPlayerHook = If(getPlayerHook, Function(a)
+                                               Return New FakePlayerModel
+                                           End Function)
     End Sub
     Friend ReadOnly Property InitializeCalled As Boolean
         Get
@@ -29,10 +31,7 @@ Friend Class FakeWorldModel
     End Sub
 
     Public Function GetPlayer(authorId As ULong) As IPlayerModel Implements IWorldModel.GetPlayer
-        Return _getPlayerHook(authorId)
-    End Function
-    Private Function DefaultGetPlayer(authorId As ULong) As IPlayerModel
-        _fakePlayers(authorId) = New FakePlayerModel
+        _fakePlayers(authorId) = _getPlayerHook(authorId)
         Return _fakePlayers(authorId)
     End Function
     Public ReadOnly Property FakePlayers As IReadOnlyDictionary(Of ULong, FakePlayerModel)

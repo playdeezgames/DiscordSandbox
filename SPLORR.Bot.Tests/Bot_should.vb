@@ -35,7 +35,7 @@ Namespace SPLORR.Bot.Tests
         <InlineData(0, "STATUS", STATUS_RESULT)>
         <InlineData(0, "status asdflkasdkfjal", "Invalid input!")>
         Sub handle_message(authorId As ULong, message As String, expectedMessage As String)
-            Dim worldModel As FakeWorldModel = New FakeWorldModel
+            Dim worldModel As FakeWorldModel = New FakeWorldModel()
             Dim subject As IBot = New SPLORRBot(worldModel)
 
             Dim actual = subject.HandleMessage(authorId, message)
