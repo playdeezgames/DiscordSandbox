@@ -26,7 +26,7 @@ Public Class WorldModel_should
         Dim subject = CreateSubject()
         Dim actual = subject.Model.GetPlayer(authorId)
         actual.ShouldNotBeNull
-        subject.Store.OperationLog.ShouldNotBeEmpty
+        subject.Store.OperationLog.ShouldContain($"GetPlayerForAuthor(0)")
     End Sub
 End Class
 

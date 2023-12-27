@@ -7,7 +7,7 @@ Public Class PlayerModel_should
         Dim subject = CreateSubject()
         subject.Model.HasCharacter.ShouldBeFalse
         subject.Model.Character.ShouldBeNull
-        subject.Store.OperationLog.ShouldNotBeEmpty
+        subject.Store.OperationLog.ShouldContain("CheckForCharacter(0)")
     End Sub
     <Fact>
     Sub create_character()
@@ -15,7 +15,8 @@ Public Class PlayerModel_should
         subject.Model.CreateCharacter()
         subject.Model.HasCharacter.ShouldBeTrue
         subject.Model.Character.ShouldNotBeNull
-        subject.Store.OperationLog.ShouldNotBeEmpty
+        subject.Store.OperationLog.ShouldContain("CheckForCharacter(0)")
+        subject.Store.OperationLog.ShouldContain("CreateCharacter(0)")
     End Sub
 
     Private Shared Function CreateSubject() As (Model As IPlayerModel, Store As FakeDataStore)
