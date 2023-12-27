@@ -1,4 +1,5 @@
 Imports Shouldly
+Imports SPLORR.Model
 Imports Xunit
 
 Public Class Bot_should
@@ -98,5 +99,20 @@ Public Class Bot_should
         Dim playerModel = worldModel.FakePlayers.Single.Value
 
         playerModel.FakeCharacter.ShouldBe(characterModel)
+    End Sub
+    <Theory>
+    <InlineData("rename", "Invalid")>
+    <InlineData("rename character", "Invalid")>
+    <InlineData("rename character testname", "testname")>
+    <InlineData("rename character test name", "test name")>
+    Sub handle_renaming_character(message As String, partialMatch As String)
+        Const authorId As ULong = 0
+        Dim worldModel As New FakeWorldModel(
+            getPlayerHook:=Function(a) New FakePlayerModel(characterModel:=New FakeCharacterModel))
+        Dim subject As IBot = New SPLORRBot(worldModel)
+
+        Dim actual = subject.HandleMessage(authorId, message)
+
+        actual.ShouldContain(partialMatch)
     End Sub
 End Class

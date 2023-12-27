@@ -3,9 +3,5 @@
 Friend Class FakeCharacterModel
     Implements ICharacterModel
 
-    Public ReadOnly Property Name As String Implements ICharacterModel.Name
-        Get
-            Throw New NotImplementedException()
-        End Get
-    End Property
+    Public Property Name As String = "FakeName" Implements ICharacterModel.Name
 End Class

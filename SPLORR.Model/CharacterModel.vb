@@ -1,9 +1,5 @@
 ﻿Friend Class CharacterModel
     Implements ICharacterModel
 
-    Public ReadOnly Property Name As String Implements ICharacterModel.Name
-        Get
-            Return "N00b"
-        End Get
-    End Property
+    Public Property Name As String = "N00b" Implements ICharacterModel.Name
 End Class

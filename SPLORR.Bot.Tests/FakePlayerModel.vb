@@ -20,7 +20,7 @@ Friend Class FakePlayerModel
 
     Public ReadOnly Property Character As ICharacterModel Implements IPlayerModel.Character
         Get
-            Throw New NotImplementedException()
+            Return _fakeCharacter
         End Get
     End Property
 
