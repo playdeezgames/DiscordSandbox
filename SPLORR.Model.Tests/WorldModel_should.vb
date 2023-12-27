@@ -5,6 +5,7 @@ Public Class WorldModel_should
     Sub initialize()
         Dim subject = CreateSubject()
         subject.Model.Initialize()
+        subject.Store.OperationLog.ShouldBeEmpty
     End Sub
 
     Private Shared Function CreateSubject() As (Model As IWorldModel, Store As FakeDataStore)
@@ -16,16 +17,16 @@ Public Class WorldModel_should
     <Fact>
     Sub clean_up()
         Dim subject = CreateSubject()
-
         subject.Model.CleanUp()
+        subject.Store.OperationLog.ShouldBeEmpty
     End Sub
     <Fact>
     Sub find_or_create_player()
         Const authorId As ULong = 0
         Dim subject = CreateSubject()
-
         Dim actual = subject.Model.GetPlayer(authorId)
         actual.ShouldNotBeNull
+        subject.Store.OperationLog.ShouldNotBeEmpty
     End Sub
 End Class
 

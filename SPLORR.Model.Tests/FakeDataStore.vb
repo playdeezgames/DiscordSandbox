@@ -17,4 +17,9 @@ Friend Class FakeDataStore
         _operationLog.Add($"CheckForCharacter({authorId})")
         Return _operationLog.Contains($"CreateCharacter({authorId})")
     End Function
+
+    Public Function GetPlayerForAuthor(authorId As ULong) As Integer Implements IDataStore.GetPlayerForAuthor
+        _operationLog.Add($"GetPlayerForAuthor({authorId})")
+        Return 0
+    End Function
 End Class
