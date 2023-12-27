@@ -24,7 +24,45 @@ Public Class DataStore
     End Function
 
     Public Function GetPlayerForAuthor(authorId As ULong) As Integer Implements IDataStore.GetPlayerForAuthor
-        Throw New NotImplementedException()
+        Dim discordId = CLng(authorId)
+        Const PARAMETER_DISCORD_ID = "@DiscordId"
+        Const TABLE_PLAYERS = "Players"
+        Const FIELD_PLAYER_ID = "PlayerId"
+        Const FIELD_DISCORD_ID = "DiscordId"
+        Dim playerId As Integer? = Nothing
+        Using command = GetConnection().CreateCommand()
+            command.CommandText = $"
+SELECT 
+    {FIELD_PLAYER_ID} 
+FROM 
+    {TABLE_PLAYERS} 
+WHERE 
+    {FIELD_DISCORD_ID}={PARAMETER_DISCORD_ID};"
+            command.Parameters.AddWithValue(PARAMETER_DISCORD_ID, discordId)
+            Using reader = command.ExecuteReader
+                If reader.Read Then
+                    playerId = reader.GetInt32(0)
+                End If
+            End Using
+        End Using
+        If Not playerId.HasValue Then
+            Using command = GetConnection().CreateCommand
+                command.CommandText = $"
+INSERT INTO 
+    {TABLE_PLAYERS}
+    (
+        {FIELD_DISCORD_ID}
+    ) 
+VALUES
+    (
+        {PARAMETER_DISCORD_ID}
+    );"
+                command.Parameters.AddWithValue(PARAMETER_DISCORD_ID, discordId)
+                command.ExecuteNonQuery()
+            End Using
+            playerId = GetPlayerForAuthor(authorId)
+        End If
+        Return playerId.Value
     End Function
 
     Public Sub CleanUp() Implements IDataStore.CleanUp
