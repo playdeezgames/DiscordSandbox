@@ -2,8 +2,9 @@
 
 Public Class WorldModel
     Implements IWorldModel
+    Private _dataStore As IDataStore
     Sub New(dataStore As IDataStore)
-
+        _dataStore = dataStore
     End Sub
 
     Public Sub Initialize() Implements IWorldModel.Initialize
@@ -13,6 +14,6 @@ Public Class WorldModel
     End Sub
 
     Public Function GetPlayer(authorId As ULong) As IPlayerModel Implements IWorldModel.GetPlayer
-        Return New PlayerModel
+        Return New PlayerModel(_dataStore, authorId)
     End Function
 End Class
