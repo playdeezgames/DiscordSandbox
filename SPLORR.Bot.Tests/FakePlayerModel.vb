@@ -18,6 +18,12 @@ Friend Class FakePlayerModel
         End Get
     End Property
 
+    Public ReadOnly Property Character As ICharacterModel Implements IPlayerModel.Character
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
     Public Sub CreateCharacter() Implements IPlayerModel.CreateCharacter
         _fakeCharacter = New FakeCharacterModel
     End Sub

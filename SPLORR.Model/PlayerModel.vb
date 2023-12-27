@@ -8,6 +8,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property Character As ICharacterModel Implements IPlayerModel.Character
+        Get
+            Return If(HasCharacter, New CharacterModel(), Nothing)
+        End Get
+    End Property
+
     Public Sub CreateCharacter() Implements IPlayerModel.CreateCharacter
         _hasCharacter = True
     End Sub
