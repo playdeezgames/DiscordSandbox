@@ -3,7 +3,7 @@
 
     Public ReadOnly Property HasCharacter As Boolean Implements IPlayerModel.HasCharacter
         Get
-            Throw New NotImplementedException()
+            Return False
         End Get
     End Property
 
