@@ -18,7 +18,8 @@ Public Class PlayerModel_should
 
     Private Shared Function CreateSubject() As IPlayerModel
         Const authorId As ULong = 0
-        Dim worldModel As IWorldModel = New WorldModel()
+        Dim dataStore As New FakeDataStore
+        Dim worldModel As IWorldModel = New WorldModel(dataStore)
         Dim subject = worldModel.GetPlayer(authorId)
         Return subject
     End Function

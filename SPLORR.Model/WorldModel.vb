@@ -1,5 +1,10 @@
-﻿Public Class WorldModel
+﻿Imports SPLORR.Data
+
+Public Class WorldModel
     Implements IWorldModel
+    Sub New(dataStore As IDataStore)
+
+    End Sub
 
     Public Sub Initialize() Implements IWorldModel.Initialize
     End Sub

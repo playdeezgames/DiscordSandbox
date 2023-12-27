@@ -18,7 +18,8 @@ Public Class CharacterModel_should
 
     Private Shared Function CreateSubject() As ICharacterModel
         Const authorId As ULong = 0
-        Dim worldModel As IWorldModel = New WorldModel
+        Dim dataStore As New FakeDataStore
+        Dim worldModel As IWorldModel = New WorldModel(dataStore)
         Dim playerModel = worldModel.GetPlayer(authorId)
         playerModel.CreateCharacter()
         Return playerModel.Character
