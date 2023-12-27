@@ -7,6 +7,7 @@ Public Class DataStore
     Private Function GetConnection() As SqlConnection
         If _connection Is Nothing Then
             _connection = New SqlConnection(_connectionString)
+            _connection.Open()
         End If
         Return _connection
     End Function
@@ -27,6 +28,9 @@ Public Class DataStore
     End Function
 
     Public Sub CleanUp() Implements IDataStore.CleanUp
-        Throw New NotImplementedException()
+        If _connection IsNot Nothing Then
+            _connection.Close()
+            _connection = Nothing
+        End If
     End Sub
 End Class
