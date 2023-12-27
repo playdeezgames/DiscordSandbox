@@ -11,6 +11,7 @@ Public Class WorldModel
     End Sub
 
     Public Sub CleanUp() Implements IWorldModel.CleanUp
+        _dataStore.CleanUp()
     End Sub
 
     Public Function GetPlayer(authorId As ULong) As IPlayerModel Implements IWorldModel.GetPlayer

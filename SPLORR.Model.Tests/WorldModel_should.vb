@@ -18,7 +18,7 @@ Public Class WorldModel_should
     Sub clean_up()
         Dim subject = CreateSubject()
         subject.Model.CleanUp()
-        subject.Store.OperationLog.ShouldBeEmpty
+        subject.Store.OperationLog.ShouldContain("CleanUp()")
     End Sub
     <Fact>
     Sub find_or_create_player()

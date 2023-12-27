@@ -1,12 +1,14 @@
 
 Imports SPLORR.Bot
+Imports SPLORR.Data
 Imports SPLORR.Model
 
 Module Program
+    Private Const ENV_VAR_CONNECTION_STRING = "CONNECTION_STRING"
     Private bot As IBot
-    Private worldModel As IWorldModel = Nothing
     Sub Main(args As String())
         AddHandler Console.CancelKeyPress, AddressOf OnCancelKeyPress
+        Dim worldModel As New WorldModel(New DataStore(Environment.GetEnvironmentVariable(ENV_VAR_CONNECTION_STRING)))
         bot = New SPLORRBot(worldModel)
         bot.Start()
         Do
@@ -17,7 +19,7 @@ Module Program
     End Sub
 
     Private Sub OnCancelKeyPress(sender As Object, e As ConsoleCancelEventArgs)
-        Bot.Stop
+        bot.Stop()
         End
     End Sub
 End Module
