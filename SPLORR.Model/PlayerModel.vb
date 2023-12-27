@@ -3,18 +3,16 @@
 Friend Class PlayerModel
     Implements IPlayerModel
     Private _dataStore As IDataStore
-    Private _authorId As ULong
     Private _playerId As Integer
 
-    Public Sub New(dataStore As IDataStore, authorId As ULong, playerId As Integer)
+    Public Sub New(dataStore As IDataStore, playerId As Integer)
         Me._dataStore = dataStore
-        Me._authorId = authorId
         Me._playerId = playerId
     End Sub
 
     Public ReadOnly Property HasCharacter As Boolean Implements IPlayerModel.HasCharacter
         Get
-            Return _dataStore.CheckForCharacter(_authorId)
+            Return _dataStore.CheckForCharacter(_playerId)
         End Get
     End Property
 
@@ -25,6 +23,6 @@ Friend Class PlayerModel
     End Property
 
     Public Sub CreateCharacter() Implements IPlayerModel.CreateCharacter
-        _dataStore.CreateCharacter(_authorId)
+        _dataStore.CreateCharacter(_playerId)
     End Sub
 End Class

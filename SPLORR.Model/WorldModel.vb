@@ -14,7 +14,8 @@ Public Class WorldModel
     End Sub
 
     Public Function GetPlayer(authorId As ULong) As IPlayerModel Implements IWorldModel.GetPlayer
-        Dim playerId = _dataStore.GetPlayerForAuthor(authorId)
-        Return New PlayerModel(_dataStore, authorId, playerId)
+        Return New PlayerModel(
+            _dataStore,
+            _dataStore.GetPlayerForAuthor(authorId))
     End Function
 End Class

@@ -1,5 +1,5 @@
 Public Interface IDataStore
-    Sub CreateCharacter(authorId As ULong)
-    Function CheckForCharacter(authorId As ULong) As Boolean
+    Sub CreateCharacter(playerId As Integer)
+    Function CheckForCharacter(playerId As Integer) As Boolean
     Function GetPlayerForAuthor(authorId As ULong) As Integer
 End Interface
