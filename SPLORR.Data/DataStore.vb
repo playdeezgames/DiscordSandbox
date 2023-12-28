@@ -17,7 +17,7 @@ Public Class DataStore
         Me._connectionString = connectionString
     End Sub
 
-    Public Sub CreatePlayerCharacter(playerId As Integer) Implements IDataStore.CreatePlayerCharacter
+    Public Sub CreatePlayerCharacter(playerId As Integer, characterName As String, locationId As Integer, characterType As Integer) Implements IDataStore.CreatePlayerCharacter
         Throw New NotImplementedException()
     End Sub
 

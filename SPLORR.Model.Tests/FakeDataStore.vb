@@ -9,8 +9,8 @@ Friend Class FakeDataStore
         End Get
     End Property
 
-    Public Sub CreatePlayerCharacter(playerId As Integer) Implements IDataStore.CreatePlayerCharacter
-        _operationLog.Add($"CreateCharacter(playerId:={playerId})")
+    Public Sub CreatePlayerCharacter(playerId As Integer, characterName As String, locationId As Integer, characterType As Integer) Implements IDataStore.CreatePlayerCharacter
+        _operationLog.Add($"CreatePlayerCharacter(playerId:={playerId},characterName:={characterName},locationId:={locationId},characterType:={characterType})")
     End Sub
 
     Public Sub CleanUp() Implements IDataStore.CleanUp
@@ -19,7 +19,7 @@ Friend Class FakeDataStore
 
     Public Function CheckForCharacter(playerId As Integer) As Boolean Implements IDataStore.CheckForCharacter
         _operationLog.Add($"CheckForCharacter(playerId:={playerId})")
-        Return _operationLog.Contains($"CreateCharacter(playerId:={playerId})")
+        Return _operationLog.Contains($"CreatePlayerCharacter(playerId:={playerId},characterName:=,locationId:=0,characterType:=0)")
     End Function
 
     Public Function GetPlayerForAuthor(authorId As ULong) As Integer Implements IDataStore.GetPlayerForAuthor
