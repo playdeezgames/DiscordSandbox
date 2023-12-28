@@ -66,5 +66,7 @@
     <Build Include="dbo\Tables\LocationStarts.sql" />
     <Build Include="dbo\Tables\Locations.sql" />
     <Build Include="dbo\Tables\Characters.sql" />
+    <Build Include="dbo\Tables\PlayerCharacterTypes.sql" />
+    <Build Include="dbo\Tables\CharacterTypes.sql" />
   </ItemGroup>
 </Project>
