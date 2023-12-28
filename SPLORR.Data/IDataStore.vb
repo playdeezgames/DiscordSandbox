@@ -5,4 +5,5 @@ Public Interface IDataStore
     Sub CleanUp()
     Function GetCharacterTypeGenerator() As IReadOnlyDictionary(Of Integer, Integer)
     Function GetLocationGenerator() As IReadOnlyDictionary(Of Integer, Integer)
+    Function GetCharacterForPlayer(playerId As Integer) As Integer
 End Interface

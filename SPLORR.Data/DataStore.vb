@@ -182,4 +182,8 @@ FROM
         End Using
         Return result
     End Function
+
+    Public Function GetCharacterForPlayer(playerId As Integer) As Integer Implements IDataStore.GetCharacterForPlayer
+        Throw New NotImplementedException()
+    End Function
 End Class
