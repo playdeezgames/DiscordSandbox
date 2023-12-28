@@ -18,9 +18,9 @@ Friend Class FakeDataStore
         _operationLog.Add($"{NameOf(CleanUp)}()")
     End Sub
 
-    Public Sub SetCharacterName(characterId As Integer, value As String) Implements IDataStore.SetCharacterName
-        _operationLog.Add($"{NameOf(SetCharacterName)}({NameOf(characterId)}:={characterId},{NameOf(value)}:={value})")
-        _characterNames(characterId) = value
+    Public Sub SetCharacterName(characterId As Integer, characterName As String) Implements IDataStore.SetCharacterName
+        _operationLog.Add($"{NameOf(SetCharacterName)}({NameOf(characterId)}:={characterId},{NameOf(characterName)}:={characterName})")
+        _characterNames(characterId) = characterName
     End Sub
 
     Public Function CheckForCharacter(playerId As Integer) As Boolean Implements IDataStore.CheckForCharacter
@@ -50,7 +50,7 @@ Friend Class FakeDataStore
 
     Public Function GetCharacterName(characterId As Integer) As String Implements IDataStore.GetCharacterName
         _operationLog.Add($"{NameOf(GetCharacterName)}({NameOf(characterId)}:={characterId})")
-        Dim value As String = Nothing
-        Return If(_characterNames.TryGetValue(characterId, value), value, "N00b")
+        Dim characterName As String = Nothing
+        Return If(_characterNames.TryGetValue(characterId, characterName), characterName, "N00b")
     End Function
 End Class
