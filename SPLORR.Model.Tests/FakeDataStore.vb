@@ -10,7 +10,7 @@ Friend Class FakeDataStore
     End Property
 
     Public Sub CreatePlayerCharacter(playerId As Integer, characterName As String, locationId As Integer, characterType As Integer) Implements IDataStore.CreatePlayerCharacter
-        _operationLog.Add($"{NameOf(CreatePlayerCharacter)}(playerId:={playerId},characterName:={characterName},locationId:={locationId},characterType:={characterType})")
+        _operationLog.Add($"{NameOf(CreatePlayerCharacter)}({NameOf(playerId)}:={playerId},{NameOf(characterName)}:={characterName},{NameOf(locationId)}:={locationId},{NameOf(characterType)}:={characterType})")
     End Sub
 
     Public Sub CleanUp() Implements IDataStore.CleanUp
@@ -18,12 +18,12 @@ Friend Class FakeDataStore
     End Sub
 
     Public Function CheckForCharacter(playerId As Integer) As Boolean Implements IDataStore.CheckForCharacter
-        _operationLog.Add($"{NameOf(CheckForCharacter)}(playerId:={playerId})")
-        Return _operationLog.Contains($"CreatePlayerCharacter(playerId:={playerId},characterName:=N00b,locationId:=0,characterType:=0)")
+        _operationLog.Add($"{NameOf(CheckForCharacter)}({NameOf(playerId)}:={playerId})")
+        Return _operationLog.Contains($"{NameOf(CreatePlayerCharacter)}(playerId:={playerId},characterName:=N00b,locationId:=0,characterType:=0)")
     End Function
 
     Public Function GetPlayerForAuthor(authorId As ULong) As Integer Implements IDataStore.GetPlayerForAuthor
-        _operationLog.Add($"{NameOf(GetPlayerForAuthor)}(authorId:={authorId})")
+        _operationLog.Add($"{NameOf(GetPlayerForAuthor)}({NameOf(authorId)}:={authorId})")
         Return 0
     End Function
 
