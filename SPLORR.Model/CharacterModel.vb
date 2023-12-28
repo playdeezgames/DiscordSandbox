@@ -11,10 +11,10 @@ Friend Class CharacterModel
 
     Public Property Name As String Implements ICharacterModel.Name
         Get
-            Return _dataStore.GetCharacterName(_characterId)
+            Return _dataStore.LegacyGetCharacterName(_characterId)
         End Get
         Set(value As String)
-            _dataStore.SetCharacterName(_characterId, value)
+            _dataStore.LegacySetCharacterName(_characterId, value)
         End Set
     End Property
 End Class

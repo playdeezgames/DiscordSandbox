@@ -17,6 +17,6 @@ Public Class WorldModel
     Public Function GetPlayer(authorId As ULong) As IPlayerModel Implements IWorldModel.GetPlayer
         Return New PlayerModel(
             _dataStore,
-            _dataStore.GetPlayerForAuthor(authorId))
+            _dataStore.LegacyGetPlayerForAuthor(authorId))
     End Function
 End Class

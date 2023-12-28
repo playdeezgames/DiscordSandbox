@@ -1,17 +1,18 @@
 Public Interface IDataStore
-    'boilerplate
     Sub CleanUp()
     Function GetPlayer(playerId As Integer) As IPlayerStore
     Function GetCharacter(characterId As Integer) As ICharacterStore
+    Function GetLocation(locationId As Integer) As ILocationStore
+    Function GetCharacterType(characterTypeId As Integer) As ICharacterTypeStore
+    Function LegacyCreateCharacter(characterName As String, locationId As Integer, characterType As Integer) As ICharacterStore
     'PlayerStore
-    Sub CreatePlayerCharacter(playerId As Integer, characterName As String, locationId As Integer, characterType As Integer)
-    Function GetCharacterForPlayer(playerId As Integer) As Integer
+    Sub LegacyCreatePlayerCharacter(playerId As Integer, characterName As String, locationId As Integer, characterType As Integer)
+    Function LegacyGetCharacterForPlayer(playerId As Integer) As Integer
     '???
-    Function GetPlayerForAuthor(authorId As ULong) As Integer
-    Function GetCharacterTypeGenerator() As IReadOnlyDictionary(Of Integer, Integer)
-    Function GetLocationGenerator() As IReadOnlyDictionary(Of Integer, Integer)
+    Function LegacyGetPlayerForAuthor(authorId As ULong) As Integer
+    Function LegacyGetCharacterTypeGenerator() As IReadOnlyDictionary(Of Integer, Integer)
+    Function LegacyGetLocationGenerator() As IReadOnlyDictionary(Of Integer, Integer)
     'CharacterStore
-    Function GetCharacterName(characterId As Integer) As String
-    Sub SetCharacterName(characterId As Integer, characterName As String)
-    Function CreateCharacter(characterName As String, locationId As Integer, characterType As Integer) As ICharacterStore
+    Function LegacyGetCharacterName(characterId As Integer) As String
+    Sub LegacySetCharacterName(characterId As Integer, characterName As String)
 End Interface

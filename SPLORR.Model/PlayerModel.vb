@@ -20,12 +20,12 @@ Friend Class PlayerModel
 
     Public ReadOnly Property Character As ICharacterModel Implements IPlayerModel.Character
         Get
-            Return If(HasCharacter, New CharacterModel(_dataStore, _dataStore.GetCharacterForPlayer(_playerId)), Nothing)
+            Return If(HasCharacter, New CharacterModel(_dataStore, _dataStore.LegacyGetCharacterForPlayer(_playerId)), Nothing)
         End Get
     End Property
 
     Public Sub CreateCharacter() Implements IPlayerModel.CreateCharacter
-        _dataStore.CreatePlayerCharacter(
+        _dataStore.LegacyCreatePlayerCharacter(
             _playerId,
             GenerateCharacterName(),
             GenerateStartingLocation(),
@@ -33,7 +33,7 @@ Friend Class PlayerModel
     End Sub
 
     Private Function GenerateCharacterType() As Integer
-        Dim generator As IReadOnlyDictionary(Of Integer, Integer) = _dataStore.GetCharacterTypeGenerator()
+        Dim generator As IReadOnlyDictionary(Of Integer, Integer) = _dataStore.LegacyGetCharacterTypeGenerator()
         Return RNG.FromGenerator(generator)
     End Function
 
@@ -42,7 +42,7 @@ Friend Class PlayerModel
     End Function
 
     Private Function GenerateStartingLocation() As Integer
-        Dim generator As IReadOnlyDictionary(Of Integer, Integer) = _dataStore.GetLocationGenerator()
+        Dim generator As IReadOnlyDictionary(Of Integer, Integer) = _dataStore.LegacyGetLocationGenerator()
         Return RNG.FromGenerator(generator)
     End Function
 End Class

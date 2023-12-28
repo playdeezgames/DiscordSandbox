@@ -15,8 +15,8 @@ Public Class DataStore
         Me._connectionString = connectionString
     End Sub
 
-    Public Sub CreatePlayerCharacter(playerId As Integer, characterName As String, locationId As Integer, characterType As Integer) Implements IDataStore.CreatePlayerCharacter
-        SetPlayerCharacter(playerId, CreateCharacter(characterName, locationId, characterType).Id)
+    Public Sub LegacyCreatePlayerCharacter(playerId As Integer, characterName As String, locationId As Integer, characterType As Integer) Implements IDataStore.LegacyCreatePlayerCharacter
+        SetPlayerCharacter(playerId, LegacyCreateCharacter(characterName, locationId, characterType).Id)
     End Sub
 
     Private Sub SetPlayerCharacter(playerId As Integer, characterId As Integer)
@@ -39,7 +39,7 @@ INSERT INTO
         End Using
     End Sub
 
-    Public Function GetPlayerForAuthor(authorId As ULong) As Integer Implements IDataStore.GetPlayerForAuthor
+    Public Function LegacyGetPlayerForAuthor(authorId As ULong) As Integer Implements IDataStore.LegacyGetPlayerForAuthor
         Dim discordId = CLng(authorId)
         Dim playerId As Integer? = Nothing
         Using command = GetConnection().CreateCommand()
@@ -72,7 +72,7 @@ VALUES
                 command.Parameters.AddWithValue(PARAMETER_DISCORD_ID, discordId)
                 command.ExecuteNonQuery()
             End Using
-            playerId = GetPlayerForAuthor(authorId)
+            playerId = LegacyGetPlayerForAuthor(authorId)
         End If
         Return playerId.Value
     End Function
@@ -84,7 +84,7 @@ VALUES
         End If
     End Sub
 
-    Public Function GetCharacterTypeGenerator() As IReadOnlyDictionary(Of Integer, Integer) Implements IDataStore.GetCharacterTypeGenerator
+    Public Function LegacyGetCharacterTypeGenerator() As IReadOnlyDictionary(Of Integer, Integer) Implements IDataStore.LegacyGetCharacterTypeGenerator
         Dim result As New Dictionary(Of Integer, Integer)
         Using command = GetConnection().CreateCommand
             command.CommandText = $"
@@ -102,7 +102,7 @@ FROM
         Return result
     End Function
 
-    Public Function GetLocationGenerator() As IReadOnlyDictionary(Of Integer, Integer) Implements IDataStore.GetLocationGenerator
+    Public Function LegacyGetLocationGenerator() As IReadOnlyDictionary(Of Integer, Integer) Implements IDataStore.LegacyGetLocationGenerator
         Dim result As New Dictionary(Of Integer, Integer)
         Using command = GetConnection().CreateCommand
             command.CommandText = $"
@@ -120,7 +120,7 @@ FROM
         Return result
     End Function
 
-    Public Function GetCharacterForPlayer(playerId As Integer) As Integer Implements IDataStore.GetCharacterForPlayer
+    Public Function LegacyGetCharacterForPlayer(playerId As Integer) As Integer Implements IDataStore.LegacyGetCharacterForPlayer
         Using command = GetConnection().CreateCommand
             command.CommandText = $"
 SELECT 
@@ -134,7 +134,7 @@ WHERE
         End Using
     End Function
 
-    Public Function GetCharacterName(characterId As Integer) As String Implements IDataStore.GetCharacterName
+    Public Function LegacyGetCharacterName(characterId As Integer) As String Implements IDataStore.LegacyGetCharacterName
         Using command = GetConnection.CreateCommand
             command.CommandText = $"
 SELECT 
@@ -148,7 +148,7 @@ WHERE
         End Using
     End Function
 
-    Public Sub SetCharacterName(characterId As Integer, characterName As String) Implements IDataStore.SetCharacterName
+    Public Sub LegacySetCharacterName(characterId As Integer, characterName As String) Implements IDataStore.LegacySetCharacterName
         Using command = GetConnection.CreateCommand
             command.CommandText = $"
 UPDATE 
@@ -171,7 +171,7 @@ WHERE
         Return New CharacterStore(AddressOf GetConnection, characterId)
     End Function
 
-    Public Function CreateCharacter(characterName As String, locationId As Integer, characterType As Integer) As ICharacterStore Implements IDataStore.CreateCharacter
+    Public Function LegacyCreateCharacter(characterName As String, locationId As Integer, characterType As Integer) As ICharacterStore Implements IDataStore.LegacyCreateCharacter
         Using command = GetConnection().CreateCommand
             command.CommandText = $"
 INSERT INTO 
@@ -196,5 +196,13 @@ INSERT INTO
             command.CommandText = $"SELECT @@IDENTITY;"
             Return GetCharacter(CInt(command.ExecuteScalar))
         End Using
+    End Function
+
+    Public Function GetLocation(locationId As Integer) As ILocationStore Implements IDataStore.GetLocation
+        Return New LocationStore(AddressOf GetConnection, locationId)
+    End Function
+
+    Public Function GetCharacterType(characterTypeId As Integer) As ICharacterTypeStore Implements IDataStore.GetCharacterType
+        Return New CharacterTypeStore(AddressOf GetConnection, characterTypeId)
     End Function
 End Class
