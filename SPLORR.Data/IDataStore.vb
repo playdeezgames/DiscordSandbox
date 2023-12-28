@@ -7,5 +7,5 @@ Public Interface IDataStore
     Function GetLocationGenerator() As IReadOnlyDictionary(Of Integer, Integer)
     Function GetCharacterForPlayer(playerId As Integer) As Integer
     Function GetCharacterName(characterId As Integer) As String
-    Sub SetCharacterName(characterId As Integer, value As String)
+    Sub SetCharacterName(characterId As Integer, characterName As String)
 End Interface

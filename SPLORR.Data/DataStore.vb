@@ -198,10 +198,31 @@ WHERE
     End Function
 
     Public Function GetCharacterName(characterId As Integer) As String Implements IDataStore.GetCharacterName
-        Throw New NotImplementedException()
+        Using command = GetConnection.CreateCommand
+            command.CommandText = $"
+SELECT 
+    {FIELD_CHARACTER_NAME} 
+FROM 
+    {TABLE_CHARACTERS} 
+WHERE 
+    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+            command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, characterId)
+            Return CStr(command.ExecuteScalar)
+        End Using
     End Function
 
-    Public Sub SetCharacterName(characterId As Integer, value As String) Implements IDataStore.SetCharacterName
-        Throw New NotImplementedException()
+    Public Sub SetCharacterName(characterId As Integer, characterName As String) Implements IDataStore.SetCharacterName
+        Using command = GetConnection.CreateCommand
+            command.CommandText = $"
+UPDATE 
+    {TABLE_CHARACTERS} 
+SET 
+    {FIELD_CHARACTER_NAME}={PARAMETER_CHARACTER_NAME} 
+WHERE 
+    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+            command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, characterId)
+            command.Parameters.AddWithValue(PARAMETER_CHARACTER_NAME, characterName)
+            command.ExecuteNonQuery()
+        End Using
     End Sub
 End Class
