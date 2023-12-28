@@ -184,6 +184,16 @@ FROM
     End Function
 
     Public Function GetCharacterForPlayer(playerId As Integer) As Integer Implements IDataStore.GetCharacterForPlayer
-        Throw New NotImplementedException()
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"
+SELECT 
+    {FIELD_CHARACTER_ID} 
+FROM 
+    {TABLE_PLAYER_CHARACTERS} 
+WHERE 
+    {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
+            command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
+            Return CInt(command.ExecuteScalar)
+        End Using
     End Function
 End Class

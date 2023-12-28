@@ -82,7 +82,10 @@ Public Class SPLORRBot
 
     Private Shared Function HandleStatusMessage(player As IPlayerModel, tokens As String()) As String
         If tokens.Length = 0 Then
-            Return MESSAGE_NO_CHARACTER
+            If Not player.HasCharacter Then
+                Return MESSAGE_NO_CHARACTER
+            End If
+            Return $"Character Name: {player.Character.Name}"
         End If
         Return MESSAGE_INVALID_INPUT
     End Function
