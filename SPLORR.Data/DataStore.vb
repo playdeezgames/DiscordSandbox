@@ -196,4 +196,12 @@ WHERE
             Return CInt(command.ExecuteScalar)
         End Using
     End Function
+
+    Public Function GetCharacterName(characterId As Integer) As String Implements IDataStore.GetCharacterName
+        Throw New NotImplementedException()
+    End Function
+
+    Public Sub SetCharacterName(characterId As Integer, value As String) Implements IDataStore.SetCharacterName
+        Throw New NotImplementedException()
+    End Sub
 End Class

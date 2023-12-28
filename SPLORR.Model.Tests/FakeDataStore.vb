@@ -3,6 +3,7 @@
 Friend Class FakeDataStore
     Implements IDataStore
     Private ReadOnly _operationLog As New List(Of String)
+    Private ReadOnly _characterNames As New Dictionary(Of Integer, String)
     Friend ReadOnly Property OperationLog As IEnumerable(Of String)
         Get
             Return _operationLog
@@ -15,6 +16,11 @@ Friend Class FakeDataStore
 
     Public Sub CleanUp() Implements IDataStore.CleanUp
         _operationLog.Add($"{NameOf(CleanUp)}()")
+    End Sub
+
+    Public Sub SetCharacterName(characterId As Integer, value As String) Implements IDataStore.SetCharacterName
+        _operationLog.Add($"{NameOf(SetCharacterName)}({NameOf(characterId)}:={characterId},{NameOf(value)}:={value})")
+        _characterNames(characterId) = value
     End Sub
 
     Public Function CheckForCharacter(playerId As Integer) As Boolean Implements IDataStore.CheckForCharacter
@@ -40,5 +46,11 @@ Friend Class FakeDataStore
     Public Function GetCharacterForPlayer(playerId As Integer) As Integer Implements IDataStore.GetCharacterForPlayer
         _operationLog.Add($"{NameOf(GetCharacterForPlayer)}({NameOf(playerId)}:={playerId})")
         Return 0
+    End Function
+
+    Public Function GetCharacterName(characterId As Integer) As String Implements IDataStore.GetCharacterName
+        _operationLog.Add($"{NameOf(GetCharacterName)}({NameOf(characterId)}:={characterId})")
+        Dim value As String = Nothing
+        Return If(_characterNames.TryGetValue(characterId, value), value, "N00b")
     End Function
 End Class

@@ -9,5 +9,12 @@ Friend Class CharacterModel
         _characterId = characterId
     End Sub
 
-    Public Property Name As String = "N00b" Implements ICharacterModel.Name
+    Public Property Name As String Implements ICharacterModel.Name
+        Get
+            Return _dataStore.GetCharacterName(_characterId)
+        End Get
+        Set(value As String)
+            _dataStore.SetCharacterName(_characterId, value)
+        End Set
+    End Property
 End Class
