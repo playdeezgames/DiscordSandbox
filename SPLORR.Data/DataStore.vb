@@ -2,7 +2,7 @@
 
 Public Class DataStore
     Implements IDataStore
-    Private _connectionString As String
+    Private ReadOnly _connectionString As String
     Private _connection As SqlConnection = Nothing
     Private Function GetConnection() As SqlConnection
         If _connection Is Nothing Then
@@ -40,7 +40,7 @@ INSERT INTO
         End Using
     End Sub
 
-    Private Function CreateCharacter(characterName As String, locationId As Integer, characterType As Integer) As Integer
+    Public Function CreateCharacter(characterName As String, locationId As Integer, characterType As Integer) As Integer Implements IDataStore.CreateCharacter
         Using command = GetConnection().CreateCommand
             command.CommandText = $"
 INSERT INTO 

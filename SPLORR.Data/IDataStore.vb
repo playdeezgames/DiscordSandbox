@@ -12,4 +12,5 @@ Public Interface IDataStore
     'CharacterStore
     Function GetCharacterName(characterId As Integer) As String
     Sub SetCharacterName(characterId As Integer, characterName As String)
+    Function CreateCharacter(characterName As String, locationId As Integer, characterType As Integer) As Integer
 End Interface
