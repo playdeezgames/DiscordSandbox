@@ -1,6 +1,7 @@
 Public Interface IDataStore
     'boilerplate
     Sub CleanUp()
+    Function GetPlayer(playerId As Integer) As IPlayerStore
     'PlayerStore
     Sub CreatePlayerCharacter(playerId As Integer, characterName As String, locationId As Integer, characterType As Integer)
     Function CheckForCharacter(playerId As Integer) As Boolean

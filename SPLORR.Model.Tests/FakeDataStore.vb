@@ -53,4 +53,8 @@ Friend Class FakeDataStore
         Dim characterName As String = Nothing
         Return If(_characterNames.TryGetValue(characterId, characterName), characterName, "N00b")
     End Function
+
+    Public Function GetPlayer(playerId As Integer) As IPlayerStore Implements IDataStore.GetPlayer
+        Return Nothing
+    End Function
 End Class

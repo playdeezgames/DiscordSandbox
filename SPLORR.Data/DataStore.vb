@@ -2,27 +2,6 @@
 
 Public Class DataStore
     Implements IDataStore
-    Const FIELD_CHARACTER_ID = "CharacterId"
-    Const FIELD_CHARACTER_NAME = "CharacterName"
-    Const FIELD_CHARACTER_TYPE_ID = "CharacterTypeId"
-    Const FIELD_DISCORD_ID = "DiscordId"
-    Const FIELD_GENERATOR_WEIGHT = "GeneratorWeight"
-    Const FIELD_LOCATION_ID = "LocationId"
-    Const FIELD_PLAYER_ID = "PlayerId"
-
-    Const PARAMETER_CHARACTER_ID = "@CharacterId"
-    Const PARAMETER_DISCORD_ID = "@DiscordId"
-    Const PARAMETER_PLAYER_ID = "@PlayerId"
-    Const PARAMETER_CHARACTER_NAME = "@CharacterName"
-    Const PARAMETER_LOCATION_ID = "@LocationId"
-    Const PARAMETER_CHARACTER_TYPE_ID = "@CharacterTypeId"
-
-    Const TABLE_CHARACTERS = "Characters"
-    Const TABLE_LOCATION_STARTS = "LocationStarts"
-    Const TABLE_PLAYERS = "Players"
-    Const TABLE_PLAYER_CHARACTER_TYPES = "PlayerCharacterTypes"
-    Const TABLE_PLAYER_CHARACTERS = "PlayerCharacters"
-
     Private _connectionString As String
     Private _connection As SqlConnection = Nothing
     Private Function GetConnection() As SqlConnection
@@ -225,4 +204,8 @@ WHERE
             command.ExecuteNonQuery()
         End Using
     End Sub
+
+    Public Function GetPlayer(playerId As Integer) As IPlayerStore Implements IDataStore.GetPlayer
+        Return Nothing
+    End Function
 End Class
