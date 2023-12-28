@@ -1,7 +1,9 @@
 ﻿Imports SPLORR.Data
+Imports SPLORR.Game
 
 Friend Class PlayerModel
     Implements IPlayerModel
+    Const DEFAULT_CHARACTER_NAME = "N00b"
     Private _dataStore As IDataStore
     Private _playerId As Integer
 
@@ -31,14 +33,16 @@ Friend Class PlayerModel
     End Sub
 
     Private Function GenerateCharacterType() As Integer
-        Return 0
+        Dim generator As IReadOnlyDictionary(Of Integer, Integer) = _dataStore.GetCharacterTypeGenerator()
+        Return RNG.FromGenerator(generator)
     End Function
 
     Private Function GenerateCharacterName() As String
-        Return String.Empty
+        Return DEFAULT_CHARACTER_NAME
     End Function
 
     Private Function GenerateStartingLocation() As Integer
-        Return 0
+        Dim generator As IReadOnlyDictionary(Of Integer, Integer) = _dataStore.GetLocationGenerator()
+        Return RNG.FromGenerator(generator)
     End Function
 End Class

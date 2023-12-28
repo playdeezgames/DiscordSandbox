@@ -82,4 +82,12 @@ VALUES
             _connection = Nothing
         End If
     End Sub
+
+    Public Function GetCharacterTypeGenerator() As IReadOnlyDictionary(Of Integer, Integer) Implements IDataStore.GetCharacterTypeGenerator
+        Throw New NotImplementedException()
+    End Function
+
+    Public Function GetLocationGenerator() As IReadOnlyDictionary(Of Integer, Integer) Implements IDataStore.GetLocationGenerator
+        Throw New NotImplementedException()
+    End Function
 End Class

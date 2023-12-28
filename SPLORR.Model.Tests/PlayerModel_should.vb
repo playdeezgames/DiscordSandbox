@@ -16,7 +16,7 @@ Public Class PlayerModel_should
         subject.Model.HasCharacter.ShouldBeTrue
         subject.Model.Character.ShouldNotBeNull
         subject.Store.OperationLog.ShouldContain("CheckForCharacter(playerId:=0)")
-        subject.Store.OperationLog.ShouldContain("CreatePlayerCharacter(playerId:=0,characterName:=,locationId:=0,characterType:=0)")
+        subject.Store.OperationLog.ShouldContain("CreatePlayerCharacter(playerId:=0,characterName:=N00b,locationId:=0,characterType:=0)")
     End Sub
 
     Private Shared Function CreateSubject() As (Model As IPlayerModel, Store As FakeDataStore)
