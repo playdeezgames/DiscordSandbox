@@ -9,7 +9,7 @@ Friend Class FakeDataStore
         End Get
     End Property
 
-    Public Sub CreateCharacter(playerId As Integer) Implements IDataStore.CreateCharacter
+    Public Sub CreatePlayerCharacter(playerId As Integer) Implements IDataStore.CreatePlayerCharacter
         _operationLog.Add($"CreateCharacter(playerId:={playerId})")
     End Sub
 

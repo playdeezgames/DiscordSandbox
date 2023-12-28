@@ -2,6 +2,8 @@
 
 Public Class DataStore
     Implements IDataStore
+    Const TABLE_PLAYERS = "Players"
+    Const FIELD_PLAYER_ID = "PlayerId"
     Private _connectionString As String
     Private _connection As SqlConnection = Nothing
     Private Function GetConnection() As SqlConnection
@@ -15,19 +17,28 @@ Public Class DataStore
         Me._connectionString = connectionString
     End Sub
 
-    Public Sub CreateCharacter(playerId As Integer) Implements IDataStore.CreateCharacter
+    Public Sub CreatePlayerCharacter(playerId As Integer) Implements IDataStore.CreatePlayerCharacter
         Throw New NotImplementedException()
     End Sub
 
     Public Function CheckForCharacter(playerId As Integer) As Boolean Implements IDataStore.CheckForCharacter
-        Throw New NotImplementedException()
+        Const PARAMETER_PLAYER_ID = "@PlayerId"
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"
+SELECT 
+    COUNT(1) 
+FROM 
+    {TABLE_PLAYERS} 
+WHERE 
+    {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
+            command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
+            Return CInt(command.ExecuteScalar) > 0
+        End Using
     End Function
 
     Public Function GetPlayerForAuthor(authorId As ULong) As Integer Implements IDataStore.GetPlayerForAuthor
         Dim discordId = CLng(authorId)
         Const PARAMETER_DISCORD_ID = "@DiscordId"
-        Const TABLE_PLAYERS = "Players"
-        Const FIELD_PLAYER_ID = "PlayerId"
         Const FIELD_DISCORD_ID = "DiscordId"
         Dim playerId As Integer? = Nothing
         Using command = GetConnection().CreateCommand()

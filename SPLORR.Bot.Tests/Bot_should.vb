@@ -37,7 +37,7 @@ Public Class Bot_should
         Dim actual = subject.HandleMessage(authorId, message)
         actual.ShouldBe(expectedMessage)
 
-        worldModel.FakePlayers.ShouldHaveSingleItem
+        worldModel.FakePlayers.ShouldBeEmpty
     End Sub
     <Theory>
     <InlineData(0, "status", NO_CHARACTER_RESULT)>
