@@ -16,8 +16,7 @@ Public Class DataStore
     End Sub
 
     Public Sub CreatePlayerCharacter(playerId As Integer, characterName As String, locationId As Integer, characterType As Integer) Implements IDataStore.CreatePlayerCharacter
-        Dim characterId As Integer = CreateCharacter(characterName, locationId, characterType)
-        SetPlayerCharacter(playerId, characterId)
+        SetPlayerCharacter(playerId, CreateCharacter(characterName, locationId, characterType).Id)
     End Sub
 
     Private Sub SetPlayerCharacter(playerId As Integer, characterId As Integer)
@@ -39,33 +38,6 @@ INSERT INTO
             command.ExecuteNonQuery()
         End Using
     End Sub
-
-    Public Function CreateCharacter(characterName As String, locationId As Integer, characterType As Integer) As Integer Implements IDataStore.CreateCharacter
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"
-INSERT INTO 
-    {TABLE_CHARACTERS}
-    (
-        {FIELD_CHARACTER_NAME},
-        {FIELD_LOCATION_ID},
-        {FIELD_CHARACTER_TYPE_ID}
-    ) 
-    VALUES 
-    (
-        {PARAMETER_CHARACTER_NAME},
-        {PARAMETER_LOCATION_ID},
-        {PARAMETER_CHARACTER_TYPE_ID}
-    );"
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_NAME, characterName)
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, locationId)
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_TYPE_ID, characterType)
-            command.ExecuteNonQuery()
-        End Using
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"SELECT @@IDENTITY;"
-            Return CInt(command.ExecuteScalar)
-        End Using
-    End Function
 
     Public Function GetPlayerForAuthor(authorId As ULong) As Integer Implements IDataStore.GetPlayerForAuthor
         Dim discordId = CLng(authorId)
@@ -192,6 +164,37 @@ WHERE
     End Sub
 
     Public Function GetPlayer(playerId As Integer) As IPlayerStore Implements IDataStore.GetPlayer
-        Return Nothing
+        Return New PlayerStore(AddressOf GetConnection, playerId)
+    End Function
+
+    Public Function GetCharacter(characterId As Integer) As ICharacterStore Implements IDataStore.GetCharacter
+        Return New CharacterStore(AddressOf GetConnection, characterId)
+    End Function
+
+    Public Function CreateCharacter(characterName As String, locationId As Integer, characterType As Integer) As ICharacterStore Implements IDataStore.CreateCharacter
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"
+INSERT INTO 
+    {TABLE_CHARACTERS}
+    (
+        {FIELD_CHARACTER_NAME},
+        {FIELD_LOCATION_ID},
+        {FIELD_CHARACTER_TYPE_ID}
+    ) 
+    VALUES 
+    (
+        {PARAMETER_CHARACTER_NAME},
+        {PARAMETER_LOCATION_ID},
+        {PARAMETER_CHARACTER_TYPE_ID}
+    );"
+            command.Parameters.AddWithValue(PARAMETER_CHARACTER_NAME, characterName)
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, locationId)
+            command.Parameters.AddWithValue(PARAMETER_CHARACTER_TYPE_ID, characterType)
+            command.ExecuteNonQuery()
+        End Using
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"SELECT @@IDENTITY;"
+            Return GetCharacter(CInt(command.ExecuteScalar))
+        End Using
     End Function
 End Class
