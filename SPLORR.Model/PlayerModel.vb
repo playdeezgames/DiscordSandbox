@@ -14,7 +14,7 @@ Friend Class PlayerModel
 
     Public ReadOnly Property HasCharacter As Boolean Implements IPlayerModel.HasCharacter
         Get
-            Return _dataStore.CheckForCharacter(_playerId)
+            Return _dataStore.GetPlayer(_playerId).HasCharacter
         End Get
     End Property
 

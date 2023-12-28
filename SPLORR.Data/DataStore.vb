@@ -67,20 +67,6 @@ INSERT INTO
         End Using
     End Function
 
-    Public Function CheckForCharacter(playerId As Integer) As Boolean Implements IDataStore.CheckForCharacter
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"
-SELECT 
-    COUNT(1) 
-FROM 
-    {TABLE_PLAYER_CHARACTERS} 
-WHERE 
-    {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
-            command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
-            Return CInt(command.ExecuteScalar) > 0
-        End Using
-    End Function
-
     Public Function GetPlayerForAuthor(authorId As ULong) As Integer Implements IDataStore.GetPlayerForAuthor
         Dim discordId = CLng(authorId)
         Dim playerId As Integer? = Nothing

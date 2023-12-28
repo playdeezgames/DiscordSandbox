@@ -4,7 +4,6 @@ Public Interface IDataStore
     Function GetPlayer(playerId As Integer) As IPlayerStore
     'PlayerStore
     Sub CreatePlayerCharacter(playerId As Integer, characterName As String, locationId As Integer, characterType As Integer)
-    Function CheckForCharacter(playerId As Integer) As Boolean
     Function GetCharacterForPlayer(playerId As Integer) As Integer
     '???
     Function GetPlayerForAuthor(authorId As ULong) As Integer
