@@ -19,11 +19,10 @@ Friend Class LocationStore
 
     Public ReadOnly Property Name As String Implements ILocationStore.Name
         Get
-            Using command = _connectionSource().CreateCommand
-                command.CommandText = $"SELECT {FIELD_LOCATION_NAME} FROM {TABLE_LOCATIONS} WHERE {FIELD_LOCATION_ID}={PARAMETER_LOCATION_ID};"
-                command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, _locationId)
-                Return CStr(command.ExecuteScalar)
-            End Using
+            Return _connectionSource.ReadStringForInteger(
+                TABLE_LOCATIONS,
+                (FIELD_LOCATION_ID, _locationId),
+                FIELD_LOCATION_NAME)
         End Get
     End Property
 

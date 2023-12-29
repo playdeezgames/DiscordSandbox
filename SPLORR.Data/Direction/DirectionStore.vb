@@ -13,17 +13,10 @@ Friend Class DirectionStore
 
     Public ReadOnly Property Name As String Implements IDirectionStore.Name
         Get
-            Using command = _connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    {FIELD_DIRECTION_NAME} 
-FROM 
-    {TABLE_DIRECTIONS} 
-WHERE 
-    {FIELD_DIRECTION_ID}={PARAMETER_DIRECTION_ID};"
-                command.Parameters.AddWithValue(PARAMETER_DIRECTION_ID, _directionId)
-                Return CStr(command.ExecuteScalar)
-            End Using
+            Return _connectionSource.ReadStringForInteger(
+                TABLE_DIRECTIONS,
+                (FIELD_DIRECTION_ID, _directionId),
+                FIELD_DIRECTION_NAME)
         End Get
     End Property
 End Class

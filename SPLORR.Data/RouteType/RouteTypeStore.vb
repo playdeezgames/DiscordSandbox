@@ -13,17 +13,10 @@ Friend Class RouteTypeStore
 
     Public ReadOnly Property Name As String Implements IRouteTypeStore.Name
         Get
-            Using command = _connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    {FIELD_ROUTE_TYPE_NAME} 
-FROM 
-    {TABLE_ROUTE_TYPES} 
-WHERE 
-    {FIELD_ROUTE_TYPE_ID}={PARAMETER_ROUTE_TYPE_ID};"
-                command.Parameters.AddWithValue(PARAMETER_ROUTE_TYPE_ID, _routeTypeId)
-                Return CStr(command.ExecuteScalar)
-            End Using
+            Return _connectionSource.ReadStringForInteger(
+                TABLE_ROUTE_TYPES,
+                (FIELD_ROUTE_TYPE_ID, _routeTypeId),
+                FIELD_ROUTE_TYPE_NAME)
         End Get
     End Property
 End Class

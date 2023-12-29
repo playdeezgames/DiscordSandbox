@@ -18,17 +18,10 @@ Friend Class CharacterStore
 
     Public Property Name As String Implements ICharacterStore.Name
         Get
-            Using command = _connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    {FIELD_CHARACTER_NAME} 
-FROM 
-    {TABLE_CHARACTERS} 
-WHERE 
-    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
-                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
-                Return CStr(command.ExecuteScalar)
-            End Using
+            Return _connectionSource.ReadStringForInteger(
+                TABLE_CHARACTERS,
+                (FIELD_CHARACTER_ID, _characterId),
+                FIELD_CHARACTER_NAME)
         End Get
         Set(value As String)
             Using command = _connectionSource().CreateCommand
