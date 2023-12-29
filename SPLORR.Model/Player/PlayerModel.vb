@@ -20,7 +20,7 @@ Friend Class PlayerModel
 
     Public ReadOnly Property Character As ICharacterModel Implements IPlayerModel.Character
         Get
-            Return If(HasCharacter, New CharacterModel(_dataStore, _dataStore.LegacyGetCharacterForPlayer(_playerId)), Nothing)
+            Return If(HasCharacter, New CharacterModel(_dataStore.GetCharacter(_dataStore.LegacyGetCharacterForPlayer(_playerId))), Nothing)
         End Get
     End Property
 

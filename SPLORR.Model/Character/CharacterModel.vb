@@ -2,25 +2,23 @@
 
 Friend Class CharacterModel
     Implements ICharacterModel
-    Private ReadOnly _dataStore As IDataStore 'TODO: change this to characterstore?
-    Private ReadOnly _characterId As Integer
-    Sub New(dataStore As IDataStore, characterId As Integer)
-        _dataStore = dataStore
-        _characterId = characterId
+    Private ReadOnly _characterStore As ICharacterStore
+    Sub New(characterStore As ICharacterStore)
+        _characterStore = characterStore
     End Sub
 
     Public Property Name As String Implements ICharacterModel.Name
         Get
-            Return _dataStore.GetCharacter(_characterId).Name
+            Return _characterStore.Name
         End Get
         Set(value As String)
-            _dataStore.GetCharacter(_characterId).Name = value
+            _characterStore.Name = value
         End Set
     End Property
 
     Public ReadOnly Property Location As ILocationModel Implements ICharacterModel.Location
         Get
-            Return New LocationModel(_dataStore.GetCharacter(_characterId).GetLocation())
+            Return New LocationModel(_characterStore.GetLocation())
         End Get
     End Property
 End Class
