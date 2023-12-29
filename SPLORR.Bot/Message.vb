@@ -6,6 +6,7 @@ Friend Module Message
         {
             {TOKEN_CREATE, AddressOf CreateMessage.Handle},
             {TOKEN_GO, AddressOf GoMessage.Handle},
+            {TOKEN_HELP, AddressOf HelpMessage.Handle},
             {TOKEN_RENAME, AddressOf RenameMessage.Handle},
             {TOKEN_STATUS, AddressOf StatusMessage.Handle}
         }
