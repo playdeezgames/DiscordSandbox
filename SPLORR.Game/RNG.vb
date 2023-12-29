@@ -11,7 +11,7 @@ Public Module RNG
                 Return entry.Key
             End If
         Next
-        Throw New NotImplementedException()
+        Throw New ArgumentException()
     End Function
     Function FromGenerator(Of TGenerated)(hashSet As HashSet(Of TGenerated)) As TGenerated
         Dim table As New Dictionary(Of TGenerated, Integer)
