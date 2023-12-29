@@ -16,10 +16,10 @@ Friend Class CharacterModel
     End Property
     Public Property Location As ILocationModel Implements ICharacterModel.Location
         Get
-            Return New LocationModel(_characterStore.GetLocation())
+            Return New LocationModel(_characterStore.Location)
         End Get
         Set(value As ILocationModel)
-            _characterStore.SetLocation(value.LocationStore)
+            _characterStore.Location = value.LocationStore
         End Set
     End Property
 

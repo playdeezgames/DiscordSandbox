@@ -39,26 +39,27 @@ WHERE
         End Set
     End Property
 
-    Public Sub SetLocation(location As ILocationStore) Implements ICharacterStore.SetLocation
-        Using command = _connectionSource().CreateCommand
-            command.CommandText = $"UPDATE {TABLE_CHARACTERS} SET {FIELD_LOCATION_ID}={PARAMETER_LOCATION_ID} WHERE {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, location.Id)
-            command.ExecuteNonQuery()
-        End Using
-    End Sub
-
-    Public Function GetLocation() As ILocationStore Implements ICharacterStore.GetLocation
-        Using command = _connectionSource().CreateCommand
-            command.CommandText = $"
+    Public Property Location As ILocationStore Implements ICharacterStore.Location
+        Get
+            Using command = _connectionSource().CreateCommand
+                command.CommandText = $"
 SELECT 
     {FIELD_LOCATION_ID} 
 FROM 
     {TABLE_CHARACTERS} 
 WHERE 
     {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
-            Return New LocationStore(_connectionSource, CInt(command.ExecuteScalar))
-        End Using
-    End Function
+                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+                Return New LocationStore(_connectionSource, CInt(command.ExecuteScalar))
+            End Using
+        End Get
+        Set(value As ILocationStore)
+            Using command = _connectionSource().CreateCommand
+                command.CommandText = $"UPDATE {TABLE_CHARACTERS} SET {FIELD_LOCATION_ID}={PARAMETER_LOCATION_ID} WHERE {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+                command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, value.Id)
+                command.ExecuteNonQuery()
+            End Using
+        End Set
+    End Property
 End Class
