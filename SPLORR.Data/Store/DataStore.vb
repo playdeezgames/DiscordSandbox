@@ -99,32 +99,11 @@ WHERE
     End Function
 
     Public Function LegacyGetCharacterName(characterId As Integer) As String Implements IDataStore.LegacyGetCharacterName
-        Using command = GetConnection.CreateCommand
-            command.CommandText = $"
-SELECT 
-    {FIELD_CHARACTER_NAME} 
-FROM 
-    {TABLE_CHARACTERS} 
-WHERE 
-    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, characterId)
-            Return CStr(command.ExecuteScalar)
-        End Using
+        Return GetCharacter(characterId).Name
     End Function
 
     Public Sub LegacySetCharacterName(characterId As Integer, characterName As String) Implements IDataStore.LegacySetCharacterName
-        Using command = GetConnection.CreateCommand
-            command.CommandText = $"
-UPDATE 
-    {TABLE_CHARACTERS} 
-SET 
-    {FIELD_CHARACTER_NAME}={PARAMETER_CHARACTER_NAME} 
-WHERE 
-    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, characterId)
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_NAME, characterName)
-            command.ExecuteNonQuery()
-        End Using
+        GetCharacter(characterId).Name = characterName
     End Sub
 
     Public Function GetPlayer(playerId As Integer) As IPlayerStore Implements IDataStore.GetPlayer

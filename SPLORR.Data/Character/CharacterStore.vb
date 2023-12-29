@@ -16,6 +16,36 @@ Friend Class CharacterStore
         End Get
     End Property
 
+    Public Property Name As String Implements ICharacterStore.Name
+        Get
+            Using command = _connectionSource().CreateCommand
+                command.CommandText = $"
+SELECT 
+    {FIELD_CHARACTER_NAME} 
+FROM 
+    {TABLE_CHARACTERS} 
+WHERE 
+    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+                Return CStr(command.ExecuteScalar)
+            End Using
+        End Get
+        Set(value As String)
+            Using command = _connectionSource().CreateCommand
+                command.CommandText = $"
+UPDATE 
+    {TABLE_CHARACTERS} 
+SET 
+    {FIELD_CHARACTER_NAME}={PARAMETER_CHARACTER_NAME} 
+WHERE 
+    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+                command.Parameters.AddWithValue(PARAMETER_CHARACTER_NAME, value)
+                command.ExecuteNonQuery()
+            End Using
+        End Set
+    End Property
+
     Public Function GetLocation() As ILocationStore Implements ICharacterStore.GetLocation
         Using command = _connectionSource().CreateCommand
             command.CommandText = $"
