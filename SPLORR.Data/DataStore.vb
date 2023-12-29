@@ -84,42 +84,6 @@ VALUES
         End If
     End Sub
 
-    Public Function LegacyGetCharacterTypeGenerator() As IReadOnlyDictionary(Of Integer, Integer) Implements IDataStore.LegacyGetCharacterTypeGenerator
-        Dim result As New Dictionary(Of Integer, Integer)
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"
-SELECT 
-    {FIELD_CHARACTER_TYPE_ID}, 
-    {FIELD_GENERATOR_WEIGHT} 
-FROM 
-    {TABLE_PLAYER_CHARACTER_TYPES};"
-            Using reader = command.ExecuteReader
-                While reader.Read
-                    result(reader.GetInt32(0)) = reader.GetInt32(1)
-                End While
-            End Using
-        End Using
-        Return result
-    End Function
-
-    Public Function LegacyGetLocationGenerator() As IReadOnlyDictionary(Of Integer, Integer) Implements IDataStore.LegacyGetLocationGenerator
-        Dim result As New Dictionary(Of Integer, Integer)
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"
-SELECT 
-    {FIELD_LOCATION_ID}, 
-    {FIELD_GENERATOR_WEIGHT} 
-FROM 
-    {TABLE_LOCATION_STARTS};"
-            Using reader = command.ExecuteReader
-                While reader.Read
-                    result(reader.GetInt32(0)) = reader.GetInt32(1)
-                End While
-            End Using
-        End Using
-        Return result
-    End Function
-
     Public Function LegacyGetCharacterForPlayer(playerId As Integer) As Integer Implements IDataStore.LegacyGetCharacterForPlayer
         Using command = GetConnection().CreateCommand
             command.CommandText = $"
@@ -204,5 +168,41 @@ INSERT INTO
 
     Public Function GetCharacterType(characterTypeId As Integer) As ICharacterTypeStore Implements IDataStore.GetCharacterType
         Return New CharacterTypeStore(AddressOf GetConnection, characterTypeId)
+    End Function
+
+    Public Function GetCharacterTypeGenerator() As IReadOnlyDictionary(Of ICharacterTypeStore, Integer) Implements IDataStore.GetCharacterTypeGenerator
+        Dim result As New Dictionary(Of ICharacterTypeStore, Integer)
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"
+SELECT 
+    {FIELD_CHARACTER_TYPE_ID}, 
+    {FIELD_GENERATOR_WEIGHT} 
+FROM 
+    {TABLE_PLAYER_CHARACTER_TYPES};"
+            Using reader = command.ExecuteReader
+                While reader.Read
+                    result(GetCharacterType(reader.GetInt32(0))) = reader.GetInt32(1)
+                End While
+            End Using
+        End Using
+        Return result
+    End Function
+
+    Public Function GetLocationGenerator() As IReadOnlyDictionary(Of ILocationStore, Integer) Implements IDataStore.GetLocationGenerator
+        Dim result As New Dictionary(Of ILocationStore, Integer)
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"
+SELECT 
+    {FIELD_LOCATION_ID}, 
+    {FIELD_GENERATOR_WEIGHT} 
+FROM 
+    {TABLE_LOCATION_STARTS};"
+            Using reader = command.ExecuteReader
+                While reader.Read
+                    result(GetLocation(reader.GetInt32(0))) = reader.GetInt32(1)
+                End While
+            End Using
+        End Using
+        Return result
     End Function
 End Class

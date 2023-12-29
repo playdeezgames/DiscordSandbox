@@ -33,8 +33,8 @@ Friend Class PlayerModel
     End Sub
 
     Private Function GenerateCharacterType() As Integer
-        Dim generator As IReadOnlyDictionary(Of Integer, Integer) = _dataStore.LegacyGetCharacterTypeGenerator()
-        Return RNG.FromGenerator(generator)
+        Dim generator = _dataStore.GetCharacterTypeGenerator()
+        Return RNG.FromGenerator(generator).Id
     End Function
 
     Private Function GenerateCharacterName() As String
@@ -42,7 +42,7 @@ Friend Class PlayerModel
     End Function
 
     Private Function GenerateStartingLocation() As Integer
-        Dim generator As IReadOnlyDictionary(Of Integer, Integer) = _dataStore.LegacyGetLocationGenerator()
-        Return RNG.FromGenerator(generator)
+        Dim generator = _dataStore.GetLocationGenerator()
+        Return RNG.FromGenerator(generator).Id
     End Function
 End Class
