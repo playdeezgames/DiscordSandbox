@@ -15,6 +15,6 @@ Friend Module Message
         If handlers.TryGetValue(firstToken, handler) Then
             Return handler(player, tokens.Skip(1).ToArray)
         End If
-        Return MESSAGE_INVALID_INPUT
+        Return InvalidMessage.Handle(player, tokens)
     End Function
 End Module
