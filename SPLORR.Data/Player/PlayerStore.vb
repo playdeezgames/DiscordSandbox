@@ -24,4 +24,13 @@ WHERE
             End Using
         End Get
     End Property
+
+    Public Function CreateCharacter(
+                                   characterName As String,
+                                   location As ILocationStore,
+                                   characterType As ICharacterTypeStore
+                                   ) As ICharacterStore Implements IPlayerStore.CreateCharacter
+        Dim dataStore As IDataStore = New DataStore(_connectionSource())
+        Return dataStore.CreateCharacter(characterName, location, characterType)
+    End Function
 End Class
