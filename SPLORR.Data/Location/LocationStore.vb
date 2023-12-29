@@ -57,4 +57,27 @@ WHERE
             Return result
         End Get
     End Property
+
+    Public Function FindRouteByDirectionName(directionName As String) As IRouteStore Implements ILocationStore.FindRouteByDirectionName
+        Using command = _connectionSource().CreateCommand
+            command.CommandText = $"
+SELECT 
+    {FIELD_ROUTE_ID} 
+FROM 
+    {TABLE_ROUTES} r 
+JOIN 
+    {TABLE_DIRECTIONS} d ON r.{FIELD_DIRECTION_ID}=d.{FIELD_DIRECTION_ID}
+WHERE 
+    r.{FIELD_FROM_LOCATION_ID}={PARAMETER_LOCATION_ID} 
+    AND d.{FIELD_DIRECTION_NAME}={PARAMETER_DIRECTION_NAME};"
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, _locationId)
+            command.Parameters.AddWithValue(PARAMETER_DIRECTION_NAME, directionName)
+            Using reader = command.ExecuteReader
+                If reader.Read Then
+                    Return New RouteStore(_connectionSource, reader.GetInt32(0))
+                End If
+            End Using
+            Return Nothing
+        End Using
+    End Function
 End Class

@@ -19,4 +19,16 @@ Friend Class RouteModel
             Return New DirectionModel(_routeStore.Direction)
         End Get
     End Property
+
+    Public ReadOnly Property FromLocation As ILocationModel Implements IRouteModel.FromLocation
+        Get
+            Return New LocationModel(_routeStore.FromLocation)
+        End Get
+    End Property
+
+    Public ReadOnly Property ToLocation As ILocationModel Implements IRouteModel.ToLocation
+        Get
+            Return New LocationModel(_routeStore.ToLocation)
+        End Get
+    End Property
 End Class

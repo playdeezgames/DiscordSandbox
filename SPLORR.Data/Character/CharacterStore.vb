@@ -39,6 +39,15 @@ WHERE
         End Set
     End Property
 
+    Public Sub SetLocation(location As ILocationStore) Implements ICharacterStore.SetLocation
+        Using command = _connectionSource().CreateCommand
+            command.CommandText = $"UPDATE {TABLE_CHARACTERS} SET {FIELD_LOCATION_ID}={PARAMETER_LOCATION_ID} WHERE {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+            command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, location.Id)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
     Public Function GetLocation() As ILocationStore Implements ICharacterStore.GetLocation
         Using command = _connectionSource().CreateCommand
             command.CommandText = $"

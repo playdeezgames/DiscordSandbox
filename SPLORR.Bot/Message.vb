@@ -5,8 +5,9 @@ Friend Module Message
         New Dictionary(Of String, Func(Of IPlayerModel, String(), String)) From
         {
             {TOKEN_CREATE, AddressOf CreateMessage.Handle},
-            {TOKEN_STATUS, AddressOf StatusMessage.Handle},
-            {TOKEN_RENAME, AddressOf RenameMessage.Handle}
+            {TOKEN_GO, AddressOf GoMessage.Handle},
+            {TOKEN_RENAME, AddressOf RenameMessage.Handle},
+            {TOKEN_STATUS, AddressOf StatusMessage.Handle}
         }
     Friend Function Handle(player As IPlayerModel, tokens() As String) As String
         Dim firstToken = tokens.First

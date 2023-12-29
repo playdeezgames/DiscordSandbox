@@ -1,11 +1,12 @@
-Imports System.Threading.Channels
 Imports Discord
 Imports Discord.WebSocket
 Imports Spectre.Console
 Imports SPLORR.Bot
+Imports SPLORR.Data
 Imports SPLORR.Model
 
 Module Program
+    Private Const ENV_VAR_CONNECTION_STRING = "CONNECTION_STRING"
     Private completionSource As TaskCompletionSource = New TaskCompletionSource
     Sub Main(args As String())
         AddHandler Console.CancelKeyPress, AddressOf OnCancelKeyPress
@@ -27,6 +28,8 @@ Module Program
     Private worldModel As IWorldModel = Nothing
 
     Public Async Function MainAsync(ByVal args() As String) As Task
+        Dim dataStore As IDataStore = New DataStore(Environment.GetEnvironmentVariable(ENV_VAR_CONNECTION_STRING))
+        worldModel = New WorldModel(dataStore)
         bot = New Bot.SPLORRBot(worldModel)
         bot.Start()
         AnsiConsole.MarkupLine(START_MESSAGE)

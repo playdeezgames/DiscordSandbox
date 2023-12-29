@@ -29,17 +29,19 @@ WHERE
 
     Public ReadOnly Property Direction As IDirectionStore Implements IRouteStore.Direction
         Get
-            Using command = _connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    {FIELD_DIRECTION_ID} 
-FROM 
-    {TABLE_ROUTES} 
-WHERE 
-    {FIELD_ROUTE_ID}={PARAMETER_ROUTE_ID};"
-                command.Parameters.AddWithValue(PARAMETER_ROUTE_ID, _routeId)
-                Return New DirectionStore(_connectionSource, CInt(command.ExecuteScalar))
-            End Using
+            Return New DirectionStore(_connectionSource, _connectionSource.ReadIntegerForInteger(TABLE_ROUTES, (FIELD_ROUTE_ID, _routeId), FIELD_DIRECTION_ID))
+        End Get
+    End Property
+
+    Public ReadOnly Property FromLocation As ILocationStore Implements IRouteStore.FromLocation
+        Get
+            Return New LocationStore(_connectionSource, _connectionSource.ReadIntegerForInteger(TABLE_ROUTES, (FIELD_ROUTE_ID, _routeId), FIELD_FROM_LOCATION_ID))
+        End Get
+    End Property
+
+    Public ReadOnly Property ToLocation As ILocationStore Implements IRouteStore.ToLocation
+        Get
+            Return New LocationStore(_connectionSource, _connectionSource.ReadIntegerForInteger(TABLE_ROUTES, (FIELD_ROUTE_ID, _routeId), FIELD_TO_LOCATION_ID))
         End Get
     End Property
 End Class
