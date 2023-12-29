@@ -85,7 +85,9 @@ Public Class SPLORRBot
             If Not player.HasCharacter Then
                 Return MESSAGE_NO_CHARACTER
             End If
-            Return $"Character Name: {player.Character.Name}"
+            Dim character = player.Character
+            Return $"Character Name: {character.Name}
+Location Name: {character.Location.Name}"
         End If
         Return MESSAGE_INVALID_INPUT
     End Function

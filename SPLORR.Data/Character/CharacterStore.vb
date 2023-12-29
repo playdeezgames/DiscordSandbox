@@ -15,4 +15,18 @@ Friend Class CharacterStore
             Return _characterId
         End Get
     End Property
+
+    Public Function GetLocation() As ILocationStore Implements ICharacterStore.GetLocation
+        Using command = _connectionSource().CreateCommand
+            command.CommandText = $"
+SELECT 
+    {FIELD_LOCATION_ID} 
+FROM 
+    {TABLE_CHARACTERS} 
+WHERE 
+    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+            command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+            Return New LocationStore(_connectionSource, CInt(command.ExecuteScalar))
+        End Using
+    End Function
 End Class

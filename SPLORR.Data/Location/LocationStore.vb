@@ -16,4 +16,14 @@ Friend Class LocationStore
             Return _locationId
         End Get
     End Property
+
+    Public ReadOnly Property Name As String Implements ILocationStore.Name
+        Get
+            Using command = _connectionSource().CreateCommand
+                command.CommandText = $"SELECT {FIELD_LOCATION_NAME} FROM {TABLE_LOCATIONS} WHERE {FIELD_LOCATION_ID}={PARAMETER_LOCATION_ID};"
+                command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, _locationId)
+                Return CStr(command.ExecuteScalar)
+            End Using
+        End Get
+    End Property
 End Class

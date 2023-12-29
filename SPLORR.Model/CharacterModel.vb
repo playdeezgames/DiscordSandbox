@@ -2,7 +2,7 @@
 
 Friend Class CharacterModel
     Implements ICharacterModel
-    Private ReadOnly _dataStore As IDataStore
+    Private ReadOnly _dataStore As IDataStore 'TODO: change this to characterstore?
     Private ReadOnly _characterId As Integer
     Sub New(dataStore As IDataStore, characterId As Integer)
         _dataStore = dataStore
@@ -16,5 +16,11 @@ Friend Class CharacterModel
         Set(value As String)
             _dataStore.LegacySetCharacterName(_characterId, value)
         End Set
+    End Property
+
+    Public ReadOnly Property Location As ILocationModel Implements ICharacterModel.Location
+        Get
+            Return New LocationModel(_dataStore.GetCharacter(_characterId).GetLocation())
+        End Get
     End Property
 End Class

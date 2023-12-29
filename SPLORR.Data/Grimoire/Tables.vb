@@ -4,4 +4,5 @@
     Friend Const TABLE_PLAYERS = "Players"
     Friend Const TABLE_PLAYER_CHARACTER_TYPES = "PlayerCharacterTypes"
     Friend Const TABLE_PLAYER_CHARACTERS = "PlayerCharacters"
+    Friend Const TABLE_LOCATIONS = "Locations"
 End Module

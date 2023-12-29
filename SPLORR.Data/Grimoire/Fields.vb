@@ -6,4 +6,5 @@
     Friend Const FIELD_GENERATOR_WEIGHT = "GeneratorWeight"
     Friend Const FIELD_LOCATION_ID = "LocationId"
     Friend Const FIELD_PLAYER_ID = "PlayerId"
+    Friend Const FIELD_LOCATION_NAME = "LocationName"
 End Module
