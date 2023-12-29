@@ -25,12 +25,34 @@ WHERE
         End Get
     End Property
 
+    Public ReadOnly Property Character As ICharacterStore Implements IPlayerStore.Character
+        Get
+            If HasCharacter Then
+                Return New CharacterStore(_connectionSource, _connectionSource.ReadIntegerForInteger(TABLE_PLAYER_CHARACTERS, (FIELD_PLAYER_ID, _playerId), FIELD_CHARACTER_ID))
+            End If
+            Return Nothing
+        End Get
+    End Property
+
+    Private ReadOnly Property Store As IDataStore
+        Get
+            Return New DataStore(_connectionSource())
+        End Get
+    End Property
+
     Public Function CreateCharacter(
                                    characterName As String,
                                    location As ILocationStore,
                                    characterType As ICharacterTypeStore
                                    ) As ICharacterStore Implements IPlayerStore.CreateCharacter
-        Dim dataStore As IDataStore = New DataStore(_connectionSource())
-        Return dataStore.CreateCharacter(characterName, location, characterType)
+        Return Store.CreateCharacter(characterName, location, characterType)
+    End Function
+
+    Public Function GetCharacterTypeGenerator() As IReadOnlyDictionary(Of ICharacterTypeStore, Integer) Implements IPlayerStore.GetCharacterTypeGenerator
+        Return Store.GetCharacterTypeGenerator
+    End Function
+
+    Public Function GetLocationGenerator() As IReadOnlyDictionary(Of ILocationStore, Integer) Implements IPlayerStore.GetLocationGenerator
+        Return Store.GetLocationGenerator
     End Function
 End Class

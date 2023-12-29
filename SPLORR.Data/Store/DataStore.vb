@@ -18,35 +18,6 @@ Public Class DataStore
         _connection = connection
     End Sub
 
-    Public Sub LegacyCreatePlayerCharacter(playerId As Integer, characterName As String, locationId As Integer, characterType As Integer) Implements IDataStore.LegacyCreatePlayerCharacter
-        Dim character As ICharacterStore
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"
-INSERT INTO 
-    {TABLE_CHARACTERS}
-    (
-        {FIELD_CHARACTER_NAME},
-        {FIELD_LOCATION_ID},
-        {FIELD_CHARACTER_TYPE_ID}
-    ) 
-    VALUES 
-    (
-        {PARAMETER_CHARACTER_NAME},
-        {PARAMETER_LOCATION_ID},
-        {PARAMETER_CHARACTER_TYPE_ID}
-    );"
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_NAME, characterName)
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, locationId)
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_TYPE_ID, characterType)
-            command.ExecuteNonQuery()
-        End Using
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"SELECT @@IDENTITY;"
-            character = GetCharacter(CInt(command.ExecuteScalar))
-        End Using
-        SetPlayerCharacter(playerId, character.Id)
-    End Sub
-
     Private Sub SetPlayerCharacter(playerId As Integer, characterId As Integer)
         Using command = GetConnection().CreateCommand
             command.CommandText = $"
@@ -67,64 +38,12 @@ INSERT INTO
         End Using
     End Sub
 
-    Public Function LegacyGetPlayerForAuthor(authorId As ULong) As Integer Implements IDataStore.LegacyGetPlayerForAuthor
-        Dim discordId = CLng(authorId)
-        Dim playerId As Integer? = Nothing
-        Using command = GetConnection().CreateCommand()
-            command.CommandText = $"
-SELECT 
-    {FIELD_PLAYER_ID} 
-FROM 
-    {TABLE_PLAYERS} 
-WHERE 
-    {FIELD_DISCORD_ID}={PARAMETER_DISCORD_ID};"
-            command.Parameters.AddWithValue(PARAMETER_DISCORD_ID, discordId)
-            Using reader = command.ExecuteReader
-                If reader.Read Then
-                    playerId = reader.GetInt32(0)
-                End If
-            End Using
-        End Using
-        If Not playerId.HasValue Then
-            Using command = GetConnection().CreateCommand
-                command.CommandText = $"
-INSERT INTO 
-    {TABLE_PLAYERS}
-    (
-        {FIELD_DISCORD_ID}
-    ) 
-VALUES
-    (
-        {PARAMETER_DISCORD_ID}
-    );"
-                command.Parameters.AddWithValue(PARAMETER_DISCORD_ID, discordId)
-                command.ExecuteNonQuery()
-            End Using
-            playerId = LegacyGetPlayerForAuthor(authorId)
-        End If
-        Return playerId.Value
-    End Function
-
     Public Sub CleanUp() Implements IDataStore.CleanUp
         If _connection IsNot Nothing Then
             _connection.Close()
             _connection = Nothing
         End If
     End Sub
-
-    Public Function LegacyGetCharacterForPlayer(playerId As Integer) As Integer Implements IDataStore.LegacyGetCharacterForPlayer
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"
-SELECT 
-    {FIELD_CHARACTER_ID} 
-FROM 
-    {TABLE_PLAYER_CHARACTERS} 
-WHERE 
-    {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
-            command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
-            Return CInt(command.ExecuteScalar)
-        End Using
-    End Function
 
     Public Function GetPlayer(playerId As Integer) As IPlayerStore Implements IDataStore.GetPlayer
         Return New PlayerStore(AddressOf GetConnection, playerId)
@@ -203,5 +122,47 @@ INSERT INTO
             command.CommandText = $"SELECT @@IDENTITY;"
             Return GetCharacter(CInt(command.ExecuteScalar))
         End Using
+    End Function
+
+    Private Function FindAuthorPlayer(authorId As ULong) As Integer?
+        Dim discordId = CLng(authorId)
+        Using command = GetConnection().CreateCommand()
+            command.CommandText = $"
+        SELECT 
+            {FIELD_PLAYER_ID} 
+        FROM 
+            {TABLE_PLAYERS} 
+        WHERE 
+            {FIELD_DISCORD_ID}={PARAMETER_DISCORD_ID};"
+            command.Parameters.AddWithValue(PARAMETER_DISCORD_ID, discordId)
+            Using reader = command.ExecuteReader
+                If reader.Read Then
+                    Return reader.GetInt32(0)
+                End If
+            End Using
+        End Using
+        Return Nothing
+    End Function
+
+    Public Function GetAuthorPlayer(authorId As ULong) As IPlayerStore Implements IDataStore.GetAuthorPlayer
+        Dim playerId As Integer? = FindAuthorPlayer(authorId)
+        If Not playerId.HasValue Then
+            Using command = GetConnection().CreateCommand
+                command.CommandText = $"
+        INSERT INTO 
+            {TABLE_PLAYERS}
+            (
+                {FIELD_DISCORD_ID}
+            ) 
+        VALUES
+            (
+                {PARAMETER_DISCORD_ID}
+            );"
+                command.Parameters.AddWithValue(PARAMETER_DISCORD_ID, CLng(authorId))
+                command.ExecuteNonQuery()
+            End Using
+            playerId = FindAuthorPlayer(authorId)
+        End If
+        Return New PlayerStore(AddressOf GetConnection, playerId.Value)
     End Function
 End Class
