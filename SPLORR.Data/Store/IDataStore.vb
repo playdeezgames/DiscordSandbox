@@ -12,7 +12,4 @@ Public Interface IDataStore
     Function LegacyGetCharacterForPlayer(playerId As Integer) As Integer
     '???
     Function LegacyGetPlayerForAuthor(authorId As ULong) As Integer
-    'CharacterStore
-    Function LegacyGetCharacterName(characterId As Integer) As String
-    Sub LegacySetCharacterName(characterId As Integer, characterName As String)
 End Interface

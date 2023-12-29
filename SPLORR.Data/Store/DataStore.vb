@@ -98,14 +98,6 @@ WHERE
         End Using
     End Function
 
-    Public Function LegacyGetCharacterName(characterId As Integer) As String Implements IDataStore.LegacyGetCharacterName
-        Return GetCharacter(characterId).Name
-    End Function
-
-    Public Sub LegacySetCharacterName(characterId As Integer, characterName As String) Implements IDataStore.LegacySetCharacterName
-        GetCharacter(characterId).Name = characterName
-    End Sub
-
     Public Function GetPlayer(playerId As Integer) As IPlayerStore Implements IDataStore.GetPlayer
         Return New PlayerStore(AddressOf GetConnection, playerId)
     End Function
