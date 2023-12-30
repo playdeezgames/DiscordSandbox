@@ -44,6 +44,7 @@ Friend Class LocationTypeEditWindow
                 .X = Pos.Right(updateButton) + 1,
                 .Y = updateButton.Y
             }
+        AddHandler deleteButton.Clicked, AddressOf OnDeleteButtonClicked
         Dim cancelButton As New Button("Cancel") With
             {
                 .X = Pos.Right(deleteButton) + 1,
@@ -51,6 +52,15 @@ Friend Class LocationTypeEditWindow
             }
         AddHandler cancelButton.Clicked, AddressOf OnCancelButtonClicked
         Add(idLabel, idTextField, nameLabel, nameTextField, updateButton, deleteButton, cancelButton)
+    End Sub
+
+    Private Sub OnDeleteButtonClicked()
+        If Not _locationTypeStore.CanDelete Then
+            MessageBox.ErrorQuery("Denied!", "You cannot delete this Location Type, for reasons.", "Ok")
+            Return
+        End If
+        _locationTypeStore.Delete()
+        Program.GoToWindow(Nothing)
     End Sub
 
     Private Sub OnCancelButtonClicked()

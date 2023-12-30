@@ -22,4 +22,19 @@ Friend Class LocationTypeStore
             Return _locationTypeId
         End Get
     End Property
+
+    Public ReadOnly Property CanDelete As Boolean Implements ILocationTypeStore.CanDelete
+        Get
+            Return Not _connectionSource.CheckForInteger(
+                    TABLE_LOCATION_TYPE_VERB_TYPES,
+                    (COLUMN_LOCATION_TYPE_ID, _locationTypeId)) AndAlso
+                Not _connectionSource.CheckForInteger(
+                    TABLE_LOCATIONS,
+                    (COLUMN_LOCATION_TYPE_ID, _locationTypeId))
+        End Get
+    End Property
+
+    Public Sub Delete() Implements ILocationTypeStore.Delete
+        _connectionSource.DeleteForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId))
+    End Sub
 End Class
