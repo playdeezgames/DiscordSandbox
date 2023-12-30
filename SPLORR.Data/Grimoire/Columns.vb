@@ -16,4 +16,6 @@
     Friend Const COLUMN_ROUTE_TYPE_ID = "RouteTypeId"
     Friend Const COLUMN_ROUTE_TYPE_NAME = "RouteTypeName"
     Friend Const COLUMN_TO_LOCATION_ID = "ToLocationId"
+    Friend Const COLUMN_LOCATION_TYPE_ID = "LocationTypeId"
+    Friend Const COLUMN_LOCATION_TYPE_NAME = "LocationTypeName"
 End Module

@@ -8,4 +8,5 @@ Public Interface IDataStore
     Function GetCharacterTypeGenerator() As IReadOnlyDictionary(Of ICharacterTypeStore, Integer)
     Function GetLocationGenerator() As IReadOnlyDictionary(Of ILocationStore, Integer)
     Function GetAuthorPlayer(authorId As ULong) As IPlayerStore
+    Function FilterLocationTypes(filter As String) As IEnumerable(Of ILocationTypeStore)
 End Interface

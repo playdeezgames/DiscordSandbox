@@ -8,4 +8,5 @@
     Friend Const TABLE_LOCATIONS = "Locations"
     Friend Const TABLE_ROUTES = "Routes"
     Friend Const TABLE_ROUTE_TYPES = "RouteTypes"
+    Friend Const TABLE_LOCATION_TYPES = "LocationTypes"
 End Module

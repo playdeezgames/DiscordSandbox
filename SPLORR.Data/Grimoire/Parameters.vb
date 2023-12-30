@@ -10,4 +10,5 @@
     Friend Const PARAMETER_ROUTE_ID = "@RouteId"
     Friend Const PARAMETER_ROUTE_TYPE_ID = "@RouteTypeId"
     Friend Const PARAMETER_LAST_MODIFIED = "@LastModified"
+    Friend Const PARAMETER_LOCATION_TYPE_NAME = "@LocationTypeName"
 End Module

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SPLORR.Editor": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "CONNECTION_STRING": "Data Source=.\\SQLEXPRESS;Initial Catalog=SPLORR;Integrated Security=true;TrustServerCertificate=true"
+      }
+    }
+  }
+}

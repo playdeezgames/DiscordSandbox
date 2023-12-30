@@ -165,4 +165,24 @@ INSERT INTO
         End If
         Return New PlayerStore(AddressOf GetConnection, playerId.Value)
     End Function
+
+    Public Function FilterLocationTypes(filter As String) As IEnumerable(Of ILocationTypeStore) Implements IDataStore.FilterLocationTypes
+        Dim result As New List(Of ILocationTypeStore)
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"
+SELECT 
+    {COLUMN_LOCATION_TYPE_ID} 
+FROM 
+    {TABLE_LOCATION_TYPES} 
+WHERE 
+    {COLUMN_LOCATION_TYPE_NAME} LIKE {PARAMETER_LOCATION_TYPE_NAME};"
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_NAME, filter)
+            Using reader = command.ExecuteReader
+                While reader.Read
+                    result.Add(New LocationTypeStore(AddressOf GetConnection, reader.GetInt32(0)))
+                End While
+            End Using
+        End Using
+        Return result
+    End Function
 End Class
