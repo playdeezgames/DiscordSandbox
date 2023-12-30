@@ -74,6 +74,8 @@
     <Build Include="dbo\Tables\LocationTypes.sql" />
     <Build Include="dbo\Tables\RouteTypes.sql" />
     <Build Include="dbo\Views\CharacterLocationOtherCharacters.sql" />
+    <Build Include="dbo\Tables\VerbTypes.sql" />
+    <Build Include="dbo\Tables\LocationTypeVerbTypes.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />
