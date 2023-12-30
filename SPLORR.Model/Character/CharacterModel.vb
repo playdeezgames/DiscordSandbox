@@ -23,6 +23,18 @@ Friend Class CharacterModel
         End Set
     End Property
 
+    Public ReadOnly Property HasOtherCharacters As Boolean Implements ICharacterModel.HasOtherCharacters
+        Get
+            Return _characterStore.HasOtherCharacters
+        End Get
+    End Property
+
+    Public ReadOnly Property OtherCharacters As IEnumerable(Of ICharacterModel) Implements ICharacterModel.OtherCharacters
+        Get
+            Return _characterStore.OtherCharacters.Select(Function(x) New CharacterModel(x))
+        End Get
+    End Property
+
     Public Function UseRoute(route As IRouteModel) As (Result As Boolean, Messages As String()) Implements ICharacterModel.UseRoute
         If route Is Nothing Then
             Return (False, {"The route does not exist!"})

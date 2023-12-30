@@ -19,6 +19,12 @@ Friend Module StatusMessage
                     outputter($"- {route.RouteType.Name} going {route.Direction.Name}")
                 Next
             End If
+            If character.HasOtherCharacters Then
+                outputter($"Other Characters:")
+                For Each otherCharacter In character.OtherCharacters
+                    outputter($"- {otherCharacter.Name}")
+                Next
+            End If
             Return
         End If
         outputter(MESSAGE_INVALID_INPUT)

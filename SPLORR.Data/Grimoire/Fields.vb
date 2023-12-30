@@ -9,6 +9,7 @@
     Friend Const FIELD_GENERATOR_WEIGHT = "GeneratorWeight"
     Friend Const FIELD_LOCATION_ID = "LocationId"
     Friend Const FIELD_LOCATION_NAME = "LocationName"
+    Friend Const FIELD_OTHER_CHARACTER_ID = "OtherCharacterId"
     Friend Const FIELD_PLAYER_ID = "PlayerId"
     Friend Const FIELD_ROUTE_ID = "RouteId"
     Friend Const FIELD_ROUTE_TYPE_ID = "RouteTypeId"
