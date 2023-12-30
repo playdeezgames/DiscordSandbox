@@ -3,6 +3,7 @@
     [CharacterName] NVARCHAR (100) NOT NULL,
     [LocationId]    INT            NOT NULL,
     [CharacterTypeId] INT            NOT NULL,
+    [LastModified] DATETIMEOFFSET NOT NULL CONSTRAINT DF_Characters_LastModified DEFAULT sysdatetimeoffset(), 
     CONSTRAINT [PK_CharacterId] PRIMARY KEY CLUSTERED ([CharacterId] ASC),
     CONSTRAINT [FK_Characters_Locations] FOREIGN KEY ([LocationId]) REFERENCES [dbo].[Locations] ([LocationId]),
     CONSTRAINT [FK_Characters_CharacterTypes] FOREIGN KEY ([CharacterTypeId]) REFERENCES [dbo].[CharacterTypes]([CharacterTypeId])

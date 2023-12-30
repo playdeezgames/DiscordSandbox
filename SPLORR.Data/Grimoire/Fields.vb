@@ -15,4 +15,5 @@
     Friend Const FIELD_ROUTE_TYPE_ID = "RouteTypeId"
     Friend Const FIELD_ROUTE_TYPE_NAME = "RouteTypeName"
     Friend Const FIELD_TO_LOCATION_ID = "ToLocationId"
+    Friend Const FIELD_LAST_MODIFIED = "LastModified"
 End Module

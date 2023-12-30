@@ -55,9 +55,17 @@ WHERE
         End Get
         Set(value As ILocationStore)
             Using command = _connectionSource().CreateCommand
-                command.CommandText = $"UPDATE {TABLE_CHARACTERS} SET {FIELD_LOCATION_ID}={PARAMETER_LOCATION_ID} WHERE {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+                command.CommandText = $"
+UPDATE 
+    {TABLE_CHARACTERS} 
+SET 
+    {FIELD_LOCATION_ID}={PARAMETER_LOCATION_ID},
+    {FIELD_LAST_MODIFIED}={PARAMETER_LAST_MODIFIED}
+WHERE 
+    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
                 command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
                 command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, value.Id)
+                command.Parameters.AddWithValue(PARAMETER_LAST_MODIFIED, DateTimeOffset.Now)
                 command.ExecuteNonQuery()
             End Using
         End Set
