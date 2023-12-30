@@ -1,5 +1,4 @@
-﻿Imports System.IO
-Imports SPLORR.Data
+﻿Imports SPLORR.Data
 Imports Terminal.Gui
 
 Friend Class LocationTypeEditWindow
