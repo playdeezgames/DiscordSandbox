@@ -1,5 +1,4 @@
-﻿Imports System.Text
-Imports SPLORR.Model
+﻿Imports SPLORR.Model
 
 Friend Module StatusMessage
 
