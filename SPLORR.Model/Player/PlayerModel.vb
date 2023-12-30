@@ -23,7 +23,7 @@ Friend Class PlayerModel
     End Property
 
     Public Sub CreateCharacter() Implements IPlayerModel.CreateCharacter
-        _playerStore.CreateCharacter(
+        _playerStore.Character = _playerStore.CreateCharacter(
             GenerateCharacterName(),
             GenerateStartingLocation(),
             GenerateCharacterType())

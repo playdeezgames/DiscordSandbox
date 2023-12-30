@@ -25,13 +25,41 @@ WHERE
         End Get
     End Property
 
-    Public ReadOnly Property Character As ICharacterStore Implements IPlayerStore.Character
+    Public Property Character As ICharacterStore Implements IPlayerStore.Character
         Get
             If HasCharacter Then
                 Return New CharacterStore(_connectionSource, _connectionSource.ReadIntegerForInteger(TABLE_PLAYER_CHARACTERS, (FIELD_PLAYER_ID, _playerId), FIELD_CHARACTER_ID))
             End If
             Return Nothing
         End Get
+        Set(value As ICharacterStore)
+            Using command = _connectionSource().CreateCommand
+                command.CommandText = $"
+DELETE FROM 
+    {TABLE_PLAYER_CHARACTERS} 
+WHERE 
+    {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
+                command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, _playerId)
+                command.ExecuteNonQuery()
+            End Using
+            Using command = _connectionSource().CreateCommand
+                command.CommandText = $"
+INSERT INTO 
+    {TABLE_PLAYER_CHARACTERS}
+    (
+        {FIELD_PLAYER_ID},
+        {FIELD_CHARACTER_ID}
+    ) 
+    VALUES 
+    (
+        {PARAMETER_PLAYER_ID},
+        {PARAMETER_CHARACTER_ID}
+    );"
+                command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, _playerId)
+                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, value.Id)
+                command.ExecuteNonQuery()
+            End Using
+        End Set
     End Property
 
     Private ReadOnly Property Store As IDataStore

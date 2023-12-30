@@ -58,6 +58,7 @@
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Players.sql" />
@@ -72,6 +73,7 @@
     <Build Include="dbo\Tables\Directions.sql" />
     <Build Include="dbo\Tables\LocationTypes.sql" />
     <Build Include="dbo\Tables\RouteTypes.sql" />
+    <Build Include="dbo\Views\CharacterLocationOtherCharacters.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />
