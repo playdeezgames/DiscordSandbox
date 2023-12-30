@@ -19,7 +19,7 @@ Friend Class CharacterModel
             Return New LocationModel(_characterStore.Location)
         End Get
         Set(value As ILocationModel)
-            _characterStore.Location = value.LocationStore
+            _characterStore.SetLocation(value.LocationStore, DateTimeOffset.Now)
         End Set
     End Property
 

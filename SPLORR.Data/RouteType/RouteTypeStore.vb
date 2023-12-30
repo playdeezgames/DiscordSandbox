@@ -15,8 +15,8 @@ Friend Class RouteTypeStore
         Get
             Return _connectionSource.ReadStringForInteger(
                 TABLE_ROUTE_TYPES,
-                (FIELD_ROUTE_TYPE_ID, _routeTypeId),
-                FIELD_ROUTE_TYPE_NAME)
+                (COLUMN_ROUTE_TYPE_ID, _routeTypeId),
+                COLUMN_ROUTE_TYPE_NAME)
         End Get
     End Property
 End Class

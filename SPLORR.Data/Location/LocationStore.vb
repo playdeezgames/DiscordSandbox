@@ -21,8 +21,8 @@ Friend Class LocationStore
         Get
             Return _connectionSource.ReadStringForInteger(
                 TABLE_LOCATIONS,
-                (FIELD_LOCATION_ID, _locationId),
-                FIELD_LOCATION_NAME)
+                (COLUMN_LOCATION_ID, _locationId),
+                COLUMN_LOCATION_NAME)
         End Get
     End Property
 
@@ -35,7 +35,7 @@ SELECT
 FROM 
     {TABLE_ROUTES} 
 WHERE 
-    {FIELD_FROM_LOCATION_ID}={PARAMETER_LOCATION_ID};"
+    {COLUMN_FROM_LOCATION_ID}={PARAMETER_LOCATION_ID};"
                 command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, _locationId)
                 Return CInt(command.ExecuteScalar) > 0
             End Using
@@ -46,7 +46,7 @@ WHERE
         Get
             Dim result As New List(Of IRouteStore)
             Using command = _connectionSource().CreateCommand
-                command.CommandText = $"SELECT {FIELD_ROUTE_ID} FROM {TABLE_ROUTES} WHERE {FIELD_FROM_LOCATION_ID}={PARAMETER_LOCATION_ID};"
+                command.CommandText = $"SELECT {COLUMN_ROUTE_ID} FROM {TABLE_ROUTES} WHERE {COLUMN_FROM_LOCATION_ID}={PARAMETER_LOCATION_ID};"
                 command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, _locationId)
                 Using reader = command.ExecuteReader
                     While reader.Read
@@ -62,14 +62,14 @@ WHERE
         Using command = _connectionSource().CreateCommand
             command.CommandText = $"
 SELECT 
-    {FIELD_ROUTE_ID} 
+    {COLUMN_ROUTE_ID} 
 FROM 
     {TABLE_ROUTES} r 
 JOIN 
-    {TABLE_DIRECTIONS} d ON r.{FIELD_DIRECTION_ID}=d.{FIELD_DIRECTION_ID}
+    {TABLE_DIRECTIONS} d ON r.{COLUMN_DIRECTION_ID}=d.{COLUMN_DIRECTION_ID}
 WHERE 
-    r.{FIELD_FROM_LOCATION_ID}={PARAMETER_LOCATION_ID} 
-    AND d.{FIELD_DIRECTION_NAME}={PARAMETER_DIRECTION_NAME};"
+    r.{COLUMN_FROM_LOCATION_ID}={PARAMETER_LOCATION_ID} 
+    AND d.{COLUMN_DIRECTION_NAME}={PARAMETER_DIRECTION_NAME};"
             command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, _locationId)
             command.Parameters.AddWithValue(PARAMETER_DIRECTION_NAME, directionName)
             Using reader = command.ExecuteReader

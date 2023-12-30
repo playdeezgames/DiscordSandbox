@@ -20,8 +20,8 @@ Friend Class CharacterStore
         Get
             Return _connectionSource.ReadStringForInteger(
                 TABLE_CHARACTERS,
-                (FIELD_CHARACTER_ID, _characterId),
-                FIELD_CHARACTER_NAME)
+                (COLUMN_CHARACTER_ID, _characterId),
+                COLUMN_CHARACTER_NAME)
         End Get
         Set(value As String)
             Using command = _connectionSource().CreateCommand
@@ -29,9 +29,9 @@ Friend Class CharacterStore
 UPDATE 
     {TABLE_CHARACTERS} 
 SET 
-    {FIELD_CHARACTER_NAME}={PARAMETER_CHARACTER_NAME} 
+    {COLUMN_CHARACTER_NAME}={PARAMETER_CHARACTER_NAME} 
 WHERE 
-    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+    {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
                 command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
                 command.Parameters.AddWithValue(PARAMETER_CHARACTER_NAME, value)
                 command.ExecuteNonQuery()
@@ -39,37 +39,38 @@ WHERE
         End Set
     End Property
 
-    Public Property Location As ILocationStore Implements ICharacterStore.Location
+    Public ReadOnly Property Location As ILocationStore Implements ICharacterStore.Location
         Get
             Using command = _connectionSource().CreateCommand
                 command.CommandText = $"
 SELECT 
-    {FIELD_LOCATION_ID} 
+    {COLUMN_LOCATION_ID} 
 FROM 
     {TABLE_CHARACTERS} 
 WHERE 
-    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+    {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
                 command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
                 Return New LocationStore(_connectionSource, CInt(command.ExecuteScalar))
             End Using
         End Get
-        Set(value As ILocationStore)
-            Using command = _connectionSource().CreateCommand
-                command.CommandText = $"
+    End Property
+
+    Public Sub SetLocation(location As ILocationStore, lastModified As DateTimeOffset) Implements ICharacterStore.SetLocation
+        Using command = _connectionSource().CreateCommand
+            command.CommandText = $"
 UPDATE 
     {TABLE_CHARACTERS} 
 SET 
-    {FIELD_LOCATION_ID}={PARAMETER_LOCATION_ID},
-    {FIELD_LAST_MODIFIED}={PARAMETER_LAST_MODIFIED}
+    {COLUMN_LOCATION_ID}={PARAMETER_LOCATION_ID},
+    {COLUMN_LAST_MODIFIED}={PARAMETER_LAST_MODIFIED}
 WHERE 
-    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
-                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
-                command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, value.Id)
-                command.Parameters.AddWithValue(PARAMETER_LAST_MODIFIED, DateTimeOffset.Now)
-                command.ExecuteNonQuery()
-            End Using
-        End Set
-    End Property
+    {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+            command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, location.Id)
+            command.Parameters.AddWithValue(PARAMETER_LAST_MODIFIED, lastModified)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
 
     Public ReadOnly Property HasOtherCharacters As Boolean Implements ICharacterStore.HasOtherCharacters
         Get
@@ -80,7 +81,7 @@ SELECT
 FROM 
     {VIEW_CHARACTER_LOCATION_OTHER_CHARACTERS} 
 WHERE 
-    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+    {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
                 command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
                 Return CInt(command.ExecuteScalar) > 0
             End Using
@@ -93,11 +94,11 @@ WHERE
             Using command = _connectionSource().CreateCommand
                 command.CommandText = $"
 SELECT 
-    {FIELD_OTHER_CHARACTER_ID}
+    {COLUMN_OTHER_CHARACTER_ID}
 FROM 
     {VIEW_CHARACTER_LOCATION_OTHER_CHARACTERS} 
 WHERE 
-    {FIELD_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+    {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
                 command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
                 Using reader = command.ExecuteReader
                     While reader.Read

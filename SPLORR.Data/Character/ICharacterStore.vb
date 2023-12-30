@@ -1,6 +1,7 @@
 ﻿Public Interface ICharacterStore
     ReadOnly Property Id As Integer
-    Property Location As ILocationStore
+    ReadOnly Property Location As ILocationStore
+    Sub SetLocation(location As ILocationStore, lastModified As DateTimeOffset)
     Property Name As String
     ReadOnly Property HasOtherCharacters As Boolean
     ReadOnly Property OtherCharacters As IEnumerable(Of ICharacterStore)

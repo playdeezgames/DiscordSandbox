@@ -24,8 +24,8 @@ Public Class DataStore
 INSERT INTO 
     {TABLE_PLAYER_CHARACTERS}
     (
-        {FIELD_PLAYER_ID},
-        {FIELD_CHARACTER_ID}
+        {COLUMN_PLAYER_ID},
+        {COLUMN_CHARACTER_ID}
     ) 
     VALUES 
     (
@@ -66,8 +66,8 @@ INSERT INTO
         Using command = GetConnection().CreateCommand
             command.CommandText = $"
 SELECT 
-    {FIELD_CHARACTER_TYPE_ID}, 
-    {FIELD_GENERATOR_WEIGHT} 
+    {COLUMN_CHARACTER_TYPE_ID}, 
+    {COLUMN_GENERATOR_WEIGHT} 
 FROM 
     {TABLE_PLAYER_CHARACTER_TYPES};"
             Using reader = command.ExecuteReader
@@ -84,8 +84,8 @@ FROM
         Using command = GetConnection().CreateCommand
             command.CommandText = $"
 SELECT 
-    {FIELD_LOCATION_ID}, 
-    {FIELD_GENERATOR_WEIGHT} 
+    {COLUMN_LOCATION_ID}, 
+    {COLUMN_GENERATOR_WEIGHT} 
 FROM 
     {TABLE_LOCATION_STARTS};"
             Using reader = command.ExecuteReader
@@ -103,9 +103,9 @@ FROM
 INSERT INTO 
     {TABLE_CHARACTERS}
     (
-        {FIELD_CHARACTER_NAME},
-        {FIELD_LOCATION_ID},
-        {FIELD_CHARACTER_TYPE_ID}
+        {COLUMN_CHARACTER_NAME},
+        {COLUMN_LOCATION_ID},
+        {COLUMN_CHARACTER_TYPE_ID}
     ) 
     VALUES 
     (
@@ -129,11 +129,11 @@ INSERT INTO
         Using command = GetConnection().CreateCommand()
             command.CommandText = $"
         SELECT 
-            {FIELD_PLAYER_ID} 
+            {COLUMN_PLAYER_ID} 
         FROM 
             {TABLE_PLAYERS} 
         WHERE 
-            {FIELD_DISCORD_ID}={PARAMETER_DISCORD_ID};"
+            {COLUMN_DISCORD_ID}={PARAMETER_DISCORD_ID};"
             command.Parameters.AddWithValue(PARAMETER_DISCORD_ID, discordId)
             Using reader = command.ExecuteReader
                 If reader.Read Then
@@ -152,7 +152,7 @@ INSERT INTO
         INSERT INTO 
             {TABLE_PLAYERS}
             (
-                {FIELD_DISCORD_ID}
+                {COLUMN_DISCORD_ID}
             ) 
         VALUES
             (

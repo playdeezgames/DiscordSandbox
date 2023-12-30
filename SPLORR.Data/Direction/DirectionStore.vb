@@ -15,8 +15,8 @@ Friend Class DirectionStore
         Get
             Return _connectionSource.ReadStringForInteger(
                 TABLE_DIRECTIONS,
-                (FIELD_DIRECTION_ID, _directionId),
-                FIELD_DIRECTION_NAME)
+                (COLUMN_DIRECTION_ID, _directionId),
+                COLUMN_DIRECTION_NAME)
         End Get
     End Property
 End Class

@@ -18,7 +18,7 @@ SELECT
 FROM 
     {TABLE_PLAYER_CHARACTERS} 
 WHERE 
-    {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
+    {COLUMN_PLAYER_ID}={PARAMETER_PLAYER_ID};"
                 command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, _playerId)
                 Return CInt(command.ExecuteScalar) > 0
             End Using
@@ -28,7 +28,7 @@ WHERE
     Public Property Character As ICharacterStore Implements IPlayerStore.Character
         Get
             If HasCharacter Then
-                Return New CharacterStore(_connectionSource, _connectionSource.ReadIntegerForInteger(TABLE_PLAYER_CHARACTERS, (FIELD_PLAYER_ID, _playerId), FIELD_CHARACTER_ID))
+                Return New CharacterStore(_connectionSource, _connectionSource.ReadIntegerForInteger(TABLE_PLAYER_CHARACTERS, (COLUMN_PLAYER_ID, _playerId), COLUMN_CHARACTER_ID))
             End If
             Return Nothing
         End Get
@@ -38,7 +38,7 @@ WHERE
 DELETE FROM 
     {TABLE_PLAYER_CHARACTERS} 
 WHERE 
-    {FIELD_PLAYER_ID}={PARAMETER_PLAYER_ID};"
+    {COLUMN_PLAYER_ID}={PARAMETER_PLAYER_ID};"
                 command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, _playerId)
                 command.ExecuteNonQuery()
             End Using
@@ -47,8 +47,8 @@ WHERE
 INSERT INTO 
     {TABLE_PLAYER_CHARACTERS}
     (
-        {FIELD_PLAYER_ID},
-        {FIELD_CHARACTER_ID}
+        {COLUMN_PLAYER_ID},
+        {COLUMN_CHARACTER_ID}
     ) 
     VALUES 
     (
