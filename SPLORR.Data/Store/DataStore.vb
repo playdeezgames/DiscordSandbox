@@ -118,9 +118,12 @@ INSERT INTO
             command.Parameters.AddWithValue(PARAMETER_CHARACTER_TYPE_ID, characterType.Id)
             command.ExecuteNonQuery()
         End Using
+        Return GetCharacter(GetLastIdentity())
+    End Function
+    Private Function GetLastIdentity() As Integer
         Using command = GetConnection().CreateCommand
             command.CommandText = $"SELECT @@IDENTITY;"
-            Return GetCharacter(CInt(command.ExecuteScalar))
+            Return CInt(command.ExecuteScalar)
         End Using
     End Function
 
@@ -184,5 +187,32 @@ WHERE
             End Using
         End Using
         Return result
+    End Function
+
+    Public Function CreateLocationType(locationTypeName As String) As ILocationTypeStore Implements IDataStore.CreateLocationType
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"INSERT INTO {TABLE_LOCATION_TYPES}({COLUMN_LOCATION_TYPE_NAME}) VALUES({PARAMETER_LOCATION_TYPE_NAME});"
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_NAME, locationTypeName)
+            command.ExecuteNonQuery()
+        End Using
+        Return GetLocationType(GetLastIdentity())
+    End Function
+
+    Private Function GetLocationType(locationTypeId As Integer) As ILocationTypeStore
+        Return New LocationTypeStore(AddressOf GetConnection, locationTypeId)
+    End Function
+
+    Public Function LocationTypeNameExists(locationTypeName As String) As Boolean Implements IDataStore.LocationTypeNameExists
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"
+SELECT 
+    COUNT(1) 
+FROM 
+    {TABLE_LOCATION_TYPES} 
+WHERE 
+    {COLUMN_LOCATION_TYPE_NAME}={PARAMETER_LOCATION_TYPE_NAME};"
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_NAME, locationTypeName)
+            Return CInt(command.ExecuteScalar) > 0
+        End Using
     End Function
 End Class

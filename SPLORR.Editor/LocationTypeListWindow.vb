@@ -35,8 +35,8 @@ Friend Class LocationTypeListWindow
         Add(filterLabel, filterTextField, resultsListView)
     End Sub
 
-    Private Sub OnResultsListViewOpenSelectedItem(items As ListViewItemEventArgs)
-        Throw New NotImplementedException()
+    Private Sub OnResultsListViewOpenSelectedItem(e As ListViewItemEventArgs)
+        Program.GoToWindow(New LocationTypeEditWindow(CType(e.Value, LocationTypeListItem).LocationTypeStore))
     End Sub
 
     Private Sub OnFilterTextChanged(filterText As ustring)
