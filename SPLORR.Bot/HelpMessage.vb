@@ -10,8 +10,8 @@ Friend Module HelpMessage
             {TOKEN_HELP, "Shows help."},
             {TOKEN_STATUS, "Shows yer status."}
         }
-    Private ReadOnly helpTopics As IReadOnlyDictionary(Of String, Func(Of IPlayerModel, String(), String)) =
-        New Dictionary(Of String, Func(Of IPlayerModel, String(), String)) From
+    Private ReadOnly helpTopics As IReadOnlyDictionary(Of String, action(Of IPlayerModel, String(), Action(Of String))) =
+        New Dictionary(Of String, Action(Of IPlayerModel, String(), Action(Of  String))) From
         {
             {TOKEN_CREATE, AddressOf HelpCreate},
             {TOKEN_GO, AddressOf HelpGo},
@@ -19,54 +19,58 @@ Friend Module HelpMessage
             {TOKEN_STATUS, AddressOf HelpStatus}
         }
 
-    Private Function HelpStatus(player As IPlayerModel, tokens() As String) As String
+    Private Sub HelpStatus(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length <> 0 Then
-            Return InvalidMessage.Handle(player, tokens)
+            InvalidMessage.Handle(player, tokens, outputter)
+            Return
         End If
-        Return $"Help for {TOKEN_STATUS}:
-- usage: {TOKEN_STATUS}"
-    End Function
+        outputter($"Help for {TOKEN_STATUS}:")
+        outputter($"- usage: {TOKEN_STATUS}")
+    End Sub
 
-    Private Function HelpHelp(player As IPlayerModel, tokens() As String) As String
+    Private Sub HelpHelp(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length <> 0 Then
-            Return InvalidMessage.Handle(player, tokens)
+            InvalidMessage.Handle(player, tokens, outputter)
+            Return
         End If
-        Return $"Help for {TOKEN_HELP}:
-- usage: {TOKEN_HELP} <topic>"
-    End Function
+        outputter($"Help for {TOKEN_HELP}:")
+        outputter($"- usage: {TOKEN_HELP} <topic>")
+    End Sub
 
-    Private Function HelpGo(player As IPlayerModel, tokens() As String) As String
+    Private sub HelpGo(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length <> 0 Then
-            Return InvalidMessage.Handle(player, tokens)
+            InvalidMessage.Handle(player, tokens, outputter)
+            Return
         End If
-        Return $"Help for {TOKEN_GO}:
-- usage: {TOKEN_GO} <direction>"
-    End Function
+        outputter($"Help for {TOKEN_GO}:")
+        outputter($"- usage: {TOKEN_GO} <direction>")
+    End sub
 
-    Private Function HelpCreate(player As IPlayerModel, tokens() As String) As String
+    Private sub HelpCreate(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length <> 0 Then
-            Return InvalidMessage.Handle(player, tokens)
+            InvalidMessage.Handle(player, tokens, outputter)
+            Return
         End If
-        Return $"Help for {TOKEN_CREATE}:
-- usage: {TOKEN_CREATE} <thing>
-- values for <thing>: {TOKEN_CHARACTER}"
-    End Function
+        outputter($"Help for {TOKEN_CREATE}:")
+        outputter($"- usage: {TOKEN_CREATE} <thing>")
+        outputter($"- values for <thing>: {TOKEN_CHARACTER}")
+    End sub
 
-    Friend Function Handle(player As IPlayerModel, tokens() As String) As String
+    Friend sub Handle(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length = 0 Then
-            Dim builder As New StringBuilder
-            builder.AppendLine($"Commands:")
+            outputter($"Commands:")
             For Each help In helps
-                builder.AppendLine($"- {help.Key}: {help.Value}")
+                outputter($"- {help.Key}: {help.Value}")
             Next
-            Return builder.ToString
+            Return
         End If
         Dim firstToken = tokens.First.ToLower
         tokens = tokens.Skip(1).ToArray
-        Dim handler As Func(Of IPlayerModel, String(), String) = Nothing
+        Dim handler As Action(Of IPlayerModel, String(), Action(Of String)) = Nothing
         If helpTopics.TryGetValue(firstToken, handler) Then
-            Return handler(player, tokens)
+            handler(player, tokens, outputter)
+            Return
         End If
-        Return InvalidMessage.Handle(player, tokens)
-    End Function
+        InvalidMessage.Handle(player, tokens, outputter)
+    End sub
 End Module

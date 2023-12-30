@@ -1,17 +1,20 @@
 ﻿Imports SPLORR.Model
 
 Friend Module CreateMessage
-    Friend Function Handle(player As IPlayerModel, remainingTokens() As String) As String
+    Friend Sub Handle(player As IPlayerModel, remainingTokens() As String, outputter As Action(Of String))
         If remainingTokens.Length = 0 Then
-            Return InvalidMessage.Handle(player, remainingTokens)
+            InvalidMessage.Handle(player, remainingTokens, outputter)
+            Return
         End If
         Dim firstToken = remainingTokens.First.ToLower
         remainingTokens = remainingTokens.Skip(1).ToArray
         Select Case firstToken
             Case TOKEN_CHARACTER
-                Return CreateCharacterMessage.Handle(player, remainingTokens)
+                CreateCharacterMessage.Handle(player, remainingTokens, outputter)
+                Return
             Case Else
-                Return InvalidMessage.Handle(player, remainingTokens)
+                InvalidMessage.Handle(player, remainingTokens, outputter)
+                Return
         End Select
-    End Function
+    End Sub
 End Module

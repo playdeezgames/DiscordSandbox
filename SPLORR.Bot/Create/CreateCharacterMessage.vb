@@ -2,11 +2,12 @@
 
 Friend Module CreateCharacterMessage
 
-    Friend Function Handle(player As IPlayerModel, remainingTokens() As String) As String
+    Friend Sub Handle(player As IPlayerModel, remainingTokens() As String, outputter As Action(Of String))
         If player.HasCharacter Then
-            Return MESSAGE_ALREADY_HAVE_CHARACTER
+            outputter(MESSAGE_ALREADY_HAVE_CHARACTER)
+            Return
         End If
         player.CreateCharacter()
-        Return StatusMessage.Handle(player, Array.Empty(Of String))
-    End Function
+        StatusMessage.Handle(player, Array.Empty(Of String), outputter)
+    End Sub
 End Module

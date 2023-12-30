@@ -3,25 +3,25 @@ Imports SPLORR.Model
 
 Friend Module StatusMessage
 
-    Friend Function Handle(player As IPlayerModel, tokens As String()) As String
+    Friend Sub Handle(player As IPlayerModel, tokens As String(), outputter As Action(Of String))
         If tokens.Length = 0 Then
             If Not player.HasCharacter Then
-                Return MESSAGE_NO_CHARACTER
+                outputter(MESSAGE_NO_CHARACTER)
+                Return
             End If
             Dim character = player.Character
             Dim location = character.Location
-            Dim builder As New StringBuilder
-            builder.AppendLine($"Character Name: {character.Name}")
-            builder.AppendLine($"Location Name: {location.Name}")
+            outputter($"Character Name: {character.Name}")
+            outputter($"Location Name: {location.Name}")
             If location.HasRoutes Then
-                builder.AppendLine($"Exits:")
+                outputter($"Exits:")
                 For Each route In location.Routes
-                    builder.AppendLine($"- {route.RouteType.Name} going {route.Direction.Name}")
+                    outputter($"- {route.RouteType.Name} going {route.Direction.Name}")
                 Next
             End If
-            Return builder.ToString
+            Return
         End If
-        Return MESSAGE_INVALID_INPUT
-    End Function
+        outputter(MESSAGE_INVALID_INPUT)
+    End Sub
 
 End Module

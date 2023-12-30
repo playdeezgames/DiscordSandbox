@@ -1,17 +1,18 @@
 ﻿Imports SPLORR.Model
 
 Friend Module RenameMessage
-    Friend Function Handle(player As IPlayerModel, remainingTokens() As String) As String
+    Friend Sub Handle(player As IPlayerModel, remainingTokens() As String, outputter As Action(Of String))
         If remainingTokens.Length = 0 Then
-            Return MESSAGE_INVALID_INPUT
+            outputter(MESSAGE_INVALID_INPUT)
+            Return
         End If
         Dim firstToken = remainingTokens.First
         remainingTokens = remainingTokens.Skip(1).ToArray
         Select Case firstToken.ToLower
             Case TOKEN_CHARACTER
-                Return RenameCharacterMessage.Handle(player, remainingTokens)
+                RenameCharacterMessage.Handle(player, remainingTokens, outputter)
             Case Else
-                Return MESSAGE_INVALID_INPUT
+                outputter(MESSAGE_INVALID_INPUT)
         End Select
-    End Function
+    End Sub
 End Module

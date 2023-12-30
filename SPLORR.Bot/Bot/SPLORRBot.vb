@@ -1,4 +1,5 @@
-﻿Imports SPLORR.Model
+﻿Imports System.Text
+Imports SPLORR.Model
 
 Public Class SPLORRBot
     Implements IBot
@@ -16,7 +17,9 @@ Public Class SPLORRBot
         If Not String.IsNullOrEmpty(message) Then
             Dim tokens = message.Split(" "c)
             If tokens.Length > 0 Then
-                Return SPLORR.Bot.Message.Handle(worldModel.GetPlayer(authorId), tokens)
+                Dim builder As New StringBuilder
+                SPLORR.Bot.Message.Handle(worldModel.GetPlayer(authorId), tokens, Sub(text) builder.AppendLine(text))
+                Return builder.ToString
             End If
         End If
         Return MESSAGE_INVALID_INPUT
