@@ -1,6 +1,6 @@
 ﻿Imports SPLORR.Data
 
-Public Class LocationTypeListItem
+Friend Class LocationTypeListItem
     Public ReadOnly LocationTypeStore As ILocationTypeStore
     Sub New(locationTypeStore As ILocationTypeStore)
         Me.LocationTypeStore = locationTypeStore

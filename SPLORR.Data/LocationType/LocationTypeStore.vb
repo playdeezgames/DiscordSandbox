@@ -86,4 +86,27 @@ WHERE
         End Using
         Return result
     End Function
+
+    Public Function FilterVerbTypes(filter As String) As IEnumerable(Of IVerbTypeStore) Implements ILocationTypeStore.FilterVerbTypes
+        Dim result As New List(Of IVerbTypeStore)
+        Using command = _connectionSource().CreateCommand
+            command.CommandText = $"
+SELECT 
+    ltvt.{COLUMN_VERB_TYPE_ID} 
+FROM 
+    {TABLE_LOCATION_TYPE_VERB_TYPES} ltvt
+    JOIN {TABLE_VERB_TYPES} vt ON ltvt.{COLUMN_VERB_TYPE_ID}=vt.{COLUMN_VERB_TYPE_ID}
+WHERE 
+    ltvt.{COLUMN_LOCATION_TYPE_ID}={PARAMETER_LOCATION_TYPE_ID}
+    AND vt.{COLUMN_VERB_TYPE_NAME} LIKE {PARAMETER_VERB_TYPE_NAME};"
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, _locationTypeId)
+            command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_NAME, filter)
+            Using reader = command.ExecuteReader
+                While reader.Read
+                    result.Add(New VerbTypeStore(_connectionSource, reader.GetInt32(0)))
+                End While
+            End Using
+        End Using
+        Return result
+    End Function
 End Class
