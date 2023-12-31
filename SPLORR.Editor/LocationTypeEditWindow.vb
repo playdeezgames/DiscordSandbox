@@ -105,7 +105,7 @@ Friend Class LocationTypeEditWindow
     End Sub
 
     Private Sub OnLocationsButtonClicked()
-        Throw New NotImplementedException()
+        Program.GoToWindow(New LocationTypeLocationListWindow(_locationTypeStore))
     End Sub
 
     Private Sub OnDeleteButtonClicked()

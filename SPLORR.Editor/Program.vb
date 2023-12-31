@@ -11,6 +11,7 @@ Module Program
     Private dataStore As IDataStore = Nothing
     Public window As Window = Nothing
     Sub Main(args As String())
+        Console.Title = "SPLORR!! Editor"
         dataStore = New DataStore(Environment.GetEnvironmentVariable(ENV_VAR_CONNECTION_STRING))
         Application.Init()
         Application.Top.Add(

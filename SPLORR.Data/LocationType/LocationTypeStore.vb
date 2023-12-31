@@ -64,4 +64,26 @@ Friend Class LocationTypeStore
     Public Function CanRenameTo(name As String) As Boolean Implements ILocationTypeStore.CanRenameTo
         Return Not _connectionSource.FindIntegerForString(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_NAME, name), COLUMN_LOCATION_TYPE_ID).HasValue
     End Function
+
+    Public Function FilterLocations(filter As String) As IEnumerable(Of ILocationStore) Implements ILocationTypeStore.FilterLocations
+        Dim result As New List(Of ILocationStore)
+        Using command = _connectionSource().CreateCommand
+            command.CommandText = $"
+SELECT 
+    {COLUMN_LOCATION_ID} 
+FROM 
+    {TABLE_LOCATIONS} 
+WHERE 
+    {COLUMN_LOCATION_ID}={PARAMETER_LOCATION_TYPE_ID} 
+    AND {COLUMN_LOCATION_NAME} LIKE {PARAMETER_LOCATION_NAME};"
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, _locationTypeId)
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_NAME, filter)
+            Using reader = command.ExecuteReader
+                While reader.Read
+                    result.Add(New LocationStore(_connectionSource, reader.GetInt32(0)))
+                End While
+            End Using
+        End Using
+        Return result
+    End Function
 End Class

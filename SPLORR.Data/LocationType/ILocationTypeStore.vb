@@ -7,4 +7,5 @@
     ReadOnly Property CanAddVerb As Boolean
     Sub Delete()
     Function CanRenameTo(name As String) As Boolean
+    Function FilterLocations(filter As String) As IEnumerable(Of ILocationStore)
 End Interface
