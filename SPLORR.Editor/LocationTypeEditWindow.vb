@@ -41,7 +41,8 @@ Friend Class LocationTypeEditWindow
         Dim deleteButton As New Button("Delete") With
             {
                 .X = Pos.Right(updateButton) + 1,
-                .Y = updateButton.Y
+                .Y = updateButton.Y,
+                .Enabled = _locationTypeStore.CanDelete
             }
         AddHandler deleteButton.Clicked, AddressOf OnDeleteButtonClicked
         Dim cancelButton As New Button("Cancel") With
@@ -50,7 +51,50 @@ Friend Class LocationTypeEditWindow
                 .Y = updateButton.Y
             }
         AddHandler cancelButton.Clicked, AddressOf OnCancelButtonClicked
-        Add(idLabel, idTextField, nameLabel, nameTextField, updateButton, deleteButton, cancelButton)
+        Dim locationsButton As New Button("Locations...") With
+            {
+                .X = Pos.Right(cancelButton) + 1,
+                .Y = updateButton.Y,
+                .Enabled = _locationTypeStore.HasLocations
+            }
+        AddHandler locationsButton.Clicked, AddressOf OnLocationsButtonClicked
+        Dim verbsButton As New Button("Verbs...") With
+            {
+                .X = Pos.Right(locationsButton) + 1,
+                .Y = updateButton.Y,
+                .Enabled = _locationTypeStore.HasVerbs
+            }
+        AddHandler verbsButton.Clicked, AddressOf OnVerbsButtonClicked
+        Dim addVerbButton As New Button("Add Verb...") With
+            {
+                .X = Pos.Right(verbsButton) + 1,
+                .Y = updateButton.Y,
+                .Enabled = _locationTypeStore.CanAddVerb
+            }
+        AddHandler addVerbButton.Clicked, AddressOf OnAddVerbButtonClicked
+        Add(
+            idLabel,
+            idTextField,
+            nameLabel,
+            nameTextField,
+            updateButton,
+            deleteButton,
+            cancelButton,
+            locationsButton,
+            verbsButton,
+            addVerbButton)
+    End Sub
+
+    Private Sub OnAddVerbButtonClicked()
+        Throw New NotImplementedException()
+    End Sub
+
+    Private Sub OnVerbsButtonClicked()
+        Throw New NotImplementedException()
+    End Sub
+
+    Private Sub OnLocationsButtonClicked()
+        Throw New NotImplementedException()
     End Sub
 
     Private Sub OnDeleteButtonClicked()
