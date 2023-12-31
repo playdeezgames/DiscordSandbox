@@ -11,10 +11,13 @@ Friend Class LocationTypeStore
         Me._locationTypeId = locationTypeId
     End Sub
 
-    Public ReadOnly Property Name As String Implements ILocationTypeStore.Name
+    Public Property Name As String Implements ILocationTypeStore.Name
         Get
             Return _connectionSource.ReadStringForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId), COLUMN_LOCATION_TYPE_NAME)
         End Get
+        Set(value As String)
+            _connectionSource.WriteStringForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId), (COLUMN_LOCATION_TYPE_NAME, value))
+        End Set
     End Property
 
     Public ReadOnly Property Id As Integer Implements ILocationTypeStore.Id
@@ -57,4 +60,8 @@ Friend Class LocationTypeStore
     Public Sub Delete() Implements ILocationTypeStore.Delete
         _connectionSource.DeleteForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId))
     End Sub
+
+    Public Function CanRenameTo(name As String) As Boolean Implements ILocationTypeStore.CanRenameTo
+        Return Not _connectionSource.FindIntegerForString(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_NAME, name), COLUMN_LOCATION_TYPE_ID).HasValue
+    End Function
 End Class

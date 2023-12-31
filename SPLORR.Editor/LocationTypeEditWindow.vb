@@ -38,6 +38,7 @@ Friend Class LocationTypeEditWindow
                 .X = 1,
                 .Y = Pos.Bottom(nameLabel) + 1
             }
+        AddHandler updateButton.Clicked, AddressOf OnUpdateButtonClicked
         Dim deleteButton As New Button("Delete") With
             {
                 .X = Pos.Right(updateButton) + 1,
@@ -83,6 +84,16 @@ Friend Class LocationTypeEditWindow
             locationsButton,
             verbsButton,
             addVerbButton)
+    End Sub
+
+    Private Sub OnUpdateButtonClicked()
+        Dim newName = nameTextField.Text.ToString
+        If Not _locationTypeStore.CanRenameTo(newName) Then
+            MessageBox.ErrorQuery("Invalid!", "You cannot rename the location type to that.", "Ok")
+            Return
+        End If
+        _locationTypeStore.Name = newName
+        Program.GoToWindow(Nothing)
     End Sub
 
     Private Sub OnAddVerbButtonClicked()
