@@ -97,7 +97,7 @@ Friend Class LocationTypeEditWindow
     End Sub
 
     Private Sub OnAddVerbButtonClicked()
-        Throw New NotImplementedException()
+        Program.GoToWindow(New LocationTypeAddVerbTypeWindow(_locationTypeStore))
     End Sub
 
     Private Sub OnVerbsButtonClicked()

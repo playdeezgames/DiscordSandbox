@@ -57,8 +57,50 @@ Friend Class LocationTypeStore
         End Get
     End Property
 
+    Public ReadOnly Property AvailableVerbTypes As IEnumerable(Of IVerbTypeStore) Implements ILocationTypeStore.AvailableVerbTypes
+        Get
+            Dim result As New List(Of IVerbTypeStore)
+            Using command = _connectionSource().CreateCommand
+                command.CommandText = $"
+SELECT 
+    {COLUMN_VERB_TYPE_ID} 
+FROM 
+    {VIEW_LOCATION_TYPE_AVAILABLE_VERB_TYPES} 
+WHERE 
+    {COLUMN_LOCATION_TYPE_ID}={PARAMETER_LOCATION_TYPE_ID};"
+                command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, _locationTypeId)
+                Using reader = command.ExecuteReader
+                    While reader.Read
+                        result.Add(New VerbTypeStore(_connectionSource, reader.GetInt32(0)))
+                    End While
+                End Using
+            End Using
+            Return result
+        End Get
+    End Property
+
     Public Sub Delete() Implements ILocationTypeStore.Delete
         _connectionSource.DeleteForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId))
+    End Sub
+
+    Public Sub AddVerb(verbTypeStore As IVerbTypeStore) Implements ILocationTypeStore.AddVerb
+        Using command = _connectionSource().CreateCommand
+            command.CommandText = $"
+INSERT INTO 
+    {TABLE_LOCATION_TYPE_VERB_TYPES}
+    (
+        {COLUMN_LOCATION_TYPE_ID},
+        {COLUMN_VERB_TYPE_ID}
+    ) 
+    VALUES 
+    (
+        {PARAMETER_LOCATION_TYPE_ID},
+        {PARAMETER_VERB_TYPE_ID}
+    );"
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, _locationTypeId)
+            command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_ID, verbTypeStore.Id)
+            command.ExecuteNonQuery()
+        End Using
     End Sub
 
     Public Function CanRenameTo(name As String) As Boolean Implements ILocationTypeStore.CanRenameTo
