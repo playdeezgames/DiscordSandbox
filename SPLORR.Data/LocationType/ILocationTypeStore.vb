@@ -7,6 +7,7 @@
     ReadOnly Property CanAddVerb As Boolean
     ReadOnly Property AvailableVerbTypes As IEnumerable(Of IVerbTypeStore)
     ReadOnly Property VerbTypes As IEnumerable(Of IVerbTypeStore)
+    ReadOnly Property Store As IDataStore
     Sub Delete()
     Sub AddVerb(verbTypeStore As IVerbTypeStore)
     Sub RemoveVerb(verbTypeStore As IVerbTypeStore)

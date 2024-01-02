@@ -8,7 +8,7 @@ Friend Class LocationTypeEditWindow
     Private nameTextField As TextField
 
     Public Sub New(locationTypeStore As ILocationTypeStore)
-        MyBase.New("Edit Location Type")
+        MyBase.New($"Edit Location Type: {locationTypeStore.Name}")
         Me._locationTypeStore = locationTypeStore
         Dim idLabel As New Label("Id:") With
             {
@@ -103,7 +103,7 @@ Friend Class LocationTypeEditWindow
             Return
         End If
         _locationTypeStore.Name = newName
-        Program.GoToWindow(Nothing)
+        Program.GoToWindow(New LocationTypeEditWindow(_locationTypeStore))
     End Sub
 
     Private Sub OnAddVerbButtonClicked()
@@ -121,9 +121,9 @@ Friend Class LocationTypeEditWindow
             Return
         End If
         _locationTypeStore.Delete()
-        Program.GoToWindow(Nothing)
+        Program.GoToWindow(New LocationTypeListWindow(_locationTypeStore.Store))
     End Sub
     Private Sub OnCancelButtonClicked()
-        Program.GoToWindow(Nothing)
+        Program.GoToWindow(New LocationTypeListWindow(_locationTypeStore.Store))
     End Sub
 End Class

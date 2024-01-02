@@ -101,6 +101,12 @@ WHERE
         End Get
     End Property
 
+    Public ReadOnly Property Store As IDataStore Implements ILocationTypeStore.Store
+        Get
+            Return New DataStore(_connectionSource())
+        End Get
+    End Property
+
     Public Sub Delete() Implements ILocationTypeStore.Delete
         _connectionSource.DeleteForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId))
     End Sub

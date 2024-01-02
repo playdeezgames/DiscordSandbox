@@ -4,10 +4,9 @@ Imports Terminal.Gui
 Module Program
     Const ENV_VAR_CONNECTION_STRING = "CONNECTION_STRING"
     Private Const MENUBARITEM_SYSTEM As String = "System"
+    Private Const MENUBARITEM_TYPES As String = "Types"
     Private Const MENUITEM_QUIT As String = "Quit"
-    Private Const MENUBARITEM_LOCATION_TYPES As String = "Location Types"
-    Private Const MENUITEM_LIST As String = "List"
-    Private Const MENUITEM_ADD As String = "Add..."
+    Private Const MENUITEM_LOCATION_TYPES = "Location Types"
     Private dataStore As IDataStore = Nothing
     Public window As Window = Nothing
     Sub Main(args As String())
@@ -21,19 +20,14 @@ Module Program
                 {
                     New MenuItem(MENUITEM_QUIT, String.Empty, AddressOf DoSystemQuit)
                 }),
-                New MenuBarItem(MENUBARITEM_LOCATION_TYPES,
+                New MenuBarItem(MENUBARITEM_TYPES,
                 {
-                    New MenuItem(MENUITEM_LIST, String.Empty, AddressOf DoLocationTypesList),
-                    New MenuItem(MENUITEM_ADD, String.Empty, AddressOf DoLocationTypesAdd)
+                    New MenuItem(MENUITEM_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList)
                 })
             }))
         Application.Run()
         Application.Shutdown()
         dataStore.CleanUp()
-    End Sub
-
-    Private Sub DoLocationTypesAdd()
-        GoToWindow(New LocationTypeAddWindow(dataStore))
     End Sub
 
     Private Sub DoLocationTypesList()

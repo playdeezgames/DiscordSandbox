@@ -36,7 +36,7 @@ Friend Class LocationTypeAddWindow
     End Sub
 
     Private Sub OnCancelButtonClicked()
-        Program.GoToWindow(Nothing)
+        Program.GoToWindow(New LocationTypeListWindow(dataStore))
     End Sub
 
     Private Sub OnAddButtonClicked()
@@ -50,6 +50,6 @@ Friend Class LocationTypeAddWindow
             Return
         End If
         dataStore.CreateLocationType(locationTypeName)
-        Program.GoToWindow(Nothing)
+        Program.GoToWindow(New LocationTypeListWindow(dataStore))
     End Sub
 End Class

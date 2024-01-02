@@ -15,7 +15,8 @@ Friend MustInherit Class BaseListWindow(Of TStore, TResultStore)
                      store As TStore,
                      FilterItems As Func(Of TStore, String, IEnumerable(Of TResultStore)),
                      ToListViewItem As Func(Of TResultStore, Object),
-                     ToResultWindow As Func(Of Object, Window))
+                     ToResultWindow As Func(Of Object, Window),
+                     Optional AdditionalButtons As IEnumerable(Of (Title As String, IsEnabled As Func(Of Boolean), OnClicked As Action)) = Nothing)
         MyBase.New(title)
         Me.store = store
         Me.ToListViewItem = ToListViewItem
@@ -32,16 +33,33 @@ Friend MustInherit Class BaseListWindow(Of TStore, TResultStore)
                 .Width = [Dim].Fill - 1
             }
         AddHandler filterTextField.TextChanged, AddressOf OnFilterTextChanged
+        Add(filterLabel, filterTextField)
+        Dim resultsListViewY = Pos.Bottom(filterLabel) + 1
+        If AdditionalButtons IsNot Nothing AndAlso AdditionalButtons.Any Then
+            Dim buttonX As Pos = 1
+            For Each additionalButton In AdditionalButtons
+                Dim button As New Button(additionalButton.Title) With
+                    {
+                        .X = buttonX,
+                        .Y = Pos.Bottom(filterLabel) + 1,
+                        .Enabled = additionalButton.IsEnabled()
+                    }
+                AddHandler button.Clicked, additionalButton.OnClicked
+                buttonX = Pos.Right(button) + 1
+                resultsListViewY = Pos.Bottom(button) + 1
+                Add(button)
+            Next
+        End If
         resultsListView = New ListView() With
             {
             .X = 1,
-            .Y = Pos.Bottom(filterLabel) + 1,
+            .Y = resultsListViewY,
             .Width = [Dim].Fill - 1,
             .Height = [Dim].Fill - 1
             }
         AddHandler resultsListView.OpenSelectedItem, AddressOf OnResultsListViewOpenSelectedItem
         UpdateResultsListView()
-        Add(filterLabel, filterTextField, resultsListView)
+        Add(resultsListView)
     End Sub
 
     Private Sub UpdateResultsListView()
