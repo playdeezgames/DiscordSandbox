@@ -29,6 +29,10 @@ Friend Class PlayerModel
             GenerateCharacterType())
     End Sub
 
+    Public Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeModel Implements IPlayerModel.GetVerbTypeByName
+        Return New VerbTypeModel(_playerStore.GetVerbTypeByName(verbTypeName))
+    End Function
+
     Private Function GenerateCharacterType() As ICharacterTypeStore
         Dim generator = _playerStore.GetCharacterTypeGenerator()
         Return RNG.FromGenerator(generator)

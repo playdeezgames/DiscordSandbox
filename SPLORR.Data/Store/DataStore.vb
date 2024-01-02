@@ -17,6 +17,12 @@ Public Class DataStore
     Friend Sub New(connection As SqlConnection)
         _connection = connection
     End Sub
+    Private ReadOnly Property ConnectionSource As Func(Of SqlConnection)
+        Get
+            Return AddressOf GetConnection
+        End Get
+    End Property
+
 
     Private Sub SetPlayerCharacter(playerId As Integer, characterId As Integer)
         Using command = GetConnection().CreateCommand
@@ -214,5 +220,13 @@ WHERE
             command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_NAME, locationTypeName)
             Return CInt(command.ExecuteScalar) > 0
         End Using
+    End Function
+
+    Public Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeStore Implements IDataStore.GetVerbTypeByName
+        Dim verbTypeId = ConnectionSource.FindIntegerForString(TABLE_VERB_TYPES, (COLUMN_VERB_TYPE_NAME, verbTypeName), COLUMN_VERB_TYPE_ID)
+        If Not verbTypeId.HasValue Then
+            Return Nothing
+        End If
+        Return New VerbTypeStore(ConnectionSource, verbTypeId.Value)
     End Function
 End Class

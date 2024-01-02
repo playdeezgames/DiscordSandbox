@@ -11,4 +11,5 @@ Public Interface IDataStore
     Function GetAuthorPlayer(authorId As ULong) As IPlayerStore
     Function FilterLocationTypes(filter As String) As IEnumerable(Of ILocationTypeStore)
     Function LocationTypeNameExists(locationTypeName As String) As Boolean
+    Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeStore
 End Interface

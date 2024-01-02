@@ -72,6 +72,15 @@ WHERE
         End Using
     End Sub
 
+    Public Function CanDoVerb(verbType As IVerbTypeStore) As Boolean Implements ICharacterStore.CanDoVerb
+        Using command = _connectionSource().CreateCommand()
+            command.CommandText = $"SELECT COUNT(1) FROM {VIEW_CHARACTER_AVAILABLE_VERB_TYPES} WHERE {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID} AND {COLUMN_VERB_TYPE_ID}={PARAMETER_VERB_TYPE_ID};"
+            command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, Id)
+            command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_ID, verbType.Id)
+            Return CInt(command.ExecuteScalar) > 0
+        End Using
+    End Function
+
     Public ReadOnly Property HasOtherCharacters As Boolean Implements ICharacterStore.HasOtherCharacters
         Get
             Using command = _connectionSource().CreateCommand
