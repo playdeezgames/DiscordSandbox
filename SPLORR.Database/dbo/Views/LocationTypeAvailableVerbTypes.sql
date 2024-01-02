@@ -2,7 +2,8 @@
 	AS
 SELECT
 	lt.LocationTypeId,
-	vt.VerbTypeId
+	vt.VerbTypeId,
+	ltvt.LocationTypeVerbTypeId
 FROM
 	LocationTypes lt
 	CROSS JOIN VerbTypes vt

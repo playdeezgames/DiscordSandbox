@@ -40,7 +40,7 @@ Friend Class LocationTypeAddVerbTypeWindow
     End Sub
 
     Private Sub OnCancelButtonClicked()
-        Program.GoToWindow(Nothing)
+        Program.GoToWindow(New LocationTypeEditWindow(locationTypeStore))
     End Sub
 
     Private Sub OnAddButtonClicked()

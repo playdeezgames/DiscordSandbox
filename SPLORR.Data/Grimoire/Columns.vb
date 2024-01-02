@@ -20,4 +20,5 @@
     Friend Const COLUMN_TO_LOCATION_ID = "ToLocationId"
     Friend Const COLUMN_VERB_TYPE_ID = "VerbTypeId"
     Friend Const COLUMN_VERB_TYPE_NAME = "VerbTypeName"
+    Friend Const COLUMN_LOCATION_TYPE_VERB_TYPE_ID = "LocationTypeVerbTypeId"
 End Module

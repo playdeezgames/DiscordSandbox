@@ -10,6 +10,10 @@ Friend Class LocationTypeVerbTypeListWindow
             locationTypeStore,
             Function(store, filter) store.FilterVerbTypes(filter),
             Function(item) New VerbTypeListItem(item),
-            Function(item) New VerbTypeEditWindow(CType(item, VerbTypeListItem).VerbTypeStore))
+            Function(item) New VerbTypeEditWindow(CType(item, VerbTypeListItem).VerbTypeStore),
+            AdditionalButtons:=
+            {
+                ("Back to Location Type", Function() True, Sub() Program.GoToWindow(New LocationTypeEditWindow(locationTypeStore)))
+            })
     End Sub
 End Class

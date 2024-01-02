@@ -51,9 +51,18 @@ Friend Class LocationTypeStore
 
     Public ReadOnly Property CanAddVerb As Boolean Implements ILocationTypeStore.CanAddVerb
         Get
-            Return _connectionSource.CheckForInteger(
-                VIEW_LOCATION_TYPE_AVAILABLE_VERB_TYPES,
-                (COLUMN_LOCATION_TYPE_ID, _locationTypeId))
+            Using command = _connectionSource().CreateCommand
+                command.CommandText = $"
+SELECT 
+    COUNT(1) 
+FROM 
+    {VIEW_LOCATION_TYPE_AVAILABLE_VERB_TYPES} 
+WHERE 
+    {COLUMN_LOCATION_TYPE_ID}={PARAMETER_LOCATION_TYPE_ID} 
+    AND {COLUMN_LOCATION_TYPE_VERB_TYPE_ID} IS NULL;"
+                command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, _locationTypeId)
+                Return CInt(command.ExecuteScalar) > 0
+            End Using
         End Get
     End Property
 
