@@ -208,6 +208,11 @@ WHERE
         Return New LocationTypeStore(AddressOf GetConnection, locationTypeId)
     End Function
 
+
+    Private Function GetVerbType(verbTypeId As Integer) As IVerbTypeStore
+        Return New VerbTypeStore(AddressOf GetConnection, verbTypeId)
+    End Function
+
     Public Function LocationTypeNameExists(locationTypeName As String) As Boolean Implements IDataStore.LocationTypeNameExists
         Using command = GetConnection().CreateCommand
             command.CommandText = $"
@@ -228,5 +233,48 @@ WHERE
             Return Nothing
         End If
         Return New VerbTypeStore(ConnectionSource, verbTypeId.Value)
+    End Function
+
+    Public Function FilterVerbTypes(filter As String) As IEnumerable(Of IVerbTypeStore) Implements IDataStore.FilterVerbTypes
+        Dim result As New List(Of IVerbTypeStore)
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"
+SELECT 
+    {COLUMN_VERB_TYPE_ID} 
+FROM 
+    {TABLE_VERB_TYPES} 
+WHERE 
+    {COLUMN_VERB_TYPE_NAME} LIKE {PARAMETER_VERB_TYPE_NAME};"
+            command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_NAME, filter)
+            Using reader = command.ExecuteReader
+                While reader.Read
+                    result.Add(New VerbTypeStore(AddressOf GetConnection, reader.GetInt32(0)))
+                End While
+            End Using
+        End Using
+        Return result
+    End Function
+
+    Public Function VerbTypeNameExists(verbTypeName As String) As Boolean Implements IDataStore.VerbTypeNameExists
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"
+SELECT 
+    COUNT(1) 
+FROM 
+    {TABLE_VERB_TYPES} 
+WHERE 
+    {COLUMN_VERB_TYPE_NAME}={PARAMETER_VERB_TYPE_NAME};"
+            command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_NAME, verbTypeName)
+            Return CInt(command.ExecuteScalar) > 0
+        End Using
+    End Function
+
+    Public Function CreateVerbType(verbTypeName As String) As IVerbTypeStore Implements IDataStore.CreateVerbType
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"INSERT INTO {TABLE_VERB_TYPES}({COLUMN_VERB_TYPE_NAME}) VALUES({PARAMETER_VERB_TYPE_NAME});"
+            command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_NAME, verbTypeName)
+            command.ExecuteNonQuery()
+        End Using
+        Return GetVerbType(GetLastIdentity())
     End Function
 End Class

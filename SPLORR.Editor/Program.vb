@@ -7,6 +7,7 @@ Module Program
     Private Const MENUBARITEM_TYPES As String = "Types"
     Private Const MENUITEM_QUIT As String = "Quit"
     Private Const MENUITEM_LOCATION_TYPES = "Location Types"
+    Private Const MENUITEM_VERB_TYPES = "Verb Types"
     Private dataStore As IDataStore = Nothing
     Public window As Window = Nothing
     Sub Main(args As String())
@@ -22,12 +23,17 @@ Module Program
                 }),
                 New MenuBarItem(MENUBARITEM_TYPES,
                 {
-                    New MenuItem(MENUITEM_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList)
+                    New MenuItem(MENUITEM_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList),
+                    New MenuItem(MENUITEM_VERB_TYPES, String.Empty, AddressOf DoVerbTypesList)
                 })
             }))
         Application.Run()
         Application.Shutdown()
         dataStore.CleanUp()
+    End Sub
+
+    Private Sub DoVerbTypesList()
+        GoToWindow(New VerbTypeListWindow(dataStore))
     End Sub
 
     Private Sub DoLocationTypesList()

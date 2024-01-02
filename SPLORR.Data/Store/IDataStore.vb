@@ -1,5 +1,6 @@
 Public Interface IDataStore
     Sub CleanUp()
+    Function CreateVerbType(verbTypeName As String) As IVerbTypeStore
     Function CreateLocationType(locationTypeName As String) As ILocationTypeStore
     Function GetPlayer(playerId As Integer) As IPlayerStore
     Function GetCharacter(characterId As Integer) As ICharacterStore
@@ -12,4 +13,6 @@ Public Interface IDataStore
     Function FilterLocationTypes(filter As String) As IEnumerable(Of ILocationTypeStore)
     Function LocationTypeNameExists(locationTypeName As String) As Boolean
     Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeStore
+    Function FilterVerbTypes(filter As String) As IEnumerable(Of IVerbTypeStore)
+    Function VerbTypeNameExists(verbTypeName As String) As Boolean
 End Interface
