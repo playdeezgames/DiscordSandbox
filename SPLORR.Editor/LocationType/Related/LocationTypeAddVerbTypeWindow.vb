@@ -50,6 +50,7 @@ Friend Class LocationTypeAddVerbTypeWindow
             Return
         End If
         locationTypeStore.AddVerb(availableVerbTypes(item))
+        Program.GoToWindow(New LocationTypeEditWindow(locationTypeStore))
     End Sub
     Private Function ToComboBoxItem(verbTypeStore As IVerbTypeStore) As Object
         Return New VerbTypeListItem(verbTypeStore)

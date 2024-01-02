@@ -79,6 +79,28 @@ WHERE
         End Get
     End Property
 
+    Public ReadOnly Property VerbTypes As IEnumerable(Of IVerbTypeStore) Implements ILocationTypeStore.VerbTypes
+        Get
+            Dim result As New List(Of IVerbTypeStore)
+            Using command = _connectionSource().CreateCommand
+                command.CommandText = $"
+SELECT 
+    {COLUMN_VERB_TYPE_ID} 
+FROM 
+    {TABLE_LOCATION_TYPE_VERB_TYPES} 
+WHERE 
+    {COLUMN_LOCATION_TYPE_ID}={PARAMETER_LOCATION_TYPE_ID};"
+                command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, _locationTypeId)
+                Using reader = command.ExecuteReader
+                    While reader.Read
+                        result.Add(New VerbTypeStore(_connectionSource, reader.GetInt32(0)))
+                    End While
+                End Using
+            End Using
+            Return result
+        End Get
+    End Property
+
     Public Sub Delete() Implements ILocationTypeStore.Delete
         _connectionSource.DeleteForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId))
     End Sub
@@ -101,6 +123,10 @@ INSERT INTO
             command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_ID, verbTypeStore.Id)
             command.ExecuteNonQuery()
         End Using
+    End Sub
+
+    Public Sub RemoveVerb(verbTypeStore As IVerbTypeStore) Implements ILocationTypeStore.RemoveVerb
+        _connectionSource.DeleteForIntegers(TABLE_LOCATION_TYPE_VERB_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId), (COLUMN_VERB_TYPE_ID, verbTypeStore.Id))
     End Sub
 
     Public Function CanRenameTo(name As String) As Boolean Implements ILocationTypeStore.CanRenameTo

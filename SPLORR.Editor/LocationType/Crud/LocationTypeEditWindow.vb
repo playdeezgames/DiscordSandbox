@@ -52,27 +52,34 @@ Friend Class LocationTypeEditWindow
                 .Y = updateButton.Y
             }
         AddHandler cancelButton.Clicked, AddressOf OnCancelButtonClicked
-        Dim locationsButton As New Button("Locations...") With
+        Dim locationsButton As New Button("List Locations...") With
             {
-                .X = Pos.Right(cancelButton) + 1,
-                .Y = updateButton.Y,
+                .X = 1,
+                .Y = Pos.Bottom(updateButton) + 1,
                 .Enabled = _locationTypeStore.HasLocations
             }
         AddHandler locationsButton.Clicked, AddressOf OnLocationsButtonClicked
-        Dim verbsButton As New Button("Verbs...") With
+        Dim verbsButton As New Button("List Verbs...") With
             {
-                .X = Pos.Right(locationsButton) + 1,
-                .Y = updateButton.Y,
+                .X = 1,
+                .Y = Pos.Bottom(locationsButton) + 1,
                 .Enabled = _locationTypeStore.HasVerbs
             }
         AddHandler verbsButton.Clicked, AddressOf OnVerbsButtonClicked
         Dim addVerbButton As New Button("Add Verb...") With
             {
                 .X = Pos.Right(verbsButton) + 1,
-                .Y = updateButton.Y,
+                .Y = verbsButton.Y,
                 .Enabled = _locationTypeStore.CanAddVerb
             }
         AddHandler addVerbButton.Clicked, AddressOf OnAddVerbButtonClicked
+        Dim removeVerbButton As New Button("Remove Verb...") With
+            {
+                .X = Pos.Right(addVerbButton) + 1,
+                .Y = verbsButton.Y,
+                .Enabled = _locationTypeStore.HasVerbs
+            }
+        AddHandler removeVerbButton.Clicked, AddressOf OnRemoveVerbButtonClicked
         Add(
             idLabel,
             idTextField,
@@ -83,9 +90,12 @@ Friend Class LocationTypeEditWindow
             cancelButton,
             locationsButton,
             verbsButton,
-            addVerbButton)
+            addVerbButton,
+            removeVerbButton)
     End Sub
-
+    Private Sub OnRemoveVerbButtonClicked()
+        Program.GoToWindow(New LocationTypeRemoveVerbTypeWindow(_locationTypeStore))
+    End Sub
     Private Sub OnUpdateButtonClicked()
         Dim newName = nameTextField.Text.ToString
         If Not _locationTypeStore.CanRenameTo(newName) Then
@@ -99,15 +109,12 @@ Friend Class LocationTypeEditWindow
     Private Sub OnAddVerbButtonClicked()
         Program.GoToWindow(New LocationTypeAddVerbTypeWindow(_locationTypeStore))
     End Sub
-
     Private Sub OnVerbsButtonClicked()
         Program.GoToWindow(New LocationTypeVerbTypeListWindow(_locationTypeStore))
     End Sub
-
     Private Sub OnLocationsButtonClicked()
         Program.GoToWindow(New LocationTypeLocationListWindow(_locationTypeStore))
     End Sub
-
     Private Sub OnDeleteButtonClicked()
         If Not _locationTypeStore.CanDelete Then
             MessageBox.ErrorQuery("Denied!", "You cannot delete this Location Type, for reasons.", "Ok")
@@ -116,7 +123,6 @@ Friend Class LocationTypeEditWindow
         _locationTypeStore.Delete()
         Program.GoToWindow(Nothing)
     End Sub
-
     Private Sub OnCancelButtonClicked()
         Program.GoToWindow(Nothing)
     End Sub

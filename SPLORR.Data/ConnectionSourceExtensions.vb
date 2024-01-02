@@ -3,6 +3,8 @@ Imports Microsoft.Data.SqlClient
 
 Friend Module ConnectionSourceExtensions
     Private Const PARAMETER_FOR_COLUMN = "@ForColumn"
+    Private Const PARAMETER_FIRST_FOR_COLUMN = "@FirstForColumn"
+    Private Const PARAMETER_SECOND_FOR_COLUMN = "@SecondForColumn"
     Private Const PARAMETER_WRITTEN_COLUMN = "@WrittenColumn"
     <Extension>
     Function ReadStringForInteger(connectionSource As Func(Of SqlConnection), tableName As String, inputColumn As (Name As String, Value As Integer), outputColumnName As String) As String
@@ -80,6 +82,23 @@ WHERE
         Using command = connectionSource().CreateCommand()
             command.CommandText = $"DELETE FROM {tableName} WHERE {inputColumn.Name}={PARAMETER_FOR_COLUMN};"
             command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, inputColumn.Value)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+    <Extension>
+    Sub DeleteForIntegers(connectionSource As Func(Of SqlConnection),
+                            tableName As String,
+                            firstInputColumn As (Name As String, Value As Integer),
+                            secondInputColumn As (Name As String, Value As Integer))
+        Using command = connectionSource().CreateCommand()
+            command.CommandText = $"
+DELETE FROM 
+    {tableName} 
+WHERE 
+    {firstInputColumn.Name}={PARAMETER_FIRST_FOR_COLUMN}
+    AND {secondInputColumn.Name}={PARAMETER_SECOND_FOR_COLUMN};"
+            command.Parameters.AddWithValue(PARAMETER_FIRST_FOR_COLUMN, firstInputColumn.Value)
+            command.Parameters.AddWithValue(PARAMETER_SECOND_FOR_COLUMN, secondInputColumn.Value)
             command.ExecuteNonQuery()
         End Using
     End Sub
