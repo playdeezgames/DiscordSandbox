@@ -46,12 +46,12 @@ Friend Class LocationTypeEditWindow
                 .Enabled = _locationTypeStore.CanDelete
             }
         AddHandler deleteButton.Clicked, AddressOf OnDeleteButtonClicked
-        Dim cancelButton As New Button("Cancel") With
+        Dim locationTypeListButton As New Button("Location Type List") With
             {
                 .X = Pos.Right(deleteButton) + 1,
                 .Y = updateButton.Y
             }
-        AddHandler cancelButton.Clicked, AddressOf OnCancelButtonClicked
+        AddHandler locationTypeListButton.Clicked, AddressOf OnLocationTypeListButtonClicked
         Dim locationsButton As New Button("List Locations...") With
             {
                 .X = 1,
@@ -87,7 +87,7 @@ Friend Class LocationTypeEditWindow
             nameTextField,
             updateButton,
             deleteButton,
-            cancelButton,
+            locationTypeListButton,
             locationsButton,
             verbsButton,
             addVerbButton,
@@ -123,7 +123,7 @@ Friend Class LocationTypeEditWindow
         _locationTypeStore.Delete()
         Program.GoToWindow(New LocationTypeListWindow(_locationTypeStore.Store))
     End Sub
-    Private Sub OnCancelButtonClicked()
+    Private Sub OnLocationTypeListButtonClicked()
         Program.GoToWindow(New LocationTypeListWindow(_locationTypeStore.Store))
     End Sub
 End Class

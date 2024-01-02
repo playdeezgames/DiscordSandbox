@@ -7,6 +7,10 @@
             locationTypeStore,
             Function(store, filter) store.FilterLocations(filter),
             Function(item) New LocationListItem(item),
-            Function(item) New LocationEditWindow(CType(item, LocationListItem).LocationStore))
+            Function(item) New LocationEditWindow(CType(item, LocationListItem).LocationStore),
+            AdditionalButtons:=
+            {
+                ("Back to Location Type", Function() True, Sub() Program.GoToWindow(New LocationTypeEditWindow(locationTypeStore)))
+            })
     End Sub
 End Class
