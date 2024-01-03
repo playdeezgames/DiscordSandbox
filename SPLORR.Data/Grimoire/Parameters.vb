@@ -15,4 +15,5 @@
     Friend Const PARAMETER_ROUTE_TYPE_ID = "@RouteTypeId"
     Friend Const PARAMETER_VERB_TYPE_ID = "@VerbTypeId"
     Friend Const PARAMETER_VERB_TYPE_NAME = "@VerbTypeName"
+    Friend Const PARAMETER_ITEM_TYPE_NAME = "@ItemTypeName"
 End Module

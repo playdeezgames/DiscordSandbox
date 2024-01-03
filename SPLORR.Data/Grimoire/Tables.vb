@@ -11,4 +11,5 @@
     Friend Const TABLE_ROUTES = "Routes"
     Friend Const TABLE_ROUTE_TYPES = "RouteTypes"
     Friend Const TABLE_VERB_TYPES = "VerbTypes"
+    Friend Const TABLE_ITEM_TYPES = "ItemTypes"
 End Module

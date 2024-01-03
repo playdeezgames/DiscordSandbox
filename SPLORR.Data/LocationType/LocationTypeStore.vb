@@ -144,8 +144,8 @@ INSERT INTO
         _connectionSource.DeleteForIntegers(TABLE_LOCATION_TYPE_VERB_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId), (COLUMN_VERB_TYPE_ID, verbTypeStore.Id))
     End Sub
 
-    Public Function CanRenameTo(name As String) As Boolean Implements ILocationTypeStore.CanRenameTo
-        Return Not _connectionSource.FindIntegerForString(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_NAME, name), COLUMN_LOCATION_TYPE_ID).HasValue
+    Public Function CanRenameTo(newName As String) As Boolean Implements ILocationTypeStore.CanRenameTo
+        Return Not _connectionSource.FindIntegerForString(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_NAME, newName), COLUMN_LOCATION_TYPE_ID).HasValue
     End Function
 
     Public Function FilterLocations(filter As String) As IEnumerable(Of ILocationStore) Implements ILocationTypeStore.FilterLocations

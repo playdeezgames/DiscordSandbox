@@ -31,6 +31,13 @@ Friend Class VerbTypeStore
             Return Not HasLocationTypes
         End Get
     End Property
+
+    Public ReadOnly Property Store As IDataStore Implements IVerbTypeStore.Store
+        Get
+            Return New DataStore(_connectionSource())
+        End Get
+    End Property
+
     Private ReadOnly Property HasLocationTypes As Boolean
         Get
             Using command = _connectionSource().CreateCommand

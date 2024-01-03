@@ -15,4 +15,7 @@ Public Interface IDataStore
     Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeStore
     Function FilterVerbTypes(filter As String) As IEnumerable(Of IVerbTypeStore)
     Function VerbTypeNameExists(verbTypeName As String) As Boolean
+    Function FilterItemTypes(filter As String) As IEnumerable(Of IItemTypeStore)
+    Function ItemTypeNameExists(itemTypeName As String) As Boolean
+    Function CreateItemType(itemTypeName As String) As IItemTypeStore
 End Interface
