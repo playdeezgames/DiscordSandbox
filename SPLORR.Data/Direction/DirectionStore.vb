@@ -11,12 +11,41 @@ Friend Class DirectionStore
         Me._directionId = directionId
     End Sub
 
-    Public ReadOnly Property Name As String Implements IDirectionStore.Name
+    Public Property Name As String Implements IDirectionStore.Name
         Get
             Return _connectionSource.ReadStringForInteger(
                 TABLE_DIRECTIONS,
                 (COLUMN_DIRECTION_ID, _directionId),
                 COLUMN_DIRECTION_NAME)
         End Get
+        Set(value As String)
+            _connectionSource.WriteStringForInteger(TABLE_DIRECTIONS, (COLUMN_DIRECTION_ID, _directionId), (COLUMN_DIRECTION_NAME, value))
+        End Set
     End Property
+
+    Public ReadOnly Property Id As Integer Implements IDirectionStore.Id
+        Get
+            Return _directionId
+        End Get
+    End Property
+
+    Public ReadOnly Property CanDelete As Boolean Implements IDirectionStore.CanDelete
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
+    Public ReadOnly Property Store As IDataStore Implements IDirectionStore.Store
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
+    Public Sub Delete() Implements IDirectionStore.Delete
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Function CanRenameTo(x As String) As Boolean Implements IDirectionStore.CanRenameTo
+        Throw New NotImplementedException()
+    End Function
 End Class

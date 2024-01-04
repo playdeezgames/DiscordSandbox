@@ -67,6 +67,17 @@ Public Class DataStore
         End Get
     End Property
 
+    Public ReadOnly Property Directions As ITypeStore(Of IDirectionStore) Implements IDataStore.Directions
+        Get
+            Return New TypeStore(Of IDirectionStore)(
+                ConnectionSource,
+                TABLE_DIRECTIONS,
+                COLUMN_DIRECTION_ID,
+                COLUMN_DIRECTION_NAME,
+                Function(x, y) New DirectionStore(x, y))
+        End Get
+    End Property
+
     Public Sub CleanUp() Implements IDataStore.CleanUp
         If _connection IsNot Nothing Then
             _connection.Close()

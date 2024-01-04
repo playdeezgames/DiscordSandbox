@@ -3,14 +3,15 @@ Imports Terminal.Gui
 
 Module Program
     Const ENV_VAR_CONNECTION_STRING = "CONNECTION_STRING"
-    Private Const MENUBARITEM_SYSTEM As String = "System"
-    Private Const MENUBARITEM_TYPES As String = "Types"
-    Private Const MENUBARITEM_GENERATORS = "Generators"
-    Private Const MENUITEM_QUIT As String = "Quit"
-    Private Const MENUITEM_LOCATION_TYPES = "Location Types"
-    Private Const MENUITEM_VERB_TYPES = "Verb Types"
-    Private Const MENUITEM_ITEM_TYPES = "Item Types"
-    Private Const MENUITEM_ITEM_TYPE_GENERATOR = "Item Type Generators"
+    Private Const TEXT_SYSTEM As String = "System"
+    Private Const TEXT_TYPES As String = "Types"
+    Private Const TEXT_GENERATORS = "Generators"
+    Private Const TEXT_QUIT As String = "Quit"
+    Private Const TEXT_LOCATION_TYPES = "Location Types"
+    Private Const TEXT_VERB_TYPES = "Verb Types"
+    Private Const TEXT_ITEM_TYPES = "Item Types"
+    Private Const TEXT_ITEM_TYPE_GENERATOR = "Item Type Generators"
+    Private Const TEXT_DIRECTIONS = "Directions"
     Private dataStore As IDataStore = Nothing
     Public window As Window = Nothing
     Sub Main(args As String())
@@ -20,24 +21,29 @@ Module Program
         Application.Top.Add(
             New MenuBar(
             {
-                New MenuBarItem(MENUBARITEM_SYSTEM,
+                New MenuBarItem(TEXT_SYSTEM,
                 {
-                    New MenuItem(MENUITEM_QUIT, String.Empty, AddressOf DoSystemQuit)
+                    New MenuItem(TEXT_QUIT, String.Empty, AddressOf DoSystemQuit)
                 }),
-                New MenuBarItem(MENUBARITEM_TYPES,
+                New MenuBarItem(TEXT_TYPES,
                 {
-                    New MenuItem(MENUITEM_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList),
-                    New MenuItem(MENUITEM_VERB_TYPES, String.Empty, AddressOf DoVerbTypesList),
-                    New MenuItem(MENUITEM_ITEM_TYPES, String.Empty, AddressOf DoItemTypesList)
+                    New MenuItem(TEXT_DIRECTIONS, String.Empty, AddressOf DoDirectionsList),
+                    New MenuItem(TEXT_ITEM_TYPES, String.Empty, AddressOf DoItemTypesList),
+                    New MenuItem(TEXT_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList),
+                    New MenuItem(TEXT_VERB_TYPES, String.Empty, AddressOf DoVerbTypesList)
                 }),
-                New MenuBarItem(MENUBARITEM_GENERATORS,
+                New MenuBarItem(TEXT_GENERATORS,
                 {
-                    New MenuItem(MENUITEM_ITEM_TYPE_GENERATOR, String.Empty, AddressOf DoItemTypeGeneratorsList)
+                    New MenuItem(TEXT_ITEM_TYPE_GENERATOR, String.Empty, AddressOf DoItemTypeGeneratorsList)
                 })
             }))
         Application.Run()
         Application.Shutdown()
         dataStore.CleanUp()
+    End Sub
+
+    Private Sub DoDirectionsList()
+        GoToWindow(New DirectionListWindow(dataStore))
     End Sub
 
     Private Sub DoItemTypeGeneratorsList()
