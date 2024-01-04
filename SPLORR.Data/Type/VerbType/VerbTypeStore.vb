@@ -40,11 +40,7 @@ Friend Class VerbTypeStore
 
     Private ReadOnly Property HasLocationTypes As Boolean
         Get
-            Using command = _connectionSource().CreateCommand
-                command.CommandText = $"SELECT COUNT(1) FROM {TABLE_LOCATION_TYPE_VERB_TYPES} WHERE {COLUMN_VERB_TYPE_ID}={PARAMETER_VERB_TYPE_ID};"
-                command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_ID, _verbTypeId)
-                Return CInt(command.ExecuteScalar) > 0
-            End Using
+            Return _connectionSource.CheckForInteger(TABLE_LOCATION_TYPE_VERB_TYPES, (COLUMN_VERB_TYPE_ID, _verbTypeId))
         End Get
     End Property
 

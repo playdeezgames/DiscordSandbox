@@ -147,7 +147,7 @@ INSERT INTO
             command.Parameters.AddWithValue(PARAMETER_CHARACTER_TYPE_ID, characterType.Id)
             command.ExecuteNonQuery()
         End Using
-        Return GetCharacter(ConnectionSource.GetLastIdentity())
+        Return GetCharacter(ConnectionSource.ReadLastIdentity())
     End Function
 
     Private Function FindAuthorPlayer(authorId As ULong) As Integer?

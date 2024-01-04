@@ -23,7 +23,7 @@ Friend Class TypeStore(Of TTypeStore)
             command.Parameters.AddWithValue($"@{nameColumnName}", name)
             command.ExecuteNonQuery()
         End Using
-        Return convertor(connectionSource, connectionSource.GetLastIdentity())
+        Return convertor(connectionSource, connectionSource.ReadLastIdentity())
     End Function
 
     Public Function Filter(textFilter As String) As IEnumerable(Of TTypeStore) Implements ITypeStore(Of TTypeStore).Filter
