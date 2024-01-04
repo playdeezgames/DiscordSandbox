@@ -56,25 +56,16 @@ Public Class DataStore
         End Get
     End Property
 
-    Private Sub SetPlayerCharacter(playerId As Integer, characterId As Integer)
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"
-INSERT INTO 
-    {TABLE_PLAYER_CHARACTERS}
-    (
-        {COLUMN_PLAYER_ID},
-        {COLUMN_CHARACTER_ID}
-    ) 
-    VALUES 
-    (
-        {PARAMETER_PLAYER_ID},
-        {PARAMETER_CHARACTER_ID}
-    );"
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, characterId)
-            command.Parameters.AddWithValue(PARAMETER_PLAYER_ID, playerId)
-            command.ExecuteNonQuery()
-        End Using
-    End Sub
+    Public ReadOnly Property ItemTypeGenerator As ITypeStore(Of IItemTypeGeneratorStore) Implements IDataStore.ItemTypeGenerator
+        Get
+            Return New TypeStore(Of IItemTypeGeneratorStore)(
+                ConnectionSource,
+                TABLE_ITEM_TYPE_GENERATORS,
+                COLUMN_ITEM_TYPE_GENERATOR_ID,
+                COLUMN_ITEM_TYPE_GENERATOR_NAME,
+                Function(x, y) New ItemTypeGeneratorStore(x, y))
+        End Get
+    End Property
 
     Public Sub CleanUp() Implements IDataStore.CleanUp
         If _connection IsNot Nothing Then

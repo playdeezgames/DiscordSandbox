@@ -2,14 +2,12 @@ Public Interface IDataStore
     Sub CleanUp()
     'Verb Type
     ReadOnly Property VerbTypes As ITypeStore(Of IVerbTypeStore)
-
     'Location Type
     ReadOnly Property LocationTypes As ITypeStore(Of ILocationTypeStore)
-
     'Item Type
     ReadOnly Property ItemTypes As ITypeStore(Of IItemTypeStore)
-
     'Item Type Generator
+    ReadOnly Property ItemTypeGenerator As ITypeStore(Of IItemTypeGeneratorStore)
     Function CreateItemTypeGenerator(name As String) As IItemTypeGeneratorStore
     Function FilterItemTypeGenerators(filter As String) As IEnumerable(Of IItemTypeGeneratorStore)
     Function ItemTypeGeneratorNameExists(name As String) As Boolean
