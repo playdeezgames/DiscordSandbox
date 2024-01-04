@@ -1,6 +1,4 @@
-﻿Imports Terminal.Gui
-
-Friend Class ItemTypeGeneratorAddWindow
+﻿Friend Class ItemTypeGeneratorAddWindow
     Inherits BaseAddTypeWindow
     Public Sub New(dataStore As Data.IDataStore)
         MyBase.New(
