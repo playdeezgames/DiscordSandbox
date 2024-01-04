@@ -23,6 +23,16 @@ Public Class DataStore
         End Get
     End Property
 
+    Public ReadOnly Property VerbTypes As ITypeStore(Of IVerbTypeStore) Implements IDataStore.VerbTypes
+        Get
+            Return New TypeStore(Of IVerbTypeStore)(
+                ConnectionSource,
+                TABLE_VERB_TYPES,
+                COLUMN_VERB_TYPE_ID,
+                COLUMN_VERB_TYPE_NAME,
+                Function(x, y) New VerbTypeStore(x, y))
+        End Get
+    End Property
 
     Private Sub SetPlayerCharacter(playerId As Integer, characterId As Integer)
         Using command = GetConnection().CreateCommand
@@ -124,13 +134,7 @@ INSERT INTO
             command.Parameters.AddWithValue(PARAMETER_CHARACTER_TYPE_ID, characterType.Id)
             command.ExecuteNonQuery()
         End Using
-        Return GetCharacter(GetLastIdentity())
-    End Function
-    Private Function GetLastIdentity() As Integer
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"SELECT @@IDENTITY;"
-            Return CInt(command.ExecuteScalar)
-        End Using
+        Return GetCharacter(ConnectionSource.GetLastIdentity())
     End Function
 
     Private Function FindAuthorPlayer(authorId As ULong) As Integer?
@@ -201,7 +205,7 @@ WHERE
             command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_NAME, locationTypeName)
             command.ExecuteNonQuery()
         End Using
-        Return GetLocationType(GetLastIdentity())
+        Return GetLocationType(ConnectionSource.GetLastIdentity())
     End Function
 
     Private Function GetLocationType(locationTypeId As Integer) As ILocationTypeStore
@@ -299,7 +303,7 @@ WHERE
             command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_NAME, verbTypeName)
             command.ExecuteNonQuery()
         End Using
-        Return GetVerbType(GetLastIdentity())
+        Return GetVerbType(ConnectionSource.GetLastIdentity())
     End Function
 
     Public Function FilterItemTypes(filter As String) As IEnumerable(Of IItemTypeStore) Implements IDataStore.FilterItemTypes
@@ -320,7 +324,7 @@ WHERE
             command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_NAME, itemTypeName)
             command.ExecuteNonQuery()
         End Using
-        Return GetItemType(GetLastIdentity())
+        Return GetItemType(ConnectionSource.GetLastIdentity())
     End Function
 
     Private Function GetItemType(itemTypeId As Integer) As IItemTypeStore
@@ -348,7 +352,7 @@ WHERE
             command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_NAME, itemTypeGeneratorName)
             command.ExecuteNonQuery()
         End Using
-        Return GetItemTypeGenerator(GetLastIdentity())
+        Return GetItemTypeGenerator(ConnectionSource.GetLastIdentity())
     End Function
 
     Private Function GetItemTypeGenerator(itemTypeGeneratorId As Integer) As IItemTypeGeneratorStore

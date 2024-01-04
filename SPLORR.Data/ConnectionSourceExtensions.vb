@@ -102,4 +102,11 @@ WHERE
             command.ExecuteNonQuery()
         End Using
     End Sub
+    <Extension>
+    Friend Function GetLastIdentity(connectionSource As Func(Of SqlConnection)) As Integer
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"SELECT @@IDENTITY;"
+            Return CInt(command.ExecuteScalar)
+        End Using
+    End Function
 End Module

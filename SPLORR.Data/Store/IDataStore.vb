@@ -1,6 +1,7 @@
 Public Interface IDataStore
     Sub CleanUp()
     'Verb Type
+    ReadOnly Property VerbTypes As ITypeStore(Of IVerbTypeStore)
     Function CreateVerbType(verbTypeName As String) As IVerbTypeStore
     Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeStore
     Function FilterVerbTypes(filter As String) As IEnumerable(Of IVerbTypeStore)
