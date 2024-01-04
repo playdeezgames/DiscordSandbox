@@ -85,6 +85,6 @@ INSERT INTO
     End Function
 
     Public Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeStore Implements IPlayerStore.GetVerbTypeByName
-        Return Store.GetVerbTypeByName(verbTypeName)
+        Return Store.VerbTypes.FromName(verbTypeName)
     End Function
 End Class

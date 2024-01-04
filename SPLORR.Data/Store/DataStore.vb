@@ -201,14 +201,6 @@ INSERT INTO
         Return New PlayerStore(AddressOf GetConnection, playerId.Value)
     End Function
 
-    Public Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeStore Implements IDataStore.GetVerbTypeByName
-        Dim verbTypeId = ConnectionSource.FindIntegerForString(TABLE_VERB_TYPES, (COLUMN_VERB_TYPE_NAME, verbTypeName), COLUMN_VERB_TYPE_ID)
-        If Not verbTypeId.HasValue Then
-            Return Nothing
-        End If
-        Return New VerbTypeStore(ConnectionSource, verbTypeId.Value)
-    End Function
-
     Private Function FilterType(Of TStore)(
                                           tableName As String,
                                           filterColumn As (Name As String, Filter As String),

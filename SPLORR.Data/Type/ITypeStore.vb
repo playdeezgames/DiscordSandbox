@@ -2,4 +2,5 @@
     Function Create(name As String) As TTypeStore
     Function Filter(textFilter As String) As IEnumerable(Of TTypeStore)
     Function NameExists(name As String) As Boolean
+    Function FromName(name As String) As TTypeStore
 End Interface

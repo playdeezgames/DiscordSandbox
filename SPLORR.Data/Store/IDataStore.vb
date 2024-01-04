@@ -2,7 +2,6 @@ Public Interface IDataStore
     Sub CleanUp()
     'Verb Type
     ReadOnly Property VerbTypes As ITypeStore(Of IVerbTypeStore)
-    Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeStore
 
     'Location Type
     ReadOnly Property LocationTypes As ITypeStore(Of ILocationTypeStore)
