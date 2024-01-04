@@ -8,9 +8,7 @@ Public Interface IDataStore
     ReadOnly Property LocationTypes As ITypeStore(Of ILocationTypeStore)
 
     'Item Type
-    Function CreateItemType(itemTypeName As String) As IItemTypeStore
-    Function FilterItemTypes(filter As String) As IEnumerable(Of IItemTypeStore)
-    Function ItemTypeNameExists(itemTypeName As String) As Boolean
+    ReadOnly Property ItemTypes As ITypeStore(Of IItemTypeStore)
 
     'Item Type Generator
     Function CreateItemTypeGenerator(name As String) As IItemTypeGeneratorStore

@@ -45,6 +45,17 @@ Public Class DataStore
         End Get
     End Property
 
+    Public ReadOnly Property ItemTypes As ITypeStore(Of IItemTypeStore) Implements IDataStore.ItemTypes
+        Get
+            Return New TypeStore(Of IItemTypeStore)(
+                ConnectionSource,
+                TABLE_ITEM_TYPES,
+                COLUMN_ITEM_TYPE_ID,
+                COLUMN_ITEM_TYPE_NAME,
+                Function(x, y) New ItemTypeStore(x, y))
+        End Get
+    End Property
+
     Private Sub SetPlayerCharacter(playerId As Integer, characterId As Integer)
         Using command = GetConnection().CreateCommand
             command.CommandText = $"
@@ -220,31 +231,6 @@ WHERE
             End Using
         End Using
         Return result
-    End Function
-
-    Public Function FilterItemTypes(filter As String) As IEnumerable(Of IItemTypeStore) Implements IDataStore.FilterItemTypes
-        Return FilterType(Of IItemTypeStore)(
-            TABLE_ITEM_TYPES,
-            (COLUMN_ITEM_TYPE_NAME, filter),
-            COLUMN_ITEM_TYPE_ID,
-            Function(r) New ItemTypeStore(AddressOf GetConnection, r.GetInt32(0)))
-    End Function
-
-    Public Function ItemTypeNameExists(itemTypeName As String) As Boolean Implements IDataStore.ItemTypeNameExists
-        Return ConnectionSource.FindIntegerForString(TABLE_ITEM_TYPES, (COLUMN_ITEM_TYPE_NAME, itemTypeName), COLUMN_ITEM_TYPE_ID).HasValue
-    End Function
-
-    Public Function CreateItemType(itemTypeName As String) As IItemTypeStore Implements IDataStore.CreateItemType
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"INSERT INTO {TABLE_ITEM_TYPES}({COLUMN_ITEM_TYPE_NAME}) VALUES({PARAMETER_ITEM_TYPE_NAME});"
-            command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_NAME, itemTypeName)
-            command.ExecuteNonQuery()
-        End Using
-        Return GetItemType(ConnectionSource.GetLastIdentity())
-    End Function
-
-    Private Function GetItemType(itemTypeId As Integer) As IItemTypeStore
-        Return New ItemTypeStore(ConnectionSource, itemTypeId)
     End Function
 
     Public Function FilterItemTypeGenerators(filter As String) As IEnumerable(Of IItemTypeGeneratorStore) Implements IDataStore.FilterItemTypeGenerators

@@ -7,7 +7,7 @@ Friend Class ItemTypeListWindow
         MyBase.New(
             "Item Types",
             dataStore,
-            Function(store, filter) store.FilterItemTypes(filter),
+            Function(store, filter) store.ItemTypes.Filter(filter),
             Function(item) New ItemTypeListItem(item),
             Function(item) New ItemTypeEditWindow(CType(item, ItemTypeListItem).ItemTypeStore),
             AdditionalButtons:=
