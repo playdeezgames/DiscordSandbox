@@ -18,7 +18,7 @@ Friend MustInherit Class BaseEditTypeWindow
                   cancelWindowSource As Func(Of Window),
                   deleteWindowSource As Func(Of Window),
                   updateWindowSource As Func(Of String, Window),
-                  Optional AdditionalButtonRows As IEnumerable(Of IEnumerable(Of (Title As String, IsEnabled As Func(Of Boolean), OnClicked As Action))) = Nothing)
+                  ParamArray AdditionalButtonRows As IEnumerable(Of (Title As String, IsEnabled As Func(Of Boolean), OnClicked As Action))())
         MyBase.New(title)
         Me.typeName = typeName
         Me.cancelWindowSource = cancelWindowSource
@@ -97,6 +97,7 @@ Friend MustInherit Class BaseEditTypeWindow
                 AddHandler button.Clicked, additionalButton.OnClicked
                 x = Pos.Right(button) + 1
                 nextY = Pos.Bottom(button) + 1
+                Add(button)
             Next
         End If
         Return nextY
