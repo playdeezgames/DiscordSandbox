@@ -7,7 +7,7 @@ Friend Class VerbTypeListWindow
         MyBase.New(
             "Verb Types",
             dataStore,
-            Function(store, filter) store.FilterVerbTypes(filter),
+            Function(store, filter) store.VerbTypes.Filter(filter),
             Function(item) New VerbTypeListItem(item),
             Function(item) New VerbTypeEditWindow(CType(item, VerbTypeListItem).VerbTypeStore),
             AdditionalButtons:=
