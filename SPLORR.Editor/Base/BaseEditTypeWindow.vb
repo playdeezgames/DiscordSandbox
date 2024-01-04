@@ -17,7 +17,8 @@ Friend MustInherit Class BaseEditTypeWindow
                   canRenameCheck As Func(Of String, Boolean),
                   cancelWindowSource As Func(Of Window),
                   deleteWindowSource As Func(Of Window),
-                  updateWindowSource As Func(Of String, Window))
+                  updateWindowSource As Func(Of String, Window),
+                  Optional AdditionalButtonRows As IEnumerable(Of IEnumerable(Of (Title As String, IsEnabled As Func(Of Boolean), OnClicked As Action))) = Nothing)
         MyBase.New(title)
         Me.typeName = typeName
         Me.cancelWindowSource = cancelWindowSource
@@ -66,6 +67,7 @@ Friend MustInherit Class BaseEditTypeWindow
                 .Y = updateButton.Y
             }
         AddHandler cancelButton.Clicked, AddressOf OnCancelButtonClicked
+        Dim nextY = Pos.Bottom(updateButton) + 1
         Add(
             idLabel,
             idTextField,
@@ -74,7 +76,31 @@ Friend MustInherit Class BaseEditTypeWindow
             updateButton,
             deleteButton,
             cancelButton)
+        If AdditionalButtonRows IsNot Nothing Then
+            For Each additionalButtonRow In AdditionalButtonRows
+                nextY = AddAdditionalButtonRow(additionalButtonRow, nextY)
+            Next
+        End If
     End Sub
+
+    Private Function AddAdditionalButtonRow(additionalButtonRow As IEnumerable(Of (Title As String, IsEnabled As Func(Of Boolean), OnClicked As Action)), y As Pos) As Pos
+        Dim nextY As Pos = y
+        If additionalButtonRow IsNot Nothing Then
+            Dim x As Pos = 1
+            For Each additionalButton In additionalButtonRow
+                Dim button As New Button(additionalButton.Title) With
+                {
+                    .X = x,
+                    .Y = y,
+                    .Enabled = additionalButton.IsEnabled()
+                }
+                AddHandler button.Clicked, additionalButton.OnClicked
+                x = Pos.Right(button) + 1
+                nextY = Pos.Bottom(button) + 1
+            Next
+        End If
+        Return nextY
+    End Function
 
     Private Sub OnCancelButtonClicked()
         Program.GoToWindow(cancelWindowSource())
