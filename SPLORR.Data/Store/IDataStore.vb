@@ -7,10 +7,7 @@ Public Interface IDataStore
     'Item Type
     ReadOnly Property ItemTypes As ITypeStore(Of IItemTypeStore)
     'Item Type Generator
-    ReadOnly Property ItemTypeGenerator As ITypeStore(Of IItemTypeGeneratorStore)
-    Function CreateItemTypeGenerator(name As String) As IItemTypeGeneratorStore
-    Function FilterItemTypeGenerators(filter As String) As IEnumerable(Of IItemTypeGeneratorStore)
-    Function ItemTypeGeneratorNameExists(name As String) As Boolean
+    ReadOnly Property ItemTypeGenerators As ITypeStore(Of IItemTypeGeneratorStore)
 
     'Character Type
     Function GetCharacterType(characterTypeId As Integer) As ICharacterTypeStore
