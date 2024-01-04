@@ -23,4 +23,6 @@
     Friend Const COLUMN_LOCATION_TYPE_VERB_TYPE_ID = "LocationTypeVerbTypeId"
     Friend Const COLUMN_ITEM_TYPE_NAME = "ItemTypeName"
     Friend Const COLUMN_ITEM_TYPE_ID = "ItemTypeId"
+    Friend Const COLUMN_ITEM_TYPE_GENERATOR_NAME = "ItemTypeGeneratorName"
+    Friend Const COLUMN_ITEM_TYPE_GENERATOR_ID = "ItemTypeGeneratorId"
 End Module

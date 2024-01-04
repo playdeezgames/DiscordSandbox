@@ -18,4 +18,7 @@ Public Interface IDataStore
     Function FilterItemTypes(filter As String) As IEnumerable(Of IItemTypeStore)
     Function ItemTypeNameExists(itemTypeName As String) As Boolean
     Function CreateItemType(itemTypeName As String) As IItemTypeStore
+    Function FilterItemTypeGenerators(filter As String) As IEnumerable(Of IItemTypeGeneratorStore)
+    Function ItemTypeGeneratorNameExists(name As String) As Boolean
+    Function CreateItemTypeGenerator(name As String) As IItemTypeGeneratorStore
 End Interface

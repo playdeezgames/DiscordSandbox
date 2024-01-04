@@ -16,4 +16,5 @@
     Friend Const PARAMETER_VERB_TYPE_ID = "@VerbTypeId"
     Friend Const PARAMETER_VERB_TYPE_NAME = "@VerbTypeName"
     Friend Const PARAMETER_ITEM_TYPE_NAME = "@ItemTypeName"
+    Friend Const PARAMETER_ITEM_TYPE_GENERATOR_NAME = "@ItemTypeGeneratorName"
 End Module

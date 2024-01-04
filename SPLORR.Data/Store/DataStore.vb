@@ -326,4 +326,32 @@ WHERE
     Private Function GetItemType(itemTypeId As Integer) As IItemTypeStore
         Return New ItemTypeStore(ConnectionSource, itemTypeId)
     End Function
+
+    Public Function FilterItemTypeGenerators(filter As String) As IEnumerable(Of IItemTypeGeneratorStore) Implements IDataStore.FilterItemTypeGenerators
+        Return FilterType(Of IItemTypeGeneratorStore)(
+            TABLE_ITEM_TYPE_GENERATORS,
+            (COLUMN_ITEM_TYPE_GENERATOR_NAME, filter),
+            COLUMN_ITEM_TYPE_GENERATOR_ID,
+            Function(r) New ItemTypeGeneratorStore(AddressOf GetConnection, r.GetInt32(0)))
+    End Function
+
+    Public Function ItemTypeGeneratorNameExists(itemTypeGeneratorName As String) As Boolean Implements IDataStore.ItemTypeGeneratorNameExists
+        Return ConnectionSource.FindIntegerForString(
+            TABLE_ITEM_TYPE_GENERATORS,
+            (COLUMN_ITEM_TYPE_GENERATOR_NAME, itemTypeGeneratorName),
+            COLUMN_ITEM_TYPE_GENERATOR_ID).HasValue
+    End Function
+
+    Public Function CreateItemTypeGenerator(itemTypeGeneratorName As String) As IItemTypeGeneratorStore Implements IDataStore.CreateItemTypeGenerator
+        Using command = GetConnection().CreateCommand
+            command.CommandText = $"INSERT INTO {TABLE_ITEM_TYPE_GENERATORS}({COLUMN_ITEM_TYPE_GENERATOR_NAME}) VALUES({PARAMETER_ITEM_TYPE_GENERATOR_NAME});"
+            command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_NAME, itemTypeGeneratorName)
+            command.ExecuteNonQuery()
+        End Using
+        Return GetItemTypeGenerator(GetLastIdentity())
+    End Function
+
+    Private Function GetItemTypeGenerator(itemTypeGeneratorId As Integer) As IItemTypeGeneratorStore
+        Return New ItemTypeGeneratorStore(ConnectionSource, itemTypeGeneratorId)
+    End Function
 End Class

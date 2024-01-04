@@ -5,10 +5,12 @@ Module Program
     Const ENV_VAR_CONNECTION_STRING = "CONNECTION_STRING"
     Private Const MENUBARITEM_SYSTEM As String = "System"
     Private Const MENUBARITEM_TYPES As String = "Types"
+    Private Const MENUBARITEM_GENERATORS = "Generators"
     Private Const MENUITEM_QUIT As String = "Quit"
     Private Const MENUITEM_LOCATION_TYPES = "Location Types"
     Private Const MENUITEM_VERB_TYPES = "Verb Types"
     Private Const MENUITEM_ITEM_TYPES = "Item Types"
+    Private Const MENUITEM_ITEM_TYPE_GENERATOR = "Item Type Generators"
     Private dataStore As IDataStore = Nothing
     Public window As Window = Nothing
     Sub Main(args As String())
@@ -27,11 +29,19 @@ Module Program
                     New MenuItem(MENUITEM_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList),
                     New MenuItem(MENUITEM_VERB_TYPES, String.Empty, AddressOf DoVerbTypesList),
                     New MenuItem(MENUITEM_ITEM_TYPES, String.Empty, AddressOf DoItemTypesList)
+                }),
+                New MenuBarItem(MENUBARITEM_GENERATORS,
+                {
+                    New MenuItem(MENUITEM_ITEM_TYPE_GENERATOR, String.Empty, AddressOf DoItemTypeGeneratorsList)
                 })
             }))
         Application.Run()
         Application.Shutdown()
         dataStore.CleanUp()
+    End Sub
+
+    Private Sub DoItemTypeGeneratorsList()
+        GoToWindow(New ItemTypeGeneratorListWindow(dataStore))
     End Sub
 
     Private Sub DoItemTypesList()
