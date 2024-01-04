@@ -6,8 +6,8 @@ Friend Class LocationTypeAddWindow
         MyBase.New(
             "Add Location Type...",
             "Location Type",
-            Function(x) dataStore.LocationTypeNameExists(x),
+            Function(x) dataStore.LocationTypes.NameExists(x),
             Function() New LocationTypeListWindow(dataStore),
-            Function(x) New LocationTypeEditWindow(dataStore.CreateLocationType(x)))
+            Function(x) New LocationTypeEditWindow(dataStore.LocationTypes.Create(x)))
     End Sub
 End Class

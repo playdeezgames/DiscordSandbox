@@ -34,6 +34,17 @@ Public Class DataStore
         End Get
     End Property
 
+    Public ReadOnly Property LocationTypes As ITypeStore(Of ILocationTypeStore) Implements IDataStore.LocationTypes
+        Get
+            Return New TypeStore(Of ILocationTypeStore)(
+                ConnectionSource,
+                TABLE_LOCATION_TYPES,
+                COLUMN_LOCATION_TYPE_ID,
+                COLUMN_LOCATION_TYPE_NAME,
+                Function(x, y) New LocationTypeStore(x, y))
+        End Get
+    End Property
+
     Private Sub SetPlayerCharacter(playerId As Integer, characterId As Integer)
         Using command = GetConnection().CreateCommand
             command.CommandText = $"
@@ -177,58 +188,6 @@ INSERT INTO
             playerId = FindAuthorPlayer(authorId)
         End If
         Return New PlayerStore(AddressOf GetConnection, playerId.Value)
-    End Function
-
-    Public Function FilterLocationTypes(filter As String) As IEnumerable(Of ILocationTypeStore) Implements IDataStore.FilterLocationTypes
-        Dim result As New List(Of ILocationTypeStore)
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"
-SELECT 
-    {COLUMN_LOCATION_TYPE_ID} 
-FROM 
-    {TABLE_LOCATION_TYPES} 
-WHERE 
-    {COLUMN_LOCATION_TYPE_NAME} LIKE {PARAMETER_LOCATION_TYPE_NAME};"
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_NAME, filter)
-            Using reader = command.ExecuteReader
-                While reader.Read
-                    result.Add(New LocationTypeStore(AddressOf GetConnection, reader.GetInt32(0)))
-                End While
-            End Using
-        End Using
-        Return result
-    End Function
-
-    Public Function CreateLocationType(locationTypeName As String) As ILocationTypeStore Implements IDataStore.CreateLocationType
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"INSERT INTO {TABLE_LOCATION_TYPES}({COLUMN_LOCATION_TYPE_NAME}) VALUES({PARAMETER_LOCATION_TYPE_NAME});"
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_NAME, locationTypeName)
-            command.ExecuteNonQuery()
-        End Using
-        Return GetLocationType(ConnectionSource.GetLastIdentity())
-    End Function
-
-    Private Function GetLocationType(locationTypeId As Integer) As ILocationTypeStore
-        Return New LocationTypeStore(AddressOf GetConnection, locationTypeId)
-    End Function
-
-
-    Private Function GetVerbType(verbTypeId As Integer) As IVerbTypeStore
-        Return New VerbTypeStore(AddressOf GetConnection, verbTypeId)
-    End Function
-
-    Public Function LocationTypeNameExists(locationTypeName As String) As Boolean Implements IDataStore.LocationTypeNameExists
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"
-SELECT 
-    COUNT(1) 
-FROM 
-    {TABLE_LOCATION_TYPES} 
-WHERE 
-    {COLUMN_LOCATION_TYPE_NAME}={PARAMETER_LOCATION_TYPE_NAME};"
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_NAME, locationTypeName)
-            Return CInt(command.ExecuteScalar) > 0
-        End Using
     End Function
 
     Public Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeStore Implements IDataStore.GetVerbTypeByName

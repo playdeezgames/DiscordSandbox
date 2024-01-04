@@ -4,7 +4,7 @@
         MyBase.New(
             "Location Types",
             dataStore,
-            Function(store, filter) store.FilterLocationTypes(filter),
+            Function(store, filter) store.LocationTypes.Filter(filter),
             Function(item) New LocationTypeListItem(item),
             Function(item) New LocationTypeEditWindow(CType(item, LocationTypeListItem).LocationTypeStore),
             AdditionalButtons:=

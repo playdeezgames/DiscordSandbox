@@ -5,9 +5,7 @@ Public Interface IDataStore
     Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeStore
 
     'Location Type
-    Function CreateLocationType(locationTypeName As String) As ILocationTypeStore
-    Function FilterLocationTypes(filter As String) As IEnumerable(Of ILocationTypeStore)
-    Function LocationTypeNameExists(locationTypeName As String) As Boolean
+    ReadOnly Property LocationTypes As ITypeStore(Of ILocationTypeStore)
 
     'Item Type
     Function CreateItemType(itemTypeName As String) As IItemTypeStore
