@@ -34,7 +34,7 @@ Friend Class ItemTypeStore
 
     Public ReadOnly Property CanDelete As Boolean Implements IItemTypeStore.CanDelete
         Get
-            Return True
+            Return Not _connectionSource.CheckForInteger(TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES, (COLUMN_ITEM_TYPE_ID, _itemTypeId))
         End Get
     End Property
 

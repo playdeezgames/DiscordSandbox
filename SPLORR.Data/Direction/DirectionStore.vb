@@ -31,21 +31,24 @@ Friend Class DirectionStore
 
     Public ReadOnly Property CanDelete As Boolean Implements IDirectionStore.CanDelete
         Get
-            Throw New NotImplementedException()
+            Return Not _connectionSource.CheckForInteger(TABLE_ROUTES, (COLUMN_DIRECTION_ID, _directionId))
         End Get
     End Property
 
     Public ReadOnly Property Store As IDataStore Implements IDirectionStore.Store
         Get
-            Throw New NotImplementedException()
+            Return New DataStore(_connectionSource())
         End Get
     End Property
 
     Public Sub Delete() Implements IDirectionStore.Delete
-        Throw New NotImplementedException()
+        _connectionSource.DeleteForInteger(TABLE_DIRECTIONS, (COLUMN_DIRECTION_ID, _directionId))
     End Sub
 
     Public Function CanRenameTo(x As String) As Boolean Implements IDirectionStore.CanRenameTo
-        Throw New NotImplementedException()
+        Return Not _connectionSource.FindIntegerForString(
+            TABLE_DIRECTIONS,
+            (COLUMN_DIRECTION_NAME, x),
+            COLUMN_DIRECTION_ID).HasValue
     End Function
 End Class

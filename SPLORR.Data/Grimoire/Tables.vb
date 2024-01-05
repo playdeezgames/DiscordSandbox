@@ -13,4 +13,5 @@
     Friend Const TABLE_VERB_TYPES = "VerbTypes"
     Friend Const TABLE_ITEM_TYPES = "ItemTypes"
     Friend Const TABLE_ITEM_TYPE_GENERATORS = "ItemTypeGenerators"
+    Friend Const TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES = "ItemTypeGeneratorItemTypes"
 End Module

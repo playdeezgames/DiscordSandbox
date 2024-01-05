@@ -12,7 +12,7 @@ Friend Class DirectionListWindow
             Function(item) New DirectionEditWindow(CType(item, DirectionListItem).DirectionStore),
             AdditionalButtons:=
             {
-                ("Add...", Function() True, Sub() Program.GoToWindow(New LocationTypeAddWindow(dataStore))),
+                ("Add...", Function() True, Sub() Program.GoToWindow(New DirectionAddWindow(dataStore))),
                 ("Close", Function() True, Sub() Program.GoToWindow(Nothing))
             })
     End Sub
