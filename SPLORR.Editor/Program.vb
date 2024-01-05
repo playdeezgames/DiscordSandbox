@@ -8,7 +8,6 @@ Module Program
     Private Const TEXT_GENERATORS = "Generators"
     Private Const TEXT_QUIT As String = "Quit"
     Private Const TEXT_LOCATION_TYPES = "Location Types"
-    Private Const TEXT_VERB_TYPES = "Verb Types"
     Private Const TEXT_ITEM_TYPES = "Item Types"
     Private Const TEXT_ITEM_TYPE_GENERATOR = "Item Type Generators"
     Private Const TEXT_DIRECTIONS = "Directions"
@@ -29,8 +28,7 @@ Module Program
                 {
                     New MenuItem(TEXT_DIRECTIONS, String.Empty, AddressOf DoDirectionsList),
                     New MenuItem(TEXT_ITEM_TYPES, String.Empty, AddressOf DoItemTypesList),
-                    New MenuItem(TEXT_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList),
-                    New MenuItem(TEXT_VERB_TYPES, String.Empty, AddressOf DoVerbTypesList)
+                    New MenuItem(TEXT_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList)
                 }),
                 New MenuBarItem(TEXT_GENERATORS,
                 {
@@ -52,10 +50,6 @@ Module Program
 
     Private Sub DoItemTypesList()
         GoToWindow(New ItemTypeListWindow(dataStore))
-    End Sub
-
-    Private Sub DoVerbTypesList()
-        GoToWindow(New VerbTypeListWindow(dataStore))
     End Sub
 
     Private Sub DoLocationTypesList()

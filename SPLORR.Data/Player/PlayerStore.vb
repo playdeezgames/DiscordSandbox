@@ -83,8 +83,4 @@ INSERT INTO
     Public Function GetLocationGenerator() As IReadOnlyDictionary(Of ILocationStore, Integer) Implements IPlayerStore.GetLocationGenerator
         Return Store.GetLocationGenerator
     End Function
-
-    Public Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeStore Implements IPlayerStore.GetVerbTypeByName
-        Return Store.VerbTypes.FromName(verbTypeName)
-    End Function
 End Class

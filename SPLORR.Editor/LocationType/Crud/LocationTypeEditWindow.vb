@@ -25,24 +25,6 @@ Friend Class LocationTypeEditWindow
                     Function() locationTypeStore.HasLocations,
                     Sub() Program.GoToWindow(New LocationTypeLocationListWindow(locationTypeStore))
                 )
-            },
-            {
-                (
-                    "List Verbs...",
-                    Function() locationTypeStore.HasVerbs,
-                    Sub() Program.GoToWindow(New LocationTypeVerbTypeListWindow(locationTypeStore))
-                ),
-                (
-                    "Add Verb...",
-                    Function() locationTypeStore.CanAddVerb,
-                    Sub() Program.GoToWindow(New LocationTypeAddVerbTypeWindow(locationTypeStore))
-                ),
-                (
-                    "Remove Verb...",
-                    Function() locationTypeStore.HasVerbs,
-                    Sub() Program.GoToWindow(New LocationTypeRemoveVerbTypeWindow(locationTypeStore))
-                )
-            }
-            )
+            })
     End Sub
 End Class

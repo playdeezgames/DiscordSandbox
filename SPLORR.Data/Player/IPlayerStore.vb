@@ -4,5 +4,4 @@
     Function GetCharacterTypeGenerator() As IReadOnlyDictionary(Of ICharacterTypeStore, Integer)
     Function GetLocationGenerator() As IReadOnlyDictionary(Of ILocationStore, Integer)
     Property Character As ICharacterStore
-    Function GetVerbTypeByName(verbTypeName As String) As IVerbTypeStore
 End Interface

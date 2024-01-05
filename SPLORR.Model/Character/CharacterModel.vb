@@ -2,11 +2,6 @@
 
 Friend Class CharacterModel
     Implements ICharacterModel
-    Private Shared ReadOnly verbTypeHandlers As IReadOnlyDictionary(Of String, Action(Of ICharacterModel, Action(Of String))) =
-        New Dictionary(Of String, Action(Of ICharacterModel, Action(Of String))) From
-        {
-            {VERB_FORAGE, AddressOf Verbs.OnCharacterForage}
-        }
 
     Private ReadOnly _characterStore As ICharacterStore
     Sub New(characterStore As ICharacterStore)
@@ -41,10 +36,6 @@ Friend Class CharacterModel
         End Get
     End Property
 
-    Public Sub DoVerb(verbType As IVerbTypeModel, outputter As Action(Of String)) Implements ICharacterModel.DoVerb
-        verbTypeHandlers(verbType.Name)(Me, outputter)
-    End Sub
-
     Public Function UseRoute(route As IRouteModel) As (Result As Boolean, Messages As String()) Implements ICharacterModel.UseRoute
         If route Is Nothing Then
             Return (False, {"The route does not exist!"})
@@ -54,9 +45,5 @@ Friend Class CharacterModel
         End If
         Location = route.ToLocation
         Return (True, Array.Empty(Of String))
-    End Function
-
-    Public Function CanDoVerb(verbType As IVerbTypeModel) As Boolean Implements ICharacterModel.CanDoVerb
-        Return _characterStore.CanDoVerb(verbType.Store)
     End Function
 End Class

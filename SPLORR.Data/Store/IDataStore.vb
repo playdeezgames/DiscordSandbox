@@ -1,8 +1,6 @@
 Public Interface IDataStore
     Sub CleanUp()
     ReadOnly Property Directions As ITypeStore(Of IDirectionStore)
-    'Verb Type
-    ReadOnly Property VerbTypes As ITypeStore(Of IVerbTypeStore)
     'Location Type
     ReadOnly Property LocationTypes As ITypeStore(Of ILocationTypeStore)
     'Item Type

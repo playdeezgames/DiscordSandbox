@@ -23,17 +23,6 @@ Public Class DataStore
         End Get
     End Property
 
-    Public ReadOnly Property VerbTypes As ITypeStore(Of IVerbTypeStore) Implements IDataStore.VerbTypes
-        Get
-            Return New TypeStore(Of IVerbTypeStore)(
-                ConnectionSource,
-                TABLE_VERB_TYPES,
-                COLUMN_VERB_TYPE_ID,
-                COLUMN_VERB_TYPE_NAME,
-                Function(x, y) New VerbTypeStore(x, y))
-        End Get
-    End Property
-
     Public ReadOnly Property LocationTypes As ITypeStore(Of ILocationTypeStore) Implements IDataStore.LocationTypes
         Get
             Return New TypeStore(Of ILocationTypeStore)(

@@ -67,20 +67,16 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Views\CharacterLocationOtherCharacters.sql" />
-    <Build Include="dbo\Tables\VerbTypes.sql" />
-    <Build Include="dbo\Views\LocationTypeAvailableVerbTypes.sql" />
     <Build Include="dbo\Tables\Character\Characters.sql" />
     <Build Include="dbo\Tables\Character\CharacterTypes.sql" />
     <Build Include="dbo\Tables\Location\Locations.sql" />
     <Build Include="dbo\Tables\Location\LocationStarts.sql" />
     <Build Include="dbo\Tables\Location\LocationTypes.sql" />
-    <Build Include="dbo\Tables\Location\LocationTypeVerbTypes.sql" />
     <Build Include="dbo\Tables\Character\PlayerCharacterTypes.sql" />
     <Build Include="dbo\Tables\Character\PlayerCharacters.sql" />
     <Build Include="dbo\Tables\Player\PlayerMoney.sql" />
     <Build Include="dbo\Tables\Player\Players.sql" />
     <Build Include="dbo\Tables\Route\Routes.sql" />
-    <Build Include="dbo\Views\CharacterAvailableVerbTypes.sql" />
     <Build Include="dbo\Tables\ItemTypes.sql" />
     <Build Include="dbo\Tables\ItemTypeGenerator\ItemTypeGeneratorItemTypes.sql" />
     <Build Include="dbo\Tables\ItemTypeGenerator\ItemTypeGenerators.sql" />

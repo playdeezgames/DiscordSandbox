@@ -15,8 +15,7 @@ Friend Class LocationTypeStore
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get
-            Return Not HasVerbs AndAlso
-                Not HasLocations
+            Return Not HasLocations
         End Get
     End Property
 
@@ -27,99 +26,6 @@ Friend Class LocationTypeStore
                 (COLUMN_LOCATION_TYPE_ID, Id))
         End Get
     End Property
-
-    Public ReadOnly Property HasVerbs As Boolean Implements ILocationTypeStore.HasVerbs
-        Get
-            Return connectionSource.CheckForInteger(
-                            TABLE_LOCATION_TYPE_VERB_TYPES,
-                            (COLUMN_LOCATION_TYPE_ID, Id))
-        End Get
-    End Property
-
-    Public ReadOnly Property CanAddVerb As Boolean Implements ILocationTypeStore.CanAddVerb
-        Get
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    COUNT(1) 
-FROM 
-    {VIEW_LOCATION_TYPE_AVAILABLE_VERB_TYPES} 
-WHERE 
-    {COLUMN_LOCATION_TYPE_ID}={PARAMETER_LOCATION_TYPE_ID} 
-    AND {COLUMN_LOCATION_TYPE_VERB_TYPE_ID} IS NULL;"
-                command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
-                Return CInt(command.ExecuteScalar) > 0
-            End Using
-        End Get
-    End Property
-
-    Public ReadOnly Property AvailableVerbTypes As IEnumerable(Of IVerbTypeStore) Implements ILocationTypeStore.AvailableVerbTypes
-        Get
-            Dim result As New List(Of IVerbTypeStore)
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    {COLUMN_VERB_TYPE_ID} 
-FROM 
-    {VIEW_LOCATION_TYPE_AVAILABLE_VERB_TYPES} 
-WHERE 
-    {COLUMN_LOCATION_TYPE_ID}={PARAMETER_LOCATION_TYPE_ID};"
-                command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
-                Using reader = command.ExecuteReader
-                    While reader.Read
-                        result.Add(New VerbTypeStore(connectionSource, reader.GetInt32(0)))
-                    End While
-                End Using
-            End Using
-            Return result
-        End Get
-    End Property
-
-    Public ReadOnly Property VerbTypes As IEnumerable(Of IVerbTypeStore) Implements ILocationTypeStore.VerbTypes
-        Get
-            Dim result As New List(Of IVerbTypeStore)
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    {COLUMN_VERB_TYPE_ID} 
-FROM 
-    {TABLE_LOCATION_TYPE_VERB_TYPES} 
-WHERE 
-    {COLUMN_LOCATION_TYPE_ID}={PARAMETER_LOCATION_TYPE_ID};"
-                command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
-                Using reader = command.ExecuteReader
-                    While reader.Read
-                        result.Add(New VerbTypeStore(connectionSource, reader.GetInt32(0)))
-                    End While
-                End Using
-            End Using
-            Return result
-        End Get
-    End Property
-
-    Public Sub AddVerb(verbTypeStore As IVerbTypeStore) Implements ILocationTypeStore.AddVerb
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-INSERT INTO 
-    {TABLE_LOCATION_TYPE_VERB_TYPES}
-    (
-        {COLUMN_LOCATION_TYPE_ID},
-        {COLUMN_VERB_TYPE_ID}
-    ) 
-    VALUES 
-    (
-        {PARAMETER_LOCATION_TYPE_ID},
-        {PARAMETER_VERB_TYPE_ID}
-    );"
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
-            command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_ID, verbTypeStore.Id)
-            command.ExecuteNonQuery()
-        End Using
-    End Sub
-
-    Public Sub RemoveVerb(verbTypeStore As IVerbTypeStore) Implements ILocationTypeStore.RemoveVerb
-        connectionSource.DeleteForIntegers(TABLE_LOCATION_TYPE_VERB_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), (COLUMN_VERB_TYPE_ID, verbTypeStore.Id))
-    End Sub
 
     Public Function FilterLocations(filter As String) As IEnumerable(Of ILocationStore) Implements ILocationTypeStore.FilterLocations
         Dim result As New List(Of ILocationStore)
@@ -137,29 +43,6 @@ WHERE
             Using reader = command.ExecuteReader
                 While reader.Read
                     result.Add(New LocationStore(connectionSource, reader.GetInt32(0)))
-                End While
-            End Using
-        End Using
-        Return result
-    End Function
-
-    Public Function FilterVerbTypes(filter As String) As IEnumerable(Of IVerbTypeStore) Implements ILocationTypeStore.FilterVerbTypes
-        Dim result As New List(Of IVerbTypeStore)
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-SELECT 
-    ltvt.{COLUMN_VERB_TYPE_ID} 
-FROM 
-    {TABLE_LOCATION_TYPE_VERB_TYPES} ltvt
-    JOIN {TABLE_VERB_TYPES} vt ON ltvt.{COLUMN_VERB_TYPE_ID}=vt.{COLUMN_VERB_TYPE_ID}
-WHERE 
-    ltvt.{COLUMN_LOCATION_TYPE_ID}={PARAMETER_LOCATION_TYPE_ID}
-    AND vt.{COLUMN_VERB_TYPE_NAME} LIKE {PARAMETER_VERB_TYPE_NAME};"
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
-            command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_NAME, filter)
-            Using reader = command.ExecuteReader
-                While reader.Read
-                    result.Add(New VerbTypeStore(connectionSource, reader.GetInt32(0)))
                 End While
             End Using
         End Using

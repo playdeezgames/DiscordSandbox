@@ -6,11 +6,6 @@ Friend Module ForageMessage
             outputter(MESSAGE_NO_CHARACTER)
             Return
         End If
-        Dim verbType = player.GetVerbTypeByName(TOKEN_FORAGE)
-        If Not player.Character.CanDoVerb(verbType) Then
-            outputter($"{player.Character.Name} cannot {TOKEN_FORAGE} here!")
-            Return
-        End If
-        player.Character.DoVerb(verbType, outputter)
+        Throw New NotImplementedException
     End Sub
 End Module
