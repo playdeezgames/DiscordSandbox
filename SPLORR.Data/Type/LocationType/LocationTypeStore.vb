@@ -4,26 +4,17 @@ Friend Class LocationTypeStore
     Inherits BaseTypeStore
     Implements ILocationTypeStore
 
-    Private ReadOnly _locationTypeId As Integer
-
     Public Sub New(connectionSource As Func(Of SqlConnection), locationTypeId As Integer)
-        MyBase.New(connectionSource)
-        Me._locationTypeId = locationTypeId
+        MyBase.New(connectionSource, locationTypeId)
     End Sub
 
     Public Overrides Property Name As String
         Get
-            Return connectionSource.ReadStringForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId), COLUMN_LOCATION_TYPE_NAME)
+            Return connectionSource.ReadStringForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), COLUMN_LOCATION_TYPE_NAME)
         End Get
         Set(value As String)
-            connectionSource.WriteStringForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId), (COLUMN_LOCATION_TYPE_NAME, value))
+            connectionSource.WriteStringForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), (COLUMN_LOCATION_TYPE_NAME, value))
         End Set
-    End Property
-
-    Public Overrides ReadOnly Property Id As Integer
-        Get
-            Return _locationTypeId
-        End Get
     End Property
 
     Public Overrides ReadOnly Property CanDelete As Boolean
@@ -37,7 +28,7 @@ Friend Class LocationTypeStore
         Get
             Return connectionSource.CheckForInteger(
                 TABLE_LOCATIONS,
-                (COLUMN_LOCATION_TYPE_ID, _locationTypeId))
+                (COLUMN_LOCATION_TYPE_ID, Id))
         End Get
     End Property
 
@@ -45,7 +36,7 @@ Friend Class LocationTypeStore
         Get
             Return connectionSource.CheckForInteger(
                             TABLE_LOCATION_TYPE_VERB_TYPES,
-                            (COLUMN_LOCATION_TYPE_ID, _locationTypeId))
+                            (COLUMN_LOCATION_TYPE_ID, Id))
         End Get
     End Property
 
@@ -60,7 +51,7 @@ FROM
 WHERE 
     {COLUMN_LOCATION_TYPE_ID}={PARAMETER_LOCATION_TYPE_ID} 
     AND {COLUMN_LOCATION_TYPE_VERB_TYPE_ID} IS NULL;"
-                command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, _locationTypeId)
+                command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
                 Return CInt(command.ExecuteScalar) > 0
             End Using
         End Get
@@ -77,7 +68,7 @@ FROM
     {VIEW_LOCATION_TYPE_AVAILABLE_VERB_TYPES} 
 WHERE 
     {COLUMN_LOCATION_TYPE_ID}={PARAMETER_LOCATION_TYPE_ID};"
-                command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, _locationTypeId)
+                command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
                 Using reader = command.ExecuteReader
                     While reader.Read
                         result.Add(New VerbTypeStore(connectionSource, reader.GetInt32(0)))
@@ -99,7 +90,7 @@ FROM
     {TABLE_LOCATION_TYPE_VERB_TYPES} 
 WHERE 
     {COLUMN_LOCATION_TYPE_ID}={PARAMETER_LOCATION_TYPE_ID};"
-                command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, _locationTypeId)
+                command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
                 Using reader = command.ExecuteReader
                     While reader.Read
                         result.Add(New VerbTypeStore(connectionSource, reader.GetInt32(0)))
@@ -111,7 +102,7 @@ WHERE
     End Property
 
     Public Overrides Sub Delete()
-        connectionSource.DeleteForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId))
+        connectionSource.DeleteForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id))
     End Sub
 
     Public Sub AddVerb(verbTypeStore As IVerbTypeStore) Implements ILocationTypeStore.AddVerb
@@ -128,14 +119,14 @@ INSERT INTO
         {PARAMETER_LOCATION_TYPE_ID},
         {PARAMETER_VERB_TYPE_ID}
     );"
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, _locationTypeId)
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
             command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_ID, verbTypeStore.Id)
             command.ExecuteNonQuery()
         End Using
     End Sub
 
     Public Sub RemoveVerb(verbTypeStore As IVerbTypeStore) Implements ILocationTypeStore.RemoveVerb
-        connectionSource.DeleteForIntegers(TABLE_LOCATION_TYPE_VERB_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId), (COLUMN_VERB_TYPE_ID, verbTypeStore.Id))
+        connectionSource.DeleteForIntegers(TABLE_LOCATION_TYPE_VERB_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), (COLUMN_VERB_TYPE_ID, verbTypeStore.Id))
     End Sub
 
     Public Overrides Function CanRenameTo(newName As String) As Boolean
@@ -153,7 +144,7 @@ FROM
 WHERE 
     {COLUMN_LOCATION_ID}={PARAMETER_LOCATION_TYPE_ID} 
     AND {COLUMN_LOCATION_NAME} LIKE {PARAMETER_LOCATION_NAME};"
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, _locationTypeId)
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
             command.Parameters.AddWithValue(PARAMETER_LOCATION_NAME, filter)
             Using reader = command.ExecuteReader
                 While reader.Read
@@ -176,7 +167,7 @@ FROM
 WHERE 
     ltvt.{COLUMN_LOCATION_TYPE_ID}={PARAMETER_LOCATION_TYPE_ID}
     AND vt.{COLUMN_VERB_TYPE_NAME} LIKE {PARAMETER_VERB_TYPE_NAME};"
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, _locationTypeId)
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
             command.Parameters.AddWithValue(PARAMETER_VERB_TYPE_NAME, filter)
             Using reader = command.ExecuteReader
                 While reader.Read
