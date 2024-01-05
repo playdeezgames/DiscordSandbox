@@ -5,17 +5,13 @@ Friend Class VerbTypeStore
     Implements IVerbTypeStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), verbTypeId As Integer)
-        MyBase.New(connectionSource, verbTypeId)
+        MyBase.New(
+            connectionSource,
+            verbTypeId,
+            TABLE_VERB_TYPES,
+            COLUMN_VERB_TYPE_ID,
+            COLUMN_VERB_TYPE_NAME)
     End Sub
-
-    Public Overrides Property Name As String
-        Get
-            Return connectionSource.ReadStringForInteger(TABLE_VERB_TYPES, (COLUMN_VERB_TYPE_ID, Id), COLUMN_VERB_TYPE_NAME)
-        End Get
-        Set(value As String)
-            connectionSource.WriteStringForInteger(TABLE_VERB_TYPES, (COLUMN_VERB_TYPE_ID, Id), (COLUMN_VERB_TYPE_NAME, value))
-        End Set
-    End Property
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get

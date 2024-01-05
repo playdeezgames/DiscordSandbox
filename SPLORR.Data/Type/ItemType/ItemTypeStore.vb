@@ -6,23 +6,13 @@ Friend Class ItemTypeStore
 
 
     Public Sub New(connectionSource As Func(Of SqlConnection), itemTypeId As Integer)
-        MyBase.New(connectionSource, itemTypeId)
+        MyBase.New(
+            connectionSource,
+            itemTypeId,
+            TABLE_ITEM_TYPES,
+            COLUMN_ITEM_TYPE_ID,
+            COLUMN_ITEM_TYPE_NAME)
     End Sub
-
-    Public Overrides Property Name As String
-        Get
-            Return connectionSource.ReadStringForInteger(
-                TABLE_ITEM_TYPES,
-                (COLUMN_ITEM_TYPE_ID, Id),
-                COLUMN_ITEM_TYPE_NAME)
-        End Get
-        Set(value As String)
-            connectionSource.WriteStringForInteger(
-                TABLE_ITEM_TYPES,
-                (COLUMN_ITEM_TYPE_ID, Id),
-                (COLUMN_ITEM_TYPE_NAME, value))
-        End Set
-    End Property
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get

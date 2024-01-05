@@ -5,20 +5,13 @@ Friend Class DirectionStore
     Implements IDirectionStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), directionId As Integer)
-        MyBase.New(connectionSource, directionId)
+        MyBase.New(
+            connectionSource,
+            directionId,
+            TABLE_DIRECTIONS,
+            COLUMN_DIRECTION_ID,
+            COLUMN_DIRECTION_NAME)
     End Sub
-
-    Public Overrides Property Name As String
-        Get
-            Return connectionSource.ReadStringForInteger(
-                TABLE_DIRECTIONS,
-                (COLUMN_DIRECTION_ID, Id),
-                COLUMN_DIRECTION_NAME)
-        End Get
-        Set(value As String)
-            connectionSource.WriteStringForInteger(TABLE_DIRECTIONS, (COLUMN_DIRECTION_ID, Id), (COLUMN_DIRECTION_NAME, value))
-        End Set
-    End Property
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get
