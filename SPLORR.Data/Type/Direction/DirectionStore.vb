@@ -18,15 +18,4 @@ Friend Class DirectionStore
             Return Not connectionSource.CheckForInteger(TABLE_ROUTES, (COLUMN_DIRECTION_ID, Id))
         End Get
     End Property
-
-    Public Overrides Sub Delete()
-        connectionSource.DeleteForInteger(TABLE_DIRECTIONS, (COLUMN_DIRECTION_ID, Id))
-    End Sub
-
-    Public Overrides Function CanRenameTo(x As String) As Boolean
-        Return Not connectionSource.FindIntegerForString(
-            TABLE_DIRECTIONS,
-            (COLUMN_DIRECTION_NAME, x),
-            COLUMN_DIRECTION_ID).HasValue
-    End Function
 End Class

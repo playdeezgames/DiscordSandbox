@@ -97,10 +97,6 @@ WHERE
         End Get
     End Property
 
-    Public Overrides Sub Delete()
-        connectionSource.DeleteForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id))
-    End Sub
-
     Public Sub AddVerb(verbTypeStore As IVerbTypeStore) Implements ILocationTypeStore.AddVerb
         Using command = connectionSource().CreateCommand
             command.CommandText = $"
@@ -124,10 +120,6 @@ INSERT INTO
     Public Sub RemoveVerb(verbTypeStore As IVerbTypeStore) Implements ILocationTypeStore.RemoveVerb
         connectionSource.DeleteForIntegers(TABLE_LOCATION_TYPE_VERB_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), (COLUMN_VERB_TYPE_ID, verbTypeStore.Id))
     End Sub
-
-    Public Overrides Function CanRenameTo(newName As String) As Boolean
-        Return Not connectionSource.FindIntegerForString(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_NAME, newName), COLUMN_LOCATION_TYPE_ID).HasValue
-    End Function
 
     Public Function FilterLocations(filter As String) As IEnumerable(Of ILocationStore) Implements ILocationTypeStore.FilterLocations
         Dim result As New List(Of ILocationStore)

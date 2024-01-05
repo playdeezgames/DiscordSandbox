@@ -24,12 +24,4 @@ Friend Class VerbTypeStore
             Return connectionSource.CheckForInteger(TABLE_LOCATION_TYPE_VERB_TYPES, (COLUMN_VERB_TYPE_ID, Id))
         End Get
     End Property
-
-    Public Overrides Sub Delete()
-        connectionSource.DeleteForInteger(TABLE_VERB_TYPES, (COLUMN_VERB_TYPE_ID, Id))
-    End Sub
-
-    Public Overrides Function CanRenameTo(newName As String) As Boolean
-        Return Not connectionSource.FindIntegerForString(TABLE_VERB_TYPES, (COLUMN_VERB_TYPE_NAME, newName), COLUMN_VERB_TYPE_ID).HasValue
-    End Function
 End Class

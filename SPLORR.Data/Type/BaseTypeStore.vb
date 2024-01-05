@@ -38,8 +38,13 @@ Friend MustInherit Class BaseTypeStore
                 (nameColumnName, value))
         End Set
     End Property
-
-    Public MustOverride Sub Delete() Implements IBaseTypeStore.Delete
-    Public MustOverride Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
+    Public Sub Delete() Implements IBaseTypeStore.Delete
+        connectionSource.DeleteForInteger(
+            tableName,
+            (idColumnName, Id))
+    End Sub
+    Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
+        Return Not connectionSource.FindIntegerForString(tableName, (nameColumnName, x), idColumnName).HasValue
+    End Function
     Public MustOverride ReadOnly Property CanDelete As Boolean Implements IBaseTypeStore.CanDelete
 End Class
