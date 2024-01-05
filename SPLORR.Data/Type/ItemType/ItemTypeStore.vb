@@ -4,11 +4,10 @@ Friend Class ItemTypeStore
     Inherits BaseTypeStore
     Implements IItemTypeStore
 
-    Private ReadOnly _connectionSource As Func(Of SqlConnection)
     Private ReadOnly _itemTypeId As Integer
 
     Public Sub New(connectionSource As Func(Of SqlConnection), itemTypeId As Integer)
-        Me._connectionSource = connectionSource
+        MyBase.New(connectionSource)
         Me._itemTypeId = itemTypeId
     End Sub
 
@@ -20,13 +19,13 @@ Friend Class ItemTypeStore
 
     Public Overrides Property Name As String
         Get
-            Return _connectionSource.ReadStringForInteger(
+            Return connectionSource.ReadStringForInteger(
                 TABLE_ITEM_TYPES,
                 (COLUMN_ITEM_TYPE_ID, _itemTypeId),
                 COLUMN_ITEM_TYPE_NAME)
         End Get
         Set(value As String)
-            _connectionSource.WriteStringForInteger(
+            connectionSource.WriteStringForInteger(
                 TABLE_ITEM_TYPES,
                 (COLUMN_ITEM_TYPE_ID, _itemTypeId),
                 (COLUMN_ITEM_TYPE_NAME, value))
@@ -35,24 +34,18 @@ Friend Class ItemTypeStore
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get
-            Return Not _connectionSource.CheckForInteger(TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES, (COLUMN_ITEM_TYPE_ID, _itemTypeId))
-        End Get
-    End Property
-
-    Public Overrides ReadOnly Property Store As IDataStore
-        Get
-            Return New DataStore(_connectionSource())
+            Return Not connectionSource.CheckForInteger(TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES, (COLUMN_ITEM_TYPE_ID, _itemTypeId))
         End Get
     End Property
 
     Public Overrides Sub Delete()
-        _connectionSource.DeleteForInteger(
+        connectionSource.DeleteForInteger(
             TABLE_ITEM_TYPES,
             (COLUMN_ITEM_TYPE_ID, _itemTypeId))
     End Sub
 
     Public Overrides Function CanRenameTo(newName As String) As Boolean
-        Return Not _connectionSource.FindIntegerForString(
+        Return Not connectionSource.FindIntegerForString(
             TABLE_ITEM_TYPES,
             (COLUMN_ITEM_TYPE_NAME, newName),
             COLUMN_ITEM_TYPE_ID).HasValue
