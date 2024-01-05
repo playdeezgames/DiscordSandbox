@@ -1,6 +1,6 @@
 ﻿Imports Microsoft.Data.SqlClient
 
-Friend Class TypeStore(Of TTypeStore)
+Friend Class TypeStore(Of TTypeStore As IBaseTypeStore)
     Implements ITypeStore(Of TTypeStore)
 
     Private ReadOnly connectionSource As Func(Of SqlConnection)
