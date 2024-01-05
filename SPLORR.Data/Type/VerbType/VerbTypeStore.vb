@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class VerbTypeStore
+    Inherits BaseTypeStore
     Implements IVerbTypeStore
 
     Private ReadOnly _connectionSource As Func(Of SqlConnection)
@@ -11,13 +12,13 @@ Friend Class VerbTypeStore
         Me._verbTypeId = verbTypeId
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements IVerbTypeStore.Id
+    Public Overrides ReadOnly Property Id As Integer
         Get
             Return _verbTypeId
         End Get
     End Property
 
-    Public Property Name As String Implements IVerbTypeStore.Name
+    Public Overrides Property Name As String
         Get
             Return _connectionSource.ReadStringForInteger(TABLE_VERB_TYPES, (COLUMN_VERB_TYPE_ID, _verbTypeId), COLUMN_VERB_TYPE_NAME)
         End Get
@@ -26,13 +27,13 @@ Friend Class VerbTypeStore
         End Set
     End Property
 
-    Public ReadOnly Property CanDelete As Boolean Implements IVerbTypeStore.CanDelete
+    Public Overrides ReadOnly Property CanDelete As Boolean
         Get
             Return Not HasLocationTypes
         End Get
     End Property
 
-    Public ReadOnly Property Store As IDataStore Implements IVerbTypeStore.Store
+    Public Overrides ReadOnly Property Store As IDataStore
         Get
             Return New DataStore(_connectionSource())
         End Get
@@ -44,11 +45,11 @@ Friend Class VerbTypeStore
         End Get
     End Property
 
-    Public Sub Delete() Implements IVerbTypeStore.Delete
+    Public Overrides Sub Delete()
         _connectionSource.DeleteForInteger(TABLE_VERB_TYPES, (COLUMN_VERB_TYPE_ID, _verbTypeId))
     End Sub
 
-    Public Function CanRenameTo(newName As String) As Boolean Implements IVerbTypeStore.CanRenameTo
+    Public Overrides Function CanRenameTo(newName As String) As Boolean
         Return Not _connectionSource.FindIntegerForString(TABLE_VERB_TYPES, (COLUMN_VERB_TYPE_NAME, newName), COLUMN_VERB_TYPE_ID).HasValue
     End Function
 End Class

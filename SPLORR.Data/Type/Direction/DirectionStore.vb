@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class DirectionStore
+    Inherits BaseTypeStore
     Implements IDirectionStore
 
     Private ReadOnly _connectionSource As Func(Of SqlConnection)
@@ -11,7 +12,7 @@ Friend Class DirectionStore
         Me._directionId = directionId
     End Sub
 
-    Public Property Name As String Implements IDirectionStore.Name
+    Public Overrides Property Name As String
         Get
             Return _connectionSource.ReadStringForInteger(
                 TABLE_DIRECTIONS,
@@ -23,29 +24,29 @@ Friend Class DirectionStore
         End Set
     End Property
 
-    Public ReadOnly Property Id As Integer Implements IDirectionStore.Id
+    Public Overrides ReadOnly Property Id As Integer
         Get
             Return _directionId
         End Get
     End Property
 
-    Public ReadOnly Property CanDelete As Boolean Implements IDirectionStore.CanDelete
+    Public Overrides ReadOnly Property CanDelete As Boolean
         Get
             Return Not _connectionSource.CheckForInteger(TABLE_ROUTES, (COLUMN_DIRECTION_ID, _directionId))
         End Get
     End Property
 
-    Public ReadOnly Property Store As IDataStore Implements IDirectionStore.Store
+    Public Overrides ReadOnly Property Store As IDataStore
         Get
             Return New DataStore(_connectionSource())
         End Get
     End Property
 
-    Public Sub Delete() Implements IDirectionStore.Delete
+    Public Overrides Sub Delete()
         _connectionSource.DeleteForInteger(TABLE_DIRECTIONS, (COLUMN_DIRECTION_ID, _directionId))
     End Sub
 
-    Public Function CanRenameTo(x As String) As Boolean Implements IDirectionStore.CanRenameTo
+    Public Overrides Function CanRenameTo(x As String) As Boolean
         Return Not _connectionSource.FindIntegerForString(
             TABLE_DIRECTIONS,
             (COLUMN_DIRECTION_NAME, x),

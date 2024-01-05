@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class LocationTypeStore
+    Inherits BaseTypeStore
     Implements ILocationTypeStore
 
     Private ReadOnly _connectionSource As Func(Of SqlConnection)
@@ -11,7 +12,7 @@ Friend Class LocationTypeStore
         Me._locationTypeId = locationTypeId
     End Sub
 
-    Public Property Name As String Implements ILocationTypeStore.Name
+    Public Overrides Property Name As String
         Get
             Return _connectionSource.ReadStringForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId), COLUMN_LOCATION_TYPE_NAME)
         End Get
@@ -20,13 +21,13 @@ Friend Class LocationTypeStore
         End Set
     End Property
 
-    Public ReadOnly Property Id As Integer Implements ILocationTypeStore.Id
+    Public Overrides ReadOnly Property Id As Integer
         Get
             Return _locationTypeId
         End Get
     End Property
 
-    Public ReadOnly Property CanDelete As Boolean Implements ILocationTypeStore.CanDelete
+    Public Overrides ReadOnly Property CanDelete As Boolean
         Get
             Return Not HasVerbs AndAlso
                 Not HasLocations
@@ -110,13 +111,13 @@ WHERE
         End Get
     End Property
 
-    Public ReadOnly Property Store As IDataStore Implements ILocationTypeStore.Store
+    Public Overrides ReadOnly Property Store As IDataStore
         Get
             Return New DataStore(_connectionSource())
         End Get
     End Property
 
-    Public Sub Delete() Implements ILocationTypeStore.Delete
+    Public Overrides Sub Delete()
         _connectionSource.DeleteForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId))
     End Sub
 
@@ -144,7 +145,7 @@ INSERT INTO
         _connectionSource.DeleteForIntegers(TABLE_LOCATION_TYPE_VERB_TYPES, (COLUMN_LOCATION_TYPE_ID, _locationTypeId), (COLUMN_VERB_TYPE_ID, verbTypeStore.Id))
     End Sub
 
-    Public Function CanRenameTo(newName As String) As Boolean Implements ILocationTypeStore.CanRenameTo
+    Public Overrides Function CanRenameTo(newName As String) As Boolean
         Return Not _connectionSource.FindIntegerForString(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_NAME, newName), COLUMN_LOCATION_TYPE_ID).HasValue
     End Function
 

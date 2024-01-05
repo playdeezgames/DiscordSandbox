@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class ItemTypeStore
+    Inherits BaseTypeStore
     Implements IItemTypeStore
 
     Private ReadOnly _connectionSource As Func(Of SqlConnection)
@@ -11,13 +12,13 @@ Friend Class ItemTypeStore
         Me._itemTypeId = itemTypeId
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements IItemTypeStore.Id
+    Public Overrides ReadOnly Property Id As Integer
         Get
             Return _itemTypeId
         End Get
     End Property
 
-    Public Property Name As String Implements IItemTypeStore.Name
+    Public Overrides Property Name As String
         Get
             Return _connectionSource.ReadStringForInteger(
                 TABLE_ITEM_TYPES,
@@ -32,25 +33,25 @@ Friend Class ItemTypeStore
         End Set
     End Property
 
-    Public ReadOnly Property CanDelete As Boolean Implements IItemTypeStore.CanDelete
+    Public Overrides ReadOnly Property CanDelete As Boolean
         Get
             Return Not _connectionSource.CheckForInteger(TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES, (COLUMN_ITEM_TYPE_ID, _itemTypeId))
         End Get
     End Property
 
-    Public ReadOnly Property Store As IDataStore Implements IItemTypeStore.Store
+    Public Overrides ReadOnly Property Store As IDataStore
         Get
             Return New DataStore(_connectionSource())
         End Get
     End Property
 
-    Public Sub Delete() Implements IItemTypeStore.Delete
+    Public Overrides Sub Delete()
         _connectionSource.DeleteForInteger(
             TABLE_ITEM_TYPES,
             (COLUMN_ITEM_TYPE_ID, _itemTypeId))
     End Sub
 
-    Public Function CanRenameTo(newName As String) As Boolean Implements IItemTypeStore.CanRenameTo
+    Public Overrides Function CanRenameTo(newName As String) As Boolean
         Return Not _connectionSource.FindIntegerForString(
             TABLE_ITEM_TYPES,
             (COLUMN_ITEM_TYPE_NAME, newName),
