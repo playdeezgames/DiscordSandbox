@@ -20,4 +20,37 @@ Friend Class ItemTypeGeneratorStore
                 (COLUMN_ITEM_TYPE_GENERATOR_ID, Id))
         End Get
     End Property
+
+    Public ReadOnly Property TotalWeight As Integer Implements IItemTypeGeneratorStore.TotalWeight
+        Get
+            Using command = connectionSource().CreateCommand
+                command.CommandText = $"SELECT SUM({COLUMN_GENERATOR_WEIGHT}) FROM {TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES} WHERE {COLUMN_ITEM_TYPE_GENERATOR_ID}={PARAMETER_ITEM_TYPE_GENERATOR_ID};"
+                command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_ID, Id)
+                Return CInt(command.ExecuteScalar)
+            End Using
+        End Get
+    End Property
+
+    Public Function Generate(generated As Integer) As IItemTypeStore Implements IItemTypeGeneratorStore.Generate
+        If generated < 0 Then
+            Return Nothing
+        End If
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"SELECT {COLUMN_ITEM_TYPE_ID},{COLUMN_GENERATOR_WEIGHT} FROM {TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES} WHERE {COLUMN_ITEM_TYPE_GENERATOR_ID}={PARAMETER_ITEM_TYPE_GENERATOR_ID} ORDER BY {COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID} ASC;"
+            command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_ID, Id)
+            Using reader = command.ExecuteReader
+                While reader.Read
+                    Dim generatorWeight = reader.GetInt32(1)
+                    If generated < generatorWeight Then
+                        If reader.IsDBNull(0) Then
+                            Return Nothing
+                        End If
+                        Return New ItemTypeStore(connectionSource, reader.GetInt32(0))
+                    End If
+                    generated -= generatorWeight
+                End While
+            End Using
+        End Using
+        Return Nothing
+    End Function
 End Class

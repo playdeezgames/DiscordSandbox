@@ -112,7 +112,19 @@ WHERE
 
     Public ReadOnly Property Inventory As IInventoryStore Implements ICharacterStore.Inventory
         Get
-            Throw New NotImplementedException()
+            Dim inventoryId = _connectionSource.FindIntegerForValue(
+                TABLE_INVENTORIES,
+                (COLUMN_CHARACTER_ID, _characterId),
+                COLUMN_INVENTORY_ID)
+            If inventoryId.HasValue Then
+                Return New InventoryStore(_connectionSource, inventoryId.Value)
+            End If
+            Using command = _connectionSource().CreateCommand
+                command.CommandText = $"INSERT INTO {TABLE_INVENTORIES}({COLUMN_CHARACTER_ID}) VALUES({PARAMETER_CHARACTER_ID});"
+                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+                command.ExecuteNonQuery()
+            End Using
+            Return New InventoryStore(_connectionSource, _connectionSource.ReadLastIdentity)
         End Get
     End Property
 End Class

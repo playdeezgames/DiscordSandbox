@@ -6,6 +6,11 @@ Friend Module ForageMessage
             outputter(MESSAGE_NO_CHARACTER)
             Return
         End If
-        Throw New NotImplementedException
+        Dim character = player.Character
+        Dim foragedItem = character.Location.GenerateForageItem(character.Inventory)
+        If foragedItem Is Nothing Then
+            outputter($"{character.Name} finds nothing!")
+        End If
+        outputter($"{character.Name} finds {foragedItem.Name}.")
     End Sub
 End Module

@@ -1,4 +1,5 @@
 ﻿Imports SPLORR.Data
+Imports SPLORR.Game
 
 Friend Class LocationModel
     Implements ILocationModel
@@ -47,5 +48,22 @@ Friend Class LocationModel
 
     Public Function IsSameAs(otherLocation As ILocationModel) As Boolean Implements ILocationModel.IsSameAs
         Return LocationStore.Id = otherLocation.LocationStore.Id
+    End Function
+
+    Public Function GenerateForageItem(destination As IInventoryModel) As IItemModel Implements ILocationModel.GenerateForageItem
+        Dim generator As IItemTypeGeneratorStore = LocationStore.LocationType.ItemTypeGenerator
+        If generator Is Nothing Then
+            Return Nothing
+        End If
+        Dim totalWeight As Integer = generator.TotalWeight
+        If totalWeight < 1 Then
+            Return Nothing
+        End If
+        Dim generated = RNG.FromRange(0, totalWeight - 1)
+        Dim itemType As IItemTypeStore = generator.Generate(generated)
+        If itemType Is Nothing Then
+            Return Nothing
+        End If
+        Return New ItemModel(itemType.CreateItem(destination.InventoryStore))
     End Function
 End Class

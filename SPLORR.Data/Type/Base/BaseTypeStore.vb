@@ -32,7 +32,7 @@ Friend MustInherit Class BaseTypeStore
                 nameColumnName)
         End Get
         Set(value As String)
-            connectionSource.WriteStringForInteger(
+            connectionSource.WriteValueForInteger(
                 tableName,
                 (idColumnName, Id),
                 (nameColumnName, value))
@@ -44,7 +44,7 @@ Friend MustInherit Class BaseTypeStore
             (idColumnName, Id))
     End Sub
     Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
-        Return Not connectionSource.FindIntegerForString(tableName, (nameColumnName, x), idColumnName).HasValue
+        Return Not connectionSource.FindIntegerForValue(tableName, (nameColumnName, x), idColumnName).HasValue
     End Function
     Public MustOverride ReadOnly Property CanDelete As Boolean Implements IBaseTypeStore.CanDelete
 End Class

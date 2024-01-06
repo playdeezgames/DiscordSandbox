@@ -61,7 +61,7 @@ WHERE
     End Function
 
     Public Function FromName(name As String) As TTypeStore Implements ITypeStore(Of TTypeStore).FromName
-        Dim id = connectionSource.FindIntegerForString(tableName, (nameColumnName, name), idColumnName)
+        Dim id = connectionSource.FindIntegerForValue(tableName, (nameColumnName, name), idColumnName)
         If Not id.HasValue Then
             Return Nothing
         End If

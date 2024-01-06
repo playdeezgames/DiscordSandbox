@@ -22,4 +22,8 @@
     Friend Const COLUMN_ITEM_TYPE_ID = "ItemTypeId"
     Friend Const COLUMN_ITEM_TYPE_GENERATOR_NAME = "ItemTypeGeneratorName"
     Friend Const COLUMN_ITEM_TYPE_GENERATOR_ID = "ItemTypeGeneratorId"
+    Friend Const COLUMN_INVENTORY_ID = "InventoryId"
+    Friend Const COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID = "ItemTypeGeneratorItemTypeId"
+    Friend Const COLUMN_ITEM_ID = "ItemId"
+    Friend Const COLUMN_ITEM_NAME = "ItemName"
 End Module

@@ -19,4 +19,24 @@ Friend Class ItemTypeStore
             Return Not connectionSource.CheckForInteger(TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES, (COLUMN_ITEM_TYPE_ID, Id))
         End Get
     End Property
+
+    Public Function CreateItem(inventoryStore As IInventoryStore) As IItemStore Implements IItemTypeStore.CreateItem
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"
+INSERT INTO 
+    {TABLE_ITEMS}
+    (
+        {COLUMN_ITEM_TYPE_ID},
+        {COLUMN_INVENTORY_ID}
+    )
+    VALUES
+    (
+        {PARAMETER_ITEM_TYPE_ID},
+        {PARAMETER_INVENTORY_ID}
+    );"
+            command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_ID, Id)
+            command.Parameters.AddWithValue(PARAMETER_INVENTORY_ID, inventoryStore.Id)
+        End Using
+        Return New ItemStore(connectionSource, connectionSource.ReadLastIdentity)
+    End Function
 End Class

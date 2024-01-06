@@ -21,11 +21,11 @@ WHERE
         End Using
     End Function
     <Extension>
-    Sub WriteStringForInteger(
+    Sub WriteValueForInteger(Of TValue)(
                              connectionSource As Func(Of SqlConnection),
                              tableName As String,
                              forColumn As (Name As String, Value As Integer),
-                             writtenColumn As (Name As String, Value As String))
+                             writtenColumn As (Name As String, Value As TValue))
         Using command = connectionSource().CreateCommand
             command.CommandText = $"UPDATE {tableName} SET {writtenColumn.Name}={PARAMETER_WRITTEN_COLUMN} WHERE {forColumn.Name}={PARAMETER_FOR_COLUMN};"
             command.Parameters.AddWithValue(PARAMETER_WRITTEN_COLUMN, writtenColumn.Value)
@@ -34,16 +34,19 @@ WHERE
         End Using
     End Sub
     <Extension>
-    Function FindIntegerForString(
+    Function FindIntegerForValue(Of TValue)(
                              connectionSource As Func(Of SqlConnection),
                              tableName As String,
-                             forColumn As (Name As String, Value As String),
+                             forColumn As (Name As String, Value As TValue),
                              foundColumnName As String) As Integer?
         Using command = connectionSource().CreateCommand
             command.CommandText = $"SELECT {foundColumnName} FROM {tableName} WHERE {forColumn.Name}={PARAMETER_FOR_COLUMN};"
             command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, forColumn.Value)
             Using reader = command.ExecuteReader
                 If reader.Read Then
+                    If reader.IsDBNull(0) Then
+                        Return Nothing
+                    End If
                     Return reader.GetInt32(0)
                 End If
             End Using
