@@ -38,7 +38,7 @@ Friend Class CharacterModel
 
     Public ReadOnly Property Inventory As IInventoryModel Implements ICharacterModel.Inventory
         Get
-            Throw New NotImplementedException()
+            Return New InventoryModel(_characterStore)
         End Get
     End Property
 

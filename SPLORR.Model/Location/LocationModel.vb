@@ -36,7 +36,7 @@ Friend Class LocationModel
 
     Public ReadOnly Property Inventory As IInventoryModel Implements ILocationModel.Inventory
         Get
-            Throw New NotImplementedException()
+            Return New InventoryModel(_locationStore)
         End Get
     End Property
 

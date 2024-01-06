@@ -109,4 +109,10 @@ WHERE
             Return result
         End Get
     End Property
+
+    Public ReadOnly Property Inventory As IInventoryStore Implements ICharacterStore.Inventory
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
 End Class

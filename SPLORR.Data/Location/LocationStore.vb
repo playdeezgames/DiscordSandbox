@@ -58,6 +58,12 @@ WHERE
         End Get
     End Property
 
+    Public ReadOnly Property Inventory As IInventoryStore Implements ILocationStore.Inventory
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
     Public Function FindRouteByDirectionName(directionName As String) As IRouteStore Implements ILocationStore.FindRouteByDirectionName
         Using command = _connectionSource().CreateCommand
             command.CommandText = $"
