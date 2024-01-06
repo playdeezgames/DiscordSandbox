@@ -7,4 +7,5 @@ Public Interface ILocationModel
     Function FindRouteByDirectionName(directionName As String) As IRouteModel
     Function IsSameAs(otherLocation As ILocationModel) As Boolean
     ReadOnly Property LocationStore As ILocationStore
+    ReadOnly Property Inventory As IInventoryModel
 End Interface
