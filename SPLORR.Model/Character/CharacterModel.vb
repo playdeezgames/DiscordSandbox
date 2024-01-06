@@ -36,6 +36,12 @@ Friend Class CharacterModel
         End Get
     End Property
 
+    Public ReadOnly Property Inventory As IInventoryModel Implements ICharacterModel.Inventory
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
     Public Function UseRoute(route As IRouteModel) As (Result As Boolean, Messages As String()) Implements ICharacterModel.UseRoute
         If route Is Nothing Then
             Return (False, {"The route does not exist!"})

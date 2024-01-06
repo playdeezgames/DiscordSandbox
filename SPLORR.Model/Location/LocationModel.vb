@@ -34,6 +34,12 @@ Friend Class LocationModel
         End Get
     End Property
 
+    Public ReadOnly Property Inventory As IInventoryModel Implements ILocationModel.Inventory
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
     Public Function FindRouteByDirectionName(directionName As String) As IRouteModel Implements ILocationModel.FindRouteByDirectionName
         Dim routeStore As IRouteStore = _locationStore.FindRouteByDirectionName(directionName)
         Return If(routeStore IsNot Nothing, New RouteModel(routeStore), Nothing)
