@@ -64,6 +64,7 @@
     <Folder Include="dbo\Tables\Player" />
     <Folder Include="dbo\Tables\Route" />
     <Folder Include="dbo\Tables\ItemTypeGenerator" />
+    <Folder Include="dbo\Tables\Item" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Views\CharacterLocationOtherCharacters.sql" />
@@ -77,9 +78,11 @@
     <Build Include="dbo\Tables\Player\PlayerMoney.sql" />
     <Build Include="dbo\Tables\Player\Players.sql" />
     <Build Include="dbo\Tables\Route\Routes.sql" />
-    <Build Include="dbo\Tables\ItemTypes.sql" />
     <Build Include="dbo\Tables\ItemTypeGenerator\ItemTypeGeneratorItemTypes.sql" />
     <Build Include="dbo\Tables\ItemTypeGenerator\ItemTypeGenerators.sql" />
+    <Build Include="dbo\Tables\Item\Inventories.sql" />
+    <Build Include="dbo\Tables\Item\Items.sql" />
+    <Build Include="dbo\Tables\Item\ItemTypes.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />
