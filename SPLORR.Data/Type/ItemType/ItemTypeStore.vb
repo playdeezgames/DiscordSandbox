@@ -36,6 +36,7 @@ INSERT INTO
     );"
             command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_ID, Id)
             command.Parameters.AddWithValue(PARAMETER_INVENTORY_ID, inventoryStore.Id)
+            command.ExecuteNonQuery()
         End Using
         Return New ItemStore(connectionSource, connectionSource.ReadLastIdentity)
     End Function
