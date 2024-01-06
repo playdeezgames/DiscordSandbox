@@ -10,6 +10,7 @@ Friend Module ForageMessage
         Dim foragedItem = character.Location.GenerateForageItem(character.Inventory)
         If foragedItem Is Nothing Then
             outputter($"{character.Name} finds nothing!")
+            Return
         End If
         outputter($"{character.Name} finds {foragedItem.Name}.")
     End Sub
