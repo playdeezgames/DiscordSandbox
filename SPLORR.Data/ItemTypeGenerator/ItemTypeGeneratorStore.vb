@@ -34,6 +34,24 @@ Friend Class ItemTypeGeneratorStore
         End Get
     End Property
 
+    Public ReadOnly Property HasItemTypes As Boolean Implements IItemTypeGeneratorStore.HasItemTypes
+        Get
+            Return connectionSource.CheckForInteger(
+                TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES,
+                (COLUMN_ITEM_TYPE_GENERATOR_ID, Id))
+        End Get
+    End Property
+
+    Public ReadOnly Property CanAddItemType As Boolean Implements IItemTypeGeneratorStore.CanAddItemType
+        Get
+            Using command = connectionSource().CreateCommand
+                command.CommandText = $"SELECT COUNT(1) FROM {VIEW_ITEM_TYPE_GENERATOR_AVAILABLE_ITEM_TYPES} WHERE {COLUMN_ITEM_TYPE_GENERATOR_ID}={PARAMETER_ITEM_TYPE_GENERATOR_ID} AND {COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID} IS NULL;"
+                command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_ID, Id)
+                Return CInt(command.ExecuteScalar) > 0
+            End Using
+        End Get
+    End Property
+
     Public Function Generate(generated As Integer) As IItemTypeStore Implements IItemTypeGeneratorStore.Generate
         If generated < 0 Then
             Return Nothing
