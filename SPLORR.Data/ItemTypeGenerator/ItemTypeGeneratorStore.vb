@@ -52,6 +52,17 @@ Friend Class ItemTypeGeneratorStore
         End Get
     End Property
 
+    Public ReadOnly Property ItemTypes As ITypeStore(Of IItemTypeGeneratorItemTypeStore) Implements IItemTypeGeneratorStore.ItemTypes
+        Get
+            Return New TypeStore(Of IItemTypeGeneratorItemTypeStore)(
+                connectionSource,
+                VIEW_ITEM_TYPE_GENERATOR_ITEM_TYPE_DETAILS,
+                COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID,
+                COLUMN_ITEM_TYPE_NAME,
+                Function(x, y) New ItemTypeGeneratorItemTypeStore(x, y))
+        End Get
+    End Property
+
     Public Function Generate(generated As Integer) As IItemTypeStore Implements IItemTypeGeneratorStore.Generate
         If generated < 0 Then
             Return Nothing
