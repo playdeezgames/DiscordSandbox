@@ -27,7 +27,7 @@ Friend Class LocationTypeStore
         End Get
     End Property
 
-    Public ReadOnly Property ItemTypeGenerator As IItemTypeGeneratorStore Implements ILocationTypeStore.ItemTypeGenerator
+    Public Property ItemTypeGenerator As IItemTypeGeneratorStore Implements ILocationTypeStore.ItemTypeGenerator
         Get
             Dim itemTypeGeneratorId = connectionSource.FindIntegerForValue(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), COLUMN_ITEM_TYPE_GENERATOR_ID)
             If Not itemTypeGeneratorId.HasValue Then
@@ -35,6 +35,13 @@ Friend Class LocationTypeStore
             End If
             Return New ItemTypeGeneratorStore(connectionSource, itemTypeGeneratorId.Value)
         End Get
+        Set(value As IItemTypeGeneratorStore)
+            If value Is Nothing Then
+                connectionSource.ClearValueForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), COLUMN_ITEM_TYPE_GENERATOR_ID)
+            Else
+                connectionSource.WriteValueForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), (COLUMN_ITEM_TYPE_GENERATOR_ID, value.Id))
+            End If
+        End Set
     End Property
 
     Public Function FilterLocations(filter As String) As IEnumerable(Of ILocationStore) Implements ILocationTypeStore.FilterLocations

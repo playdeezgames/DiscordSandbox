@@ -2,5 +2,5 @@
     Inherits IBaseTypeStore
     ReadOnly Property HasLocations As Boolean
     Function FilterLocations(filter As String) As IEnumerable(Of ILocationStore)
-    ReadOnly Property ItemTypeGenerator As IItemTypeGeneratorStore
+    Property ItemTypeGenerator As IItemTypeGeneratorStore
 End Interface

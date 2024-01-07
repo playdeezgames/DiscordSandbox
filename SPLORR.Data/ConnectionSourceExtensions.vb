@@ -34,6 +34,18 @@ WHERE
         End Using
     End Sub
     <Extension>
+    Sub ClearValueForInteger(
+                             connectionSource As Func(Of SqlConnection),
+                             tableName As String,
+                             forColumn As (Name As String, Value As Integer),
+                             clearedColumnName As String)
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"UPDATE {tableName} SET {clearedColumnName}=NULL WHERE {forColumn.Name}={PARAMETER_FOR_COLUMN};"
+            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, forColumn.Value)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+    <Extension>
     Function FindIntegerForValue(Of TValue)(
                              connectionSource As Func(Of SqlConnection),
                              tableName As String,
