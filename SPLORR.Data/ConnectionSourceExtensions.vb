@@ -101,10 +101,10 @@ WHERE
         End Using
     End Sub
     <Extension>
-    Sub DeleteForIntegers(connectionSource As Func(Of SqlConnection),
+    Sub DeleteForValues(Of TFirstValue, TSecondValue)(connectionSource As Func(Of SqlConnection),
                             tableName As String,
-                            firstInputColumn As (Name As String, Value As Integer),
-                            secondInputColumn As (Name As String, Value As Integer))
+                            firstInputColumn As (Name As String, Value As TFirstValue),
+                            secondInputColumn As (Name As String, Value As TSecondValue))
         Using command = connectionSource().CreateCommand()
             command.CommandText = $"
 DELETE FROM 
