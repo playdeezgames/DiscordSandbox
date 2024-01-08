@@ -16,7 +16,7 @@ Friend Class ItemTypeGeneratorItemTypeStore
 
     Public ReadOnly Property ItemType As IItemTypeStore Implements IItemTypeGeneratorItemTypeStore.ItemType
         Get
-            Throw New NotImplementedException()
+            Return New ItemTypeStore(connectionSource, connectionSource.ReadIntegerForInteger(VIEW_ITEM_TYPE_GENERATOR_ITEM_TYPE_DETAILS, (COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id), COLUMN_ITEM_TYPE_ID))
         End Get
     End Property
 End Class

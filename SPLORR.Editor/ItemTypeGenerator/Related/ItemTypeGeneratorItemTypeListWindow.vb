@@ -1,5 +1,4 @@
 ﻿Imports SPLORR.Data
-Imports Terminal.Gui
 
 Friend Class ItemTypeGeneratorItemTypeListWindow
     Inherits BaseListWindow(Of IItemTypeGeneratorStore, IItemTypeGeneratorItemTypeStore)
@@ -17,6 +16,16 @@ Friend Class ItemTypeGeneratorItemTypeListWindow
                     "Close",
                     Function() True,
                     Sub() Program.GoToWindow(New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore))
+                ),
+                (
+                    "Add...",
+                    Function() itemTypeGeneratorStore.CanAddItemType,
+                    Sub() Program.GoToWindow(New ItemTypeGeneratorItemTypeAddWindow(itemTypeGeneratorStore))
+                ),
+                (
+                    "Remove...",
+                    Function() itemTypeGeneratorStore.HasItemTypes,
+                    Sub() Program.GoToWindow(New ItemTypeGeneratorItemTypeRemoveWindow(itemTypeGeneratorStore))
                 )
             })
     End Sub

@@ -23,19 +23,9 @@ Friend Class ItemTypeGeneratorEditWindow
             End Function,
             {
                 (
-                    "List Item Type...",
+                    "Item Types...",
                     Function() itemTypeGeneratorStore.HasItemTypes,
                     Sub() Program.GoToWindow(New ItemTypeGeneratorItemTypeListWindow(itemTypeGeneratorStore))
-                ),
-                (
-                    "Add Item Type...",
-                    Function() itemTypeGeneratorStore.CanAddItemType,
-                    Sub() Program.GoToWindow(New ItemTypeGeneratorItemTypeAddWindow(itemTypeGeneratorStore))
-                ),
-                (
-                    "Remove Item Type...",
-                    Function() itemTypeGeneratorStore.HasItemTypes,
-                    Sub() Program.GoToWindow(New ItemTypeGeneratorItemTypeRemoveWindow(itemTypeGeneratorStore))
                 )
             })
     End Sub
