@@ -6,17 +6,20 @@ Friend MustInherit Class BaseTypeStore
     Private ReadOnly tableName As String
     Private ReadOnly idColumnName As String
     Private ReadOnly nameColumnName As String
+    Private ReadOnly deleteTableName As String
     Sub New(
            connectionSource As Func(Of SqlConnection),
            id As Integer,
            tableName As String,
            idColumnName As String,
-           nameColumnName As String)
+           nameColumnName As String,
+           Optional deleteTableName As String = Nothing)
         Me.connectionSource = connectionSource
         Me.Id = id
         Me.tableName = tableName
         Me.idColumnName = idColumnName
         Me.nameColumnName = nameColumnName
+        Me.deleteTableName = If(deleteTableName, tableName)
     End Sub
     Public ReadOnly Property Store As IDataStore Implements IBaseTypeStore.Store
         Get
@@ -40,7 +43,7 @@ Friend MustInherit Class BaseTypeStore
     End Property
     Public Sub Delete() Implements IBaseTypeStore.Delete
         connectionSource.DeleteForValue(
-            tableName,
+            deleteTableName,
             (idColumnName, Id))
     End Sub
     Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo

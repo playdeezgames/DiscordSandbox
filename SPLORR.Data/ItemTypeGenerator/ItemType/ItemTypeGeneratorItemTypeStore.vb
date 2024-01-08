@@ -5,7 +5,13 @@ Friend Class ItemTypeGeneratorItemTypeStore
     Implements IItemTypeGeneratorItemTypeStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), id As Integer)
-        MyBase.New(connectionSource, id, VIEW_ITEM_TYPE_GENERATOR_ITEM_TYPE_DETAILS, COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, COLUMN_ITEM_TYPE_NAME)
+        MyBase.New(
+            connectionSource,
+            id,
+            VIEW_ITEM_TYPE_GENERATOR_ITEM_TYPE_DETAILS,
+            COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID,
+            COLUMN_ITEM_TYPE_NAME,
+            deleteTableName:=TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES)
     End Sub
 
     Public Overrides ReadOnly Property CanDelete As Boolean

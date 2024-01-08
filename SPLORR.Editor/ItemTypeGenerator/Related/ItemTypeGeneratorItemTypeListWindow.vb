@@ -9,6 +9,10 @@ Friend Class ItemTypeGeneratorItemTypeListWindow
             itemTypeGeneratorStore,
             Function(x, y) x.ItemTypes.Filter(y),
             Function(x) New ItemTypeGeneratorItemTypeListItem(x),
+            ToResultWindow:=Function(x)
+                                CType(x, ItemTypeGeneratorItemTypeListItem).ItemTypeGeneratorItemTypeStore.Delete()
+                                Return New ItemTypeGeneratorItemTypeListWindow(itemTypeGeneratorStore)
+                            End Function,
             AdditionalButtons:=
             {
                 (
@@ -20,11 +24,6 @@ Friend Class ItemTypeGeneratorItemTypeListWindow
                     "Add...",
                     Function() itemTypeGeneratorStore.CanAddItemType,
                     Sub() Program.GoToWindow(New ItemTypeGeneratorItemTypeAddWindow(itemTypeGeneratorStore))
-                ),
-                (
-                    "Remove...",
-                    Function() itemTypeGeneratorStore.HasItemTypes,
-                    Sub() Program.GoToWindow(New ItemTypeGeneratorItemTypeRemoveWindow(itemTypeGeneratorStore))
                 )
             })
     End Sub

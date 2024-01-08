@@ -1,7 +1,7 @@
 ﻿Imports SPLORR.Data
 
 Friend Class ItemTypeGeneratorItemTypeListItem
-    Private ReadOnly itemTypeGeneratorItemTypeStore As IItemTypeGeneratorItemTypeStore
+    Public ReadOnly Property ItemTypeGeneratorItemTypeStore As IItemTypeGeneratorItemTypeStore
 
     Public Sub New(itemTypeGeneratorItemTypeStore As IItemTypeGeneratorItemTypeStore)
         Me.itemTypeGeneratorItemTypeStore = itemTypeGeneratorItemTypeStore
