@@ -5,7 +5,7 @@
     ReadOnly Property HasItemTypes As Boolean
     ReadOnly Property CanAddItemType As Boolean
     Function Generate(generated As Integer) As IItemTypeStore
-    Sub AddItemType(itemType As IItemTypeStore, quantity As Integer)
+    Function AddItemType(itemType As IItemTypeStore, quantity As Integer) As IItemTypeGeneratorItemTypeStore
     ReadOnly Property ItemTypes As ITypeStore(Of IItemTypeGeneratorItemTypeStore)
     ReadOnly Property AvailableItemTypes As ITypeStore(Of IItemTypeStore)
 End Interface

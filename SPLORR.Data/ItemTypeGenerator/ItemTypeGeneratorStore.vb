@@ -45,7 +45,7 @@ Friend Class ItemTypeGeneratorStore
     Public ReadOnly Property CanAddItemType As Boolean Implements IItemTypeGeneratorStore.CanAddItemType
         Get
             Using command = connectionSource().CreateCommand
-                command.CommandText = $"SELECT COUNT(1) FROM {VIEW_ITEM_TYPE_GENERATOR_AVAILABLE_ITEM_TYPES} WHERE {COLUMN_ITEM_TYPE_GENERATOR_ID}={PARAMETER_ITEM_TYPE_GENERATOR_ID} AND {COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID} IS NULL;"
+                command.CommandText = $"SELECT COUNT(1) FROM {VIEW_ITEM_TYPE_GENERATOR_AVAILABLE_ITEM_TYPES} WHERE {COLUMN_ITEM_TYPE_GENERATOR_ID}={PARAMETER_ITEM_TYPE_GENERATOR_ID};"
                 command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_ID, Id)
                 Return CInt(command.ExecuteScalar) > 0
             End Using
@@ -74,9 +74,29 @@ Friend Class ItemTypeGeneratorStore
         End Get
     End Property
 
-    Public Sub AddItemType(itemType As IItemTypeStore, quantity As Integer) Implements IItemTypeGeneratorStore.AddItemType
-        Throw New NotImplementedException()
-    End Sub
+    Public Function AddItemType(itemType As IItemTypeStore, quantity As Integer) As IItemTypeGeneratorItemTypeStore Implements IItemTypeGeneratorStore.AddItemType
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"
+INSERT INTO 
+    {TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES}
+    (
+        {COLUMN_ITEM_TYPE_ID},
+        {COLUMN_ITEM_TYPE_GENERATOR_ID},
+        {COLUMN_GENERATOR_WEIGHT}
+    ) 
+    VALUES 
+    (
+        {PARAMETER_ITEM_TYPE_ID},
+        {PARAMETER_ITEM_TYPE_GENERATOR_ID},
+        {PARAMETER_GENERATOR_WEIGHT}
+    );"
+            command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_ID, itemType.Id)
+            command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_ID, Id)
+            command.Parameters.AddWithValue(PARAMETER_GENERATOR_WEIGHT, quantity)
+            command.ExecuteNonQuery()
+        End Using
+        Return New ItemTypeGeneratorItemTypeStore(connectionSource, connectionSource.ReadLastIdentity)
+    End Function
 
     Public Function Generate(generated As Integer) As IItemTypeStore Implements IItemTypeGeneratorStore.Generate
         If generated < 0 Then

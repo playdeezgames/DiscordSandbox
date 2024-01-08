@@ -1,5 +1,4 @@
 ﻿Imports SPLORR.Data
-Imports Terminal.Gui
 
 Friend Class ItemTypeGeneratorItemTypeAddWindow
     Inherits BaseListWindow(Of IItemTypeGeneratorStore, IItemTypeStore)
@@ -12,7 +11,7 @@ Friend Class ItemTypeGeneratorItemTypeAddWindow
             Function(x)
                 Dim itemType = CType(x, ItemTypeListItem).ItemTypeStore
                 itemTypeGeneratorStore.AddItemType(itemType, 1)
-                Return New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore)
+                Return New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore) 'TODO: go to itgit edit window!
             End Function,
             AdditionalButtons:=
             {
