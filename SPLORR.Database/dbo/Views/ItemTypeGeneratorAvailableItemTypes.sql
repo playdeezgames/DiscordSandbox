@@ -3,7 +3,8 @@
 SELECT
 	itg.ItemTypeGeneratorId,
 	it.ItemTypeId,
-	itgit.ItemTypeGeneratorItemTypeId
+	itgit.ItemTypeGeneratorItemTypeId,
+	it.ItemTypeName
 FROM
 	ItemTypeGenerators itg
 	CROSS JOIN ItemTypes it
