@@ -19,7 +19,7 @@ Friend Class LocationStore
 
     Public ReadOnly Property Name As String Implements ILocationStore.Name
         Get
-            Return connectionSource.ReadStringForInteger(
+            Return connectionSource.ReadStringForValue(
                 TABLE_LOCATIONS,
                 (COLUMN_LOCATION_ID, locationId),
                 COLUMN_LOCATION_NAME)

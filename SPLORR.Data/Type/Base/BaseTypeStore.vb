@@ -26,7 +26,7 @@ Friend MustInherit Class BaseTypeStore
     Public ReadOnly Property Id As Integer Implements IBaseTypeStore.Id
     Public Property Name As String Implements IBaseTypeStore.Name
         Get
-            Return connectionSource.ReadStringForInteger(
+            Return connectionSource.ReadStringForValue(
                 tableName,
                 (idColumnName, Id),
                 nameColumnName)

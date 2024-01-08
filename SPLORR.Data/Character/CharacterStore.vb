@@ -18,7 +18,7 @@ Friend Class CharacterStore
 
     Public Property Name As String Implements ICharacterStore.Name
         Get
-            Return _connectionSource.ReadStringForInteger(
+            Return _connectionSource.ReadStringForValue(
                 TABLE_CHARACTERS,
                 (COLUMN_CHARACTER_ID, _characterId),
                 COLUMN_CHARACTER_NAME)

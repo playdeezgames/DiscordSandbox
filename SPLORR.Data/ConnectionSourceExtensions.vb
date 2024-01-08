@@ -7,7 +7,7 @@ Friend Module ConnectionSourceExtensions
     Private Const PARAMETER_SECOND_FOR_COLUMN = "@SecondForColumn"
     Private Const PARAMETER_WRITTEN_COLUMN = "@WrittenColumn"
     <Extension>
-    Function ReadStringForInteger(connectionSource As Func(Of SqlConnection), tableName As String, inputColumn As (Name As String, Value As Integer), outputColumnName As String) As String
+    Function ReadStringForValue(Of TValue)(connectionSource As Func(Of SqlConnection), tableName As String, inputColumn As (Name As String, Value As TValue), outputColumnName As String) As String
         Using command = connectionSource().CreateCommand
             command.CommandText = $"
 SELECT 

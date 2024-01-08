@@ -13,7 +13,7 @@ Friend Class RouteTypeStore
 
     Public ReadOnly Property Name As String Implements IRouteTypeStore.Name
         Get
-            Return _connectionSource.ReadStringForInteger(
+            Return _connectionSource.ReadStringForValue(
                 TABLE_ROUTE_TYPES,
                 (COLUMN_ROUTE_TYPE_ID, _routeTypeId),
                 COLUMN_ROUTE_TYPE_NAME)
