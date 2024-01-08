@@ -3,6 +3,7 @@
 Friend Class ItemTypeGeneratorItemTypeStore
     Inherits BaseTypeStore
     Implements IItemTypeGeneratorItemTypeStore
+    Const GENERATOR_WEIGHT_MINIMUM = 1
 
     Public Sub New(connectionSource As Func(Of SqlConnection), id As Integer)
         MyBase.New(
@@ -37,7 +38,7 @@ Friend Class ItemTypeGeneratorItemTypeStore
             connectionSource.WriteValueForInteger(
                 TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES,
                 (COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id),
-                (COLUMN_GENERATOR_WEIGHT, value))
+                (COLUMN_GENERATOR_WEIGHT, Math.Max(value, GENERATOR_WEIGHT_MINIMUM)))
         End Set
     End Property
 

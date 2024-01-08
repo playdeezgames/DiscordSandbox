@@ -26,6 +26,11 @@ Friend Class ItemTypeGeneratorEditWindow
                     "Item Types...",
                     Function() itemTypeGeneratorStore.HasItemTypes,
                     Sub() Program.GoToWindow(New ItemTypeGeneratorItemTypeListWindow(itemTypeGeneratorStore))
+                ),
+                (
+                    $"Nothing Generator Weight: {itemTypeGeneratorStore.NothingGeneratorWeight}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New ItemTypeGeneratorEditNothingGeneratorWeightWindow(itemTypeGeneratorStore))
                 )
             })
     End Sub

@@ -3,6 +3,7 @@
 Friend Class ItemTypeGeneratorStore
     Inherits BaseTypeStore
     Implements IItemTypeGeneratorStore
+    Const NOTHING_GENERATOR_WEIGHT_MINIMUM = 0
 
     Public Sub New(connectionSource As Func(Of SqlConnection), itemTypeGeneratorId As Integer)
         MyBase.New(
@@ -26,10 +27,11 @@ Friend Class ItemTypeGeneratorStore
 
     Public ReadOnly Property TotalWeight As Integer Implements IItemTypeGeneratorStore.TotalWeight
         Get
+            Dim total = NothingGeneratorWeight
             Using command = connectionSource().CreateCommand
                 command.CommandText = $"SELECT SUM({COLUMN_GENERATOR_WEIGHT}) FROM {TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES} WHERE {COLUMN_ITEM_TYPE_GENERATOR_ID}={PARAMETER_ITEM_TYPE_GENERATOR_ID};"
                 command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_ID, Id)
-                Return CInt(command.ExecuteScalar)
+                Return CInt(command.ExecuteScalar) + total
             End Using
         End Get
     End Property
@@ -74,6 +76,21 @@ Friend Class ItemTypeGeneratorStore
         End Get
     End Property
 
+    Public Property NothingGeneratorWeight As Integer Implements IItemTypeGeneratorStore.NothingGeneratorWeight
+        Get
+            Return connectionSource.ReadIntegerForValue(
+                TABLE_ITEM_TYPE_GENERATORS,
+                (COLUMN_ITEM_TYPE_GENERATOR_ID, Id),
+                COLUMN_NOTHING_GENERATOR_WEIGHT)
+        End Get
+        Set(value As Integer)
+            connectionSource.WriteValueForInteger(
+                TABLE_ITEM_TYPE_GENERATORS,
+                (COLUMN_ITEM_TYPE_GENERATOR_ID, Id),
+                (COLUMN_NOTHING_GENERATOR_WEIGHT, Math.Max(NOTHING_GENERATOR_WEIGHT_MINIMUM, value)))
+        End Set
+    End Property
+
     Public Function AddItemType(itemType As IItemTypeStore, quantity As Integer) As IItemTypeGeneratorItemTypeStore Implements IItemTypeGeneratorStore.AddItemType
         Using command = connectionSource().CreateCommand
             command.CommandText = $"
@@ -102,6 +119,11 @@ INSERT INTO
         If generated < 0 Then
             Return Nothing
         End If
+        Dim nothingWeight = NothingGeneratorWeight
+        If generated < nothingWeight Then
+            Return Nothing
+        End If
+        generated -= nothingWeight
         Using command = connectionSource().CreateCommand
             command.CommandText = $"SELECT {COLUMN_ITEM_TYPE_ID},{COLUMN_GENERATOR_WEIGHT} FROM {TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES} WHERE {COLUMN_ITEM_TYPE_GENERATOR_ID}={PARAMETER_ITEM_TYPE_GENERATOR_ID} ORDER BY {COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID} ASC;"
             command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_ID, Id)

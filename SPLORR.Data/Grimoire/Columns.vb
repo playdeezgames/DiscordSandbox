@@ -12,6 +12,7 @@
     Friend Const COLUMN_LOCATION_NAME = "LocationName"
     Friend Const COLUMN_LOCATION_TYPE_ID = "LocationTypeId"
     Friend Const COLUMN_LOCATION_TYPE_NAME = "LocationTypeName"
+    Friend Const COLUMN_NOTHING_GENERATOR_WEIGHT = "NothingGeneratorWeight"
     Friend Const COLUMN_OTHER_CHARACTER_ID = "OtherCharacterId"
     Friend Const COLUMN_PLAYER_ID = "PlayerId"
     Friend Const COLUMN_ROUTE_ID = "RouteId"

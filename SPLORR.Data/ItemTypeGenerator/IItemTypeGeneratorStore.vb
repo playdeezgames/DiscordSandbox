@@ -8,4 +8,5 @@
     Function AddItemType(itemType As IItemTypeStore, quantity As Integer) As IItemTypeGeneratorItemTypeStore
     ReadOnly Property ItemTypes As ITypeStore(Of IItemTypeGeneratorItemTypeStore)
     ReadOnly Property AvailableItemTypes As ITypeStore(Of IItemTypeStore)
+    Property NothingGeneratorWeight As Integer
 End Interface
