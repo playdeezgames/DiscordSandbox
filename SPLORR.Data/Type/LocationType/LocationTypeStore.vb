@@ -21,7 +21,7 @@ Friend Class LocationTypeStore
 
     Public ReadOnly Property HasLocations As Boolean Implements ILocationTypeStore.HasLocations
         Get
-            Return connectionSource.CheckForInteger(
+            Return connectionSource.CheckForValue(
                 TABLE_LOCATIONS,
                 (COLUMN_LOCATION_TYPE_ID, Id))
         End Get
@@ -37,7 +37,7 @@ Friend Class LocationTypeStore
         End Get
         Set(value As IItemTypeGeneratorStore)
             If value Is Nothing Then
-                connectionSource.ClearValueForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), COLUMN_ITEM_TYPE_GENERATOR_ID)
+                connectionSource.ClearColumnForValue(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), COLUMN_ITEM_TYPE_GENERATOR_ID)
             Else
                 connectionSource.WriteValueForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), (COLUMN_ITEM_TYPE_GENERATOR_ID, value.Id))
             End If

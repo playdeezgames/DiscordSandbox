@@ -34,10 +34,10 @@ WHERE
         End Using
     End Sub
     <Extension>
-    Sub ClearValueForInteger(
+    Sub ClearColumnForValue(Of TValue)(
                              connectionSource As Func(Of SqlConnection),
                              tableName As String,
-                             forColumn As (Name As String, Value As Integer),
+                             forColumn As (Name As String, Value As TValue),
                              clearedColumnName As String)
         Using command = connectionSource().CreateCommand
             command.CommandText = $"UPDATE {tableName} SET {clearedColumnName}=NULL WHERE {forColumn.Name}={PARAMETER_FOR_COLUMN};"
@@ -80,10 +80,10 @@ WHERE
         End Using
     End Function
     <Extension>
-    Function CheckForInteger(
+    Function CheckForValue(Of TValue)(
                             connectionSource As Func(Of SqlConnection),
                             tableName As String,
-                            inputColumn As (Name As String, Value As Integer)) As Boolean
+                            inputColumn As (Name As String, Value As TValue)) As Boolean
         Using command = connectionSource().CreateCommand()
             command.CommandText = $"SELECT COUNT(1) FROM {tableName} WHERE {inputColumn.Name}={PARAMETER_FOR_COLUMN};"
             command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, inputColumn.Value)

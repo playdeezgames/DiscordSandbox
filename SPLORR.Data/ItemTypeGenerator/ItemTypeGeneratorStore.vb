@@ -15,10 +15,10 @@ Friend Class ItemTypeGeneratorStore
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get
-            Return Not connectionSource.CheckForInteger(
+            Return Not connectionSource.CheckForValue(
                     TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES,
                     (COLUMN_ITEM_TYPE_GENERATOR_ID, Id)) AndAlso
-                Not connectionSource.CheckForInteger(
+                Not connectionSource.CheckForValue(
                     TABLE_LOCATION_TYPES,
                     (COLUMN_ITEM_TYPE_GENERATOR_ID, Id))
         End Get
@@ -36,7 +36,7 @@ Friend Class ItemTypeGeneratorStore
 
     Public ReadOnly Property HasItemTypes As Boolean Implements IItemTypeGeneratorStore.HasItemTypes
         Get
-            Return connectionSource.CheckForInteger(
+            Return connectionSource.CheckForValue(
                 TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES,
                 (COLUMN_ITEM_TYPE_GENERATOR_ID, Id))
         End Get
