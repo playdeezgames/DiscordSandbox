@@ -7,7 +7,7 @@ Friend Class ItemTypeEditWindow
             $"Edit Item Type: {itemTypeStore.Name}",
             "Item Type",
             itemTypeStore.Id,
-            itemTypeStore.Name,
+            ("Name", itemTypeStore.Name),
             itemTypeStore.CanDelete,
             Function(x) itemTypeStore.CanRenameTo(x),
             Function() New ItemTypeListWindow(itemTypeStore.Store),

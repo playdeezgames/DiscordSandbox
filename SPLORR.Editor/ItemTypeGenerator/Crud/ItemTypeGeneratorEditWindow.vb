@@ -9,7 +9,7 @@ Friend Class ItemTypeGeneratorEditWindow
             $"Edit Item Type Generator: {itemTypeGeneratorStore.Name}",
             "Item Type Generator",
             itemTypeGeneratorStore.Id,
-            itemTypeGeneratorStore.Name,
+            ("Name", itemTypeGeneratorStore.Name),
             itemTypeGeneratorStore.CanDelete,
             Function(x) itemTypeGeneratorStore.CanRenameTo(x),
             Function() New ItemTypeGeneratorListWindow(itemTypeGeneratorStore.Store),

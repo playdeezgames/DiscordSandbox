@@ -8,11 +8,12 @@ Friend MustInherit Class BaseEditTypeWindow
     Private ReadOnly updateWindowSource As Func(Of String, Window)
     Private ReadOnly canRenameCheck As Func(Of String, Boolean)
     Private ReadOnly typeName As String
+    Private ReadOnly nameColumnName As String
     Public Sub New(
                   title As String,
                   typeName As String,
                   id As Integer,
-                  name As String,
+                  nameColumn As (Name As String, Value As String),
                   canDelete As Boolean,
                   canRenameCheck As Func(Of String, Boolean),
                   cancelWindowSource As Func(Of Window),
@@ -25,6 +26,7 @@ Friend MustInherit Class BaseEditTypeWindow
         Me.deleteWindowSource = deleteWindowSource
         Me.updateWindowSource = updateWindowSource
         Me.canRenameCheck = canRenameCheck
+        Me.nameColumnName = nameColumn.Name
         Dim idLabel As New Label("Id:") With
             {
                 .X = 1,
@@ -37,12 +39,12 @@ Friend MustInherit Class BaseEditTypeWindow
                 .Width = [Dim].Fill - 1,
                 .[ReadOnly] = True
             }
-        Dim nameLabel As New Label("Name:") With
+        Dim nameLabel As New Label($"{nameColumn.Name}:") With
             {
                 .X = 1,
                 .Y = Pos.Bottom(idLabel) + 1
             }
-        nameTextField = New TextField(name) With
+        nameTextField = New TextField(nameColumn.Value) With
             {
                 .X = Pos.Right(nameLabel) + 1,
                 .Y = nameLabel.Y,
@@ -114,7 +116,7 @@ Friend MustInherit Class BaseEditTypeWindow
     Private Sub OnUpdateButtonClicked()
         Dim newName = nameTextField.Text.ToString
         If Not canRenameCheck(newName) Then
-            MessageBox.ErrorQuery("Invalid!", $"You cannot rename the {typeName} to that.", "Ok")
+            MessageBox.ErrorQuery("Invalid!", $"You cannot change the {typeName}'s {nameColumnName} to that value.", "Ok")
             Return
         End If
         Program.GoToWindow(updateWindowSource(newName))

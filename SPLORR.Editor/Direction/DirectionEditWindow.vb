@@ -8,7 +8,7 @@ Friend Class DirectionEditWindow
             $"Edit Direction: {directionStore.Name}",
             "Direction",
             directionStore.Id,
-            directionStore.Name,
+            ("Name", directionStore.Name),
             directionStore.CanDelete,
             Function(x) directionStore.CanRenameTo(x),
             Function() New DirectionListWindow(directionStore.Store),

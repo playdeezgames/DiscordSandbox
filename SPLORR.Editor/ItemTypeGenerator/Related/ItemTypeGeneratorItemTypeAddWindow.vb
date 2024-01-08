@@ -9,9 +9,9 @@ Friend Class ItemTypeGeneratorItemTypeAddWindow
             Function(x, y) x.AvailableItemTypes.Filter(y),
             Function(x) New ItemTypeListItem(x),
             Function(x)
-                Dim itemType = CType(x, ItemTypeListItem).ItemTypeStore
-                itemTypeGeneratorStore.AddItemType(itemType, 1)
-                Return New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore) 'TODO: go to itgit edit window!
+                Return New ItemTypeGeneratorItemTypeEditWindow(
+                    itemTypeGeneratorStore.AddItemType(
+                    CType(x, ItemTypeListItem).ItemTypeStore, 1))
             End Function,
             AdditionalButtons:=
             {

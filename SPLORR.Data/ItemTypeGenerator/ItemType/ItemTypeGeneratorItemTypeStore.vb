@@ -34,7 +34,16 @@ Friend Class ItemTypeGeneratorItemTypeStore
                 COLUMN_GENERATOR_WEIGHT)
         End Get
         Set(value As Integer)
-            Throw New NotImplementedException()
+            connectionSource.WriteValueForInteger(
+                TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES,
+                (COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id),
+                (COLUMN_GENERATOR_WEIGHT, value))
         End Set
+    End Property
+
+    Public ReadOnly Property ItemTypeGenerator As IItemTypeGeneratorStore Implements IItemTypeGeneratorItemTypeStore.ItemTypeGenerator
+        Get
+            Return New ItemTypeGeneratorStore(connectionSource, connectionSource.ReadIntegerForValue(Of Integer)(TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES, (COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id), COLUMN_ITEM_TYPE_GENERATOR_ID))
+        End Get
     End Property
 End Class

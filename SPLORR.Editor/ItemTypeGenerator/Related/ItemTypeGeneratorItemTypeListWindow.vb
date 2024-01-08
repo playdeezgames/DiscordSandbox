@@ -10,8 +10,7 @@ Friend Class ItemTypeGeneratorItemTypeListWindow
             Function(x, y) x.ItemTypes.Filter(y),
             Function(x) New ItemTypeGeneratorItemTypeListItem(x),
             ToResultWindow:=Function(x)
-                                CType(x, ItemTypeGeneratorItemTypeListItem).ItemTypeGeneratorItemTypeStore.Delete()
-                                Return New ItemTypeGeneratorItemTypeListWindow(itemTypeGeneratorStore)
+                                Return New ItemTypeGeneratorItemTypeEditWindow(CType(x, ItemTypeGeneratorItemTypeListItem).ItemTypeGeneratorItemTypeStore)
                             End Function,
             AdditionalButtons:=
             {

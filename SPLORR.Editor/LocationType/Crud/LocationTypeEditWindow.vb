@@ -7,7 +7,7 @@ Friend Class LocationTypeEditWindow
             $"Edit Location Type: {locationTypeStore.Name}",
             "Location Type",
             locationTypeStore.Id,
-            locationTypeStore.Name,
+            ("Name", locationTypeStore.Name),
             locationTypeStore.CanDelete,
             Function(x) locationTypeStore.CanRenameTo(x),
             Function() New LocationTypeListWindow(locationTypeStore.Store),
