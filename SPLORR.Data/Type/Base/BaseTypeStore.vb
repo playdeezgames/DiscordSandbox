@@ -39,7 +39,7 @@ Friend MustInherit Class BaseTypeStore
         End Set
     End Property
     Public Sub Delete() Implements IBaseTypeStore.Delete
-        connectionSource.DeleteForInteger(
+        connectionSource.DeleteForValue(
             tableName,
             (idColumnName, Id))
     End Sub

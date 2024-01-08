@@ -91,9 +91,9 @@ WHERE
         End Using
     End Function
     <Extension>
-    Sub DeleteForInteger(connectionSource As Func(Of SqlConnection),
+    Sub DeleteForValue(Of TValue)(connectionSource As Func(Of SqlConnection),
                             tableName As String,
-                            inputColumn As (Name As String, Value As Integer))
+                            inputColumn As (Name As String, Value As TValue))
         Using command = connectionSource().CreateCommand()
             command.CommandText = $"DELETE FROM {tableName} WHERE {inputColumn.Name}={PARAMETER_FOR_COLUMN};"
             command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, inputColumn.Value)
