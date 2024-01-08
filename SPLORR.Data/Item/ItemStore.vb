@@ -24,7 +24,7 @@ Friend Class ItemStore
         Get
             Return New InventoryStore(
                 connectionSource,
-                connectionSource.ReadIntegerForInteger(
+                connectionSource.ReadIntegerForValue(
                     TABLE_ITEMS,
                     (COLUMN_ITEM_ID, itemId),
                     COLUMN_INVENTORY_ID))

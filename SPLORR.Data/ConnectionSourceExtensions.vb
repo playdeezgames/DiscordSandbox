@@ -66,7 +66,7 @@ WHERE
         Return Nothing
     End Function
     <Extension>
-    Function ReadIntegerForInteger(connectionSource As Func(Of SqlConnection), tableName As String, inputColumn As (Name As String, Value As Integer), outputColumnName As String) As Integer
+    Function ReadIntegerForValue(Of TValue)(connectionSource As Func(Of SqlConnection), tableName As String, inputColumn As (Name As String, Value As TValue), outputColumnName As String) As Integer
         Using command = connectionSource().CreateCommand
             command.CommandText = $"
 SELECT 

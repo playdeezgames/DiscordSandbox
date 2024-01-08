@@ -29,19 +29,19 @@ WHERE
 
     Public ReadOnly Property Direction As IDirectionStore Implements IRouteStore.Direction
         Get
-            Return New DirectionStore(_connectionSource, _connectionSource.ReadIntegerForInteger(TABLE_ROUTES, (COLUMN_ROUTE_ID, _routeId), COLUMN_DIRECTION_ID))
+            Return New DirectionStore(_connectionSource, _connectionSource.ReadIntegerForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, _routeId), COLUMN_DIRECTION_ID))
         End Get
     End Property
 
     Public ReadOnly Property FromLocation As ILocationStore Implements IRouteStore.FromLocation
         Get
-            Return New LocationStore(_connectionSource, _connectionSource.ReadIntegerForInteger(TABLE_ROUTES, (COLUMN_ROUTE_ID, _routeId), COLUMN_FROM_LOCATION_ID))
+            Return New LocationStore(_connectionSource, _connectionSource.ReadIntegerForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, _routeId), COLUMN_FROM_LOCATION_ID))
         End Get
     End Property
 
     Public ReadOnly Property ToLocation As ILocationStore Implements IRouteStore.ToLocation
         Get
-            Return New LocationStore(_connectionSource, _connectionSource.ReadIntegerForInteger(TABLE_ROUTES, (COLUMN_ROUTE_ID, _routeId), COLUMN_TO_LOCATION_ID))
+            Return New LocationStore(_connectionSource, _connectionSource.ReadIntegerForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, _routeId), COLUMN_TO_LOCATION_ID))
         End Get
     End Property
 End Class

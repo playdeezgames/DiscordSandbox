@@ -15,7 +15,7 @@ Friend MustInherit Class BaseListWindow(Of TStore, TResultStore)
                      store As TStore,
                      FilterItems As Func(Of TStore, String, IEnumerable(Of TResultStore)),
                      ToListViewItem As Func(Of TResultStore, Object),
-                     ToResultWindow As Func(Of Object, Window),
+                     Optional ToResultWindow As Func(Of Object, Window) = Nothing,
                      Optional AdditionalButtons As IEnumerable(Of (Title As String, IsEnabled As Func(Of Boolean), OnClicked As Action)) = Nothing)
         MyBase.New(title)
         Me.store = store
@@ -73,7 +73,9 @@ Friend MustInherit Class BaseListWindow(Of TStore, TResultStore)
     End Sub
 
     Private Sub OnResultsListViewOpenSelectedItem(args As ListViewItemEventArgs)
-        Program.GoToWindow(ToResultWindow(args.Value))
+        If ToResultWindow IsNot Nothing Then
+            Program.GoToWindow(ToResultWindow(args.Value))
+        End If
     End Sub
 
     Private Sub OnFilterTextChanged(text As ustring)

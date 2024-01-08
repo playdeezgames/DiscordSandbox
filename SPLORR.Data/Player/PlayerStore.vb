@@ -28,7 +28,7 @@ WHERE
     Public Property Character As ICharacterStore Implements IPlayerStore.Character
         Get
             If HasCharacter Then
-                Return New CharacterStore(_connectionSource, _connectionSource.ReadIntegerForInteger(TABLE_PLAYER_CHARACTERS, (COLUMN_PLAYER_ID, _playerId), COLUMN_CHARACTER_ID))
+                Return New CharacterStore(_connectionSource, _connectionSource.ReadIntegerForValue(TABLE_PLAYER_CHARACTERS, (COLUMN_PLAYER_ID, _playerId), COLUMN_CHARACTER_ID))
             End If
             Return Nothing
         End Get

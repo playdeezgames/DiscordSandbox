@@ -9,7 +9,6 @@ Friend Class ItemTypeGeneratorItemTypeListWindow
             itemTypeGeneratorStore,
             Function(x, y) x.ItemTypes.Filter(y),
             Function(x) New ItemTypeGeneratorItemTypeListItem(x),
-            Function(x) New ItemTypeGeneratorItemTypeListWindow(itemTypeGeneratorStore),
             AdditionalButtons:=
             {
                 (

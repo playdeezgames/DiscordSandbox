@@ -87,7 +87,7 @@ INSERT INTO
 
     Public ReadOnly Property LocationType As ILocationTypeStore Implements ILocationStore.LocationType
         Get
-            Return New LocationTypeStore(connectionSource, connectionSource.ReadIntegerForInteger(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, locationId), COLUMN_LOCATION_TYPE_ID))
+            Return New LocationTypeStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, locationId), COLUMN_LOCATION_TYPE_ID))
         End Get
     End Property
 
