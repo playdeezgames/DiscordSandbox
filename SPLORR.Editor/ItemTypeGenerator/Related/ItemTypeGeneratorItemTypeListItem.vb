@@ -8,6 +8,6 @@ Friend Class ItemTypeGeneratorItemTypeListItem
     End Sub
 
     Public Overrides Function ToString() As String
-        Return $"{itemTypeGeneratorItemTypeStore.Name}(Id:{itemTypeGeneratorItemTypeStore.Id},ItemTypeId:{itemTypeGeneratorItemTypeStore.ItemType.Id})"
+        Return $"{ItemTypeGeneratorItemTypeStore.Name}(Id:{ItemTypeGeneratorItemTypeStore.Id},ItemTypeId:{ItemTypeGeneratorItemTypeStore.ItemType.Id},GeneratorWeight:{ItemTypeGeneratorItemTypeStore.GeneratorWeight})"
     End Function
 End Class

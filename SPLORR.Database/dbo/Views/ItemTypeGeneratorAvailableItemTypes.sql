@@ -7,4 +7,6 @@ SELECT
 FROM
 	ItemTypeGenerators itg
 	CROSS JOIN ItemTypes it
-	LEFT JOIN ItemTypeGeneratorItemTypes itgit ON itg.ItemTypeGeneratorId=itgit.ItemTypeGeneratorId AND it.ItemTypeId=itgit.ItemTypeId AND itgit.ItemTypeGeneratorItemTypeId IS NULL
+	LEFT JOIN ItemTypeGeneratorItemTypes itgit ON itg.ItemTypeGeneratorId=itgit.ItemTypeGeneratorId AND it.ItemTypeId=itgit.ItemTypeId
+WHERE
+	itgit.ItemTypeGeneratorItemTypeId IS NULL

@@ -25,4 +25,16 @@ Friend Class ItemTypeGeneratorItemTypeStore
             Return New ItemTypeStore(connectionSource, connectionSource.ReadIntegerForValue(VIEW_ITEM_TYPE_GENERATOR_ITEM_TYPE_DETAILS, (COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id), COLUMN_ITEM_TYPE_ID))
         End Get
     End Property
+
+    Public Property GeneratorWeight As Integer Implements IItemTypeGeneratorItemTypeStore.GeneratorWeight
+        Get
+            Return connectionSource.ReadIntegerForValue(
+                TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES,
+                (COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id),
+                COLUMN_GENERATOR_WEIGHT)
+        End Get
+        Set(value As Integer)
+            Throw New NotImplementedException()
+        End Set
+    End Property
 End Class

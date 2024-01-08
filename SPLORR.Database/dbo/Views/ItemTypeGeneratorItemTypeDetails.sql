@@ -3,7 +3,8 @@
 SELECT
 	itgit.ItemTypeGeneratorItemTypeId,
 	it.ItemTypeId,
-	it.ItemTypeName
+	it.ItemTypeName,
+	itgit.GeneratorWeight
 FROM
 	ItemTypeGeneratorItemTypes itgit
 	JOIN ItemTypes it ON it.ItemTypeId = itgit.ItemTypeId
