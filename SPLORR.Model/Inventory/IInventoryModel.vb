@@ -5,4 +5,5 @@ Public Interface IInventoryModel
     ReadOnly Property InventoryStore As IInventoryStore
     ReadOnly Property HasItems As Boolean
     ReadOnly Property Items As IEnumerable(Of IItemModel)
+    Function ItemsByName(itemName As String) As IEnumerable(Of IItemModel)
 End Interface

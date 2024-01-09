@@ -14,7 +14,7 @@ Friend Class ItemStore
     Public ReadOnly Property Name As String Implements IItemStore.Name
         Get
             Return connectionSource.ReadStringForValue(
-                VIEW_ITEM_NAMES,
+                VIEW_ITEM_DETAILS,
                 (COLUMN_ITEM_ID, itemId),
                 COLUMN_ITEM_NAME)
         End Get

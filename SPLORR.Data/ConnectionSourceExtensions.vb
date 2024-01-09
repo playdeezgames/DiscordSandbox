@@ -100,6 +100,33 @@ WHERE
         Return result
     End Function
     <Extension>
+    Function ReadIntegersForValues(Of TFirstValue, TSecondValue)(
+                                                                connectionSource As Func(Of SqlConnection),
+                                                                tableName As String,
+                                                                firstInputColumn As (Name As String, Value As TFirstValue),
+                                                                secondInputColumn As (Name As String, Value As TSecondValue),
+                                                                outputColumnName As String) As IEnumerable(Of Integer)
+        Dim result As New List(Of Integer)
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"
+SELECT 
+    {outputColumnName} 
+FROM 
+    {tableName} 
+WHERE 
+    {firstInputColumn.Name}={PARAMETER_FIRST_FOR_COLUMN} 
+    AND {secondInputColumn.Name}={PARAMETER_SECOND_FOR_COLUMN};"
+            command.Parameters.AddWithValue(PARAMETER_FIRST_FOR_COLUMN, firstInputColumn.Value)
+            command.Parameters.AddWithValue(PARAMETER_SECOND_FOR_COLUMN, secondInputColumn.Value)
+            Using reader = command.ExecuteReader
+                While reader.Read
+                    result.Add(reader.GetInt32(0))
+                End While
+            End Using
+        End Using
+        Return result
+    End Function
+    <Extension>
     Function CheckForValue(Of TValue)(
                             connectionSource As Func(Of SqlConnection),
                             tableName As String,

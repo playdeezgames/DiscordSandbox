@@ -1,7 +1,8 @@
-﻿CREATE VIEW [dbo].[ItemNames]
+﻿CREATE VIEW [dbo].[ItemDetails]
 	AS
 SELECT
 	i.ItemId,
+	i.InventoryId,
 	it.ItemTypeName as ItemName
 FROM
 	Items i

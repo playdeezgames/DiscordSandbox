@@ -22,8 +22,16 @@ Friend Class InventoryModel
     Sub New(locationStore As ILocationStore)
         inventoryStore = locationStore.Inventory
     End Sub
+    Sub New(inventoryStore As IInventoryStore)
+        Me.InventoryStore = inventoryStore
+    End Sub
+
 
     Public Sub Add(item As IItemModel) Implements IInventoryModel.Add
         item.ItemStore.Inventory = inventoryStore
     End Sub
+
+    Public Function ItemsByName(itemName As String) As IEnumerable(Of IItemModel) Implements IInventoryModel.ItemsByName
+        Return InventoryStore.ItemsByName(itemName).Select(Function(x) New ItemModel(x))
+    End Function
 End Class

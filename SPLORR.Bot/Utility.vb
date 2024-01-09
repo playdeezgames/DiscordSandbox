@@ -20,4 +20,13 @@ Friend Module Utility
         End If
         subhandler()
     End Sub
+    Friend Sub WithTokens(tokens As String(),
+                            outputter As Action(Of String),
+                            subhandler As Action)
+        If tokens.Length = 0 Then
+            outputter(MESSAGE_INVALID_INPUT)
+            Return
+        End If
+        subhandler()
+    End Sub
 End Module

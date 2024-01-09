@@ -83,7 +83,7 @@
     <Build Include="dbo\Tables\Item\Inventories.sql" />
     <Build Include="dbo\Tables\Item\Items.sql" />
     <Build Include="dbo\Tables\Item\ItemTypes.sql" />
-    <Build Include="dbo\Views\ItemNames.sql" />
+    <Build Include="dbo\Views\ItemDetails.sql" />
     <Build Include="dbo\Views\ItemTypeGeneratorAvailableItemTypes.sql" />
     <Build Include="dbo\Views\ItemTypeGeneratorItemTypeDetails.sql" />
   </ItemGroup>

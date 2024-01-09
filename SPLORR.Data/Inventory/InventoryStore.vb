@@ -17,7 +17,8 @@ Friend Class InventoryStore
             Return connectionSource.ReadIntegersForValue(
                 TABLE_ITEMS,
                 (COLUMN_INVENTORY_ID, Id),
-                COLUMN_ITEM_ID).Select(Function(x) New ItemStore(connectionSource, x))
+                COLUMN_ITEM_ID).
+                Select(Function(x) New ItemStore(connectionSource, x))
         End Get
     End Property
 
@@ -25,4 +26,13 @@ Friend Class InventoryStore
         Me.connectionSource = connectionSource
         Me.Id = inventoryId
     End Sub
+
+    Public Function ItemsByName(itemName As String) As IEnumerable(Of IItemStore) Implements IInventoryStore.ItemsByName
+        Return connectionSource.ReadIntegersForValues(
+            VIEW_ITEM_DETAILS,
+            (COLUMN_INVENTORY_ID, Id),
+            (COLUMN_ITEM_NAME, itemName),
+            COLUMN_ITEM_ID).
+            Select(Function(x) New ItemStore(connectionSource, x))
+    End Function
 End Class
