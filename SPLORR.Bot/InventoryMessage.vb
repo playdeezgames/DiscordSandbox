@@ -6,7 +6,14 @@ Friend Module InventoryMessage
             player,
             outputter,
             Sub(character)
-                Throw New NotImplementedException()
+                If Not character.Inventory.HasItems Then
+                    outputter($"{character.Name} has no items in their inventory.")
+                    Return
+                End If
+                outputter($"{character.Name}'s Inventory:")
+                For Each item In character.Inventory.Items
+                    outputter($"- {item.Name}")
+                Next
             End Sub)
     End Sub
 End Module
