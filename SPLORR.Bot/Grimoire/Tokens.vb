@@ -4,6 +4,7 @@
     Friend Const TOKEN_DROP As String = "drop"
     Friend Const TOKEN_FORAGE As String = "forage"
     Friend Const TOKEN_GO As String = "go"
+    Friend Const TOKEN_GROUND As String = "ground"
     Friend Const TOKEN_HELP As String = "help"
     Friend Const TOKEN_INVENTORY As String = "inventory"
     Friend Const TOKEN_RENAME As String = "rename"
