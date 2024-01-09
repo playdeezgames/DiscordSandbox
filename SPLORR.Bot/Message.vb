@@ -8,6 +8,7 @@ Friend Module Message
             {TOKEN_FORAGE, AddressOf ForageMessage.Handle},
             {TOKEN_GO, AddressOf GoMessage.Handle},
             {TOKEN_HELP, AddressOf HelpMessage.Handle},
+            {TOKEN_INVENTORY, AddressOf InventoryMessage.Handle},
             {TOKEN_RENAME, AddressOf RenameMessage.Handle},
             {TOKEN_STATUS, AddressOf StatusMessage.Handle}
         }
