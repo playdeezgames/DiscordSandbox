@@ -9,12 +9,15 @@ Module Program
     Private Const TEXT_QUIT As String = "Quit"
     Private Const TEXT_LOCATION_TYPES = "Location Types"
     Private Const TEXT_ITEM_TYPES = "Item Types"
-    Private Const TEXT_ITEM_TYPE_GENERATOR = "Item Type Generators"
+    Private Const TEXT_ITEM_TYPE_GENERATORS = "Item Type Generators"
     Private Const TEXT_DIRECTIONS = "Directions"
     Private Const TEXT_STATISTIC_TYPES = "Statistic Types"
     Private Const TEXT_CHARACTER_TYPES = "Character Types"
     Private Const TEXT_RECIPES = "Recipes"
     Private Const TEXT_ROUTE_TYPES = "Route Types"
+    Private Const TEXT_ENTITIES = "Entities"
+    Private Const TEXT_LOCATIONS = "Locations"
+    Private Const TEXT_CHARACTERS = "Characters"
     Private dataStore As IDataStore = Nothing
     Public window As Window = Nothing
     Sub Main(args As String())
@@ -40,12 +43,25 @@ Module Program
                 }),
                 New MenuBarItem(TEXT_GENERATORS,
                 {
-                    New MenuItem(TEXT_ITEM_TYPE_GENERATOR, String.Empty, AddressOf DoItemTypeGeneratorsList)
+                    New MenuItem(TEXT_ITEM_TYPE_GENERATORS, String.Empty, AddressOf DoItemTypeGeneratorsList)
+                }),
+                New MenuBarItem(TEXT_ENTITIES,
+                {
+                    New MenuItem(TEXT_CHARACTERS, String.Empty, AddressOf DoCharactersList),
+                    New MenuItem(TEXT_LOCATIONS, String.Empty, AddressOf DoLocationsList)
                 })
             }))
         Application.Run()
         Application.Shutdown()
         dataStore.CleanUp()
+    End Sub
+
+    Private Sub DoLocationsList()
+        Throw New NotImplementedException()
+    End Sub
+
+    Private Sub DoCharactersList()
+        Throw New NotImplementedException()
     End Sub
 
     Private Sub DoRouteTypesList()
