@@ -14,6 +14,9 @@ Friend Module StatusMessage
                     Dim location = character.Location
                     outputter($"Character Name: {character.Name}")
                     outputter($"Location Name: {location.Name}")
+                    If location.Inventory.HasItems Then
+                        outputter($"There is stuff on the ground.")
+                    End If
                     If location.HasRoutes Then
                         outputter($"Exits:")
                         For Each route In location.Routes
