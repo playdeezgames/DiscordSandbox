@@ -11,6 +11,7 @@ Module Program
     Private Const TEXT_ITEM_TYPES = "Item Types"
     Private Const TEXT_ITEM_TYPE_GENERATOR = "Item Type Generators"
     Private Const TEXT_DIRECTIONS = "Directions"
+    Private Const TEXT_STATISTIC_TYPES = "Statistic Types"
     Private dataStore As IDataStore = Nothing
     Public window As Window = Nothing
     Sub Main(args As String())
@@ -28,7 +29,8 @@ Module Program
                 {
                     New MenuItem(TEXT_DIRECTIONS, String.Empty, AddressOf DoDirectionsList),
                     New MenuItem(TEXT_ITEM_TYPES, String.Empty, AddressOf DoItemTypesList),
-                    New MenuItem(TEXT_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList)
+                    New MenuItem(TEXT_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList),
+                    New MenuItem(TEXT_STATISTIC_TYPES, String.Empty, AddressOf DoStatisticTypesList)
                 }),
                 New MenuBarItem(TEXT_GENERATORS,
                 {
@@ -38,6 +40,10 @@ Module Program
         Application.Run()
         Application.Shutdown()
         dataStore.CleanUp()
+    End Sub
+
+    Private Sub DoStatisticTypesList()
+        GoToWindow(New StatisticTypeListWindow(dataStore))
     End Sub
 
     Private Sub DoDirectionsList()

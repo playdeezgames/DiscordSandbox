@@ -14,4 +14,5 @@
     Friend Const TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES = "ItemTypeGeneratorItemTypes"
     Friend Const TABLE_INVENTORIES = "Inventories"
     Friend Const TABLE_ITEMS = "Items"
+    Friend Const TABLE_STATISTIC_TYPES = "StatisticTypes"
 End Module

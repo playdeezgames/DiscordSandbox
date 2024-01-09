@@ -67,6 +67,17 @@ Public Class DataStore
         End Get
     End Property
 
+    Public ReadOnly Property StatisticTypes As ITypeStore(Of IStatisticTypeStore) Implements IDataStore.StatisticTypes
+        Get
+            Return New TypeStore(Of IStatisticTypeStore)(
+                ConnectionSource,
+                TABLE_STATISTIC_TYPES,
+                COLUMN_STATISTIC_TYPE_ID,
+                COLUMN_STATISTIC_TYPE_NAME,
+                Function(x, y) New StatisticTypeStore(x, y))
+        End Get
+    End Property
+
     Public Sub CleanUp() Implements IDataStore.CleanUp
         If _connection IsNot Nothing Then
             _connection.Close()

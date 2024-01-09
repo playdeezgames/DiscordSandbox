@@ -1,5 +1,6 @@
 Public Interface IDataStore
     Sub CleanUp()
+    ReadOnly Property StatisticTypes As ITypeStore(Of IStatisticTypeStore)
     ReadOnly Property Directions As ITypeStore(Of IDirectionStore)
     'Location Type
     ReadOnly Property LocationTypes As ITypeStore(Of ILocationTypeStore)
