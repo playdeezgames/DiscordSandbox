@@ -14,4 +14,123 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="Offers" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="c9bfacf4-d0a7-4851-8d8e-717dab8609b0" ChangeDateTime="01/09/2024 14:59:25">
+    <Property Name="ElementName" Value="[dbo].[Offers]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RecipeTypes]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="46eb48f6-7c89-4edb-98d3-8bb5a3a98d9b" ChangeDateTime="01/09/2024 14:59:36">
+    <Property Name="ElementName" Value="[dbo].[RecipeTypes].[OfferId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RecipeTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[RecipeTypeId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="94693b27-be18-4fd9-ad4e-c2c3ac677cc2" ChangeDateTime="01/09/2024 14:59:44">
+    <Property Name="ElementName" Value="[dbo].[RecipeTypes].[OfferName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RecipeTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RecipeName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e2b310d4-233d-4d04-af6b-76f7c830f423" ChangeDateTime="01/09/2024 14:59:51">
+    <Property Name="ElementName" Value="[dbo].[RecipeTypes].[RecipeTypeId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RecipeTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[RecipeId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="04fa0642-5ce1-4476-8c28-f06703db504b" ChangeDateTime="01/09/2024 15:00:02">
+    <Property Name="ElementName" Value="[dbo].[RecipeTypes]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[Recipes]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="de54d0b1-2aff-49c1-98eb-6ddc44f4072a" ChangeDateTime="01/09/2024 15:00:12">
+    <Property Name="ElementName" Value="[dbo].[PK_Offers]" />
+    <Property Name="ElementType" Value="SqlPrimaryKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Recipes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PK_Recipes" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="67e45bcd-c214-4aa0-b512-80f1b7e2f325" ChangeDateTime="01/09/2024 15:00:26">
+    <Property Name="ElementName" Value="[dbo].[AK_Offers_OfferName]" />
+    <Property Name="ElementType" Value="SqlUniqueConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Recipes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AK_Recipes_RecipeName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0e50cbab-def1-4739-80e3-0c416ad93cbe" ChangeDateTime="01/09/2024 15:01:27">
+    <Property Name="ElementName" Value="[dbo].[OfferDetails]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[RecipeItemTypes]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d705a3ae-4f13-4686-a469-7c593d6dcae4" ChangeDateTime="01/09/2024 15:01:40">
+    <Property Name="ElementName" Value="[dbo].[RecipeItemTypes].[OfferDetailId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RecipeItemTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[RecipeItemTypeId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5e17206f-0bb3-4a5c-8546-bf55ba5c6615" ChangeDateTime="01/09/2024 15:01:47">
+    <Property Name="ElementName" Value="[dbo].[RecipeItemTypes].[OfferId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RecipeItemTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[RecipeId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c4f728fd-dce9-4e06-b617-b78b8f68f9aa" ChangeDateTime="01/09/2024 15:02:39">
+    <Property Name="ElementName" Value="[dbo].[PK_OfferDetails]" />
+    <Property Name="ElementType" Value="SqlPrimaryKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[RecipeItemTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PK_RecipeItemTypes" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b949e5f4-6605-40b0-ba24-ad984ed1212b" ChangeDateTime="01/09/2024 15:02:54">
+    <Property Name="ElementName" Value="[dbo].[FK_OfferDetails_Offers]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[RecipeItemTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FK_RecipeItemTypes_Recipes" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8033698c-db79-4856-9e93-90f028b35422" ChangeDateTime="01/09/2024 15:03:07">
+    <Property Name="ElementName" Value="[dbo].[FK_OfferDetails_ItemTypes]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[RecipeItemTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FK_RecipeItemTypes_ItemTypes" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f1c7d6db-8324-428e-8b41-6542244f1206" ChangeDateTime="01/09/2024 15:03:22">
+    <Property Name="ElementName" Value="[dbo].[CK_OfferDetails_QuantityIn]" />
+    <Property Name="ElementType" Value="SqlCheckConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[RecipeItemTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CK_RecipeItemTypes_QuantityIn" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="642535fc-1ae6-4ae3-91d6-59a4a6e443bb" ChangeDateTime="01/09/2024 15:03:38">
+    <Property Name="ElementName" Value="[dbo].[CK_OfferDetails_QuantityOut]" />
+    <Property Name="ElementType" Value="SqlCheckConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[RecipeItemTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CK_RecipeItemTypes_QuantityOut" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0ca422cd-2637-4859-84de-1bd42c09b79d" ChangeDateTime="01/09/2024 15:03:48">
+    <Property Name="ElementName" Value="[dbo].[CK_OfferDetails_QuantityIn_QuantityOut]" />
+    <Property Name="ElementType" Value="SqlCheckConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[RecipeItemTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CK_RecipeItemTypes_QuantityIn_QuantityOut" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a20dab43-1647-4b1b-bc4c-fcc37ff979d0" ChangeDateTime="01/09/2024 15:04:05">
+    <Property Name="ElementName" Value="[dbo].[AK_OfferDetails_OfferId_ItemTypeId]" />
+    <Property Name="ElementType" Value="SqlUniqueConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[RecipeItemTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AK_RecipeItemTypes_RecipeId_ItemTypeId" />
+  </Operation>
 </Operations>

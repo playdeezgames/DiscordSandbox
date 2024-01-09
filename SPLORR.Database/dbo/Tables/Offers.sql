@@ -1,7 +1,0 @@
-﻿CREATE TABLE [dbo].Offers
-(
-	[OfferId] INT NOT NULL IDENTITY(1,1),
-	OfferName NVARCHAR(100) NOT NULL,
-	CONSTRAINT PK_Offers PRIMARY KEY(OfferId)
-	CONSTRAINT AK_Offers_OfferName UNIQUE(OfferName)
-)

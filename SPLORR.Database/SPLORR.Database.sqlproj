@@ -87,8 +87,8 @@
     <Build Include="dbo\Views\ItemTypeGeneratorAvailableItemTypes.sql" />
     <Build Include="dbo\Views\ItemTypeGeneratorItemTypeDetails.sql" />
     <Build Include="dbo\Tables\StatisticTypes.sql" />
-    <Build Include="dbo\Tables\Offers.sql" />
-    <Build Include="dbo\Tables\OfferDetails.sql" />
+    <Build Include="dbo\Tables\Recipes.sql" />
+    <Build Include="dbo\Tables\RecipeItemTypes.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />
