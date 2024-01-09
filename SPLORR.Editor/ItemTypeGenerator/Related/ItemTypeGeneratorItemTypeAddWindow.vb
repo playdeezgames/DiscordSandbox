@@ -11,7 +11,7 @@ Friend Class ItemTypeGeneratorItemTypeAddWindow
             Function(x)
                 Return New ItemTypeGeneratorItemTypeEditWindow(
                     itemTypeGeneratorStore.AddItemType(
-                    CType(x, ItemTypeListItem).ItemTypeStore, 1))
+                    CType(x, ItemTypeListItem).Store, 1))
             End Function,
             AdditionalButtons:=
             {

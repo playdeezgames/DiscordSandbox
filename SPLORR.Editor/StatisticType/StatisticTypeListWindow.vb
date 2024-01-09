@@ -9,7 +9,7 @@ Friend Class StatisticTypeListWindow
             dataStore,
             Function(store, filter) store.StatisticTypes.Filter(filter),
             Function(item) New StatisticTypeListItem(item),
-            Function(item) New StatisticTypeEditWindow(CType(item, StatisticTypeListItem).StatisticTypeStore),
+            Function(item) New StatisticTypeEditWindow(CType(item, StatisticTypeListItem).Store),
             AdditionalButtons:=
             {
                 ("Add...", Function() True, Sub() Program.GoToWindow(New StatisticTypeAddWindow(dataStore))),

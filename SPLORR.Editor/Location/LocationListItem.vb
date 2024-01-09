@@ -1,13 +1,13 @@
 ﻿Imports SPLORR.Data
 
 Friend Class LocationListItem
-    Public ReadOnly Property LocationStore As ILocationStore
+    Public ReadOnly Property Store As ILocationStore
 
     Public Sub New(store As ILocationStore)
-        Me.LocationStore = store
+        Me.Store = store
     End Sub
 
     Public Overrides Function ToString() As String
-        Return $"{LocationStore.Name}(Id:{LocationStore.Id})"
+        Return $"{Store.Name}(Id:{Store.Id})"
     End Function
 End Class

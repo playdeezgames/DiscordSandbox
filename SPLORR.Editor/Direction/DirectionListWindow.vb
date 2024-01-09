@@ -9,7 +9,7 @@ Friend Class DirectionListWindow
             dataStore,
             Function(store, filter) store.Directions.Filter(filter),
             Function(item) New DirectionListItem(item),
-            Function(item) New DirectionEditWindow(CType(item, DirectionListItem).DirectionStore),
+            Function(item) New DirectionEditWindow(CType(item, DirectionListItem).Store),
             AdditionalButtons:=
             {
                 ("Add...", Function() True, Sub() Program.GoToWindow(New DirectionAddWindow(dataStore))),

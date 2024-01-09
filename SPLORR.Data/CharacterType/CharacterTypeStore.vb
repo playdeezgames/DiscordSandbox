@@ -1,19 +1,21 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class CharacterTypeStore
+    Inherits BaseTypeStore
     Implements ICharacterTypeStore
 
-    Private ReadOnly _connectionSource As Func(Of SqlConnection)
-    Private ReadOnly _characterTypeId As Integer
-
-    Public Sub New(connectionSource As Func(Of SqlConnection), characterTypeId As Integer)
-        Me._connectionSource = connectionSource
-        Me._characterTypeId = characterTypeId
+    Public Sub New(connectionSource As Func(Of SqlConnection), id As Integer)
+        MyBase.New(
+            connectionSource,
+            id,
+            TABLE_CHARACTER_TYPES,
+            COLUMN_CHARACTER_TYPE_ID,
+            COLUMN_CHARACTER_TYPE_NAME)
     End Sub
 
-    Public ReadOnly Property Id As Integer Implements ICharacterTypeStore.Id
+    Public Overrides ReadOnly Property CanDelete As Boolean
         Get
-            Return _characterTypeId
+            Return Not connectionSource.CheckForValue(TABLE_CHARACTERS, (COLUMN_CHARACTER_TYPE_ID, Id))
         End Get
     End Property
 End Class

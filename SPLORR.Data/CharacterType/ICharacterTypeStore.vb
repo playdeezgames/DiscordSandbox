@@ -1,3 +1,3 @@
 ﻿Public Interface ICharacterTypeStore
-    ReadOnly Property Id As Integer
+    Inherits IBaseTypeStore
 End Interface

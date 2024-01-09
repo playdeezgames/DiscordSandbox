@@ -78,6 +78,39 @@ Public Class DataStore
         End Get
     End Property
 
+    Public ReadOnly Property CharacterTypes As ITypeStore(Of ICharacterTypeStore) Implements IDataStore.CharacterTypes
+        Get
+            Return New TypeStore(Of ICharacterTypeStore)(
+                ConnectionSource,
+                TABLE_CHARACTER_TYPES,
+                COLUMN_CHARACTER_TYPE_ID,
+                COLUMN_CHARACTER_TYPE_NAME,
+                Function(x, y) New CharacterTypeStore(x, y))
+        End Get
+    End Property
+
+    Public ReadOnly Property Recipes As ITypeStore(Of IRecipeStore) Implements IDataStore.Recipes
+        Get
+            Return New TypeStore(Of IRecipeStore)(
+                ConnectionSource,
+                TABLE_RECIPES,
+                COLUMN_RECIPE_ID,
+                COLUMN_RECIPE_NAME,
+                Function(x, y) New RecipeStore(x, y))
+        End Get
+    End Property
+
+    Public ReadOnly Property RouteTypes As ITypeStore(Of IRouteTypeStore) Implements IDataStore.RouteTypes
+        Get
+            Return New TypeStore(Of IRouteTypeStore)(
+                ConnectionSource,
+                TABLE_ROUTE_TYPES,
+                COLUMN_ROUTE_TYPE_ID,
+                COLUMN_ROUTE_TYPE_NAME,
+                Function(x, y) New RouteTypeStore(x, y))
+        End Get
+    End Property
+
     Public Sub CleanUp() Implements IDataStore.CleanUp
         If _connection IsNot Nothing Then
             _connection.Close()

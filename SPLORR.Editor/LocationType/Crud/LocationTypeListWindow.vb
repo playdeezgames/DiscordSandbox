@@ -6,7 +6,7 @@
             dataStore,
             Function(store, filter) store.LocationTypes.Filter(filter),
             Function(item) New LocationTypeListItem(item),
-            Function(item) New LocationTypeEditWindow(CType(item, LocationTypeListItem).LocationTypeStore),
+            Function(item) New LocationTypeEditWindow(CType(item, LocationTypeListItem).Store),
             AdditionalButtons:=
             {
                 ("Add...", Function() True, Sub() Program.GoToWindow(New LocationTypeAddWindow(dataStore))),

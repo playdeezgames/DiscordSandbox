@@ -12,6 +12,9 @@ Module Program
     Private Const TEXT_ITEM_TYPE_GENERATOR = "Item Type Generators"
     Private Const TEXT_DIRECTIONS = "Directions"
     Private Const TEXT_STATISTIC_TYPES = "Statistic Types"
+    Private Const TEXT_CHARACTER_TYPES = "Character Types"
+    Private Const TEXT_RECIPES = "Recipes"
+    Private Const TEXT_ROUTE_TYPES = "Route Types"
     Private dataStore As IDataStore = Nothing
     Public window As Window = Nothing
     Sub Main(args As String())
@@ -27,9 +30,12 @@ Module Program
                 }),
                 New MenuBarItem(TEXT_TYPES,
                 {
+                    New MenuItem(TEXT_CHARACTER_TYPES, String.Empty, AddressOf DoCharacterTypesList),
                     New MenuItem(TEXT_DIRECTIONS, String.Empty, AddressOf DoDirectionsList),
                     New MenuItem(TEXT_ITEM_TYPES, String.Empty, AddressOf DoItemTypesList),
                     New MenuItem(TEXT_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList),
+                    New MenuItem(TEXT_RECIPES, String.Empty, AddressOf DoRecipesList),
+                    New MenuItem(TEXT_ROUTE_TYPES, String.Empty, AddressOf DoRouteTypesList),
                     New MenuItem(TEXT_STATISTIC_TYPES, String.Empty, AddressOf DoStatisticTypesList)
                 }),
                 New MenuBarItem(TEXT_GENERATORS,
@@ -40,6 +46,18 @@ Module Program
         Application.Run()
         Application.Shutdown()
         dataStore.CleanUp()
+    End Sub
+
+    Private Sub DoRouteTypesList()
+        GoToWindow(New RouteTypeListWindow(dataStore))
+    End Sub
+
+    Private Sub DoRecipesList()
+        GoToWindow(New RecipeListWindow(dataStore))
+    End Sub
+
+    Private Sub DoCharacterTypesList()
+        GoToWindow(New CharacterTypeListWindow(dataStore))
     End Sub
 
     Private Sub DoStatisticTypesList()

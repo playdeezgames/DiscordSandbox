@@ -29,4 +29,7 @@
     Friend Const COLUMN_ITEM_NAME = "ItemName"
     Friend Const COLUMN_STATISTIC_TYPE_ID = "StatisticTypeId"
     Friend Const COLUMN_STATISTIC_TYPE_NAME = "StatisticTypeName"
+    Friend Const COLUMN_CHARACTER_TYPE_NAME = "CharacterTypeName"
+    Friend Const COLUMN_RECIPE_ID = "RecipeId"
+    Friend Const COLUMN_RECIPE_NAME = "RecipeName"
 End Module

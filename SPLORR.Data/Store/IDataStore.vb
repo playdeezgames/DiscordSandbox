@@ -1,5 +1,8 @@
 Public Interface IDataStore
     Sub CleanUp()
+    ReadOnly Property CharacterTypes As ITypeStore(Of ICharacterTypeStore)
+    ReadOnly Property Recipes As ITypeStore(Of IRecipeStore)
+    ReadOnly Property RouteTypes As ITypeStore(Of IRouteTypeStore)
     ReadOnly Property StatisticTypes As ITypeStore(Of IStatisticTypeStore)
     ReadOnly Property Directions As ITypeStore(Of IDirectionStore)
     'Location Type

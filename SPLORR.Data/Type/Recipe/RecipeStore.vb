@@ -1,8 +1,8 @@
 ﻿Imports Microsoft.Data.SqlClient
 
-Friend Class RouteTypeStore
+Friend Class RecipeStore
     Inherits BaseTypeStore
-    Implements IRouteTypeStore
+    Implements IRecipeStore
 
     Public Sub New(
                   connectionSource As Func(Of SqlConnection),
@@ -10,14 +10,14 @@ Friend Class RouteTypeStore
         MyBase.New(
             connectionSource,
             id,
-            TABLE_ROUTE_TYPES,
-            COLUMN_ROUTE_TYPE_ID,
-            COLUMN_ROUTE_TYPE_NAME)
+            TABLE_RECIPES,
+            COLUMN_RECIPE_ID,
+            COLUMN_RECIPE_NAME)
     End Sub
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get
-            Return Not connectionSource.CheckForValue(TABLE_ROUTES, (COLUMN_ROUTE_TYPE_ID, Id))
+            Return Not connectionSource.CheckForValue(TABLE_RECIPE_ITEM_TYPES, (COLUMN_RECIPE_ID, Id))
         End Get
     End Property
 End Class

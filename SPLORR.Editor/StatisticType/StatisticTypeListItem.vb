@@ -1,13 +1,13 @@
 ﻿Imports SPLORR.Data
 
 Public Class StatisticTypeListItem
-    Public ReadOnly Property StatisticTypeStore As IStatisticTypeStore
+    Public ReadOnly Property Store As IStatisticTypeStore
 
     Public Sub New(store As IStatisticTypeStore)
-        Me.StatisticTypeStore = store
+        Me.Store = store
     End Sub
 
     Public Overrides Function ToString() As String
-        Return $"{StatisticTypeStore.Name}(Id:{StatisticTypeStore.Id})"
+        Return $"{Store.Name}(Id:{Store.Id})"
     End Function
 End Class
