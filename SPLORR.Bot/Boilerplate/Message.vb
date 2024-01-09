@@ -12,7 +12,8 @@ Friend Module Message
             {TOKEN_HELP, AddressOf HelpMessage.Handle},
             {TOKEN_INVENTORY, AddressOf InventoryMessage.Handle},
             {TOKEN_RENAME, AddressOf RenameMessage.Handle},
-            {TOKEN_STATUS, AddressOf StatusMessage.Handle}
+            {TOKEN_STATUS, AddressOf StatusMessage.Handle},
+            {TOKEN_TAKE, AddressOf TakeMessage.Handle}
         }
     Friend Sub Handle(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         Dim firstToken = tokens.First
