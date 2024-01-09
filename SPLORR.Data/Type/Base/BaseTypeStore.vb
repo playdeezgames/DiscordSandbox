@@ -7,6 +7,7 @@ Friend MustInherit Class BaseTypeStore
     Private ReadOnly idColumnName As String
     Private ReadOnly nameColumnName As String
     Private ReadOnly deleteTableName As String
+    Private cachedName As String = Nothing
     Sub New(
            connectionSource As Func(Of SqlConnection),
            id As Integer,
@@ -29,16 +30,20 @@ Friend MustInherit Class BaseTypeStore
     Public ReadOnly Property Id As Integer Implements IBaseTypeStore.Id
     Public Property Name As String Implements IBaseTypeStore.Name
         Get
-            Return connectionSource.ReadStringForValue(
-                tableName,
-                (idColumnName, Id),
-                nameColumnName)
+            If cachedName Is Nothing Then
+                cachedName = connectionSource.ReadStringForValue(
+                    tableName,
+                    (idColumnName, Id),
+                    nameColumnName)
+            End If
+            Return cachedName
         End Get
         Set(value As String)
             connectionSource.WriteValueForInteger(
                 tableName,
                 (idColumnName, Id),
                 (nameColumnName, value))
+            cachedName = value
         End Set
     End Property
     Public Sub Delete() Implements IBaseTypeStore.Delete
