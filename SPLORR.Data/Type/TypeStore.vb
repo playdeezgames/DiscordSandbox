@@ -9,7 +9,12 @@ Friend Class TypeStore(Of TTypeStore As IBaseTypeStore)
     Private ReadOnly nameColumnName As String
     Private ReadOnly convertor As Func(Of Func(Of SqlConnection), Integer, TTypeStore)
 
-    Public Sub New(connectionSource As Func(Of SqlConnection), tableName As String, idColumnName As String, nameColumnName As String, convertor As Func(Of Func(Of SqlConnection), Integer, TTypeStore))
+    Public Sub New(
+                  connectionSource As Func(Of SqlConnection),
+                  tableName As String,
+                  idColumnName As String,
+                  nameColumnName As String,
+                  convertor As Func(Of Func(Of SqlConnection), Integer, TTypeStore))
         Me.connectionSource = connectionSource
         Me.tableName = tableName
         Me.idColumnName = idColumnName

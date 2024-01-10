@@ -133,6 +133,24 @@ INSERT INTO
         End Get
     End Property
 
+    Public ReadOnly Property HasCharacter As Boolean Implements ILocationStore.HasCharacter
+        Get
+            Return connectionSource.CheckForValue(TABLE_CHARACTERS, (COLUMN_LOCATION_ID, Id))
+        End Get
+    End Property
+
+    Public ReadOnly Property Characters As IRelatedTypeStore(Of ICharacterStore) Implements ILocationStore.Characters
+        Get
+            Return New RelatedTypeStore(Of ICharacterStore, Integer)(
+                connectionSource,
+                TABLE_CHARACTERS,
+                COLUMN_CHARACTER_ID,
+                COLUMN_CHARACTER_NAME,
+                (COLUMN_LOCATION_ID, Id),
+                Function(x, y) New CharacterStore(x, y))
+        End Get
+    End Property
+
     Public Sub Delete() Implements IBaseTypeStore.Delete
         connectionSource.DeleteForValue(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, Id))
     End Sub

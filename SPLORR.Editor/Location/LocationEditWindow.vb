@@ -3,28 +3,33 @@ Imports Terminal.Gui
 
 Friend Class LocationEditWindow
     Inherits BaseEditTypeWindow
-    Public Sub New(locationStore As ILocationStore)
+    Public Sub New(store As ILocationStore)
         MyBase.New(
-            $"Edit Location: {locationStore.Name}",
+            $"Edit Location: {store.Name}",
             "Item Type",
-            locationStore.Id,
-            ("Name", locationStore.Name),
-            locationStore.CanDelete,
-            Function(x) locationStore.CanRenameTo(x),
-            Function() New LocationListWindow(locationStore.Store),
+            store.Id,
+            ("Name", store.Name),
+            store.CanDelete,
+            Function(x) store.CanRenameTo(x),
+            Function() New LocationListWindow(store.Store),
             Function()
-                locationStore.Delete()
-                Return New LocationListWindow(locationStore.Store)
+                store.Delete()
+                Return New LocationListWindow(store.Store)
             End Function,
             Function(x)
-                locationStore.Name = x
-                Return New LocationEditWindow(locationStore)
+                store.Name = x
+                Return New LocationEditWindow(store)
             End Function,
             {
                 (
-                    $"Type: {locationStore.LocationType.Name}",
+                    $"Type: {store.LocationType.Name}",
                     Function() True,
-                    Sub() Program.GoToWindow(New LocationLocationTypeEditWindow(locationStore))
+                    Sub() Program.GoToWindow(New LocationLocationTypeEditWindow(store))
+                ),
+                (
+                    "Characters...",
+                    Function() store.HasCharacter,
+                    Sub() Program.GoToWindow(New LocationCharacterListWindow(store))
                 )
             })
     End Sub
