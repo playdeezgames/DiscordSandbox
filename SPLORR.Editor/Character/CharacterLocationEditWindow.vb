@@ -19,6 +19,11 @@ Friend Class CharacterLocationEditWindow
                     "Cancel",
                     Function() True,
                     Sub() Program.GoToWindow(New CharacterEditWindow(store))
+                ),
+                (
+                    $"Edit Location `{store.Location.Name}`...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New LocationEditWindow(store.Location))
                 )
             })
     End Sub
