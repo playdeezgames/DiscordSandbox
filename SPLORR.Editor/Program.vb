@@ -57,11 +57,11 @@ Module Program
     End Sub
 
     Private Sub DoLocationsList()
-        Throw New NotImplementedException()
+        GoToWindow(New LocationListWindow(dataStore))
     End Sub
 
     Private Sub DoCharactersList()
-        Throw New NotImplementedException()
+        GoToWindow(New CharacterListWindow(dataStore))
     End Sub
 
     Private Sub DoRouteTypesList()

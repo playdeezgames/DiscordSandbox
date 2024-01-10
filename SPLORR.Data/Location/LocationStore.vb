@@ -17,13 +17,19 @@ Friend Class LocationStore
         End Get
     End Property
 
-    Public ReadOnly Property Name As String Implements ILocationStore.Name
+    Public Property Name As String Implements ILocationStore.Name
         Get
             Return connectionSource.ReadStringForValue(
                 TABLE_LOCATIONS,
                 (COLUMN_LOCATION_ID, locationId),
                 COLUMN_LOCATION_NAME)
         End Get
+        Set(value As String)
+            connectionSource.WriteValueForInteger(
+                TABLE_LOCATIONS,
+                (COLUMN_LOCATION_ID, Id),
+                (COLUMN_LOCATION_NAME, value))
+        End Set
     End Property
 
     Public ReadOnly Property HasRoutes As Boolean Implements ILocationStore.HasRoutes
@@ -91,6 +97,22 @@ INSERT INTO
         End Get
     End Property
 
+    Public ReadOnly Property CanDelete As Boolean Implements IBaseTypeStore.CanDelete
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
+    Public ReadOnly Property Store As IDataStore Implements IBaseTypeStore.Store
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
+    Public Sub Delete() Implements IBaseTypeStore.Delete
+        Throw New NotImplementedException()
+    End Sub
+
     Public Function FindRouteByDirectionName(directionName As String) As IRouteStore Implements ILocationStore.FindRouteByDirectionName
         Using command = connectionSource().CreateCommand
             command.CommandText = $"
@@ -112,5 +134,9 @@ WHERE
             End Using
             Return Nothing
         End Using
+    End Function
+
+    Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
+        Throw New NotImplementedException()
     End Function
 End Class

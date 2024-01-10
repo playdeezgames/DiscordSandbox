@@ -111,6 +111,28 @@ Public Class DataStore
         End Get
     End Property
 
+    Public ReadOnly Property Characters As ITypeStore(Of ICharacterStore) Implements IDataStore.Characters
+        Get
+            Return New TypeStore(Of ICharacterStore)(
+                ConnectionSource,
+                TABLE_CHARACTERS,
+                COLUMN_CHARACTER_ID,
+                COLUMN_CHARACTER_NAME,
+                Function(x, y) New CharacterStore(x, y))
+        End Get
+    End Property
+
+    Public ReadOnly Property Locations As ITypeStore(Of ILocationStore) Implements IDataStore.Locations
+        Get
+            Return New TypeStore(Of ILocationStore)(
+                ConnectionSource,
+                TABLE_LOCATIONS,
+                COLUMN_LOCATION_ID,
+                COLUMN_LOCATION_NAME,
+                Function(x, y) New LocationStore(x, y))
+        End Get
+    End Property
+
     Public Sub CleanUp() Implements IDataStore.CleanUp
         If _connection IsNot Nothing Then
             _connection.Close()

@@ -2,11 +2,11 @@
 
 Friend Class CharacterStore
     Implements ICharacterStore
-    Private ReadOnly _connectionSource As Func(Of SqlConnection)
+    Private ReadOnly connectionSource As Func(Of SqlConnection)
     Private ReadOnly _characterId As Integer
 
     Public Sub New(connectionSource As Func(Of SqlConnection), characterId As Integer)
-        Me._connectionSource = connectionSource
+        Me.connectionSource = connectionSource
         Me._characterId = characterId
     End Sub
 
@@ -18,13 +18,13 @@ Friend Class CharacterStore
 
     Public Property Name As String Implements ICharacterStore.Name
         Get
-            Return _connectionSource.ReadStringForValue(
+            Return connectionSource.ReadStringForValue(
                 TABLE_CHARACTERS,
                 (COLUMN_CHARACTER_ID, _characterId),
                 COLUMN_CHARACTER_NAME)
         End Get
         Set(value As String)
-            Using command = _connectionSource().CreateCommand
+            Using command = connectionSource().CreateCommand
                 command.CommandText = $"
 UPDATE 
     {TABLE_CHARACTERS} 
@@ -41,7 +41,7 @@ WHERE
 
     Public ReadOnly Property Location As ILocationStore Implements ICharacterStore.Location
         Get
-            Using command = _connectionSource().CreateCommand
+            Using command = connectionSource().CreateCommand
                 command.CommandText = $"
 SELECT 
     {COLUMN_LOCATION_ID} 
@@ -50,13 +50,13 @@ FROM
 WHERE 
     {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
                 command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
-                Return New LocationStore(_connectionSource, CInt(command.ExecuteScalar))
+                Return New LocationStore(connectionSource, CInt(command.ExecuteScalar))
             End Using
         End Get
     End Property
 
     Public Sub SetLocation(location As ILocationStore, lastModified As DateTimeOffset) Implements ICharacterStore.SetLocation
-        Using command = _connectionSource().CreateCommand
+        Using command = connectionSource().CreateCommand
             command.CommandText = $"
 UPDATE 
     {TABLE_CHARACTERS} 
@@ -72,9 +72,17 @@ WHERE
         End Using
     End Sub
 
+    Public Sub Delete() Implements IBaseTypeStore.Delete
+        connectionSource.DeleteForValue(TABLE_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
+    End Sub
+
+    Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
+        Return True
+    End Function
+
     Public ReadOnly Property HasOtherCharacters As Boolean Implements ICharacterStore.HasOtherCharacters
         Get
-            Using command = _connectionSource().CreateCommand
+            Using command = connectionSource().CreateCommand
                 command.CommandText = $"
 SELECT 
     COUNT(1) 
@@ -91,7 +99,7 @@ WHERE
     Public ReadOnly Property OtherCharacters As IEnumerable(Of ICharacterStore) Implements ICharacterStore.OtherCharacters
         Get
             Dim result As New List(Of ICharacterStore)
-            Using command = _connectionSource().CreateCommand
+            Using command = connectionSource().CreateCommand
                 command.CommandText = $"
 SELECT 
     {COLUMN_OTHER_CHARACTER_ID}
@@ -102,7 +110,7 @@ WHERE
                 command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
                 Using reader = command.ExecuteReader
                     While reader.Read
-                        result.Add(New CharacterStore(_connectionSource, reader.GetInt32(0)))
+                        result.Add(New CharacterStore(connectionSource, reader.GetInt32(0)))
                     End While
                 End Using
             End Using
@@ -112,19 +120,31 @@ WHERE
 
     Public ReadOnly Property Inventory As IInventoryStore Implements ICharacterStore.Inventory
         Get
-            Dim inventoryId = _connectionSource.FindIntegerForValue(
+            Dim inventoryId = connectionSource.FindIntegerForValue(
                 TABLE_INVENTORIES,
                 (COLUMN_CHARACTER_ID, _characterId),
                 COLUMN_INVENTORY_ID)
             If inventoryId.HasValue Then
-                Return New InventoryStore(_connectionSource, inventoryId.Value)
+                Return New InventoryStore(connectionSource, inventoryId.Value)
             End If
-            Using command = _connectionSource().CreateCommand
+            Using command = connectionSource().CreateCommand
                 command.CommandText = $"INSERT INTO {TABLE_INVENTORIES}({COLUMN_CHARACTER_ID}) VALUES({PARAMETER_CHARACTER_ID});"
                 command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
                 command.ExecuteNonQuery()
             End Using
-            Return New InventoryStore(_connectionSource, _connectionSource.ReadLastIdentity)
+            Return New InventoryStore(connectionSource, connectionSource.ReadLastIdentity)
+        End Get
+    End Property
+
+    Public ReadOnly Property CanDelete As Boolean Implements ICharacterStore.CanDelete
+        Get
+            Return False
+        End Get
+    End Property
+
+    Public ReadOnly Property Store As IDataStore Implements IBaseTypeStore.Store
+        Get
+            Return New DataStore(connectionSource())
         End Get
     End Property
 End Class

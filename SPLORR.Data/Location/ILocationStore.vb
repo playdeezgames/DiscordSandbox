@@ -1,6 +1,5 @@
 ﻿Public Interface ILocationStore
-    ReadOnly Property Id As Integer
-    ReadOnly Property Name As String
+    Inherits IBaseTypeStore
     ReadOnly Property HasRoutes As Boolean
     ReadOnly Property Routes As IEnumerable(Of IRouteStore)
     ReadOnly Property Inventory As IInventoryStore
