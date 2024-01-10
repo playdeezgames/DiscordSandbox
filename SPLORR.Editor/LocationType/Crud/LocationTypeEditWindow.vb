@@ -24,6 +24,11 @@ Friend Class LocationTypeEditWindow
                     "List Locations...",
                     Function() locationTypeStore.HasLocations,
                     Sub() Program.GoToWindow(New LocationTypeLocationListWindow(locationTypeStore))
+                ),
+                (
+                    "Create Location...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New LocationEditWindow(locationTypeStore.CreateLocation("New Location")))
                 )
             },
             {

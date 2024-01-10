@@ -65,4 +65,25 @@ WHERE
         End Using
         Return result
     End Function
+
+    Public Function CreateLocation(name As String) As ILocationStore Implements ILocationTypeStore.CreateLocation
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"
+INSERT INTO 
+    {TABLE_LOCATIONS}
+    (
+        {COLUMN_LOCATION_NAME},
+        {COLUMN_LOCATION_TYPE_ID}
+    ) 
+    VALUES
+    (
+        {PARAMETER_LOCATION_NAME},
+        {PARAMETER_LOCATION_TYPE_ID}
+    );"
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_NAME, name)
+            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
+            command.ExecuteNonQuery()
+        End Using
+        Return New LocationStore(connectionSource, connectionSource.ReadLastIdentity)
+    End Function
 End Class

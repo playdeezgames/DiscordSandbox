@@ -105,12 +105,12 @@ INSERT INTO
 
     Public ReadOnly Property Store As IDataStore Implements IBaseTypeStore.Store
         Get
-            Throw New NotImplementedException()
+            Return New DataStore(connectionSource())
         End Get
     End Property
 
     Public Sub Delete() Implements IBaseTypeStore.Delete
-        Throw New NotImplementedException()
+        connectionSource.DeleteForValue(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, Id))
     End Sub
 
     Public Function FindRouteByDirectionName(directionName As String) As IRouteStore Implements ILocationStore.FindRouteByDirectionName
@@ -137,6 +137,6 @@ WHERE
     End Function
 
     Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
-        Throw New NotImplementedException()
+        Return True
     End Function
 End Class
