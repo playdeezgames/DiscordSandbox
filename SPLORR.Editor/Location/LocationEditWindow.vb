@@ -19,6 +19,13 @@ Friend Class LocationEditWindow
             Function(x)
                 locationStore.Name = x
                 Return New LocationEditWindow(locationStore)
-            End Function)
+            End Function,
+            {
+                (
+                    $"Type: {locationStore.LocationType.Name}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New LocationLocationTypeEditWindow(locationStore))
+                )
+            })
     End Sub
 End Class

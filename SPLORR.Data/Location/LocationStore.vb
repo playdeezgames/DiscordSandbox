@@ -91,10 +91,13 @@ INSERT INTO
         End Get
     End Property
 
-    Public ReadOnly Property LocationType As ILocationTypeStore Implements ILocationStore.LocationType
+    Public Property LocationType As ILocationTypeStore Implements ILocationStore.LocationType
         Get
             Return New LocationTypeStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, locationId), COLUMN_LOCATION_TYPE_ID))
         End Get
+        Set(value As ILocationTypeStore)
+            connectionSource.WriteValueForInteger(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, Id), (COLUMN_LOCATION_TYPE_ID, value.Id))
+        End Set
     End Property
 
     Public ReadOnly Property CanDelete As Boolean Implements IBaseTypeStore.CanDelete
