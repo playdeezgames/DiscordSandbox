@@ -19,6 +19,13 @@ Friend Class CharacterEditWindow
             Function(x)
                 store.Name = x
                 Return New CharacterEditWindow(store)
-            End Function)
+            End Function,
+            {
+                (
+                    $"Location: {store.Location.Name}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CharacterLocationEditWindow(store))
+                )
+            })
     End Sub
 End Class
