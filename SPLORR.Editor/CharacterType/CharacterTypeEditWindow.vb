@@ -1,5 +1,4 @@
 ﻿Imports SPLORR.Data
-Imports Terminal.Gui
 
 Friend Class CharacterTypeEditWindow
     Inherits BaseEditTypeWindow
@@ -20,6 +19,13 @@ Friend Class CharacterTypeEditWindow
             Function(x)
                 characterTypeStore.Name = x
                 Return New CharacterTypeEditWindow(characterTypeStore)
-            End Function)
+            End Function,
+            {
+                (
+                    "Create Character...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CharacterAddWindow(characterTypeStore))
+                )
+            })
     End Sub
 End Class
