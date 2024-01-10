@@ -99,7 +99,7 @@ INSERT INTO
 
     Public ReadOnly Property CanDelete As Boolean Implements IBaseTypeStore.CanDelete
         Get
-            Throw New NotImplementedException()
+            Return False
         End Get
     End Property
 
