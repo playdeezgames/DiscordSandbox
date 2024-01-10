@@ -138,7 +138,19 @@ WHERE
 
     Public ReadOnly Property CanDelete As Boolean Implements ICharacterStore.CanDelete
         Get
-            Return False
+            Return Not HasPlayer AndAlso Not HasInventory
+        End Get
+    End Property
+
+    Private ReadOnly Property HasPlayer As Boolean
+        Get
+            Return connectionSource.CheckForValue(TABLE_PLAYER_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
+        End Get
+    End Property
+
+    Private ReadOnly Property HasInventory As Boolean
+        Get
+            Return connectionSource.CheckForValue(TABLE_INVENTORIES, (COLUMN_CHARACTER_ID, Id))
         End Get
     End Property
 
