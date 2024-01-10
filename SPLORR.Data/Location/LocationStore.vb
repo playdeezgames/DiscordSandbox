@@ -99,7 +99,28 @@ INSERT INTO
 
     Public ReadOnly Property CanDelete As Boolean Implements IBaseTypeStore.CanDelete
         Get
-            Return False
+            Return Not HasCharacters AndAlso
+                Not HasRoutes AndAlso
+                Not IsDestination AndAlso
+                Not HasInventory
+        End Get
+    End Property
+
+    Private ReadOnly Property HasCharacters As Boolean
+        Get
+            Return connectionSource.CheckForValue(TABLE_CHARACTERS, (COLUMN_LOCATION_ID, Id))
+        End Get
+    End Property
+
+    Private ReadOnly Property IsDestination As Boolean
+        Get
+            Return connectionSource.CheckForValue(TABLE_ROUTES, (COLUMN_TO_LOCATION_ID, Id))
+        End Get
+    End Property
+
+    Private ReadOnly Property HasInventory As Boolean
+        Get
+            Return connectionSource.CheckForValue(TABLE_INVENTORIES, (COLUMN_LOCATION_ID, Id))
         End Get
     End Property
 
