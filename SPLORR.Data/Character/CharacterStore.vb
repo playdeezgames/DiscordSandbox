@@ -159,4 +159,21 @@ WHERE
             Return New DataStore(connectionSource())
         End Get
     End Property
+
+    Public Property CharacterType As ICharacterTypeStore Implements ICharacterStore.CharacterType
+        Get
+            Return New CharacterTypeStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValue(
+                    TABLE_CHARACTERS,
+                    (COLUMN_CHARACTER_ID, Id),
+                    COLUMN_CHARACTER_TYPE_ID))
+        End Get
+        Set(value As ICharacterTypeStore)
+            connectionSource.WriteValueForInteger(
+                TABLE_CHARACTERS,
+                (COLUMN_CHARACTER_ID, Id),
+                (COLUMN_CHARACTER_TYPE_ID, value.Id))
+        End Set
+    End Property
 End Class
