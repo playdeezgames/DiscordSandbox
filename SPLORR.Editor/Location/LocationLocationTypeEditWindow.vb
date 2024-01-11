@@ -9,9 +9,9 @@ Friend Class LocationLocationTypeEditWindow
             $"Type for Location `{store.Name}` (current:`{store.LocationType.Name}`):",
             store.Store,
             Function(x, y) x.LocationTypes.Filter(y),
-            Function(x) New LocationTypeListItem(x),
+            Function(x) New ListItem(Of ILocationTypeStore)(x, $"{x.Name}(Id:{x.Id})"),
             Function(x)
-                store.LocationType = CType(x, LocationTypeListItem).Store
+                store.LocationType = CType(x, ListItem(Of ILocationTypeStore)).Store
                 Return New LocationEditWindow(store)
             End Function,
             AdditionalButtons:=
