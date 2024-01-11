@@ -9,8 +9,8 @@ Friend Class RouteTypeListWindow
             "Route Types",
             dataStore,
             Function(store, filter) store.RouteTypes.Filter(filter),
-            Function(item) New RouteTypeListItem(item),
-            Function(item) New RouteTypeEditWindow(CType(item, RouteTypeListItem).Store),
+            Function(x) New ListItem(Of IRouteTypeStore)(x, $"{x.Name}(Id:{x.Id})"),
+            Function(item) New RouteTypeEditWindow(CType(item, ListItem(Of IRouteTypeStore)).Store),
             AdditionalButtons:=
             {
                 ("Add...", Function() True, Sub() Program.GoToWindow(New RouteTypeAddWindow(dataStore))),
