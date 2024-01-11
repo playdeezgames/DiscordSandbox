@@ -3,6 +3,7 @@
     Private ReadOnly text As String
     Sub New(store As TStore, text As String)
         Me.Store = store
+        Me.text = text
     End Sub
     Public Overrides Function ToString() As String
         Return text
