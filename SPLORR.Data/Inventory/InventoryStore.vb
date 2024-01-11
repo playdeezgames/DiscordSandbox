@@ -50,6 +50,12 @@ Friend Class InventoryStore
         End Get
     End Property
 
+    Public ReadOnly Property CanDelete As Boolean Implements IInventoryStore.CanDelete
+        Get
+            Return Not connectionSource.CheckForValue(TABLE_ITEMS, (COLUMN_INVENTORY_ID, Id))
+        End Get
+    End Property
+
     Public Sub New(connectionSource As Func(Of SqlConnection), inventoryId As Integer)
         Me.connectionSource = connectionSource
         Me.Id = inventoryId
@@ -63,4 +69,8 @@ Friend Class InventoryStore
             COLUMN_ITEM_ID).
             Select(Function(x) New ItemStore(connectionSource, x))
     End Function
+
+    Public Sub Delete() Implements IInventoryStore.Delete
+        connectionSource.DeleteForValue(TABLE_INVENTORIES, (COLUMN_INVENTORY_ID, Id))
+    End Sub
 End Class
