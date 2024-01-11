@@ -1,5 +1,4 @@
 ﻿Imports NStack
-Imports SPLORR.Data
 Imports Terminal.Gui
 
 Friend MustInherit Class BaseListWindow(Of TStore, TResultStore)

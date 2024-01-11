@@ -1,5 +1,4 @@
 ﻿Imports SPLORR.Data
-Imports Terminal.Gui
 
 Friend Class CharacterTypeListWindow
     Inherits BaseListWindow(Of IDataStore, ICharacterTypeStore)
