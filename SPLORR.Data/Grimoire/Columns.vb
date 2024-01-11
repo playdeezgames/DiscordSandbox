@@ -18,6 +18,7 @@
     Friend Const COLUMN_ROUTE_ID = "RouteId"
     Friend Const COLUMN_ROUTE_TYPE_ID = "RouteTypeId"
     Friend Const COLUMN_ROUTE_TYPE_NAME = "RouteTypeName"
+    Friend Const COLUMN_ROUTE_NAME = "RouteName"
     Friend Const COLUMN_TO_LOCATION_ID = "ToLocationId"
     Friend Const COLUMN_ITEM_TYPE_NAME = "ItemTypeName"
     Friend Const COLUMN_ITEM_TYPE_ID = "ItemTypeId"

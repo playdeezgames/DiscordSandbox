@@ -36,6 +36,11 @@ Friend Class LocationEditWindow
                     "Inventory...",
                     Function() True,
                     Sub() Program.GoToWindow(New InventoryEditWindow(store.Inventory))
+                ),
+                (
+                    "Routes...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New LocationRouteListWindow(store))
                 )
             })
     End Sub

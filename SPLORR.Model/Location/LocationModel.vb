@@ -25,7 +25,7 @@ Friend Class LocationModel
 
     Public ReadOnly Property Routes As IEnumerable(Of IRouteModel) Implements ILocationModel.Routes
         Get
-            Return _locationStore.Routes.Select(Function(x) New RouteModel(x))
+            Return _locationStore.Routes.Filter("%").Select(Function(x) New RouteModel(x))
         End Get
     End Property
 

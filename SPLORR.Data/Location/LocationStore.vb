@@ -48,19 +48,15 @@ WHERE
         End Get
     End Property
 
-    Public ReadOnly Property Routes As IEnumerable(Of IRouteStore) Implements ILocationStore.Routes
+    Public ReadOnly Property Routes As IRelatedTypeStore(Of IRouteStore) Implements ILocationStore.Routes
         Get
-            Dim result As New List(Of IRouteStore)
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"SELECT {COLUMN_ROUTE_ID} FROM {TABLE_ROUTES} WHERE {COLUMN_FROM_LOCATION_ID}={PARAMETER_LOCATION_ID};"
-                command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, locationId)
-                Using reader = command.ExecuteReader
-                    While reader.Read
-                        result.Add(New RouteStore(connectionSource, reader.GetInt32(0)))
-                    End While
-                End Using
-            End Using
-            Return result
+            Return New RelatedTypeStore(Of IRouteStore, Integer)(
+                connectionSource,
+                VIEW_ROUTE_DETAILS,
+                COLUMN_ROUTE_ID,
+                COLUMN_ROUTE_NAME,
+                (COLUMN_FROM_LOCATION_ID, Id),
+                Function(x, y) New RouteStore(x, y))
         End Get
     End Property
 
