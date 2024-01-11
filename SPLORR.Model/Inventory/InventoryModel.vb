@@ -12,7 +12,7 @@ Friend Class InventoryModel
 
     Public ReadOnly Property Items As IEnumerable(Of IItemModel) Implements IInventoryModel.Items
         Get
-            Return InventoryStore.Items.Select(Function(x) New ItemModel(x))
+            Return InventoryStore.Items.Filter("%").Select(Function(x) New ItemModel(x))
         End Get
     End Property
 

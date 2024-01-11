@@ -30,6 +30,11 @@ Friend Class CharacterEditWindow
                     $"Type: {store.CharacterType.Name}",
                     Function() True,
                     Sub() Program.GoToWindow(New CharacterCharacterTypeEditWindow(store))
+                ),
+                (
+                    "Inventory...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New InventoryEditWindow(store.Inventory))
                 )
             })
     End Sub

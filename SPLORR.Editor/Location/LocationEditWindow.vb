@@ -30,6 +30,11 @@ Friend Class LocationEditWindow
                     "Characters...",
                     Function() store.HasCharacter,
                     Sub() Program.GoToWindow(New LocationCharacterListWindow(store))
+                ),
+                (
+                    "Inventory...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New InventoryEditWindow(store.Inventory))
                 )
             })
     End Sub
