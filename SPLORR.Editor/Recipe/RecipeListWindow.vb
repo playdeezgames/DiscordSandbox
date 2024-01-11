@@ -9,8 +9,8 @@ Friend Class RecipeListWindow
             "Recipes",
             dataStore,
             Function(store, filter) store.Recipes.Filter(filter),
-            Function(item) New RecipeListItem(item),
-            Function(item) New RecipeEditWindow(CType(item, RecipeListItem).Store),
+            Function(x) New ListItem(Of IRecipeStore)(x, $"{x.Name}(Id:{x.Id})"),
+            Function(item) New RecipeEditWindow(CType(item, ListItem(Of IRecipeStore)).Store),
             AdditionalButtons:=
             {
                 ("Add...", Function() True, Sub() Program.GoToWindow(New RecipeAddWindow(dataStore))),
