@@ -36,4 +36,21 @@ Friend Class ItemStore
             Return True
         End Get
     End Property
+
+    Public Property ItemType As IItemTypeStore Implements IItemStore.ItemType
+        Get
+            Return New ItemTypeStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValue(
+                    TABLE_ITEMS,
+                    (COLUMN_ITEM_ID, Id),
+                    COLUMN_ITEM_TYPE_ID))
+        End Get
+        Set(value As IItemTypeStore)
+            connectionSource.WriteValueForInteger(
+                TABLE_ITEMS,
+                (COLUMN_ITEM_ID, Id),
+                (COLUMN_ITEM_TYPE_ID, value.Id))
+        End Set
+    End Property
 End Class

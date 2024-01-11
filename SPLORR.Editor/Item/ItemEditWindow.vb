@@ -31,6 +31,11 @@ Friend Class ItemEditWindow
                         store.Delete()
                         Program.GoToWindow(New InventoryEditWindow(inventory))
                     End Sub
+                ),
+                (
+                    $"Item Type: {store.ItemType.Name}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New ItemEditItemTypeWindow(store))
                 )
             })
     End Sub
