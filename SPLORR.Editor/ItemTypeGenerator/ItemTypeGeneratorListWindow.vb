@@ -3,16 +3,16 @@
 Friend Class ItemTypeGeneratorListWindow
     Inherits BaseListWindow(Of Data.IDataStore, Data.IItemTypeGeneratorStore)
 
-    Public Sub New(dataStore As Data.IDataStore)
+    Public Sub New(store As Data.IDataStore)
         MyBase.New(
             "Item Type Generators",
-            dataStore,
-            Function(store, filter) store.ItemTypeGenerators.Filter(filter),
+            store,
+            Function(x, y) x.ItemTypeGenerators.Filter(y),
             Function(x) New ListItem(Of IItemTypeGeneratorStore)(x, $"{x.Name}(Id:{x.Id})"),
-            Function(item) New ItemTypeGeneratorEditWindow(CType(item, ListItem(Of IItemTypeGeneratorStore)).Store),
+            Function(x) New ItemTypeGeneratorEditWindow(CType(x, ListItem(Of IItemTypeGeneratorStore)).Store),
             AdditionalButtons:=
             {
-                ("Add...", Function() True, Sub() Program.GoToWindow(New ItemTypeGeneratorAddWindow(dataStore))),
+                ("Add...", Function() True, Sub() Program.GoToWindow(New ItemTypeGeneratorAddWindow(store))),
                 ("Close", Function() True, Sub() Program.GoToWindow(Nothing))
             })
     End Sub

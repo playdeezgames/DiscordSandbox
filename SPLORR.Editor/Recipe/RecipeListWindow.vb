@@ -4,16 +4,16 @@ Imports Terminal.Gui
 Friend Class RecipeListWindow
     Inherits BaseListWindow(Of IDataStore, IRecipeStore)
 
-    Public Sub New(dataStore As Data.IDataStore)
+    Public Sub New(store As Data.IDataStore)
         MyBase.New(
             "Recipes",
-            dataStore,
-            Function(store, filter) store.Recipes.Filter(filter),
+            store,
+            Function(x, y) x.Recipes.Filter(y),
             Function(x) New ListItem(Of IRecipeStore)(x, $"{x.Name}(Id:{x.Id})"),
-            Function(item) New RecipeEditWindow(CType(item, ListItem(Of IRecipeStore)).Store),
+            Function(x) New RecipeEditWindow(CType(x, ListItem(Of IRecipeStore)).Store),
             AdditionalButtons:=
             {
-                ("Add...", Function() True, Sub() Program.GoToWindow(New RecipeAddWindow(dataStore))),
+                ("Add...", Function() True, Sub() Program.GoToWindow(New RecipeAddWindow(store))),
                 ("Close", Function() True, Sub() Program.GoToWindow(Nothing))
             })
     End Sub

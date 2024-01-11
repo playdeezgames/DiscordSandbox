@@ -2,16 +2,16 @@
 
 Friend Class LocationTypeListWindow
     Inherits BaseListWindow(Of Data.IDataStore, Data.ILocationTypeStore)
-    Public Sub New(dataStore As Data.IDataStore)
+    Public Sub New(store As Data.IDataStore)
         MyBase.New(
             "Location Types",
-            dataStore,
-            Function(store, filter) store.LocationTypes.Filter(filter),
+            store,
+            Function(x, y) x.LocationTypes.Filter(y),
             Function(x) New ListItem(Of ILocationTypeStore)(x, $"{x.Name}(Id:{x.Id})"),
-            Function(item) New LocationTypeEditWindow(CType(item, ListItem(Of ILocationTypeStore)).Store),
+            Function(x) New LocationTypeEditWindow(CType(x, ListItem(Of ILocationTypeStore)).Store),
             AdditionalButtons:=
             {
-                ("Add...", Function() True, Sub() Program.GoToWindow(New LocationTypeAddWindow(dataStore))),
+                ("Add...", Function() True, Sub() Program.GoToWindow(New LocationTypeAddWindow(store))),
                 ("Close", Function() True, Sub() Program.GoToWindow(Nothing))
             })
     End Sub

@@ -4,13 +4,13 @@ Imports Terminal.Gui
 Friend Class CharacterListWindow
     Inherits BaseListWindow(Of IDataStore, ICharacterStore)
 
-    Public Sub New(dataStore As Data.IDataStore)
+    Public Sub New(store As Data.IDataStore)
         MyBase.New(
             "Characters",
-            dataStore,
-            Function(store, filter) store.Characters.Filter(filter),
+            store,
+            Function(x, y) x.Characters.Filter(y),
             Function(x) New ListItem(Of ICharacterStore)(x, $"{x.Name}(Id:{x.Id})"),
-            Function(item) New CharacterEditWindow(CType(item, ListItem(Of ICharacterStore)).Store),
+            Function(x) New CharacterEditWindow(CType(x, ListItem(Of ICharacterStore)).Store),
             AdditionalButtons:=
             {
                 ("Close", Function() True, Sub() Program.GoToWindow(Nothing))

@@ -3,16 +3,16 @@
 Friend Class StatisticTypeListWindow
     Inherits BaseListWindow(Of IDataStore, IStatisticTypeStore)
 
-    Public Sub New(dataStore As Data.IDataStore)
+    Public Sub New(store As Data.IDataStore)
         MyBase.New(
             "Statistic Types",
-            dataStore,
-            Function(store, filter) store.StatisticTypes.Filter(filter),
+            store,
+            Function(x, y) x.StatisticTypes.Filter(y),
             Function(x) New ListItem(Of IStatisticTypeStore)(x, $"{x.Name}(Id:{x.Id})"),
-            Function(item) New StatisticTypeEditWindow(CType(item, ListItem(Of IStatisticTypeStore)).Store),
+            Function(x) New StatisticTypeEditWindow(CType(x, ListItem(Of IStatisticTypeStore)).Store),
             AdditionalButtons:=
             {
-                ("Add...", Function() True, Sub() Program.GoToWindow(New StatisticTypeAddWindow(dataStore))),
+                ("Add...", Function() True, Sub() Program.GoToWindow(New StatisticTypeAddWindow(store))),
                 ("Close", Function() True, Sub() Program.GoToWindow(Nothing))
             })
     End Sub

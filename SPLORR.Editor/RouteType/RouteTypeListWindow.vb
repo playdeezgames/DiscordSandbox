@@ -4,16 +4,16 @@ Imports Terminal.Gui
 Friend Class RouteTypeListWindow
     Inherits BaseListWindow(Of IDataStore, IRouteTypeStore)
 
-    Public Sub New(dataStore As Data.IDataStore)
+    Public Sub New(store As Data.IDataStore)
         MyBase.New(
             "Route Types",
-            dataStore,
-            Function(store, filter) store.RouteTypes.Filter(filter),
+            store,
+            Function(x, y) x.RouteTypes.Filter(y),
             Function(x) New ListItem(Of IRouteTypeStore)(x, $"{x.Name}(Id:{x.Id})"),
-            Function(item) New RouteTypeEditWindow(CType(item, ListItem(Of IRouteTypeStore)).Store),
+            Function(x) New RouteTypeEditWindow(CType(x, ListItem(Of IRouteTypeStore)).Store),
             AdditionalButtons:=
             {
-                ("Add...", Function() True, Sub() Program.GoToWindow(New RouteTypeAddWindow(dataStore))),
+                ("Add...", Function() True, Sub() Program.GoToWindow(New RouteTypeAddWindow(store))),
                 ("Close", Function() True, Sub() Program.GoToWindow(Nothing))
             })
     End Sub
