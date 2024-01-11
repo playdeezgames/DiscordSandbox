@@ -8,8 +8,8 @@ Friend Class ItemTypeListWindow
             "Item Types",
             store,
             Function(x, y) x.ItemTypes.Filter(y),
-            Function(x) New ItemTypeListItem(x),
-            Function(x) New ItemTypeEditWindow(CType(x, ItemTypeListItem).Store),
+            Function(x) New ListItem(Of IItemTypeStore)(x, $"{x.Name}(Id:{x.Id})"),
+            Function(x) New ItemTypeEditWindow(CType(x, ListItem(Of IItemTypeStore)).Store),
             AdditionalButtons:=
             {
                 ("Add...", Function() True, Sub() Program.GoToWindow(New ItemTypeAddWindow(store))),

@@ -23,7 +23,7 @@ Friend Class LocationTypeSetItemTypeGeneratorWindow
                 .Width = [Dim].Fill - 1
             }
         itemTypeGenerators.AddRange(locationTypeStore.Store.ItemTypeGenerators.Filter("%"))
-        itemTypeGeneratorComboBox.SetSource(itemTypeGenerators.Select(Function(x) New ItemTypeGeneratorListItem(x)).ToList)
+        itemTypeGeneratorComboBox.SetSource(itemTypeGenerators.Select(Function(x) New ListItem(Of IItemTypeGeneratorStore)(x, $"{x.Name}(Id:{x.Id})")).ToList)
         Dim itemTypeGenerator = locationTypeStore.ItemTypeGenerator
         If itemTypeGenerator IsNot Nothing Then
             itemTypeGeneratorComboBox.SelectedItem = itemTypeGenerators.FindIndex(Function(x) x.Id = itemTypeGenerator.Id)

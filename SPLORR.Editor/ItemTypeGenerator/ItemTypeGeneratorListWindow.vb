@@ -1,4 +1,6 @@
-﻿Friend Class ItemTypeGeneratorListWindow
+﻿Imports SPLORR.Data
+
+Friend Class ItemTypeGeneratorListWindow
     Inherits BaseListWindow(Of Data.IDataStore, Data.IItemTypeGeneratorStore)
 
     Public Sub New(dataStore As Data.IDataStore)
@@ -6,8 +8,8 @@
             "Item Type Generators",
             dataStore,
             Function(store, filter) store.ItemTypeGenerators.Filter(filter),
-            Function(item) New ItemTypeGeneratorListItem(item),
-            Function(item) New ItemTypeGeneratorEditWindow(CType(item, ItemTypeGeneratorListItem).Store),
+            Function(x) New ListItem(Of IItemTypeGeneratorStore)(x, $"{x.Name}(Id:{x.Id})"),
+            Function(item) New ItemTypeGeneratorEditWindow(CType(item, ListItem(Of IItemTypeGeneratorStore)).Store),
             AdditionalButtons:=
             {
                 ("Add...", Function() True, Sub() Program.GoToWindow(New ItemTypeGeneratorAddWindow(dataStore))),
