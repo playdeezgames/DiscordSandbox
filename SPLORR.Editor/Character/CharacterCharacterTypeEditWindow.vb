@@ -9,9 +9,9 @@ Friend Class CharacterCharacterTypeEditWindow
             $"Type for Character `{store.Name}` (current:`{store.CharacterType.Name}`):",
             store.Store,
             Function(x, y) x.CharacterTypes.Filter(y),
-            Function(x) New CharacterTypeListItem(x),
+            Function(x) New ListItem(Of ICharacterTypeStore)(x, $"{x.Name}(Id:{x.Id})"),
             Function(x)
-                store.CharacterType = CType(x, CharacterTypeListItem).Store
+                store.CharacterType = CType(x, ListItem(Of ICharacterTypeStore)).Store
                 Return New CharacterEditWindow(store)
             End Function,
             AdditionalButtons:=
