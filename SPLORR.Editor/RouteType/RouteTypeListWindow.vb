@@ -9,7 +9,7 @@ Friend Class RouteTypeListWindow
             "Route Types",
             store,
             Function(x, y) x.RouteTypes.Filter(y),
-            Function(x) New ListItem(Of IRouteTypeStore)(x, $"{x.Name}(Id:{x.Id})"),
+            Function(x) $"{x.Name}(Id:{x.Id})",
             Function(x) New RouteTypeEditWindow(CType(x, ListItem(Of IRouteTypeStore)).Store),
             AdditionalButtons:=
             {

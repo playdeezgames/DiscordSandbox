@@ -9,7 +9,7 @@ Friend Class InventoryEditWindow
             $"Inventory for {If(store.HasCharacter, $"Character `{store.Character.Name}`", $"Location `{store.Location.Name}`")}",
             store,
             Function(x, y) x.Items.Filter(y),
-            Function(x) New ListItem(Of IItemStore)(x, $"{x.Name}(Id:{x.Id})"),
+            Function(x) $"{x.Name}(Id:{x.Id})",
             Function(x) Nothing,
             AdditionalButtons:=
             {

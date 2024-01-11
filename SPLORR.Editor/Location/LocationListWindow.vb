@@ -9,7 +9,7 @@ Friend Class LocationListWindow
             "Locations",
             store,
             Function(x, y) x.Locations.Filter(y),
-            Function(x) New ListItem(Of ILocationStore)(x, $"{x.Name}(Id{x.Id})"),
+            Function(x) $"{x.Name}(Id{x.Id})",
             Function(x) New LocationEditWindow(CType(x, ListItem(Of ILocationStore)).Store),
             AdditionalButtons:=
             {

@@ -7,18 +7,18 @@ Friend MustInherit Class BaseListWindow(Of TStore, TResultStore)
     Protected ReadOnly filterTextField As TextField
     Protected ReadOnly resultsListView As ListView
     Private ReadOnly FilterItems As Func(Of TStore, String, IEnumerable(Of TResultStore))
-    Private ReadOnly ToListViewItem As Func(Of TResultStore, Object)
+    Private ReadOnly ToListViewItemName As Func(Of TResultStore, String)
     Private ReadOnly ToResultWindow As Func(Of Object, Window)
     Protected Sub New(
                      title As String,
                      store As TStore,
                      FilterItems As Func(Of TStore, String, IEnumerable(Of TResultStore)),
-                     ToListViewItem As Func(Of TResultStore, Object),
+                     ToListViewItemName As Func(Of TResultStore, String),
                      Optional ToResultWindow As Func(Of Object, Window) = Nothing,
                      Optional AdditionalButtons As IEnumerable(Of (Title As String, IsEnabled As Func(Of Boolean), OnClicked As Action)) = Nothing)
         MyBase.New(title)
         Me.store = store
-        Me.ToListViewItem = ToListViewItem
+        Me.ToListViewItemName = ToListViewItemName
         Me.FilterItems = FilterItems
         Me.ToResultWindow = ToResultWindow
         Dim filterLabel As New Label("Filter:") With
@@ -68,7 +68,7 @@ Friend MustInherit Class BaseListWindow(Of TStore, TResultStore)
             filter += "%"
         End If
         Dim items As IEnumerable(Of TResultStore) = FilterItems(store, filter)
-        resultsListView.SetSource(items.Select(ToListViewItem).ToList)
+        resultsListView.SetSource(items.Select(Function(x) New ListItem(Of TResultStore)(x, ToListViewItemName(x))).ToList)
     End Sub
 
     Private Sub OnResultsListViewOpenSelectedItem(args As ListViewItemEventArgs)

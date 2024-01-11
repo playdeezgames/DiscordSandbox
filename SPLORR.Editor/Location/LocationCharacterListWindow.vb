@@ -9,7 +9,7 @@ Friend Class LocationCharacterListWindow
             $"Characters at Location `{store.Name}`",
             store,
             Function(x, y) x.Characters.Filter(y),
-            Function(x) New ListItem(Of ICharacterStore)(x, $"{x.Name}(Id:{x.Id})"),
+            Function(x) $"{x.Name}(Id:{x.Id})",
             Function(x) New CharacterEditWindow(CType(x, ListItem(Of ICharacterStore)).Store),
             AdditionalButtons:=
             {

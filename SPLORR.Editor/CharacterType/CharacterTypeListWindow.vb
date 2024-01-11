@@ -8,7 +8,7 @@ Friend Class CharacterTypeListWindow
             "Character Types",
             store,
             Function(x, y) x.CharacterTypes.Filter(y),
-            Function(x) New ListItem(Of ICharacterTypeStore)(x, $"{x.Name}(Id:{x.Id})"),
+            Function(x) $"{x.Name}(Id:{x.Id})",
             Function(x) New CharacterTypeEditWindow(CType(x, ListItem(Of ICharacterTypeStore)).Store),
             AdditionalButtons:=
             {

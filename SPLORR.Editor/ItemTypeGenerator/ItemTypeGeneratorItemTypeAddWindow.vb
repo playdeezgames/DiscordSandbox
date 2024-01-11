@@ -7,7 +7,7 @@ Friend Class ItemTypeGeneratorItemTypeAddWindow
         MyBase.New(
             $"Add Item Type To: {itemTypeGeneratorStore.Name}", itemTypeGeneratorStore,
             Function(x, y) x.AvailableItemTypes.Filter(y),
-            Function(x) New ListItem(Of IItemTypeStore)(x, $"{x.Name}(Id:{x.Id})"),
+            Function(x) $"{x.Name}(Id:{x.Id})",
             Function(x)
                 Return New ItemTypeGeneratorItemTypeEditWindow(
                     itemTypeGeneratorStore.AddItemType(
