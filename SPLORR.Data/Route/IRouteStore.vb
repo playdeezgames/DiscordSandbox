@@ -5,4 +5,5 @@
     ReadOnly Property Direction As IDirectionStore
     ReadOnly Property FromLocation As ILocationStore
     ReadOnly Property ToLocation As ILocationStore
+    Sub Delete()
 End Interface

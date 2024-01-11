@@ -10,6 +10,6 @@ Friend Class LocationRouteListWindow
             store,
             Function(x, y) x.Routes.Filter(y),
             Function(x) $"{x.Direction.Name} {x.RouteType.Name} to {x.ToLocation.Name}",
-            Function(x) Nothing)
+            Function(x) New RouteEditWindow(x))
     End Sub
 End Class
