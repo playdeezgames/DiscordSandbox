@@ -10,6 +10,7 @@ Friend Class ItemTypeGeneratorEditNothingGeneratorWeightWindow
             itemTypeGeneratorStore.Id,
             ("Nothing Generator Weight", itemTypeGeneratorStore.NothingGeneratorWeight.ToString),
             True,
+            True,
             Function(x)
                 Dim generatorWeight As Integer = 0
                 If Integer.TryParse(x, generatorWeight) Then

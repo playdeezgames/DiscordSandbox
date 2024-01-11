@@ -9,6 +9,7 @@ Friend Class CharacterEditWindow
             "Character",
             store.Id,
             ("Name", store.Name),
+            True,
             store.CanDelete,
             Function(x) store.CanRenameTo(x),
             Function() New CharacterListWindow(store.Store),

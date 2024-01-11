@@ -9,6 +9,7 @@ Friend Class LocationEditWindow
             "Item Type",
             store.Id,
             ("Name", store.Name),
+            True,
             store.CanDelete,
             Function(x) store.CanRenameTo(x),
             Function() New LocationListWindow(store.Store),

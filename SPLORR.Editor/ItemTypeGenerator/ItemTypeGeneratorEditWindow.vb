@@ -10,6 +10,7 @@ Friend Class ItemTypeGeneratorEditWindow
             "Item Type Generator",
             itemTypeGeneratorStore.Id,
             ("Name", itemTypeGeneratorStore.Name),
+            True,
             itemTypeGeneratorStore.CanDelete,
             Function(x) itemTypeGeneratorStore.CanRenameTo(x),
             Function() New ItemTypeGeneratorListWindow(itemTypeGeneratorStore.Store),

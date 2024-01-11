@@ -8,6 +8,7 @@ Friend Class RecipeEditWindow
             "Recipe",
             recipeStore.Id,
             ("Name", recipeStore.Name),
+            True,
             recipeStore.CanDelete,
             Function(x) recipeStore.CanRenameTo(x),
             Function() New RecipeListWindow(recipeStore.Store),

@@ -7,6 +7,7 @@
             "Item Type Generator Item Type",
             itemTypeGeneratorItemTypeStore.Id,
             ("Generator Weight", itemTypeGeneratorItemTypeStore.GeneratorWeight.ToString),
+            True,
             itemTypeGeneratorItemTypeStore.CanDelete,
             Function(x)
                 Dim generatorWeight As Integer = 0

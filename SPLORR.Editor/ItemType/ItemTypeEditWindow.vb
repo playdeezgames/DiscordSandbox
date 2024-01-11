@@ -8,6 +8,7 @@ Friend Class ItemTypeEditWindow
             "Item Type",
             store.Id,
             ("Name", store.Name),
+            True,
             store.CanDelete,
             Function(x) store.CanRenameTo(x),
             Function() New ItemTypeListWindow(store.Store),

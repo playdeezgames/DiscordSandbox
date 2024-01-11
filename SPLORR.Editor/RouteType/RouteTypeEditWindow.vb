@@ -9,6 +9,7 @@ Friend Class RouteTypeEditWindow
             "Route Type",
             routeTypeStore.Id,
             ("Name", routeTypeStore.Name),
+            True,
             routeTypeStore.CanDelete,
             Function(x) routeTypeStore.CanRenameTo(x),
             Function() New RouteTypeListWindow(routeTypeStore.Store),

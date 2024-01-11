@@ -14,6 +14,7 @@ Friend MustInherit Class BaseEditTypeWindow
                   typeName As String,
                   id As Integer,
                   nameColumn As (Name As String, Value As String),
+                  canUpdate As Boolean,
                   canDelete As Boolean,
                   canRenameCheck As Func(Of String, Boolean),
                   cancelWindowSource As Func(Of Window),
@@ -53,7 +54,8 @@ Friend MustInherit Class BaseEditTypeWindow
         Dim updateButton = New Button("Update") With
             {
                 .X = 1,
-                .Y = Pos.Bottom(nameLabel) + 1
+                .Y = Pos.Bottom(nameLabel) + 1,
+                .Enabled = canUpdate
             }
         AddHandler updateButton.Clicked, AddressOf OnUpdateButtonClicked
         Dim deleteButton = New Button("Delete") With

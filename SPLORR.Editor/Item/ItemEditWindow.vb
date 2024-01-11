@@ -8,6 +8,7 @@ Friend Class ItemEditWindow
             "Item",
             store.Id,
             ("Name", store.Name),
+            False,
             store.CanDelete,
             Function(x) False,
             Function() New ItemListWindow(store.Store),
@@ -15,8 +16,6 @@ Friend Class ItemEditWindow
                 store.Delete()
                 Return New ItemListWindow(store.Store)
             End Function,
-            Function(x)
-                Return New ItemEditWindow(store)
-            End Function)
+            Function(x) Nothing)
     End Sub
 End Class

@@ -9,6 +9,7 @@ Friend Class DirectionEditWindow
             "Direction",
             directionStore.Id,
             ("Name", directionStore.Name),
+            True,
             directionStore.CanDelete,
             Function(x) directionStore.CanRenameTo(x),
             Function() New DirectionListWindow(directionStore.Store),
