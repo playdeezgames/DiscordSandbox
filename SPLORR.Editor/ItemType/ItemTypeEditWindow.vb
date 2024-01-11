@@ -2,22 +2,22 @@
 
 Friend Class ItemTypeEditWindow
     Inherits BaseEditTypeWindow
-    Public Sub New(itemTypeStore As IItemTypeStore)
+    Public Sub New(store As IItemTypeStore)
         MyBase.New(
-            $"Edit Item Type: {itemTypeStore.Name}",
+            $"Edit Item Type: {store.Name}",
             "Item Type",
-            itemTypeStore.Id,
-            ("Name", itemTypeStore.Name),
-            itemTypeStore.CanDelete,
-            Function(x) itemTypeStore.CanRenameTo(x),
-            Function() New ItemTypeListWindow(itemTypeStore.Store),
+            store.Id,
+            ("Name", store.Name),
+            store.CanDelete,
+            Function(x) store.CanRenameTo(x),
+            Function() New ItemTypeListWindow(store.Store),
             Function()
-                itemTypeStore.Delete()
-                Return New ItemTypeListWindow(itemTypeStore.Store)
+                store.Delete()
+                Return New ItemTypeListWindow(store.Store)
             End Function,
             Function(x)
-                itemTypeStore.Name = x
-                Return New ItemTypeEditWindow(itemTypeStore)
+                store.Name = x
+                Return New ItemTypeEditWindow(store)
             End Function)
     End Sub
 End Class

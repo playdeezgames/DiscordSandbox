@@ -10,7 +10,7 @@ Friend Class InventoryEditWindow
             store,
             Function(x, y) x.Items.Filter(y),
             Function(x) $"{x.Name}(Id:{x.Id})",
-            Function(x) Nothing,
+            Function(x) New ItemEditWindow(x),
             AdditionalButtons:=
             {
                 (

@@ -18,6 +18,7 @@ Module Program
     Private Const TEXT_ENTITIES = "Entities"
     Private Const TEXT_LOCATIONS = "Locations"
     Private Const TEXT_CHARACTERS = "Characters"
+    Private Const TEXT_ITEMS = "Items"
     Private dataStore As IDataStore = Nothing
     Public window As Window = Nothing
     Sub Main(args As String())
@@ -48,12 +49,17 @@ Module Program
                 New MenuBarItem(TEXT_ENTITIES,
                 {
                     New MenuItem(TEXT_CHARACTERS, String.Empty, AddressOf DoCharactersList),
+                    New MenuItem(TEXT_ITEMS, String.Empty, AddressOf DoItemsList),
                     New MenuItem(TEXT_LOCATIONS, String.Empty, AddressOf DoLocationsList)
                 })
             }))
         Application.Run()
         Application.Shutdown()
         dataStore.CleanUp()
+    End Sub
+
+    Private Sub DoItemsList()
+        GoToWindow(New ItemListWindow(dataStore))
     End Sub
 
     Private Sub DoLocationsList()

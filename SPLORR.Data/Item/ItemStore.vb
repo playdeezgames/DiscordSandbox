@@ -1,24 +1,18 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class ItemStore
+    Inherits BaseTypeStore
     Implements IItemStore
 
-    Private ReadOnly connectionSource As Func(Of SqlConnection)
-    Public ReadOnly Property Id As Integer Implements IItemStore.Id
-
     Public Sub New(connectionSource As Func(Of SqlConnection), itemId As Integer)
-        Me.connectionSource = connectionSource
-        Me.Id = itemId
+        MyBase.New(
+            connectionSource,
+            itemId,
+            VIEW_ITEM_DETAILS,
+            COLUMN_ITEM_ID,
+            COLUMN_ITEM_NAME,
+            TABLE_ITEMS)
     End Sub
-
-    Public ReadOnly Property Name As String Implements IItemStore.Name
-        Get
-            Return connectionSource.ReadStringForValue(
-                VIEW_ITEM_DETAILS,
-                (COLUMN_ITEM_ID, Id),
-                COLUMN_ITEM_NAME)
-        End Get
-    End Property
 
     Public Property Inventory As IInventoryStore Implements IItemStore.Inventory
         Get
@@ -35,5 +29,11 @@ Friend Class ItemStore
                 (COLUMN_ITEM_ID, Id),
                 (COLUMN_INVENTORY_ID, value.Id))
         End Set
+    End Property
+
+    Public Overrides ReadOnly Property CanDelete As Boolean
+        Get
+            Return True
+        End Get
     End Property
 End Class

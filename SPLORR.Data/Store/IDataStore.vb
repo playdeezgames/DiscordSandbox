@@ -1,6 +1,7 @@
 Public Interface IDataStore
     Sub CleanUp()
     ReadOnly Property Characters As ITypeStore(Of ICharacterStore)
+    ReadOnly Property Items As ITypeStore(Of IItemStore)
     ReadOnly Property Locations As ITypeStore(Of ILocationStore)
     ReadOnly Property CharacterTypes As ITypeStore(Of ICharacterTypeStore)
     ReadOnly Property Recipes As ITypeStore(Of IRecipeStore)

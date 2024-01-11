@@ -133,6 +133,17 @@ Public Class DataStore
         End Get
     End Property
 
+    Public ReadOnly Property Items As ITypeStore(Of IItemStore) Implements IDataStore.Items
+        Get
+            Return New TypeStore(Of IItemStore)(
+                ConnectionSource,
+                VIEW_ITEM_DETAILS,
+                COLUMN_ITEM_ID,
+                COLUMN_ITEM_NAME,
+                Function(x, y) New ItemStore(x, y))
+        End Get
+    End Property
+
     Public Sub CleanUp() Implements IDataStore.CleanUp
         If _connection IsNot Nothing Then
             _connection.Close()
