@@ -8,13 +8,13 @@ Friend MustInherit Class BaseListWindow(Of TStore, TResultStore)
     Protected ReadOnly resultsListView As ListView
     Private ReadOnly FilterItems As Func(Of TStore, String, IEnumerable(Of TResultStore))
     Private ReadOnly ToListViewItemName As Func(Of TResultStore, String)
-    Private ReadOnly ToResultWindow As Func(Of Object, Window)
+    Private ReadOnly ToResultWindow As Func(Of TResultStore, Window)
     Protected Sub New(
                      title As String,
                      store As TStore,
                      FilterItems As Func(Of TStore, String, IEnumerable(Of TResultStore)),
                      ToListViewItemName As Func(Of TResultStore, String),
-                     Optional ToResultWindow As Func(Of Object, Window) = Nothing,
+                     Optional ToResultWindow As Func(Of TResultStore, Window) = Nothing,
                      Optional AdditionalButtons As IEnumerable(Of (Title As String, IsEnabled As Func(Of Boolean), OnClicked As Action)) = Nothing)
         MyBase.New(title)
         Me.store = store
@@ -73,7 +73,7 @@ Friend MustInherit Class BaseListWindow(Of TStore, TResultStore)
 
     Private Sub OnResultsListViewOpenSelectedItem(args As ListViewItemEventArgs)
         If ToResultWindow IsNot Nothing Then
-            Program.GoToWindow(ToResultWindow(args.Value))
+            Program.GoToWindow(ToResultWindow(CType(args.Value, ListItem(Of TResultStore)).Store))
         End If
     End Sub
 

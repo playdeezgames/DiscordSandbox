@@ -9,7 +9,7 @@ Friend Class StatisticTypeListWindow
             store,
             Function(x, y) x.StatisticTypes.Filter(y),
             Function(x) $"{x.Name}(Id:{x.Id})",
-            Function(x) New StatisticTypeEditWindow(CType(x, ListItem(Of IStatisticTypeStore)).Store),
+            Function(x) New StatisticTypeEditWindow(x),
             AdditionalButtons:=
             {
                 ("Add...", Function() True, Sub() Program.GoToWindow(New StatisticTypeAddWindow(store))),

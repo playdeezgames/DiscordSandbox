@@ -9,7 +9,7 @@ Friend Class ItemTypeGeneratorListWindow
             store,
             Function(x, y) x.ItemTypeGenerators.Filter(y),
             Function(x) $"{x.Name}(Id:{x.Id})",
-            Function(x) New ItemTypeGeneratorEditWindow(CType(x, ListItem(Of IItemTypeGeneratorStore)).Store),
+            Function(x) New ItemTypeGeneratorEditWindow(x),
             AdditionalButtons:=
             {
                 ("Add...", Function() True, Sub() Program.GoToWindow(New ItemTypeGeneratorAddWindow(store))),

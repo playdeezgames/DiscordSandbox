@@ -10,7 +10,7 @@ Friend Class CharacterLocationEditWindow
             Function(x, y) x.Locations.Filter(y),
             Function(x) $"{x.Name}(Id:{x.Id})",
             Function(x)
-                store.SetLocation(CType(x, ListItem(Of ILocationStore)).Store, DateTimeOffset.Now)
+                store.SetLocation(x, DateTimeOffset.Now)
                 Return New CharacterEditWindow(store)
             End Function,
             AdditionalButtons:=

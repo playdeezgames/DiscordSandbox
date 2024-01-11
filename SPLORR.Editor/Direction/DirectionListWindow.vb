@@ -9,7 +9,7 @@ Friend Class DirectionListWindow
             store,
             Function(x, y) x.Directions.Filter(y),
             Function(x) $"{x.Name}(Id:{x.Id})",
-            Function(x) New DirectionEditWindow(CType(x, ListItem(Of IDirectionStore)).Store),
+            Function(x) New DirectionEditWindow(x),
             AdditionalButtons:=
             {
                 ("Add...", Function() True, Sub() Program.GoToWindow(New DirectionAddWindow(store))),

@@ -8,7 +8,7 @@ Friend Class LocationTypeListWindow
             store,
             Function(x, y) x.LocationTypes.Filter(y),
             Function(x) $"{x.Name}(Id:{x.Id})",
-            Function(x) New LocationTypeEditWindow(CType(x, ListItem(Of ILocationTypeStore)).Store),
+            Function(x) New LocationTypeEditWindow(x),
             AdditionalButtons:=
             {
                 ("Add...", Function() True, Sub() Program.GoToWindow(New LocationTypeAddWindow(store))),

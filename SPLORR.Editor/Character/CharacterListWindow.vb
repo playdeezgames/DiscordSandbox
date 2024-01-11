@@ -10,7 +10,7 @@ Friend Class CharacterListWindow
             store,
             Function(x, y) x.Characters.Filter(y),
             Function(x) $"{x.Name}(Id:{x.Id})",
-            Function(x) New CharacterEditWindow(CType(x, ListItem(Of ICharacterStore)).Store),
+            Function(x) New CharacterEditWindow(x),
             AdditionalButtons:=
             {
                 ("Close", Function() True, Sub() Program.GoToWindow(Nothing))
