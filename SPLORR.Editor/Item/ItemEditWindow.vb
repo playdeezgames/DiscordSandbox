@@ -16,6 +16,22 @@ Friend Class ItemEditWindow
                 store.Delete()
                 Return New ItemListWindow(store.Store)
             End Function,
-            Function(x) Nothing)
+            Function(x) Nothing,
+            {
+                (
+                    "Inventory",
+                    Function() True,
+                    Sub() Program.GoToWindow(New InventoryEditWindow(store.Inventory))
+                ),
+                (
+                    "Delete from Inventory",
+                    Function() store.CanDelete,
+                    Sub()
+                        Dim inventory = store.Inventory
+                        store.Delete()
+                        Program.GoToWindow(New InventoryEditWindow(inventory))
+                    End Sub
+                )
+            })
     End Sub
 End Class
