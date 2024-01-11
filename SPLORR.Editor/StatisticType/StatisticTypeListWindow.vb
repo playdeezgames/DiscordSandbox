@@ -8,8 +8,8 @@ Friend Class StatisticTypeListWindow
             "Statistic Types",
             dataStore,
             Function(store, filter) store.StatisticTypes.Filter(filter),
-            Function(item) New StatisticTypeListItem(item),
-            Function(item) New StatisticTypeEditWindow(CType(item, StatisticTypeListItem).Store),
+            Function(x) New ListItem(Of IStatisticTypeStore)(x, $"{x.Name}(Id:{x.Id})"),
+            Function(item) New StatisticTypeEditWindow(CType(item, ListItem(Of IStatisticTypeStore)).Store),
             AdditionalButtons:=
             {
                 ("Add...", Function() True, Sub() Program.GoToWindow(New StatisticTypeAddWindow(dataStore))),
