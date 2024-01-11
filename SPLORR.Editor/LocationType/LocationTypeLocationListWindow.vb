@@ -1,12 +1,14 @@
-﻿Friend Class LocationTypeLocationListWindow
+﻿Imports SPLORR.Data
+
+Friend Class LocationTypeLocationListWindow
     Inherits BaseListWindow(Of Data.ILocationTypeStore, Data.ILocationStore)
     Public Sub New(store As Data.ILocationTypeStore)
         MyBase.New(
             $"Locations for Location Type: {store.Name}",
             store,
             Function(x, y) x.FilterLocations(y),
-            Function(x) New LocationListItem(x),
-            Function(x) New LocationEditWindow(CType(x, LocationListItem).Store),
+            Function(x) New ListItem(Of ILocationStore)(x, $"{x.Name}(Id:{x.Id})"),
+            Function(x) New LocationEditWindow(CType(x, ListItem(Of ILocationStore)).Store),
             AdditionalButtons:=
             {
                 (

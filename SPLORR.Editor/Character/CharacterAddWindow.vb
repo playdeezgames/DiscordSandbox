@@ -9,8 +9,8 @@ Friend Class CharacterAddWindow
             $"Create Character Type `{store.Name}` at Location:",
             store.Store,
             Function(x, y) x.Locations.Filter(y),
-            Function(x) New LocationListItem(x),
-            Function(x) New CharacterEditWindow(store.CreateCharacter("Nameless", CType(x, LocationListItem).Store)),
+            Function(x) New ListItem(Of ILocationStore)(x, $"{x.Name}(Id:{x.Id})"),
+            Function(x) New CharacterEditWindow(store.CreateCharacter("Nameless", CType(x, ListItem(Of ILocationStore)).Store)),
             AdditionalButtons:=
             {
                 ("Cancel", Function() True, Sub() Program.GoToWindow(New CharacterTypeEditWindow(store)))
