@@ -56,6 +56,12 @@ Friend Class InventoryStore
         End Get
     End Property
 
+    Public ReadOnly Property Store As IDataStore Implements IInventoryStore.Store
+        Get
+            Return New DataStore(connectionSource())
+        End Get
+    End Property
+
     Public Sub New(connectionSource As Func(Of SqlConnection), inventoryId As Integer)
         Me.connectionSource = connectionSource
         Me.Id = inventoryId

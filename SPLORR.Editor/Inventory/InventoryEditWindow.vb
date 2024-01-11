@@ -37,6 +37,11 @@ Friend Class InventoryEditWindow
                         store.Delete()
                         Program.GoToWindow(window)
                     End Sub
+                ),
+                (
+                    "Add Item...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New InventoryAddItemWindow(store))
                 )
             })
     End Sub

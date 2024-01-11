@@ -8,4 +8,5 @@
     ReadOnly Property Character As ICharacterStore
     ReadOnly Property Location As ILocationStore
     ReadOnly Property CanDelete As Boolean
+    ReadOnly Property Store As IDataStore
 End Interface

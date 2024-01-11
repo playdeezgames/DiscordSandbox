@@ -49,7 +49,8 @@ Friend MustInherit Class BaseEditTypeWindow
             {
                 .X = Pos.Right(nameLabel) + 1,
                 .Y = nameLabel.Y,
-                .Width = [Dim].Fill - 1
+                .Width = [Dim].Fill - 1,
+                .[ReadOnly] = Not canUpdate
             }
         Dim updateButton = New Button("Update") With
             {
