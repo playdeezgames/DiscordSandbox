@@ -12,7 +12,7 @@ Friend Class RouteTypeEditWindow
             True,
             routeTypeStore.CanDelete,
             Function(x) routeTypeStore.CanRenameTo(x),
-            Function() New RouteTypeListWindow(routeTypeStore.Store),
+            ("Cancel", Function() New RouteTypeListWindow(routeTypeStore.Store)),
             Function()
                 routeTypeStore.Delete()
                 Return New RouteTypeListWindow(routeTypeStore.Store)

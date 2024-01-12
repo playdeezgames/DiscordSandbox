@@ -11,7 +11,7 @@ Friend Class RecipeEditWindow
             True,
             store.CanDelete,
             Function(x) store.CanRenameTo(x),
-            Function() New RecipeListWindow(store.Store),
+            ("Cancel", Function() New RecipeListWindow(store.Store)),
             Function()
                 store.Delete()
                 Return New RecipeListWindow(store.Store)

@@ -17,13 +17,13 @@ Friend MustInherit Class BaseEditTypeWindow
                   canUpdate As Boolean,
                   canDelete As Boolean,
                   canRenameCheck As Func(Of String, Boolean),
-                  cancelWindowSource As Func(Of Window),
+                  onCancel As (Caption As String, NextWindow As Func(Of Window)),
                   deleteWindowSource As Func(Of Window),
                   updateWindowSource As Func(Of String, Window),
                   ParamArray AdditionalButtonRows As IEnumerable(Of (Title As String, IsEnabled As Func(Of Boolean), OnClicked As Action))())
         MyBase.New(title)
         Me.typeName = typeName
-        Me.cancelWindowSource = cancelWindowSource
+        Me.cancelWindowSource = onCancel.NextWindow
         Me.deleteWindowSource = deleteWindowSource
         Me.updateWindowSource = updateWindowSource
         Me.canRenameCheck = canRenameCheck

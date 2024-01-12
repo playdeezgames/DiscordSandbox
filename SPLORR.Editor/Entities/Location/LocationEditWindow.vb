@@ -12,7 +12,7 @@ Friend Class LocationEditWindow
             True,
             store.CanDelete,
             Function(x) store.CanRenameTo(x),
-            Function() New LocationListWindow(store.Store),
+            ("Cancel", Function() New LocationListWindow(store.Store)),
             Function()
                 store.Delete()
                 Return New LocationListWindow(store.Store)

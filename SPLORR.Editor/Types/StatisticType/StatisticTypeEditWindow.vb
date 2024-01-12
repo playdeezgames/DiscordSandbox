@@ -13,7 +13,7 @@ Friend Class StatisticTypeEditWindow
             True,
             statisticTypeStore.CanDelete,
             Function(x) statisticTypeStore.CanRenameTo(x),
-            Function() New StatisticTypeListWindow(statisticTypeStore.Store),
+            ("Cancel", Function() New StatisticTypeListWindow(statisticTypeStore.Store)),
             Function()
                 statisticTypeStore.Delete()
                 Return New StatisticTypeListWindow(statisticTypeStore.Store)

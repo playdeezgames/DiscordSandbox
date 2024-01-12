@@ -13,7 +13,7 @@ Friend Class RecipeItemTypeEditWindow
             False,
             True,
             Function(x) False,
-            Function() Nothing,
+            ("Cancel", Function() Nothing),
             Function() Nothing,
             Function() Nothing)
     End Sub

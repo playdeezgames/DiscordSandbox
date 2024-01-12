@@ -18,7 +18,7 @@ Friend Class ItemTypeGeneratorEditNothingGeneratorWeightWindow
                 End If
                 Return False
             End Function,
-            Function() New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore),
+            ("Cancel", Function() New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore)),
             Function()
                 itemTypeGeneratorStore.NothingGeneratorWeight = 0
                 Return New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore)

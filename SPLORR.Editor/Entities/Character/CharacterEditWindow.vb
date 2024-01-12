@@ -12,7 +12,7 @@ Friend Class CharacterEditWindow
             True,
             store.CanDelete,
             Function(x) store.CanRenameTo(x),
-            Function() New CharacterListWindow(store.Store),
+            ("Cancel", Function() New CharacterListWindow(store.Store)),
             Function()
                 store.Delete()
                 Return New CharacterListWindow(store.Store)

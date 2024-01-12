@@ -13,7 +13,7 @@ Friend Class RouteEditWindow
             False,
             True,
             Function(x) False,
-            Function() New LocationEditWindow(store.FromLocation),
+            ("Cancel", Function() New LocationEditWindow(store.FromLocation)),
             Function()
                 Dim fromLocation = store.FromLocation
                 store.Delete()

@@ -11,7 +11,7 @@ Friend Class ItemTypeEditWindow
             True,
             store.CanDelete,
             Function(x) store.CanRenameTo(x),
-            Function() New ItemTypeListWindow(store.Store),
+            ("Cancel", Function() New ItemTypeListWindow(store.Store)),
             Function()
                 store.Delete()
                 Return New ItemTypeListWindow(store.Store)

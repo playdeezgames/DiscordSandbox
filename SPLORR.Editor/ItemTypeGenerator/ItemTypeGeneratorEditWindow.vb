@@ -13,7 +13,7 @@ Friend Class ItemTypeGeneratorEditWindow
             True,
             itemTypeGeneratorStore.CanDelete,
             Function(x) itemTypeGeneratorStore.CanRenameTo(x),
-            Function() New ItemTypeGeneratorListWindow(itemTypeGeneratorStore.Store),
+            ("Cancel", Function() New ItemTypeGeneratorListWindow(itemTypeGeneratorStore.Store)),
             Function()
                 itemTypeGeneratorStore.Delete()
                 Return New ItemTypeGeneratorListWindow(itemTypeGeneratorStore.Store)

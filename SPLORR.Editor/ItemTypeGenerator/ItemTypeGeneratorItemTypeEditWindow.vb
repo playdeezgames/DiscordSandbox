@@ -16,7 +16,7 @@
                 End If
                 Return False
             End Function,
-            Function() New ItemTypeGeneratorItemTypeListWindow(itemTypeGeneratorItemTypeStore.ItemTypeGenerator),
+            ("Cancel", Function() New ItemTypeGeneratorItemTypeListWindow(itemTypeGeneratorItemTypeStore.ItemTypeGenerator)),
             Function()
                 Dim itemTypeGenerator = itemTypeGeneratorItemTypeStore.ItemTypeGenerator
                 itemTypeGeneratorItemTypeStore.Delete()
