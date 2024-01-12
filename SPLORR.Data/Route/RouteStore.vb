@@ -15,28 +15,37 @@ Friend Class RouteStore
         connectionSource.DeleteForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id))
     End Sub
 
-    Public ReadOnly Property RouteType As IRouteTypeStore Implements IRouteStore.RouteType
+    Public Property RouteType As IRouteTypeStore Implements IRouteStore.RouteType
         Get
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    {COLUMN_ROUTE_TYPE_ID} 
-FROM 
-    {TABLE_ROUTES} 
-WHERE 
-    {COLUMN_ROUTE_ID}={PARAMETER_ROUTE_ID};"
-                command.Parameters.AddWithValue(PARAMETER_ROUTE_ID, Id)
-                Return New RouteTypeStore(connectionSource, CInt(command.ExecuteScalar))
-            End Using
+            Return New RouteTypeStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValue(
+                    TABLE_ROUTES,
+                    (COLUMN_ROUTE_ID, Id),
+                    COLUMN_ROUTE_TYPE_ID))
         End Get
+        Set(value As IRouteTypeStore)
+            connectionSource.WriteValueForInteger(
+                TABLE_ROUTES,
+                (COLUMN_ROUTE_ID, Id),
+                (COLUMN_ROUTE_TYPE_ID, value.Id))
+        End Set
     End Property
 
     Public Property Direction As IDirectionStore Implements IRouteStore.Direction
         Get
-            Return New DirectionStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), COLUMN_DIRECTION_ID))
+            Return New DirectionStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValue(
+                    TABLE_ROUTES,
+                    (COLUMN_ROUTE_ID, Id),
+                    COLUMN_DIRECTION_ID))
         End Get
         Set(value As IDirectionStore)
-            connectionSource.WriteValueForInteger(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), (COLUMN_DIRECTION_ID, value.Id))
+            connectionSource.WriteValueForInteger(
+                TABLE_ROUTES,
+                (COLUMN_ROUTE_ID, Id),
+                (COLUMN_DIRECTION_ID, value.Id))
         End Set
     End Property
 
@@ -55,6 +64,12 @@ WHERE
     Public ReadOnly Property Name As String Implements IRouteStore.Name
         Get
             Return Direction.Name
+        End Get
+    End Property
+
+    Public ReadOnly Property Store As IDataStore Implements IRouteStore.Store
+        Get
+            Return New DataStore(connectionSource())
         End Get
     End Property
 End Class

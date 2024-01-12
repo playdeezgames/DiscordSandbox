@@ -25,6 +25,11 @@ Friend Class RouteEditWindow
                     $"Direction: {store.Direction.Name}",
                     Function() True,
                     Sub() Program.GoToWindow(New RouteEditDirectionWindow(store))
+                ),
+                (
+                    $"Route Type: {store.RouteType.Name}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New RouteEditRouteTypeWindow(store))
                 )
             })
     End Sub
