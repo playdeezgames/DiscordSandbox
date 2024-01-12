@@ -147,6 +147,18 @@ INSERT INTO
         End Get
     End Property
 
+    Public ReadOnly Property AvailableDirections As IRelatedTypeStore(Of IDirectionStore) Implements ILocationStore.AvailableDirections
+        Get
+            Return New RelatedTypeStore(Of IDirectionStore, Integer)(
+                connectionSource,
+                VIEW_LOCATION_AVAILABLE_DIRECTIONS,
+                COLUMN_DIRECTION_ID,
+                COLUMN_DIRECTION_NAME,
+                (COLUMN_LOCATION_ID, Id),
+                Function(x, y) New DirectionStore(x, y))
+        End Get
+    End Property
+
     Public Sub Delete() Implements IBaseTypeStore.Delete
         connectionSource.DeleteForValue(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, Id))
     End Sub

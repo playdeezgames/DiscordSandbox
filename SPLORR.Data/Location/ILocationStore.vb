@@ -7,4 +7,5 @@
     Property LocationType As ILocationTypeStore
     ReadOnly Property HasCharacter As Boolean
     ReadOnly Property Characters As IRelatedTypeStore(Of ICharacterStore)
+    ReadOnly Property AvailableDirections As IRelatedTypeStore(Of IDirectionStore)
 End Interface

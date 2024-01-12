@@ -31,10 +31,13 @@ WHERE
         End Get
     End Property
 
-    Public ReadOnly Property Direction As IDirectionStore Implements IRouteStore.Direction
+    Public Property Direction As IDirectionStore Implements IRouteStore.Direction
         Get
             Return New DirectionStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), COLUMN_DIRECTION_ID))
         End Get
+        Set(value As IDirectionStore)
+            connectionSource.WriteValueForInteger(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), (COLUMN_DIRECTION_ID, value.Id))
+        End Set
     End Property
 
     Public ReadOnly Property FromLocation As ILocationStore Implements IRouteStore.FromLocation

@@ -19,6 +19,13 @@ Friend Class RouteEditWindow
                 store.Delete()
                 Return New LocationEditWindow(fromLocation)
             End Function,
-            Function(x) Nothing)
+            Function(x) Nothing,
+            {
+                (
+                    $"Direction: {store.Direction.Name}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New RouteEditDirectionWindow(store))
+                )
+            })
     End Sub
 End Class
