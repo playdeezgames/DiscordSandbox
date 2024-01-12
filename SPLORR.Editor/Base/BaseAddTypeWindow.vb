@@ -10,14 +10,13 @@ Friend MustInherit Class BaseAddTypeWindow
     Public Sub New(
                   title As String,
                   typeName As String,
-                  nameExistsCheck As Func(Of String, Boolean),
-                  cancelWindowSource As Func(Of Window),
-                  addWindowSource As Func(Of String, Window))
+                  onAdd As (Caption As String, IsInputValid As Func(Of String, Boolean), NextWindow As Func(Of String, Window)),
+                  onCancel As (Caption As String, NextWindow As Func(Of Window)))
         MyBase.New(title)
         Me.typeName = typeName
-        Me.addWindowSource = addWindowSource
-        Me.cancelWindowSource = cancelWindowSource
-        Me.nameExistsCheck = nameExistsCheck
+        Me.addWindowSource = onAdd.NextWindow
+        Me.cancelWindowSource = onCancel.NextWindow
+        Me.nameExistsCheck = onAdd.IsInputValid
         Dim nameLabel As New Label("Name:") With
             {
                 .X = 1,
@@ -29,13 +28,13 @@ Friend MustInherit Class BaseAddTypeWindow
                 .Y = nameLabel.Y,
                 .Width = [Dim].Fill - 1
             }
-        Dim addButton As New Button("Add") With
+        Dim addButton As New Button(onAdd.Caption) With
             {
                 .X = 1,
                 .Y = Pos.Bottom(nameLabel) + 1
             }
         AddHandler addButton.Clicked, AddressOf OnAddButtonClicked
-        Dim cancelButton As New Button("Cancel") With
+        Dim cancelButton As New Button(onCancel.Caption) With
             {
                 .X = Pos.Right(addButton) + 1,
                 .Y = addButton.Y

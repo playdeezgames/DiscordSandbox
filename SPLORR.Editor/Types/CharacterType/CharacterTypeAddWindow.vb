@@ -4,8 +4,8 @@
         MyBase.New(
             "Add Character Type...",
             "Character Type",
-            Function(x) dataStore.CharacterTypes.NameExists(x),
-            Function() New CharacterTypeListWindow(dataStore),
-            Function(x) New CharacterTypeEditWindow(dataStore.CharacterTypes.Create(x)))
+            ("Add", Function(x) dataStore.CharacterTypes.NameExists(x),
+            Function(x) New CharacterTypeEditWindow(dataStore.CharacterTypes.Create(x))),
+            ("Cancel", Function() New CharacterTypeListWindow(dataStore)))
     End Sub
 End Class

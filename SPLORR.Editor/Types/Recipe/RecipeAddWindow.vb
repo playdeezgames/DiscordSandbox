@@ -6,8 +6,8 @@ Friend Class RecipeAddWindow
         MyBase.New(
             "Add Recipe...",
             "Recipe",
-            Function(x) dataStore.Recipes.NameExists(x),
-            Function() New RecipeListWindow(dataStore),
-            Function(x) New RecipeEditWindow(dataStore.Recipes.Create(x)))
+            ("Add", Function(x) dataStore.Recipes.NameExists(x),
+            Function(x) New RecipeEditWindow(dataStore.Recipes.Create(x))),
+            ("Cancel", Function() New RecipeListWindow(dataStore)))
     End Sub
 End Class

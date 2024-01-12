@@ -1,14 +1,18 @@
-﻿Imports Terminal.Gui
-
-Friend Class StatisticTypeAddWindow
+﻿Friend Class StatisticTypeAddWindow
     Inherits BaseAddTypeWindow
 
     Public Sub New(dataStore As Data.IDataStore)
         MyBase.New(
             "Add Statistic Type...",
             "Statistic Type",
-            Function(x) dataStore.StatisticTypes.NameExists(x),
-            Function() New StatisticTypeListWindow(dataStore),
-            Function(x) New StatisticTypeEditWindow(dataStore.StatisticTypes.Create(x)))
+            (
+                "Add",
+                Function(x) dataStore.StatisticTypes.NameExists(x),
+                Function(x) New StatisticTypeEditWindow(dataStore.StatisticTypes.Create(x))
+            ),
+            (
+                "Cancel",
+                Function() New StatisticTypeListWindow(dataStore)
+            ))
     End Sub
 End Class

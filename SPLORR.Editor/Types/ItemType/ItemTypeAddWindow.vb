@@ -4,8 +4,8 @@
         MyBase.New(
             "Add Item Type...",
             "Item Type",
-            Function(x) dataStore.ItemTypes.NameExists(x),
-            Function() New ItemTypeListWindow(dataStore),
-            Function(x) New ItemTypeEditWindow(dataStore.ItemTypes.Create(x)))
+            ("Add", Function(x) dataStore.ItemTypes.NameExists(x),
+            Function(x) New ItemTypeEditWindow(dataStore.ItemTypes.Create(x))),
+            ("Cancel", Function() New ItemTypeListWindow(dataStore)))
     End Sub
 End Class

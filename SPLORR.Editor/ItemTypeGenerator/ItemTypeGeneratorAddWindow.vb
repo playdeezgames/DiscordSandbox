@@ -4,8 +4,8 @@
         MyBase.New(
             "Add Item Type Generator...",
             "Item Type Generator",
-            Function(x) dataStore.ItemTypeGenerators.NameExists(x),
-            Function() New ItemTypeGeneratorListWindow(dataStore),
-            Function(x) New ItemTypeGeneratorEditWindow(dataStore.ItemTypeGenerators.Create(x)))
+            ("Add", Function(x) dataStore.ItemTypeGenerators.NameExists(x),
+            Function(x) New ItemTypeGeneratorEditWindow(dataStore.ItemTypeGenerators.Create(x))),
+            ("Cancel", Function() New ItemTypeGeneratorListWindow(dataStore)))
     End Sub
 End Class

@@ -6,8 +6,8 @@ Friend Class RouteTypeAddWindow
         MyBase.New(
             "Add Route Type...",
             "Route Type",
-            Function(x) dataStore.RouteTypes.NameExists(x),
-            Function() New RouteTypeListWindow(dataStore),
-            Function(x) New RouteTypeEditWindow(dataStore.RouteTypes.Create(x)))
+            ("Add", Function(x) dataStore.RouteTypes.NameExists(x),
+            Function(x) New RouteTypeEditWindow(dataStore.RouteTypes.Create(x))),
+            ("Cancel", Function() New RouteTypeListWindow(dataStore)))
     End Sub
 End Class

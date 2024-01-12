@@ -5,8 +5,8 @@
         MyBase.New(
             "Add Direction...",
             "Direction",
-            Function(x) dataStore.Directions.NameExists(x),
-            Function() New DirectionListWindow(dataStore),
-            Function(x) New DirectionEditWindow(dataStore.Directions.Create(x)))
+            ("Add", Function(x) dataStore.Directions.NameExists(x),
+            Function(x) New DirectionEditWindow(dataStore.Directions.Create(x))),
+            ("Cancel", Function() New DirectionListWindow(dataStore)))
     End Sub
 End Class
