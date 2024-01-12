@@ -30,6 +30,16 @@ Friend Class RouteEditWindow
                     $"Route Type: {store.RouteType.Name}",
                     Function() True,
                     Sub() Program.GoToWindow(New RouteEditRouteTypeWindow(store))
+                ),
+                (
+                    $"From: {store.FromLocation.Name}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New RouteEditFromLocationWindow(store))
+                ),
+                (
+                    $"To: {store.ToLocation.Name}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New RouteEditToLocationWindow(store))
                 )
             })
     End Sub

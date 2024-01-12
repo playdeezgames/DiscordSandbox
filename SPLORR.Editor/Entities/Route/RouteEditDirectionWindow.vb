@@ -3,7 +3,7 @@ Friend Class RouteEditDirectionWindow
     Inherits BaseListWindow(Of IRouteStore, IDirectionStore)
     Public Sub New(store As IRouteStore)
         MyBase.New(
-            $"Change Route Direction",
+            $"Change Route Direction (Currently `{store.Direction.Name}`)",
             store,
             Function(x, y) x.FromLocation.AvailableDirections.Filter(y),
             Function(x) $"{x.Name}(Id:{x.Id})",

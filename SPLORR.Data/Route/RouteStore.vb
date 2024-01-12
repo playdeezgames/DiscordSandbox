@@ -49,16 +49,22 @@ Friend Class RouteStore
         End Set
     End Property
 
-    Public ReadOnly Property FromLocation As ILocationStore Implements IRouteStore.FromLocation
+    Public Property FromLocation As ILocationStore Implements IRouteStore.FromLocation
         Get
             Return New LocationStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), COLUMN_FROM_LOCATION_ID))
         End Get
+        Set(value As ILocationStore)
+            connectionSource.WriteValueForInteger(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), (COLUMN_FROM_LOCATION_ID, value.Id))
+        End Set
     End Property
 
-    Public ReadOnly Property ToLocation As ILocationStore Implements IRouteStore.ToLocation
+    Public Property ToLocation As ILocationStore Implements IRouteStore.ToLocation
         Get
             Return New LocationStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), COLUMN_TO_LOCATION_ID))
         End Get
+        Set(value As ILocationStore)
+            connectionSource.WriteValueForInteger(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), (COLUMN_TO_LOCATION_ID, value.Id))
+        End Set
     End Property
 
     Public ReadOnly Property Name As String Implements IRouteStore.Name
