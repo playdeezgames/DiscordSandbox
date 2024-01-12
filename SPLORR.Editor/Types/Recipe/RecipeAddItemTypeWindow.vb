@@ -11,7 +11,7 @@ Friend Class RecipeAddItemTypeWindow
             Function(x, y) x.AvailableItemTypes.Filter(y),
             Function(x) $"{x.Name}(Id:{x.Id})",
             Function(x)
-                Return New RecipeAddQuantityInWindow(store, x)
+                Return New RecipeItemTypeAddQuantityInWindow(store, x)
             End Function)
     End Sub
 End Class

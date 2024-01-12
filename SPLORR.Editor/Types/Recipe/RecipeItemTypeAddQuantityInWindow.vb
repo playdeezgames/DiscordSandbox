@@ -1,7 +1,7 @@
 ﻿Imports SPLORR.Data
 Imports Terminal.Gui
 
-Friend Class RecipeAddQuantityInWindow
+Friend Class RecipeItemTypeAddQuantityInWindow
     Inherits BaseAddTypeWindow
     Public Sub New(store As IRecipeStore, itemType As IItemTypeStore)
         MyBase.New(
@@ -17,7 +17,7 @@ Friend Class RecipeAddQuantityInWindow
                     Return True
                 End Function,
                 Function(x)
-                    Return New RecipeItemTypeListWindow(store)
+                    Return New RecipeItemTypeAddQuantityOutWindow(store, itemType, Integer.Parse(x))
                 End Function
             ),
             (
