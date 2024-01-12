@@ -12,16 +12,14 @@ Friend Class RouteEditWindow
             "Route",
             store.Id,
             ("Name", $"{store.Direction.Name} {store.RouteType.Name} from {store.FromLocation.Name} to {store.ToLocation.Name}"),
-            False,
+            (False, Nothing, Nothing, Nothing),
             (True, "Delete",
             Function()
                 Dim fromLocation = store.FromLocation
                 store.Delete()
                 Return New LocationEditWindow(fromLocation)
             End Function),
-            Function(x) False,
             ("Cancel", Function() New LocationEditWindow(store.FromLocation)),
-            Function(x) Nothing,
             {
                 (
                     $"Direction: {store.Direction.Name}",

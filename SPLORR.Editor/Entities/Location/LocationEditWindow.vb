@@ -9,18 +9,18 @@ Friend Class LocationEditWindow
             "Item Type",
             store.Id,
             ("Name", store.Name),
-            True,
+            (True, "Update",
+            Function(x) store.CanRenameTo(x),
+            Function(x)
+                store.Name = x
+                Return New LocationEditWindow(store)
+            End Function),
             (store.CanDelete, "Delete",
             Function()
                 store.Delete()
                 Return New LocationListWindow(store.Store)
             End Function),
-            Function(x) store.CanRenameTo(x),
             ("Cancel", Function() New LocationListWindow(store.Store)),
-            Function(x)
-                store.Name = x
-                Return New LocationEditWindow(store)
-            End Function,
             {
                 (
                     $"Type: {store.LocationType.Name}",

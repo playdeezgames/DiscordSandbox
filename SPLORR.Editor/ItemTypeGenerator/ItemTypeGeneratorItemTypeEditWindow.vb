@@ -7,13 +7,7 @@
             "Item Type Generator Item Type",
             itemTypeGeneratorItemTypeStore.Id,
             ("Generator Weight", itemTypeGeneratorItemTypeStore.GeneratorWeight.ToString),
-            True,
-            (itemTypeGeneratorItemTypeStore.CanDelete, "Delete",
-            Function()
-                Dim itemTypeGenerator = itemTypeGeneratorItemTypeStore.ItemTypeGenerator
-                itemTypeGeneratorItemTypeStore.Delete()
-                Return New ItemTypeGeneratorItemTypeListWindow(itemTypeGenerator)
-            End Function),
+            (True, "Update",
             Function(x)
                 Dim generatorWeight As Integer = 0
                 If Integer.TryParse(x, generatorWeight) Then
@@ -21,10 +15,16 @@
                 End If
                 Return False
             End Function,
-            ("Cancel", Function() New ItemTypeGeneratorItemTypeListWindow(itemTypeGeneratorItemTypeStore.ItemTypeGenerator)),
             Function(x)
                 itemTypeGeneratorItemTypeStore.GeneratorWeight = CInt(x)
                 Return New ItemTypeGeneratorItemTypeListWindow(itemTypeGeneratorItemTypeStore.ItemTypeGenerator)
-            End Function)
+            End Function),
+            (itemTypeGeneratorItemTypeStore.CanDelete, "Delete",
+            Function()
+                Dim itemTypeGenerator = itemTypeGeneratorItemTypeStore.ItemTypeGenerator
+                itemTypeGeneratorItemTypeStore.Delete()
+                Return New ItemTypeGeneratorItemTypeListWindow(itemTypeGenerator)
+            End Function),
+            ("Cancel", Function() New ItemTypeGeneratorItemTypeListWindow(itemTypeGeneratorItemTypeStore.ItemTypeGenerator)))
     End Sub
 End Class

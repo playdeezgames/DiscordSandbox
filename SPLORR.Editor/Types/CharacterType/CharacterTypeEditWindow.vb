@@ -9,18 +9,18 @@ Friend Class CharacterTypeEditWindow
             "Character Type",
             characterTypeStore.Id,
             ("Name", characterTypeStore.Name),
-            True,
+            (True, "Update",
+            Function(x) characterTypeStore.CanRenameTo(x),
+            Function(x)
+                characterTypeStore.Name = x
+                Return New CharacterTypeEditWindow(characterTypeStore)
+            End Function),
             (characterTypeStore.CanDelete, "Delete",
             Function()
                 characterTypeStore.Delete()
                 Return New CharacterTypeListWindow(characterTypeStore.Store)
             End Function),
-            Function(x) characterTypeStore.CanRenameTo(x),
             ("Cancel", Function() New CharacterTypeListWindow(characterTypeStore.Store)),
-            Function(x)
-                characterTypeStore.Name = x
-                Return New CharacterTypeEditWindow(characterTypeStore)
-            End Function,
             {
                 (
                     "Create Character...",

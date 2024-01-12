@@ -11,7 +11,12 @@ Friend Class RouteTypeEditWindow
             "Route Type",
             routeTypeStore.Id,
             ("Name", routeTypeStore.Name),
-            True,
+            (True, "Update",
+            Function(x) routeTypeStore.CanRenameTo(x),
+            Function(x)
+                routeTypeStore.Name = x
+                Return New RouteTypeEditWindow(routeTypeStore)
+            End Function),
             (
                 routeTypeStore.CanDelete,
                 "Delete",
@@ -20,11 +25,6 @@ Friend Class RouteTypeEditWindow
                     Return New RouteTypeListWindow(routeTypeStore.Store)
                 End Function
             ),
-            Function(x) routeTypeStore.CanRenameTo(x),
-            ("Cancel", Function() New RouteTypeListWindow(routeTypeStore.Store)),
-            Function(x)
-                routeTypeStore.Name = x
-                Return New RouteTypeEditWindow(routeTypeStore)
-            End Function)
+            ("Cancel", Function() New RouteTypeListWindow(routeTypeStore.Store)))
     End Sub
 End Class

@@ -10,18 +10,18 @@ Friend Class ItemTypeGeneratorEditWindow
             "Item Type Generator",
             itemTypeGeneratorStore.Id,
             ("Name", itemTypeGeneratorStore.Name),
-            True,
+            (True, "Update",
+            Function(x) itemTypeGeneratorStore.CanRenameTo(x),
+            Function(x)
+                itemTypeGeneratorStore.Name = x
+                Return New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore)
+            End Function),
             (itemTypeGeneratorStore.CanDelete, "Delete",
             Function()
                 itemTypeGeneratorStore.Delete()
                 Return New ItemTypeGeneratorListWindow(itemTypeGeneratorStore.Store)
             End Function),
-            Function(x) itemTypeGeneratorStore.CanRenameTo(x),
             ("Cancel", Function() New ItemTypeGeneratorListWindow(itemTypeGeneratorStore.Store)),
-            Function(x)
-                itemTypeGeneratorStore.Name = x
-                Return New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore)
-            End Function,
             {
                 (
                     "Item Types...",

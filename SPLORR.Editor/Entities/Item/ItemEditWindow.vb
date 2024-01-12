@@ -8,15 +8,13 @@ Friend Class ItemEditWindow
             "Item",
             store.Id,
             ("Name", store.Name),
-            False,
+            (False, Nothing, Nothing, Nothing),
             (store.CanDelete, "Delete",
             Function()
                 store.Delete()
                 Return New ItemListWindow(store.Store)
             End Function),
-            Function(x) False,
             ("Cancel", Function() New ItemListWindow(store.Store)),
-            Function(x) Nothing,
             {
                 (
                     "Inventory",

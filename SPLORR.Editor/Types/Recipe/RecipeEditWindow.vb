@@ -8,18 +8,18 @@ Friend Class RecipeEditWindow
             "Recipe",
             store.Id,
             ("Name", store.Name),
-            True,
+            (True, "Update",
+            Function(x) store.CanRenameTo(x),
+            Function(x)
+                store.Name = x
+                Return New RecipeEditWindow(store)
+            End Function),
             (store.CanDelete, "Delete",
             Function()
                 store.Delete()
                 Return New RecipeListWindow(store.Store)
             End Function),
-            Function(x) store.CanRenameTo(x),
             ("Cancel", Function() New RecipeListWindow(store.Store)),
-            Function(x)
-                store.Name = x
-                Return New RecipeEditWindow(store)
-            End Function,
             {
                 (
                     "Item Types...",

@@ -9,17 +9,17 @@ Friend Class DirectionEditWindow
             "Direction",
             directionStore.Id,
             ("Name", directionStore.Name),
-            True,
+            (True, "Update",
+            Function(x) directionStore.CanRenameTo(x),
+            Function(x)
+                directionStore.Name = x
+                Return New DirectionEditWindow(directionStore)
+            End Function),
             (directionStore.CanDelete, "Delete",
             Function()
                 directionStore.Delete()
                 Return New DirectionListWindow(directionStore.Store)
             End Function),
-            Function(x) directionStore.CanRenameTo(x),
-            ("Cancel", Function() New DirectionListWindow(directionStore.Store)),
-            Function(x)
-                directionStore.Name = x
-                Return New DirectionEditWindow(directionStore)
-            End Function)
+            ("Cancel", Function() New DirectionListWindow(directionStore.Store)))
     End Sub
 End Class

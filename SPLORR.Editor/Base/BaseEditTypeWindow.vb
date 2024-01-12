@@ -1,4 +1,5 @@
-﻿Imports Terminal.Gui
+﻿Imports System.Threading
+Imports Terminal.Gui
 
 Friend MustInherit Class BaseEditTypeWindow
     Inherits Window
@@ -14,18 +15,16 @@ Friend MustInherit Class BaseEditTypeWindow
                   typeName As String,
                   id As Integer,
                   nameColumn As (Name As String, Value As String),
-                  canUpdate As Boolean,
+                  onUpdate As (Enabled As Boolean, Caption As String, IsValidInput As Func(Of String, Boolean), NextWindow As Func(Of String, Window)),
                   onDelete As (Enabled As Boolean, Caption As String, NextWindow As Func(Of Window)),
-                  canRenameCheck As Func(Of String, Boolean),
                   onCancel As (Caption As String, NextWindow As Func(Of Window)),
-                  updateWindowSource As Func(Of String, Window),
                   ParamArray AdditionalButtonRows As IEnumerable(Of (Title As String, IsEnabled As Func(Of Boolean), OnClicked As Action))())
         MyBase.New(title)
         Me.typeName = typeName
         Me.cancelWindowSource = onCancel.NextWindow
         Me.deleteWindowSource = onDelete.NextWindow
-        Me.updateWindowSource = updateWindowSource
-        Me.canRenameCheck = canRenameCheck
+        Me.updateWindowSource = onUpdate.NextWindow
+        Me.canRenameCheck = onUpdate.IsValidInput
         Me.nameColumnName = nameColumn.Name
         Dim idLabel As New Label("Id:") With
             {
@@ -49,30 +48,32 @@ Friend MustInherit Class BaseEditTypeWindow
                 .X = Pos.Right(nameLabel) + 1,
                 .Y = nameLabel.Y,
                 .Width = [Dim].Fill - 1,
-                .[ReadOnly] = Not canUpdate
+                .[ReadOnly] = Not onUpdate.Enabled
             }
         Dim buttonX As Pos = 1
+        Dim buttonY As Pos = Pos.Bottom(nameLabel) + 1
         Add(
             idLabel,
             idTextField,
             nameLabel,
             nameTextField)
 
-        Dim updateButton = New Button("Update") With
+        If onUpdate.Enabled Then
+            Dim updateButton = New Button("Update") With
             {
                 .X = buttonX,
-                .Y = Pos.Bottom(nameLabel) + 1,
-                .Enabled = canUpdate
+                .Y = buttonY
             }
-        AddHandler updateButton.Clicked, AddressOf OnUpdateButtonClicked
-        buttonX = Pos.Right(updateButton) + 1
-        Add(updateButton)
+            AddHandler updateButton.Clicked, AddressOf OnUpdateButtonClicked
+            buttonX = Pos.Right(updateButton) + 1
+            Add(updateButton)
+        End If
 
         If onDelete.Enabled Then
             Dim deleteButton = New Button("Delete") With
             {
                 .X = buttonX,
-                .Y = updateButton.Y
+                .Y = buttonY
             }
             AddHandler deleteButton.Clicked, AddressOf OnDeleteButtonClicked
             buttonX = Pos.Right(deleteButton) + 1
@@ -82,13 +83,13 @@ Friend MustInherit Class BaseEditTypeWindow
         Dim cancelButton = New Button("Cancel") With
             {
                 .X = buttonX,
-                .Y = updateButton.Y
+                .Y = buttonY
             }
         AddHandler cancelButton.Clicked, AddressOf OnCancelButtonClicked
         buttonX = Pos.Right(cancelButton) + 1
         Add(cancelButton)
 
-        Dim nextY = Pos.Bottom(updateButton) + 1
+        Dim nextY = Pos.Bottom(cancelButton) + 1
         If AdditionalButtonRows IsNot Nothing Then
             For Each additionalButtonRow In AdditionalButtonRows
                 nextY = AddAdditionalButtonRow(additionalButtonRow, nextY)

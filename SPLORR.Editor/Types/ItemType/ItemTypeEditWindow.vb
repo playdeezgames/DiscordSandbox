@@ -8,17 +8,17 @@ Friend Class ItemTypeEditWindow
             "Item Type",
             store.Id,
             ("Name", store.Name),
-            True,
+            (True, "Update",
+            Function(x) store.CanRenameTo(x),
+            Function(x)
+                store.Name = x
+                Return New ItemTypeEditWindow(store)
+            End Function),
             (store.CanDelete, "Delete",
             Function()
                 store.Delete()
                 Return New ItemTypeListWindow(store.Store)
             End Function),
-            Function(x) store.CanRenameTo(x),
-            ("Cancel", Function() New ItemTypeListWindow(store.Store)),
-            Function(x)
-                store.Name = x
-                Return New ItemTypeEditWindow(store)
-            End Function)
+            ("Cancel", Function() New ItemTypeListWindow(store.Store)))
     End Sub
 End Class

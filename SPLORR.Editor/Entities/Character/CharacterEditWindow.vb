@@ -9,18 +9,18 @@ Friend Class CharacterEditWindow
             "Character",
             store.Id,
             ("Name", store.Name),
-            True,
+            (True, "Update",
+            Function(x) store.CanRenameTo(x),
+            Function(x)
+                store.Name = x
+                Return New CharacterEditWindow(store)
+            End Function),
             (store.CanDelete, "Delete",
             Function()
                 store.Delete()
                 Return New CharacterListWindow(store.Store)
             End Function),
-            Function(x) store.CanRenameTo(x),
             ("Cancel", Function() New CharacterListWindow(store.Store)),
-            Function(x)
-                store.Name = x
-                Return New CharacterEditWindow(store)
-            End Function,
             {
                 (
                     $"Location: {store.Location.Name}",
