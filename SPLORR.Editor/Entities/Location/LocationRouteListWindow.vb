@@ -12,7 +12,16 @@ Friend Class LocationRouteListWindow
             Function(x) $"{x.Direction.Name} {x.RouteType.Name} to {x.ToLocation.Name}",
             Function(x) New RouteEditWindow(x),
             {
-                ("Cancel", Function() True, Sub() Program.GoToWindow(New LocationEditWindow(store)))
+                (
+                    "Cancel",
+                    Function() True,
+                    Sub() Program.GoToWindow(New LocationEditWindow(store))
+                ),
+                (
+                    "Add Route...",
+                    Function() store.CanAddRoute,
+                    Sub() Program.GoToWindow(New LocationAddRouteDirection(store))
+                )
             })
     End Sub
 End Class

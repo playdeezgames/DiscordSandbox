@@ -159,6 +159,14 @@ INSERT INTO
         End Get
     End Property
 
+    Public ReadOnly Property CanAddRoute As Boolean Implements ILocationStore.CanAddRoute
+        Get
+            Return connectionSource.CheckForValue(
+                VIEW_LOCATION_AVAILABLE_DIRECTIONS,
+                (COLUMN_LOCATION_ID, Id))
+        End Get
+    End Property
+
     Public Sub Delete() Implements IBaseTypeStore.Delete
         connectionSource.DeleteForValue(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, Id))
     End Sub
@@ -188,5 +196,34 @@ WHERE
 
     Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
         Return True
+    End Function
+
+    Public Function AddRoute(direction As IDirectionStore, routeType As IRouteTypeStore, toLocation As ILocationStore) As IRouteStore Implements ILocationStore.AddRoute
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"
+INSERT INTO 
+    {TABLE_ROUTES}
+    (
+        {COLUMN_DIRECTION_ID},
+        {COLUMN_ROUTE_TYPE_ID},
+        {COLUMN_FROM_LOCATION_ID},
+        {COLUMN_TO_LOCATION_ID}
+    ) 
+    VALUES 
+    (
+        {PARAMETER_DIRECTION_ID},
+        {PARAMETER_ROUTE_TYPE_ID},
+        {PARAMETER_FROM_LOCATION_ID},
+        {PARAMETER_TO_LOCATION_ID}
+    );"
+            command.Parameters.AddWithValue(PARAMETER_DIRECTION_ID, direction.Id)
+            command.Parameters.AddWithValue(PARAMETER_ROUTE_TYPE_ID, routeType.Id)
+            command.Parameters.AddWithValue(PARAMETER_FROM_LOCATION_ID, Id)
+            command.Parameters.AddWithValue(PARAMETER_TO_LOCATION_ID, toLocation.Id)
+            command.ExecuteNonQuery()
+        End Using
+        Return New RouteStore(
+            connectionSource,
+            connectionSource.ReadLastIdentity)
     End Function
 End Class
