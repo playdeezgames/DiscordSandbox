@@ -11,7 +11,11 @@ Friend Class RecipeItemTypeEditWindow
             store.Id,
             ("Item Type", store.ItemType.Name),
             (False, Nothing, Nothing, Nothing),
-            (True, "Delete", Function() Nothing),
+            (True, "Delete", Function()
+                                 Dim recipe = store.Recipe
+                                 store.Delete()
+                                 Return New RecipeItemTypeListWindow(recipe)
+                             End Function),
             ("Cancel", Function() Nothing))
     End Sub
 End Class

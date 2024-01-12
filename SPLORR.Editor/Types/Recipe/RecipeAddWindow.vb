@@ -5,8 +5,8 @@ Friend Class RecipeAddWindow
     Public Sub New(dataStore As Data.IDataStore)
         MyBase.New(
             "Add Recipe...",
-            "Recipe",
-            ("Add", Function(x) dataStore.Recipes.NameExists(x),
+            "Recipe Name must exist and be unique!",
+            ("Add", Function(x) String.IsNullOrEmpty(x) OrElse dataStore.Recipes.NameExists(x),
             Function(x) New RecipeEditWindow(dataStore.Recipes.Create(x))),
             ("Cancel", Function() New RecipeListWindow(dataStore)))
     End Sub

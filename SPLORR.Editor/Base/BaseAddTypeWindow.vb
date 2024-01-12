@@ -3,20 +3,20 @@
 Friend MustInherit Class BaseAddTypeWindow
     Inherits Window
     Private ReadOnly nameTextField As TextField
-    Private ReadOnly typeName As String
+    Private ReadOnly errorMessage As String
     Private ReadOnly cancelWindowSource As Func(Of Window)
     Private ReadOnly addWindowSource As Func(Of String, Window)
-    Private ReadOnly nameExistsCheck As Func(Of String, Boolean)
+    Private ReadOnly isInputInvalid As Func(Of String, Boolean)
     Public Sub New(
                   title As String,
-                  typeName As String,
-                  onAdd As (Caption As String, IsInputValid As Func(Of String, Boolean), NextWindow As Func(Of String, Window)),
+                  errorMessage As String,
+                  onAdd As (Caption As String, IsInputInvalid As Func(Of String, Boolean), NextWindow As Func(Of String, Window)),
                   onCancel As (Caption As String, NextWindow As Func(Of Window)))
         MyBase.New(title)
-        Me.typeName = typeName
+        Me.errorMessage = errorMessage
         Me.addWindowSource = onAdd.NextWindow
         Me.cancelWindowSource = onCancel.NextWindow
-        Me.nameExistsCheck = onAdd.IsInputValid
+        Me.isInputInvalid = onAdd.IsInputInvalid
         Dim nameLabel As New Label("Name:") With
             {
                 .X = 1,
@@ -47,12 +47,8 @@ Friend MustInherit Class BaseAddTypeWindow
     End Sub
     Private Sub OnAddButtonClicked()
         Dim newTypeName = nameTextField.Text.ToString
-        If String.IsNullOrEmpty(newTypeName) Then
-            MessageBox.ErrorQuery("Error!", $"{typeName} must have a name!", "Ok")
-            Return
-        End If
-        If nameExistsCheck(newTypeName) Then
-            MessageBox.ErrorQuery("Duplicate!", $"{typeName} Name must be unique!", "Ok")
+        If isInputInvalid(newTypeName) Then
+            MessageBox.ErrorQuery("Error!", errorMessage, "Ok")
             Return
         End If
         GoToWindow(addWindowSource(newTypeName))

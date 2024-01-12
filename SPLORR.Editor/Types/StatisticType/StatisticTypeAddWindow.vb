@@ -4,10 +4,10 @@
     Public Sub New(dataStore As Data.IDataStore)
         MyBase.New(
             "Add Statistic Type...",
-            "Statistic Type",
+            "Statistic Type Name must exist and be unique!",
             (
                 "Add",
-                Function(x) dataStore.StatisticTypes.NameExists(x),
+                Function(x) String.IsNullOrEmpty(x) OrElse dataStore.StatisticTypes.NameExists(x),
                 Function(x) New StatisticTypeEditWindow(dataStore.StatisticTypes.Create(x))
             ),
             (

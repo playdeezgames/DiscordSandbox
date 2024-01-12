@@ -35,4 +35,8 @@ Friend Class RecipeItemTypeStore
             Return New RecipeStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_RECIPE_ITEM_TYPES, (COLUMN_RECIPE_ITEM_TYPE_ID, Id), COLUMN_RECIPE_ID))
         End Get
     End Property
+
+    Public Sub Delete() Implements IRecipeItemTypeStore.Delete
+        connectionSource.DeleteForValue(TABLE_RECIPE_ITEM_TYPES, (COLUMN_RECIPE_ITEM_TYPE_ID, Id))
+    End Sub
 End Class
