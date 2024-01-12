@@ -11,13 +11,13 @@ Friend Class ItemTypeGeneratorEditWindow
             itemTypeGeneratorStore.Id,
             ("Name", itemTypeGeneratorStore.Name),
             True,
-            itemTypeGeneratorStore.CanDelete,
-            Function(x) itemTypeGeneratorStore.CanRenameTo(x),
-            ("Cancel", Function() New ItemTypeGeneratorListWindow(itemTypeGeneratorStore.Store)),
+            (itemTypeGeneratorStore.CanDelete, "Delete",
             Function()
                 itemTypeGeneratorStore.Delete()
                 Return New ItemTypeGeneratorListWindow(itemTypeGeneratorStore.Store)
-            End Function,
+            End Function),
+            Function(x) itemTypeGeneratorStore.CanRenameTo(x),
+            ("Cancel", Function() New ItemTypeGeneratorListWindow(itemTypeGeneratorStore.Store)),
             Function(x)
                 itemTypeGeneratorStore.Name = x
                 Return New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore)

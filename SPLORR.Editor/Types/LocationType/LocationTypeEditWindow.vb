@@ -9,13 +9,13 @@ Friend Class LocationTypeEditWindow
             locationTypeStore.Id,
             ("Name", locationTypeStore.Name),
             True,
-            locationTypeStore.CanDelete,
-            Function(x) locationTypeStore.CanRenameTo(x),
-            ("Cancel", Function() New LocationTypeListWindow(locationTypeStore.Store)),
+            (locationTypeStore.CanDelete, "Delete",
             Function()
                 locationTypeStore.Delete()
                 Return New LocationTypeListWindow(locationTypeStore.Store)
-            End Function,
+            End Function),
+            Function(x) locationTypeStore.CanRenameTo(x),
+            ("Cancel", Function() New LocationTypeListWindow(locationTypeStore.Store)),
             Function(x)
                 locationTypeStore.Name = x
                 Return New LocationTypeEditWindow(locationTypeStore)

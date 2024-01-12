@@ -9,13 +9,13 @@ Friend Class RecipeEditWindow
             store.Id,
             ("Name", store.Name),
             True,
-            store.CanDelete,
-            Function(x) store.CanRenameTo(x),
-            ("Cancel", Function() New RecipeListWindow(store.Store)),
+            (store.CanDelete, "Delete",
             Function()
                 store.Delete()
                 Return New RecipeListWindow(store.Store)
-            End Function,
+            End Function),
+            Function(x) store.CanRenameTo(x),
+            ("Cancel", Function() New RecipeListWindow(store.Store)),
             Function(x)
                 store.Name = x
                 Return New RecipeEditWindow(store)

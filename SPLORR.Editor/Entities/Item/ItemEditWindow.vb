@@ -9,13 +9,13 @@ Friend Class ItemEditWindow
             store.Id,
             ("Name", store.Name),
             False,
-            store.CanDelete,
-            Function(x) False,
-            ("Cancel", Function() New ItemListWindow(store.Store)),
+            (store.CanDelete, "Delete",
             Function()
                 store.Delete()
                 Return New ItemListWindow(store.Store)
-            End Function,
+            End Function),
+            Function(x) False,
+            ("Cancel", Function() New ItemListWindow(store.Store)),
             Function(x) Nothing,
             {
                 (

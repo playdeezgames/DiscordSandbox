@@ -10,13 +10,13 @@ Friend Class CharacterEditWindow
             store.Id,
             ("Name", store.Name),
             True,
-            store.CanDelete,
-            Function(x) store.CanRenameTo(x),
-            ("Cancel", Function() New CharacterListWindow(store.Store)),
+            (store.CanDelete, "Delete",
             Function()
                 store.Delete()
                 Return New CharacterListWindow(store.Store)
-            End Function,
+            End Function),
+            Function(x) store.CanRenameTo(x),
+            ("Cancel", Function() New CharacterListWindow(store.Store)),
             Function(x)
                 store.Name = x
                 Return New CharacterEditWindow(store)

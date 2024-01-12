@@ -15,16 +15,15 @@ Friend MustInherit Class BaseEditTypeWindow
                   id As Integer,
                   nameColumn As (Name As String, Value As String),
                   canUpdate As Boolean,
-                  canDelete As Boolean,
+                  onDelete As (Enabled As Boolean, Caption As String, NextWindow As Func(Of Window)),
                   canRenameCheck As Func(Of String, Boolean),
                   onCancel As (Caption As String, NextWindow As Func(Of Window)),
-                  deleteWindowSource As Func(Of Window),
                   updateWindowSource As Func(Of String, Window),
                   ParamArray AdditionalButtonRows As IEnumerable(Of (Title As String, IsEnabled As Func(Of Boolean), OnClicked As Action))())
         MyBase.New(title)
         Me.typeName = typeName
         Me.cancelWindowSource = onCancel.NextWindow
-        Me.deleteWindowSource = deleteWindowSource
+        Me.deleteWindowSource = onDelete.NextWindow
         Me.updateWindowSource = updateWindowSource
         Me.canRenameCheck = canRenameCheck
         Me.nameColumnName = nameColumn.Name
@@ -52,35 +51,44 @@ Friend MustInherit Class BaseEditTypeWindow
                 .Width = [Dim].Fill - 1,
                 .[ReadOnly] = Not canUpdate
             }
-        Dim updateButton = New Button("Update") With
-            {
-                .X = 1,
-                .Y = Pos.Bottom(nameLabel) + 1,
-                .Enabled = canUpdate
-            }
-        AddHandler updateButton.Clicked, AddressOf OnUpdateButtonClicked
-        Dim deleteButton = New Button("Delete") With
-            {
-                .X = Pos.Right(updateButton) + 1,
-                .Y = updateButton.Y,
-                .Enabled = canDelete
-            }
-        AddHandler deleteButton.Clicked, AddressOf OnDeleteButtonClicked
-        Dim cancelButton = New Button("Cancel") With
-            {
-                .X = Pos.Right(deleteButton) + 1,
-                .Y = updateButton.Y
-            }
-        AddHandler cancelButton.Clicked, AddressOf OnCancelButtonClicked
-        Dim nextY = Pos.Bottom(updateButton) + 1
+        Dim buttonX As Pos = 1
         Add(
             idLabel,
             idTextField,
             nameLabel,
-            nameTextField,
-            updateButton,
-            deleteButton,
-            cancelButton)
+            nameTextField)
+
+        Dim updateButton = New Button("Update") With
+            {
+                .X = buttonX,
+                .Y = Pos.Bottom(nameLabel) + 1,
+                .Enabled = canUpdate
+            }
+        AddHandler updateButton.Clicked, AddressOf OnUpdateButtonClicked
+        buttonX = Pos.Right(updateButton) + 1
+        Add(updateButton)
+
+        If onDelete.Enabled Then
+            Dim deleteButton = New Button("Delete") With
+            {
+                .X = buttonX,
+                .Y = updateButton.Y
+            }
+            AddHandler deleteButton.Clicked, AddressOf OnDeleteButtonClicked
+            buttonX = Pos.Right(deleteButton) + 1
+            Add(deleteButton)
+        End If
+
+        Dim cancelButton = New Button("Cancel") With
+            {
+                .X = buttonX,
+                .Y = updateButton.Y
+            }
+        AddHandler cancelButton.Clicked, AddressOf OnCancelButtonClicked
+        buttonX = Pos.Right(cancelButton) + 1
+        Add(cancelButton)
+
+        Dim nextY = Pos.Bottom(updateButton) + 1
         If AdditionalButtonRows IsNot Nothing Then
             For Each additionalButtonRow In AdditionalButtonRows
                 nextY = AddAdditionalButtonRow(additionalButtonRow, nextY)

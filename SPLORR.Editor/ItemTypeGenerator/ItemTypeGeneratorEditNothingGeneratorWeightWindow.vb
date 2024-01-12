@@ -10,7 +10,11 @@ Friend Class ItemTypeGeneratorEditNothingGeneratorWeightWindow
             itemTypeGeneratorStore.Id,
             ("Nothing Generator Weight", itemTypeGeneratorStore.NothingGeneratorWeight.ToString),
             True,
-            True,
+            (True, "Zero",
+            Function()
+                itemTypeGeneratorStore.NothingGeneratorWeight = 0
+                Return New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore)
+            End Function),
             Function(x)
                 Dim generatorWeight As Integer = 0
                 If Integer.TryParse(x, generatorWeight) Then
@@ -19,10 +23,6 @@ Friend Class ItemTypeGeneratorEditNothingGeneratorWeightWindow
                 Return False
             End Function,
             ("Cancel", Function() New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore)),
-            Function()
-                itemTypeGeneratorStore.NothingGeneratorWeight = 0
-                Return New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore)
-            End Function,
             Function(x)
                 itemTypeGeneratorStore.NothingGeneratorWeight = CInt(x)
                 Return New ItemTypeGeneratorEditWindow(itemTypeGeneratorStore)

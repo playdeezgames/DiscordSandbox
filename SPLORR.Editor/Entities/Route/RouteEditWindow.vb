@@ -1,4 +1,6 @@
-﻿Imports SPLORR.Data
+﻿Imports System.Data
+Imports Microsoft.VisualBasic.FileIO
+Imports SPLORR.Data
 Imports Terminal.Gui
 
 Friend Class RouteEditWindow
@@ -11,14 +13,14 @@ Friend Class RouteEditWindow
             store.Id,
             ("Name", $"{store.Direction.Name} {store.RouteType.Name} from {store.FromLocation.Name} to {store.ToLocation.Name}"),
             False,
-            True,
-            Function(x) False,
-            ("Cancel", Function() New LocationEditWindow(store.FromLocation)),
+            (True, "Delete",
             Function()
                 Dim fromLocation = store.FromLocation
                 store.Delete()
                 Return New LocationEditWindow(fromLocation)
-            End Function,
+            End Function),
+            Function(x) False,
+            ("Cancel", Function() New LocationEditWindow(store.FromLocation)),
             Function(x) Nothing,
             {
                 (

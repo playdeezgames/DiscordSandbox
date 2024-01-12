@@ -11,10 +11,9 @@ Friend Class RecipeItemTypeEditWindow
             store.Id,
             ("Item Type", store.ItemType.Name),
             False,
-            True,
+            (True, "Delete", Function() Nothing),
             Function(x) False,
             ("Cancel", Function() Nothing),
-            Function() Nothing,
             Function() Nothing)
     End Sub
 End Class

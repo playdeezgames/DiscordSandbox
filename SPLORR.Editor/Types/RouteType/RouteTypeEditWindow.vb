@@ -1,4 +1,6 @@
-﻿Imports SPLORR.Data
+﻿Imports System.Data
+Imports Microsoft.VisualBasic.FileIO
+Imports SPLORR.Data
 Imports Terminal.Gui
 
 Friend Class RouteTypeEditWindow
@@ -10,13 +12,16 @@ Friend Class RouteTypeEditWindow
             routeTypeStore.Id,
             ("Name", routeTypeStore.Name),
             True,
-            routeTypeStore.CanDelete,
+            (
+                routeTypeStore.CanDelete,
+                "Delete",
+                Function()
+                    routeTypeStore.Delete()
+                    Return New RouteTypeListWindow(routeTypeStore.Store)
+                End Function
+            ),
             Function(x) routeTypeStore.CanRenameTo(x),
             ("Cancel", Function() New RouteTypeListWindow(routeTypeStore.Store)),
-            Function()
-                routeTypeStore.Delete()
-                Return New RouteTypeListWindow(routeTypeStore.Store)
-            End Function,
             Function(x)
                 routeTypeStore.Name = x
                 Return New RouteTypeEditWindow(routeTypeStore)
