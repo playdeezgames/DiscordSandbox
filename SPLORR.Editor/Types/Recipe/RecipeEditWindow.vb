@@ -2,23 +2,30 @@
 
 Friend Class RecipeEditWindow
     Inherits BaseEditTypeWindow
-    Public Sub New(recipeStore As IRecipeStore)
+    Public Sub New(store As IRecipeStore)
         MyBase.New(
-            $"Edit Recipe: {recipeStore.Name}",
+            $"Edit Recipe: {store.Name}",
             "Recipe",
-            recipeStore.Id,
-            ("Name", recipeStore.Name),
+            store.Id,
+            ("Name", store.Name),
             True,
-            recipeStore.CanDelete,
-            Function(x) recipeStore.CanRenameTo(x),
-            Function() New RecipeListWindow(recipeStore.Store),
+            store.CanDelete,
+            Function(x) store.CanRenameTo(x),
+            Function() New RecipeListWindow(store.Store),
             Function()
-                recipeStore.Delete()
-                Return New RecipeListWindow(recipeStore.Store)
+                store.Delete()
+                Return New RecipeListWindow(store.Store)
             End Function,
             Function(x)
-                recipeStore.Name = x
-                Return New RecipeEditWindow(recipeStore)
-            End Function)
+                store.Name = x
+                Return New RecipeEditWindow(store)
+            End Function,
+            {
+                (
+                    "Item Types...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New RecipeItemTypeListWindow(store))
+                )
+            })
     End Sub
 End Class

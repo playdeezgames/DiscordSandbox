@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Data.SqlClient
+Imports Microsoft.IdentityModel.Tokens
 
 Friend Class RecipeStore
     Inherits BaseTypeStore
@@ -20,4 +21,46 @@ Friend Class RecipeStore
             Return Not connectionSource.CheckForValue(TABLE_RECIPE_ITEM_TYPES, (COLUMN_RECIPE_ID, Id))
         End Get
     End Property
+
+    Public ReadOnly Property ItemTypes As IRelatedTypeStore(Of IRecipeItemTypeStore) Implements IRecipeStore.ItemTypes
+        Get
+            Return New RelatedTypeStore(Of IRecipeItemTypeStore, Integer)(
+                connectionSource,
+                VIEW_RECIPE_ITEM_TYPE_DETAILS,
+                COLUMN_RECIPE_ITEM_TYPE_ID,
+                COLUMN_ITEM_TYPE_NAME,
+                (COLUMN_RECIPE_ID, Id),
+                Function(x, y) New RecipeItemTypeStore(x, y))
+        End Get
+    End Property
+
+    Public ReadOnly Property CanAddItemType As Boolean Implements IRecipeStore.CanAddItemType
+        Get
+            Return connectionSource.CheckForValue(VIEW_RECIPE_AVAILABLE_ITEM_TYPES, (COLUMN_RECIPE_ID, Id))
+        End Get
+    End Property
+
+    Public ReadOnly Property AvailableItemTypes As IRelatedTypeStore(Of IItemTypeStore) Implements IRecipeStore.AvailableItemTypes
+        Get
+            Return New RelatedTypeStore(Of IItemTypeStore, Integer)(
+                connectionSource,
+                VIEW_RECIPE_AVAILABLE_ITEM_TYPES,
+                COLUMN_ITEM_TYPE_ID,
+                COLUMN_ITEM_TYPE_NAME,
+                (COLUMN_RECIPE_ID, Id),
+                Function(x, y) New ItemTypeStore(x, y))
+        End Get
+    End Property
+
+    Public Function CreateRecipeItemType(itemType As IItemTypeStore, quantityIn As Integer, quantityOut As Integer) As IRecipeItemTypeStore Implements IRecipeStore.CreateRecipeItemType
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"INSERT INTO {TABLE_RECIPE_ITEM_TYPES}({COLUMN_RECIPE_ID},{COLUMN_ITEM_TYPE_ID},{COLUMN_QUANTITY_IN},{COLUMN_QUANTITY_OUT}) VALUES ({PARAMETER_RECIPE_ID},{PARAMETER_ITEM_TYPE_ID},{PARAMETER_QUANTITY_IN},{PARAMETER_QUANTITY_OUT});"
+            command.Parameters.AddWithValue(PARAMETER_RECIPE_ID, Id)
+            command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_ID, itemType.Id)
+            command.Parameters.AddWithValue(PARAMETER_QUANTITY_IN, quantityIn)
+            command.Parameters.AddWithValue(PARAMETER_QUANTITY_OUT, quantityOut)
+            command.ExecuteNonQuery()
+        End Using
+        Return New RecipeItemTypeStore(connectionSource, connectionSource.ReadLastIdentity)
+    End Function
 End Class
