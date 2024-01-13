@@ -79,4 +79,23 @@ Friend Class InventoryStore
     Public Sub Delete() Implements IInventoryStore.Delete
         connectionSource.DeleteForValue(TABLE_INVENTORIES, (COLUMN_INVENTORY_ID, Id))
     End Sub
+
+    Public Function ItemTypeCount(itemType As IItemTypeStore) As Integer Implements IInventoryStore.ItemTypeCount
+        Return If(
+            connectionSource.FindIntegerForValues(
+                VIEW_INVENTORY_ITEM_TYPE_COUNTS,
+                (COLUMN_INVENTORY_ID, Id),
+                (COLUMN_ITEM_TYPE_ID, itemType.Id),
+                COLUMN_ITEM_TYPE_COUNT),
+            0)
+    End Function
+
+    Public Function ItemsByType(itemType As IItemTypeStore) As IEnumerable(Of IItemStore) Implements IInventoryStore.ItemsByType
+        Return connectionSource.ReadIntegersForValues(
+            TABLE_ITEMS,
+            (COLUMN_INVENTORY_ID, Id),
+            (COLUMN_ITEM_TYPE_ID, itemType.Id),
+            COLUMN_ITEM_ID).
+            Select(Function(x) New ItemStore(connectionSource, x))
+    End Function
 End Class

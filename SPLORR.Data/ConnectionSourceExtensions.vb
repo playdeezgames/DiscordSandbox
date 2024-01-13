@@ -66,6 +66,35 @@ WHERE
         Return Nothing
     End Function
     <Extension>
+    Function FindIntegerForValues(Of TFirstValue, TSecondValue)(
+                             connectionSource As Func(Of SqlConnection),
+                             tableName As String,
+                             firstForColumn As (Name As String, Value As TFirstValue),
+                             secondForColumn As (Name As String, Value As TSecondValue),
+                             foundColumnName As String) As Integer?
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"
+SELECT 
+    {foundColumnName} 
+FROM 
+    {tableName} 
+WHERE 
+    {firstForColumn.Name}=@{firstForColumn.Name}
+    AND {secondForColumn.Name}=@{secondForColumn.Name};"
+            command.Parameters.AddWithValue($"@{firstForColumn.Name}", firstForColumn.Value)
+            command.Parameters.AddWithValue($"@{secondForColumn.Name}", secondForColumn.Value)
+            Using reader = command.ExecuteReader
+                If reader.Read Then
+                    If reader.IsDBNull(0) Then
+                        Return Nothing
+                    End If
+                    Return reader.GetInt32(0)
+                End If
+            End Using
+        End Using
+        Return Nothing
+    End Function
+    <Extension>
     Function ReadIntegerForValue(Of TValue)(connectionSource As Func(Of SqlConnection), tableName As String, inputColumn As (Name As String, Value As TValue), outputColumnName As String) As Integer
         Using command = connectionSource().CreateCommand
             command.CommandText = $"

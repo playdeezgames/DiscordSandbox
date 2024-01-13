@@ -10,4 +10,5 @@
     Friend Const TOKEN_RENAME As String = "rename"
     Friend Const TOKEN_STATUS As String = "status"
     Friend Const TOKEN_TAKE As String = "take"
+    Friend Const TOKEN_CRAFT As String = "craft"
 End Module

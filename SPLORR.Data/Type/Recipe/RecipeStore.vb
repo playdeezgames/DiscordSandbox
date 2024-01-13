@@ -52,6 +52,54 @@ Friend Class RecipeStore
         End Get
     End Property
 
+    Public ReadOnly Property Inputs As IEnumerable(Of (Quantity As Integer, ItemType As IItemTypeStore)) Implements IRecipeStore.Inputs
+        Get
+            Dim result As New List(Of (Quantity As Integer, ItemType As IItemTypeStore))
+            Using command = connectionSource().CreateCommand
+                command.CommandText = $"
+SELECT 
+    {COLUMN_QUANTITY_IN},
+    {COLUMN_ITEM_TYPE_ID} 
+FROM 
+    {TABLE_RECIPE_ITEM_TYPES} 
+WHERE 
+    {COLUMN_RECIPE_ID}=@{COLUMN_RECIPE_ID} 
+    AND {COLUMN_QUANTITY_IN}>0;"
+                command.Parameters.AddWithValue($"@{COLUMN_RECIPE_ID}", Id)
+                Using reader = command.ExecuteReader
+                    While reader.Read
+                        result.Add((reader.GetInt32(0), New ItemTypeStore(connectionSource, reader.GetInt32(1))))
+                    End While
+                End Using
+            End Using
+            Return result
+        End Get
+    End Property
+
+    Public ReadOnly Property Outputs As IEnumerable(Of (Quantity As Integer, ItemType As IItemTypeStore)) Implements IRecipeStore.Outputs
+        Get
+            Dim result As New List(Of (Quantity As Integer, ItemType As IItemTypeStore))
+            Using command = connectionSource().CreateCommand
+                command.CommandText = $"
+SELECT 
+    {COLUMN_QUANTITY_OUT},
+    {COLUMN_ITEM_TYPE_ID} 
+FROM 
+    {TABLE_RECIPE_ITEM_TYPES} 
+WHERE 
+    {COLUMN_RECIPE_ID}=@{COLUMN_RECIPE_ID} 
+    AND {COLUMN_QUANTITY_OUT}>0;"
+                command.Parameters.AddWithValue($"@{COLUMN_RECIPE_ID}", Id)
+                Using reader = command.ExecuteReader
+                    While reader.Read
+                        result.Add((reader.GetInt32(0), New ItemTypeStore(connectionSource, reader.GetInt32(1))))
+                    End While
+                End Using
+            End Using
+            Return result
+        End Get
+    End Property
+
     Public Function CreateRecipeItemType(itemType As IItemTypeStore, quantityIn As Integer, quantityOut As Integer) As IRecipeItemTypeStore Implements IRecipeStore.CreateRecipeItemType
         Using command = connectionSource().CreateCommand
             command.CommandText = $"INSERT INTO {TABLE_RECIPE_ITEM_TYPES}({COLUMN_RECIPE_ID},{COLUMN_ITEM_TYPE_ID},{COLUMN_QUANTITY_IN},{COLUMN_QUANTITY_OUT}) VALUES ({PARAMETER_RECIPE_ID},{PARAMETER_ITEM_TYPE_ID},{PARAMETER_QUANTITY_IN},{PARAMETER_QUANTITY_OUT});"

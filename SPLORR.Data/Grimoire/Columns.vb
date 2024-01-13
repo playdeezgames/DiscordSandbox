@@ -36,4 +36,5 @@
     Friend Const COLUMN_STATISTIC_TYPE_ID = "StatisticTypeId"
     Friend Const COLUMN_STATISTIC_TYPE_NAME = "StatisticTypeName"
     Friend Const COLUMN_TO_LOCATION_ID = "ToLocationId"
+    Friend Const COLUMN_ITEM_TYPE_COUNT = "ItemTypeCount"
 End Module
