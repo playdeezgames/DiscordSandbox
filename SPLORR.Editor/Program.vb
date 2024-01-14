@@ -15,6 +15,7 @@ Module Program
     Private Const TEXT_CHARACTER_TYPES = "Character Types"
     Private Const TEXT_RECIPES = "Recipes"
     Private Const TEXT_ROUTE_TYPES = "Route Types"
+    Private Const TEXT_CARD_TYPES = "Card Types"
     Private Const TEXT_ENTITIES = "Entities"
     Private Const TEXT_LOCATIONS = "Locations"
     Private Const TEXT_CHARACTERS = "Characters"
@@ -34,6 +35,7 @@ Module Program
                 }),
                 New MenuBarItem(TEXT_TYPES,
                 {
+                    New MenuItem(TEXT_CARD_TYPES, String.Empty, AddressOf DoCardTypesList),
                     New MenuItem(TEXT_CHARACTER_TYPES, String.Empty, AddressOf DoCharacterTypesList),
                     New MenuItem(TEXT_DIRECTIONS, String.Empty, AddressOf DoDirectionsList),
                     New MenuItem(TEXT_ITEM_TYPES, String.Empty, AddressOf DoItemTypesList),
@@ -56,6 +58,10 @@ Module Program
         Application.Run()
         Application.Shutdown()
         dataStore.CleanUp()
+    End Sub
+
+    Private Sub DoCardTypesList()
+        GoToWindow(New CardTypeListWindow(dataStore))
     End Sub
 
     Private Sub DoItemsList()

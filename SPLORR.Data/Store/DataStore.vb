@@ -144,6 +144,17 @@ Public Class DataStore
         End Get
     End Property
 
+    Public ReadOnly Property CardTypes As ITypeStore(Of ICardTypeStore) Implements IDataStore.CardTypes
+        Get
+            Return New TypeStore(Of ICardTypeStore)(
+                ConnectionSource,
+                TABLE_CARD_TYPES,
+                COLUMN_CARD_TYPE_ID,
+                COLUMN_CARD_TYPE_NAME,
+                Function(x, y) New CardTypeStore(x, y))
+        End Get
+    End Property
+
     Public Sub CleanUp() Implements IDataStore.CleanUp
         If _connection IsNot Nothing Then
             _connection.Close()

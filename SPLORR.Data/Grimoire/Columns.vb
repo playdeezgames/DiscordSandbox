@@ -37,4 +37,6 @@
     Friend Const COLUMN_STATISTIC_TYPE_NAME = "StatisticTypeName"
     Friend Const COLUMN_TO_LOCATION_ID = "ToLocationId"
     Friend Const COLUMN_ITEM_TYPE_COUNT = "ItemTypeCount"
+    Friend Const COLUMN_CARD_TYPE_ID = "CardTypeId"
+    Friend Const COLUMN_CARD_TYPE_NAME = "CardTypeName"
 End Module
