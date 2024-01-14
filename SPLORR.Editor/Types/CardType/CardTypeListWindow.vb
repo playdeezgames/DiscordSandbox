@@ -10,8 +10,13 @@ Friend Class CardTypeListWindow
             store,
             Function(x, y) x.CardTypes.Filter(y),
             Function(x) $"{x.Name}(Id:{x.Id})",
-            Function(x) Nothing,
+            Function(x) New CardTypeEditWindow(x),
             {
+                (
+                    "Add...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CardTypeAddWindow(store))
+                ),
                 (
                     "Close",
                     Function() True,
