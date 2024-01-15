@@ -6,4 +6,5 @@
     ReadOnly Property OtherCharacters As IEnumerable(Of ICharacterStore)
     ReadOnly Property Inventory As IInventoryStore
     Property CharacterType As ICharacterTypeStore
+    ReadOnly Property Cards As IRelatedTypeStore(Of ICardStore)
 End Interface

@@ -39,4 +39,5 @@
     Friend Const COLUMN_ITEM_TYPE_COUNT = "ItemTypeCount"
     Friend Const COLUMN_CARD_TYPE_ID = "CardTypeId"
     Friend Const COLUMN_CARD_TYPE_NAME = "CardTypeName"
+    Friend Const COLUMN_CARD_ID = "CardId"
 End Module

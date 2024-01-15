@@ -18,4 +18,14 @@ Friend Class CardTypeStore
             Return True
         End Get
     End Property
+
+    Public Function CreateCard(store As ICharacterStore) As ICardStore Implements ICardTypeStore.CreateCard
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"INSERT INTO {TABLE_CARDS}({COLUMN_CARD_TYPE_ID},{COLUMN_CHARACTER_ID}) VALUES (@{COLUMN_CARD_TYPE_ID},@{COLUMN_CHARACTER_ID});"
+            command.Parameters.AddWithValue($"{COLUMN_CARD_TYPE_ID}", Id)
+            command.Parameters.AddWithValue($"{COLUMN_CHARACTER_ID}", store.Id)
+            command.ExecuteNonQuery()
+        End Using
+        Return New CardStore(connectionSource, connectionSource.ReadLastIdentity)
+    End Function
 End Class

@@ -19,4 +19,5 @@
     Friend Const TABLE_ROUTE_TYPES = "RouteTypes"
     Friend Const TABLE_STATISTIC_TYPES = "StatisticTypes"
     Friend Const TABLE_CARD_TYPES = "CardTypes"
+    Friend Const TABLE_CARDS = "Cards"
 End Module

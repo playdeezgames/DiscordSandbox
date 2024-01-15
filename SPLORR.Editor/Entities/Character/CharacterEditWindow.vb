@@ -36,6 +36,11 @@ Friend Class CharacterEditWindow
                     "Inventory...",
                     Function() True,
                     Sub() Program.GoToWindow(New InventoryEditWindow(store.Inventory))
+                ),
+                (
+                    "Cards...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CharacterCardListWindow(store))
                 )
             })
     End Sub

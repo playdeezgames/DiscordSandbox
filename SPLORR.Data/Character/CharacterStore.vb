@@ -176,4 +176,15 @@ WHERE
                 (COLUMN_CHARACTER_TYPE_ID, value.Id))
         End Set
     End Property
+    Public ReadOnly Property Cards As IRelatedTypeStore(Of ICardStore) Implements ICharacterStore.Cards
+        Get
+            Return New RelatedTypeStore(Of ICardStore, Integer)(
+                connectionSource,
+                VIEW_CARD_DETAILS,
+                COLUMN_CARD_ID,
+                COLUMN_CARD_TYPE_NAME,
+                (COLUMN_CHARACTER_ID, Id),
+                Function(x, y) New CardStore(x, y))
+        End Get
+    End Property
 End Class
