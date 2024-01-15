@@ -11,11 +11,16 @@ Friend Class CardEditWindow
             store.Id,
             ("Card Type", store.Name),
             (False, Nothing, Nothing, Nothing),
-            (store.CanDelete, "Delete", Function()
-                                            Dim character = store.Character
-                                            store.Delete()
-                                            Return New CharacterCardListWindow(character)
-                                        End Function),
-            ("Cancel", Function() New CharacterCardListWindow(store.Character)))
+            (
+                store.CanDelete,
+                "Delete",
+                Function()
+                    Dim character = store.Character
+                    store.Delete()
+                    Return New CharacterCardListWindow(character)
+                End Function),
+            (
+                "Cancel",
+                Function() New CharacterCardListWindow(store.Character)))
     End Sub
 End Class
