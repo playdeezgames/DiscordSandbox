@@ -42,6 +42,12 @@ Friend Class CharacterModel
         End Get
     End Property
 
+    Public ReadOnly Property Cards As IEnumerable(Of ICardModel) Implements ICharacterModel.Cards
+        Get
+            Return store.Cards.Filter("%").Select(Function(x) New CardModel(x))
+        End Get
+    End Property
+
     Public Function UseRoute(route As IRouteModel) As (Result As Boolean, Messages As String()) Implements ICharacterModel.UseRoute
         If route Is Nothing Then
             Return (False, {"The route does not exist!"})

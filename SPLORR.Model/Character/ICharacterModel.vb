@@ -8,4 +8,5 @@
     Function FindRecipeByName(recipeName As String) As IRecipeModel
     Function CanCraft(recipe As IRecipeModel) As Boolean
     Function Craft(recipe As IRecipeModel) As IEnumerable(Of (Quantity As Integer, ItemType As IItemTypeModel))
+    ReadOnly Property Cards As IEnumerable(Of ICardModel)
 End Interface
