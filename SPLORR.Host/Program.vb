@@ -1,3 +1,4 @@
+Imports System.IO
 Imports Discord
 Imports Discord.WebSocket
 Imports Spectre.Console
@@ -36,7 +37,7 @@ Module Program
         Dim client = New DiscordSocketClient
         AddHandler client.Log, AddressOf OnLog
         AddHandler client.MessageReceived, AddressOf OnMessageReceived
-        Await client.LoginAsync(TokenType.Bot, Environment.GetEnvironmentVariable(ENV_VAR_DISCORD_TOKEN))
+        Await client.LoginAsync(TokenType.Bot, File.ReadAllText(Environment.GetEnvironmentVariable(ENV_VAR_DISCORD_TOKEN)))
         Await client.StartAsync()
         AnsiConsole.MarkupLine(WAITING_MESSAGE)
         Await completionSource.Task

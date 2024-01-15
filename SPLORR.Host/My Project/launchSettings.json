@@ -3,7 +3,7 @@
     "SPLORR.Host": {
       "commandName": "Project",
       "environmentVariables": {
-        "DISCORD_TOKEN": "<discord token>",
+        "DISCORD_TOKEN": "E:\\Shhhhhh\\SplorrBot.txt",
         "CONNECTION_STRING": "Data Source=.\\SQLEXPRESS;Initial Catalog=SPLORR;Integrated Security=true;TrustServerCertificate=true"
       }
     }
