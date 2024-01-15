@@ -1,7 +1,4 @@
-﻿Imports SPLORR.Data
-Imports Terminal.Gui
-
-Friend Class CardTypeAddWindow
+﻿Friend Class CardTypeAddWindow
     Inherits BaseAddTypeWindow
     Public Sub New(dataStore As Data.IDataStore)
         MyBase.New(
