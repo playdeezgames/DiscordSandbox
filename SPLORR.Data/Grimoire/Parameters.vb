@@ -17,5 +17,4 @@
     Friend Const PARAMETER_LOCATION_TYPE_ID = "@LocationTypeId"
     Friend Const PARAMETER_LOCATION_TYPE_NAME = "@LocationTypeName"
     Friend Const PARAMETER_PLAYER_ID = "@PlayerId"
-    Friend Const PARAMETER_ROUTE_ID = "@RouteId"
 End Module
