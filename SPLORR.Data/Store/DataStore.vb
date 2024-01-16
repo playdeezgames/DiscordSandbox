@@ -247,8 +247,8 @@ INSERT INTO
         FROM 
             {TABLE_PLAYERS} 
         WHERE 
-            {COLUMN_DISCORD_ID}={PARAMETER_DISCORD_ID};"
-            command.Parameters.AddWithValue(PARAMETER_DISCORD_ID, discordId)
+            {COLUMN_DISCORD_ID}=@{COLUMN_DISCORD_ID};"
+            command.Parameters.AddWithValue($"@{COLUMN_DISCORD_ID}", discordId)
             Using reader = command.ExecuteReader
                 If reader.Read Then
                     Return reader.GetInt32(0)
@@ -270,9 +270,9 @@ INSERT INTO
             ) 
         VALUES
             (
-                {PARAMETER_DISCORD_ID}
+                @{COLUMN_DISCORD_ID}
             );"
-                command.Parameters.AddWithValue(PARAMETER_DISCORD_ID, CLng(authorId))
+                command.Parameters.AddWithValue($"@{COLUMN_DISCORD_ID}", CLng(authorId))
                 command.ExecuteNonQuery()
             End Using
             playerId = FindAuthorPlayer(authorId)
