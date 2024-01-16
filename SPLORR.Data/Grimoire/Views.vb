@@ -10,4 +10,6 @@
     Friend Const VIEW_RECIPE_ITEM_TYPE_DETAILS = "RecipeItemTypeDetails"
     Friend Const VIEW_INVENTORY_ITEM_TYPE_COUNTS = "InventoryItemTypeCounts"
     Friend Const VIEW_CARD_DETAILS = "CardDetails"
+    Friend Const VIEW_CHARACTER_TYPE_STATISTIC_DETAILS = "CharacterTypeStatisticDetails"
+    Friend Const VIEW_CHARACTER_TYPE_AVAILABLE_STATISTIC_TYPES = "CharacterTypeAvailableStatisticTypes"
 End Module

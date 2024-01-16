@@ -26,6 +26,11 @@ Friend Class CharacterTypeEditWindow
                     "Create Character...",
                     Function() True,
                     Sub() Program.GoToWindow(New CharacterAddWindow(characterTypeStore))
+                ),
+                (
+                    "Statistics...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CharacterTypeStatisticsListWindow(characterTypeStore))
                 )
             })
     End Sub
