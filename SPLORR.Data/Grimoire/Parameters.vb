@@ -12,5 +12,4 @@
     Friend Const PARAMETER_ITEM_TYPE_ID = "@ItemTypeId"
     Friend Const PARAMETER_ITEM_TYPE_NAME = "@ItemTypeName"
     Friend Const PARAMETER_LAST_MODIFIED = "@LastModified"
-    Friend Const PARAMETER_LOCATION_ID = "@LocationId"
 End Module

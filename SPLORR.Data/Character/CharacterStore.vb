@@ -61,13 +61,13 @@ WHERE
 UPDATE 
     {TABLE_CHARACTERS} 
 SET 
-    {COLUMN_LOCATION_ID}={PARAMETER_LOCATION_ID},
-    {COLUMN_LAST_MODIFIED}={PARAMETER_LAST_MODIFIED}
+    {COLUMN_LOCATION_ID}=@{COLUMN_LOCATION_ID},
+    {COLUMN_LAST_MODIFIED}=@{COLUMN_LAST_MODIFIED}
 WHERE 
     {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, location.Id)
-            command.Parameters.AddWithValue(PARAMETER_LAST_MODIFIED, lastModified)
+            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
+            command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", location.Id)
+            command.Parameters.AddWithValue($"@{COLUMN_LAST_MODIFIED}", lastModified)
             command.ExecuteNonQuery()
         End Using
     End Sub

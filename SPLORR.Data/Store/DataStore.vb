@@ -226,13 +226,13 @@ INSERT INTO
     ) 
     VALUES 
     (
-        {PARAMETER_CHARACTER_NAME},
-        {PARAMETER_LOCATION_ID},
-        {PARAMETER_CHARACTER_TYPE_ID}
+        @{COLUMN_CHARACTER_NAME},
+        @{COLUMN_LOCATION_ID},
+        @{COLUMN_CHARACTER_TYPE_ID}
     );"
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_NAME, characterName)
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, location.Id)
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_TYPE_ID, characterType.Id)
+            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_NAME}", characterName)
+            command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", location.Id)
+            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_TYPE_ID}", characterType.Id)
             command.ExecuteNonQuery()
         End Using
         Return GetCharacter(ConnectionSource.ReadLastIdentity())

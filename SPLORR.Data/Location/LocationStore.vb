@@ -41,8 +41,8 @@ SELECT
 FROM 
     {TABLE_ROUTES} 
 WHERE 
-    {COLUMN_FROM_LOCATION_ID}={PARAMETER_LOCATION_ID};"
-                command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, locationId)
+    {COLUMN_FROM_LOCATION_ID}=@{COLUMN_LOCATION_ID};"
+                command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", locationId)
                 Return CInt(command.ExecuteScalar) > 0
             End Using
         End Get
@@ -78,9 +78,9 @@ INSERT INTO
     )
     VALUES
     (
-        {PARAMETER_LOCATION_ID}
+        @{COLUMN_LOCATION_ID}
     );"
-                command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, locationId)
+                command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", locationId)
                 command.ExecuteNonQuery()
             End Using
             Return New InventoryStore(connectionSource, connectionSource.ReadLastIdentity)
@@ -181,10 +181,10 @@ FROM
 JOIN 
     {TABLE_DIRECTIONS} d ON r.{COLUMN_DIRECTION_ID}=d.{COLUMN_DIRECTION_ID}
 WHERE 
-    r.{COLUMN_FROM_LOCATION_ID}={PARAMETER_LOCATION_ID} 
-    AND d.{COLUMN_DIRECTION_NAME}={PARAMETER_DIRECTION_NAME};"
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, locationId)
-            command.Parameters.AddWithValue(PARAMETER_DIRECTION_NAME, directionName)
+    r.{COLUMN_FROM_LOCATION_ID}=@{COLUMN_LOCATION_ID} 
+    AND d.{COLUMN_DIRECTION_NAME}=@{COLUMN_DIRECTION_NAME};"
+            command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", locationId)
+            command.Parameters.AddWithValue($"@{COLUMN_DIRECTION_NAME}", directionName)
             Using reader = command.ExecuteReader
                 If reader.Read Then
                     Return New RouteStore(connectionSource, reader.GetInt32(0))

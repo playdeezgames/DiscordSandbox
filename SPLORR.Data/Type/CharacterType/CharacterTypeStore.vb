@@ -63,13 +63,13 @@ INSERT INTO
     ) 
     VALUES 
     (
-        {PARAMETER_CHARACTER_NAME},
-        {PARAMETER_CHARACTER_TYPE_ID},
-        {PARAMETER_LOCATION_ID}
+        @{COLUMN_CHARACTER_NAME},
+        @{COLUMN_CHARACTER_TYPE_ID},
+        @{COLUMN_LOCATION_ID}
     );"
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_NAME, name)
-            command.Parameters.AddWithValue(PARAMETER_CHARACTER_TYPE_ID, Id)
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_ID, location.Id)
+            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_NAME}", name)
+            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_TYPE_ID}", Id)
+            command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", location.Id)
             command.ExecuteNonQuery()
         End Using
         Return New CharacterStore(connectionSource, connectionSource.ReadLastIdentity)
