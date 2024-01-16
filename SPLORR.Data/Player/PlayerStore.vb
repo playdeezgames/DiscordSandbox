@@ -53,10 +53,10 @@ INSERT INTO
     VALUES 
     (
         @{COLUMN_PLAYER_ID},
-        {PARAMETER_CHARACTER_ID}
+        @{COLUMN_CHARACTER_ID}
     );"
                 command.Parameters.AddWithValue($"@{COLUMN_PLAYER_ID}", _playerId)
-                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, value.Id)
+                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", value.Id)
                 command.ExecuteNonQuery()
             End Using
         End Set

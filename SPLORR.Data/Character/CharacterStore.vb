@@ -31,8 +31,8 @@ UPDATE
 SET 
     {COLUMN_CHARACTER_NAME}=@{COLUMN_CHARACTER_NAME} 
 WHERE 
-    {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
-                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+    {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
+                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
                 command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_NAME}", value)
                 command.ExecuteNonQuery()
             End Using
@@ -48,8 +48,8 @@ SELECT
 FROM 
     {TABLE_CHARACTERS} 
 WHERE 
-    {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
-                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+    {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
+                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
                 Return New LocationStore(connectionSource, CInt(command.ExecuteScalar))
             End Using
         End Get
@@ -64,7 +64,7 @@ SET
     {COLUMN_LOCATION_ID}=@{COLUMN_LOCATION_ID},
     {COLUMN_LAST_MODIFIED}=@{COLUMN_LAST_MODIFIED}
 WHERE 
-    {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
+    {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
             command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
             command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", location.Id)
             command.Parameters.AddWithValue($"@{COLUMN_LAST_MODIFIED}", lastModified)
@@ -89,8 +89,8 @@ SELECT
 FROM 
     {VIEW_CHARACTER_LOCATION_OTHER_CHARACTERS} 
 WHERE 
-    {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
-                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+    {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
+                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
                 Return CInt(command.ExecuteScalar) > 0
             End Using
         End Get
@@ -106,8 +106,8 @@ SELECT
 FROM 
     {VIEW_CHARACTER_LOCATION_OTHER_CHARACTERS} 
 WHERE 
-    {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
-                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+    {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
+                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
                 Using reader = command.ExecuteReader
                     While reader.Read
                         result.Add(New CharacterStore(connectionSource, reader.GetInt32(0)))
@@ -128,8 +128,8 @@ WHERE
                 Return New InventoryStore(connectionSource, inventoryId.Value)
             End If
             Using command = connectionSource().CreateCommand
-                command.CommandText = $"INSERT INTO {TABLE_INVENTORIES}({COLUMN_CHARACTER_ID}) VALUES({PARAMETER_CHARACTER_ID});"
-                command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
+                command.CommandText = $"INSERT INTO {TABLE_INVENTORIES}({COLUMN_CHARACTER_ID}) VALUES(@{COLUMN_CHARACTER_ID});"
+                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
                 command.ExecuteNonQuery()
             End Using
             Return New InventoryStore(connectionSource, connectionSource.ReadLastIdentity)
