@@ -11,5 +11,4 @@
     Friend Const PARAMETER_ITEM_TYPE_GENERATOR_NAME = "@ItemTypeGeneratorName"
     Friend Const PARAMETER_ITEM_TYPE_ID = "@ItemTypeId"
     Friend Const PARAMETER_ITEM_TYPE_NAME = "@ItemTypeName"
-    Friend Const PARAMETER_LAST_MODIFIED = "@LastModified"
 End Module
