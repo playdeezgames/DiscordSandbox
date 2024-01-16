@@ -6,5 +6,4 @@
     Friend Const PARAMETER_CHARACTER_NAME = "@CharacterName"
     Friend Const PARAMETER_CHARACTER_TYPE_ID = "@CharacterTypeId"
     Friend Const PARAMETER_GENERATOR_WEIGHT = "@GeneratorWeight"
-    Friend Const PARAMETER_INVENTORY_ID = "@InventoryId"
 End Module
