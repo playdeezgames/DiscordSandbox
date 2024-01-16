@@ -113,13 +113,13 @@ INSERT INTO
     ) 
     VALUES 
     (
-        {PARAMETER_RECIPE_ID},
-        {PARAMETER_ITEM_TYPE_ID},
-        {PARAMETER_QUANTITY_IN},
+        @{COLUMN_RECIPE_ID},
+        @{COLUMN_ITEM_TYPE_ID},
+        @{COLUMN_QUANTITY_IN},
         @{COLUMN_QUANTITY_OUT});"
-            command.Parameters.AddWithValue(PARAMETER_RECIPE_ID, Id)
-            command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_ID, itemType.Id)
-            command.Parameters.AddWithValue(PARAMETER_QUANTITY_IN, quantityIn)
+            command.Parameters.AddWithValue($"@{COLUMN_RECIPE_ID}", Id)
+            command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_ID}", itemType.Id)
+            command.Parameters.AddWithValue($"@{COLUMN_QUANTITY_IN}", quantityIn)
             command.Parameters.AddWithValue($"@{COLUMN_QUANTITY_OUT}", quantityOut)
             command.ExecuteNonQuery()
         End Using

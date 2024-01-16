@@ -22,5 +22,4 @@
     Friend Const PARAMETER_FROM_LOCATION_ID = "@FromLocationId"
     Friend Const PARAMETER_TO_LOCATION_ID = "@ToLocationId"
     Friend Const PARAMETER_RECIPE_ID = "@RecipeId"
-    Friend Const PARAMETER_QUANTITY_IN = "@QuantityIn"
 End Module
