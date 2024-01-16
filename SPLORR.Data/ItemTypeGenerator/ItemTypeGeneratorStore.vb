@@ -103,13 +103,13 @@ INSERT INTO
     ) 
     VALUES 
     (
-        {PARAMETER_ITEM_TYPE_ID},
-        {PARAMETER_ITEM_TYPE_GENERATOR_ID},
-        {PARAMETER_GENERATOR_WEIGHT}
+        @{COLUMN_ITEM_TYPE_ID},
+        @{COLUMN_ITEM_TYPE_GENERATOR_ID},
+        @{COLUMN_GENERATOR_WEIGHT}
     );"
-            command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_ID, itemType.Id)
-            command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_ID, Id)
-            command.Parameters.AddWithValue(PARAMETER_GENERATOR_WEIGHT, quantity)
+            command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_ID}", itemType.Id)
+            command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_GENERATOR_ID}", Id)
+            command.Parameters.AddWithValue($"@{COLUMN_GENERATOR_WEIGHT}", quantity)
             command.ExecuteNonQuery()
         End Using
         Return New ItemTypeGeneratorItemTypeStore(connectionSource, connectionSource.ReadLastIdentity)

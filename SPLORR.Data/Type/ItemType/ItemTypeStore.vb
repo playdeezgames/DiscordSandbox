@@ -31,11 +31,11 @@ INSERT INTO
     )
     VALUES
     (
-        {PARAMETER_ITEM_TYPE_ID},
-        {PARAMETER_INVENTORY_ID}
+        @{COLUMN_ITEM_TYPE_ID},
+        @{COLUMN_INVENTORY_ID}
     );"
-            command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_ID, Id)
-            command.Parameters.AddWithValue(PARAMETER_INVENTORY_ID, inventoryStore.Id)
+            command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_ID}", Id)
+            command.Parameters.AddWithValue($"@{COLUMN_INVENTORY_ID}", inventoryStore.Id)
             command.ExecuteNonQuery()
         End Using
         Return New ItemStore(connectionSource, connectionSource.ReadLastIdentity)

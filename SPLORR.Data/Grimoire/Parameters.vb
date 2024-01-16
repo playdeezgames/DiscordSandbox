@@ -9,5 +9,4 @@
     Friend Const PARAMETER_INVENTORY_ID = "@InventoryId"
     Friend Const PARAMETER_ITEM_TYPE_GENERATOR_ID = "@ItemTypeGeneratorId"
     Friend Const PARAMETER_ITEM_TYPE_GENERATOR_NAME = "@ItemTypeGeneratorName"
-    Friend Const PARAMETER_ITEM_TYPE_ID = "@ItemTypeId"
 End Module
