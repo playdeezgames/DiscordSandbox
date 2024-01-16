@@ -211,15 +211,15 @@ INSERT INTO
     ) 
     VALUES 
     (
-        {PARAMETER_DIRECTION_ID},
-        {PARAMETER_ROUTE_TYPE_ID},
-        {PARAMETER_FROM_LOCATION_ID},
-        {PARAMETER_TO_LOCATION_ID}
+        @{COLUMN_DIRECTION_ID},
+        @{COLUMN_ROUTE_TYPE_ID},
+        @{COLUMN_FROM_LOCATION_ID},
+        @{COLUMN_TO_LOCATION_ID}
     );"
-            command.Parameters.AddWithValue(PARAMETER_DIRECTION_ID, direction.Id)
-            command.Parameters.AddWithValue(PARAMETER_ROUTE_TYPE_ID, routeType.Id)
-            command.Parameters.AddWithValue(PARAMETER_FROM_LOCATION_ID, Id)
-            command.Parameters.AddWithValue(PARAMETER_TO_LOCATION_ID, toLocation.Id)
+            command.Parameters.AddWithValue($"@{COLUMN_DIRECTION_ID}", direction.Id)
+            command.Parameters.AddWithValue($"@{COLUMN_ROUTE_TYPE_ID}", routeType.Id)
+            command.Parameters.AddWithValue($"@{COLUMN_FROM_LOCATION_ID}", Id)
+            command.Parameters.AddWithValue($"@{COLUMN_TO_LOCATION_ID}", toLocation.Id)
             command.ExecuteNonQuery()
         End Using
         Return New RouteStore(
