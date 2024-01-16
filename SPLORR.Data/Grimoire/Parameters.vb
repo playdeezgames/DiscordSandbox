@@ -21,5 +21,4 @@
     Friend Const PARAMETER_ROUTE_TYPE_ID = "@RouteTypeId"
     Friend Const PARAMETER_FROM_LOCATION_ID = "@FromLocationId"
     Friend Const PARAMETER_TO_LOCATION_ID = "@ToLocationId"
-    Friend Const PARAMETER_RECIPE_ID = "@RecipeId"
 End Module
