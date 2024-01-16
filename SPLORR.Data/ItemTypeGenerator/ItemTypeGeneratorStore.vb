@@ -29,8 +29,14 @@ Friend Class ItemTypeGeneratorStore
         Get
             Dim total = NothingGeneratorWeight
             Using command = connectionSource().CreateCommand
-                command.CommandText = $"SELECT SUM({COLUMN_GENERATOR_WEIGHT}) FROM {TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES} WHERE {COLUMN_ITEM_TYPE_GENERATOR_ID}={PARAMETER_ITEM_TYPE_GENERATOR_ID};"
-                command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_ID, Id)
+                command.CommandText = $"
+SELECT 
+    SUM({COLUMN_GENERATOR_WEIGHT}) 
+FROM 
+    {TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES} 
+WHERE 
+    {COLUMN_ITEM_TYPE_GENERATOR_ID}=@{COLUMN_ITEM_TYPE_GENERATOR_ID};"
+                command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_GENERATOR_ID}", Id)
                 Return CInt(command.ExecuteScalar) + total
             End Using
         End Get
@@ -47,8 +53,8 @@ Friend Class ItemTypeGeneratorStore
     Public ReadOnly Property CanAddItemType As Boolean Implements IItemTypeGeneratorStore.CanAddItemType
         Get
             Using command = connectionSource().CreateCommand
-                command.CommandText = $"SELECT COUNT(1) FROM {VIEW_ITEM_TYPE_GENERATOR_AVAILABLE_ITEM_TYPES} WHERE {COLUMN_ITEM_TYPE_GENERATOR_ID}={PARAMETER_ITEM_TYPE_GENERATOR_ID};"
-                command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_ID, Id)
+                command.CommandText = $"SELECT COUNT(1) FROM {VIEW_ITEM_TYPE_GENERATOR_AVAILABLE_ITEM_TYPES} WHERE {COLUMN_ITEM_TYPE_GENERATOR_ID}=@{COLUMN_ITEM_TYPE_GENERATOR_ID};"
+                command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_GENERATOR_ID}", Id)
                 Return CInt(command.ExecuteScalar) > 0
             End Using
         End Get
@@ -125,8 +131,17 @@ INSERT INTO
         End If
         generated -= nothingWeight
         Using command = connectionSource().CreateCommand
-            command.CommandText = $"SELECT {COLUMN_ITEM_TYPE_ID},{COLUMN_GENERATOR_WEIGHT} FROM {TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES} WHERE {COLUMN_ITEM_TYPE_GENERATOR_ID}={PARAMETER_ITEM_TYPE_GENERATOR_ID} ORDER BY {COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID} ASC;"
-            command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_GENERATOR_ID, Id)
+            command.CommandText = $"
+SELECT 
+    {COLUMN_ITEM_TYPE_ID},
+    {COLUMN_GENERATOR_WEIGHT} 
+FROM 
+    {TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES} 
+WHERE 
+    {COLUMN_ITEM_TYPE_GENERATOR_ID}=@{COLUMN_ITEM_TYPE_GENERATOR_ID} 
+ORDER BY 
+    {COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID} ASC;"
+            command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_GENERATOR_ID}", Id)
             Using reader = command.ExecuteReader
                 While reader.Read
                     Dim generatorWeight = reader.GetInt32(1)
