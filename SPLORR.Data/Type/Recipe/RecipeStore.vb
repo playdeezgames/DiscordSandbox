@@ -102,11 +102,25 @@ WHERE
 
     Public Function CreateRecipeItemType(itemType As IItemTypeStore, quantityIn As Integer, quantityOut As Integer) As IRecipeItemTypeStore Implements IRecipeStore.CreateRecipeItemType
         Using command = connectionSource().CreateCommand
-            command.CommandText = $"INSERT INTO {TABLE_RECIPE_ITEM_TYPES}({COLUMN_RECIPE_ID},{COLUMN_ITEM_TYPE_ID},{COLUMN_QUANTITY_IN},{COLUMN_QUANTITY_OUT}) VALUES ({PARAMETER_RECIPE_ID},{PARAMETER_ITEM_TYPE_ID},{PARAMETER_QUANTITY_IN},{PARAMETER_QUANTITY_OUT});"
+            command.CommandText = $"
+INSERT INTO 
+    {TABLE_RECIPE_ITEM_TYPES}
+    (
+        {COLUMN_RECIPE_ID},
+        {COLUMN_ITEM_TYPE_ID},
+        {COLUMN_QUANTITY_IN},
+        {COLUMN_QUANTITY_OUT}
+    ) 
+    VALUES 
+    (
+        {PARAMETER_RECIPE_ID},
+        {PARAMETER_ITEM_TYPE_ID},
+        {PARAMETER_QUANTITY_IN},
+        @{COLUMN_QUANTITY_OUT});"
             command.Parameters.AddWithValue(PARAMETER_RECIPE_ID, Id)
             command.Parameters.AddWithValue(PARAMETER_ITEM_TYPE_ID, itemType.Id)
             command.Parameters.AddWithValue(PARAMETER_QUANTITY_IN, quantityIn)
-            command.Parameters.AddWithValue(PARAMETER_QUANTITY_OUT, quantityOut)
+            command.Parameters.AddWithValue($"@{COLUMN_QUANTITY_OUT}", quantityOut)
             command.ExecuteNonQuery()
         End Using
         Return New RecipeItemTypeStore(connectionSource, connectionSource.ReadLastIdentity)
