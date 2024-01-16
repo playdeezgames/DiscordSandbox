@@ -53,10 +53,10 @@ SELECT
 FROM 
     {TABLE_LOCATIONS} 
 WHERE 
-    {COLUMN_LOCATION_ID}={PARAMETER_LOCATION_TYPE_ID} 
-    AND {COLUMN_LOCATION_NAME} LIKE {PARAMETER_LOCATION_NAME};"
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_NAME, filter)
+    {COLUMN_LOCATION_ID}=@{COLUMN_LOCATION_TYPE_ID} 
+    AND {COLUMN_LOCATION_NAME} LIKE @{COLUMN_LOCATION_NAME};"
+            command.Parameters.AddWithValue($"@{COLUMN_LOCATION_TYPE_ID}", Id)
+            command.Parameters.AddWithValue($"@{COLUMN_LOCATION_NAME}", filter)
             Using reader = command.ExecuteReader
                 While reader.Read
                     result.Add(New LocationStore(connectionSource, reader.GetInt32(0)))
@@ -77,11 +77,11 @@ INSERT INTO
     ) 
     VALUES
     (
-        {PARAMETER_LOCATION_NAME},
-        {PARAMETER_LOCATION_TYPE_ID}
+        @{COLUMN_LOCATION_NAME},
+        @{COLUMN_LOCATION_TYPE_ID}
     );"
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_NAME, name)
-            command.Parameters.AddWithValue(PARAMETER_LOCATION_TYPE_ID, Id)
+            command.Parameters.AddWithValue($"@{COLUMN_LOCATION_NAME}", name)
+            command.Parameters.AddWithValue($"@{COLUMN_LOCATION_TYPE_ID}", Id)
             command.ExecuteNonQuery()
         End Using
         Return New LocationStore(connectionSource, connectionSource.ReadLastIdentity)

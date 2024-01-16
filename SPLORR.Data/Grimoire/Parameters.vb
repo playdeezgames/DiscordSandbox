@@ -14,5 +14,4 @@
     Friend Const PARAMETER_LAST_MODIFIED = "@LastModified"
     Friend Const PARAMETER_LOCATION_ID = "@LocationId"
     Friend Const PARAMETER_LOCATION_NAME = "@LocationName"
-    Friend Const PARAMETER_LOCATION_TYPE_ID = "@LocationTypeId"
 End Module
