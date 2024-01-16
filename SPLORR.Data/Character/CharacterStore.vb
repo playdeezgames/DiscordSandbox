@@ -29,11 +29,11 @@ Friend Class CharacterStore
 UPDATE 
     {TABLE_CHARACTERS} 
 SET 
-    {COLUMN_CHARACTER_NAME}={PARAMETER_CHARACTER_NAME} 
+    {COLUMN_CHARACTER_NAME}=@{COLUMN_CHARACTER_NAME} 
 WHERE 
     {COLUMN_CHARACTER_ID}={PARAMETER_CHARACTER_ID};"
                 command.Parameters.AddWithValue(PARAMETER_CHARACTER_ID, _characterId)
-                command.Parameters.AddWithValue(PARAMETER_CHARACTER_NAME, value)
+                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_NAME}", value)
                 command.ExecuteNonQuery()
             End Using
         End Set
