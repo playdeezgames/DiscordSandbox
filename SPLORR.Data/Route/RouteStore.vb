@@ -12,7 +12,7 @@ Friend Class RouteStore
     End Sub
 
     Public Sub Delete() Implements IRouteStore.Delete
-        connectionSource.DeleteForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id))
+        connectionSource.DeleteForValues(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id))
     End Sub
 
     Public Property RouteType As IRouteTypeStore Implements IRouteStore.RouteType

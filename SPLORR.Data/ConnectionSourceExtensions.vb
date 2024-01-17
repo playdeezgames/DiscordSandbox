@@ -175,16 +175,6 @@ WHERE ")
         End Using
     End Function
     <Extension>
-    Sub DeleteForValue(Of TValue)(connectionSource As Func(Of SqlConnection),
-                            tableName As String,
-                            inputColumn As (Name As String, Value As TValue))
-        Using command = connectionSource().CreateCommand()
-            command.CommandText = $"DELETE FROM {tableName} WHERE {inputColumn.Name}={PARAMETER_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, inputColumn.Value)
-            command.ExecuteNonQuery()
-        End Using
-    End Sub
-    <Extension>
     Sub DeleteForValues(connectionSource As Func(Of SqlConnection),
                             tableName As String,
                             ParamArray forColumns As (Name As String, Value As Object)())

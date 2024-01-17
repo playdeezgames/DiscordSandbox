@@ -37,6 +37,6 @@ Friend Class RecipeItemTypeStore
     End Property
 
     Public Sub Delete() Implements IRecipeItemTypeStore.Delete
-        connectionSource.DeleteForValue(TABLE_RECIPE_ITEM_TYPES, (COLUMN_RECIPE_ITEM_TYPE_ID, Id))
+        connectionSource.DeleteForValues(TABLE_RECIPE_ITEM_TYPES, (COLUMN_RECIPE_ITEM_TYPE_ID, Id))
     End Sub
 End Class

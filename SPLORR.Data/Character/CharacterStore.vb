@@ -56,7 +56,7 @@ WHERE
     End Sub
 
     Public Sub Delete() Implements IBaseTypeStore.Delete
-        connectionSource.DeleteForValue(TABLE_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
+        connectionSource.DeleteForValues(TABLE_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
     End Sub
 
     Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
@@ -64,7 +64,7 @@ WHERE
     End Function
 
     Public Sub ClearPlayer() Implements ICharacterStore.ClearPlayer
-        connectionSource.DeleteForValue(TABLE_PLAYER_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
+        connectionSource.DeleteForValues(TABLE_PLAYER_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
     End Sub
 
     Public Function AddStatistic(statisticType As IStatisticTypeStore, statisticValue As Integer) As ICharacterStatisticStore Implements ICharacterStore.AddStatistic

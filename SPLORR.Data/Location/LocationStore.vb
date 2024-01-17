@@ -171,7 +171,7 @@ INSERT INTO
     End Property
 
     Public Sub Delete() Implements IBaseTypeStore.Delete
-        connectionSource.DeleteForValue(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, Id))
+        connectionSource.DeleteForValues(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, Id))
     End Sub
 
     Public Function FindRouteByDirectionName(directionName As String) As IRouteStore Implements ILocationStore.FindRouteByDirectionName

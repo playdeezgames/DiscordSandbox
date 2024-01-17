@@ -77,7 +77,7 @@ Friend Class InventoryStore
     End Function
 
     Public Sub Delete() Implements IInventoryStore.Delete
-        connectionSource.DeleteForValue(TABLE_INVENTORIES, (COLUMN_INVENTORY_ID, Id))
+        connectionSource.DeleteForValues(TABLE_INVENTORIES, (COLUMN_INVENTORY_ID, Id))
     End Sub
 
     Public Function ItemTypeCount(itemType As IItemTypeStore) As Integer Implements IInventoryStore.ItemTypeCount
