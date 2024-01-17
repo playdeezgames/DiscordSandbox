@@ -80,6 +80,10 @@ WHERE
         Return True
     End Function
 
+    Public Sub ClearPlayer() Implements ICharacterStore.ClearPlayer
+        connectionSource.DeleteForValue(TABLE_PLAYER_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
+    End Sub
+
     Public ReadOnly Property HasOtherCharacters As Boolean Implements ICharacterStore.HasOtherCharacters
         Get
             Using command = connectionSource().CreateCommand
@@ -138,11 +142,17 @@ WHERE
 
     Public ReadOnly Property CanDelete As Boolean Implements ICharacterStore.CanDelete
         Get
-            Return Not HasPlayer AndAlso Not HasInventory
+            Return Not HasPlayer AndAlso Not HasInventory AndAlso Not HasCards
         End Get
     End Property
 
-    Private ReadOnly Property HasPlayer As Boolean
+    Private ReadOnly Property HasCards As Boolean
+        Get
+            Return connectionSource.CheckForValue(TABLE_CARDS, (COLUMN_CHARACTER_ID, Id))
+        End Get
+    End Property
+
+    Public ReadOnly Property HasPlayer As Boolean Implements ICharacterStore.HasPlayer
         Get
             Return connectionSource.CheckForValue(TABLE_PLAYER_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
         End Get

@@ -33,6 +33,14 @@ Friend Class CharacterEditWindow
                     Sub() Program.GoToWindow(New CharacterCharacterTypeEditWindow(store))
                 ),
                 (
+                    $"Clear Player",
+                    Function() store.HasPlayer,
+                    Sub()
+                        store.ClearPlayer()
+                        Program.GoToWindow(New CharacterEditWindow(store))
+                    End Sub
+                ),
+                (
                     "Inventory...",
                     Function() True,
                     Sub() Program.GoToWindow(New InventoryEditWindow(store.Inventory))
