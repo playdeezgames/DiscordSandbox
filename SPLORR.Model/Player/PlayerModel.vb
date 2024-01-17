@@ -23,10 +23,12 @@ Friend Class PlayerModel
     End Property
 
     Public Sub CreateCharacter() Implements IPlayerModel.CreateCharacter
+        Dim characterType = GenerateCharacterType()
         _playerStore.Character = _playerStore.CreateCharacter(
             GenerateCharacterName(),
             GenerateStartingLocation(),
-            GenerateCharacterType())
+            characterType,
+            characterType.Statistics.Filter("%").ToDictionary(Function(x) x.StatisticType, Function(x) x.Value))
     End Sub
 
     Private Function GenerateCharacterType() As ICharacterTypeStore

@@ -71,9 +71,14 @@ INSERT INTO
     Public Function CreateCharacter(
                                    characterName As String,
                                    location As ILocationStore,
-                                   characterType As ICharacterTypeStore
+                                   characterType As ICharacterTypeStore,
+                                   statistics As IReadOnlyDictionary(Of IStatisticTypeStore, Integer)
                                    ) As ICharacterStore Implements IPlayerStore.CreateCharacter
-        Return Store.CreateCharacter(characterName, location, characterType)
+        Dim character = Store.CreateCharacter(characterName, location, characterType)
+        For Each entry In statistics
+            character.AddStatistic(entry.Key, entry.Value)
+        Next
+        Return character
     End Function
 
     Public Function GetCharacterTypeGenerator() As IReadOnlyDictionary(Of ICharacterTypeStore, Integer) Implements IPlayerStore.GetCharacterTypeGenerator

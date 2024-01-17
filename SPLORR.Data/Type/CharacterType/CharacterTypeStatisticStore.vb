@@ -36,4 +36,15 @@ Friend Class CharacterTypeStatisticStore
                     COLUMN_CHARACTER_TYPE_ID))
         End Get
     End Property
+
+    Public ReadOnly Property StatisticType As IStatisticTypeStore Implements ICharacterTypeStatisticStore.StatisticType
+        Get
+            Return New StatisticTypeStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValue(
+                    TABLE_CHARACTER_TYPE_STATISTICS,
+                    (COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id),
+                    COLUMN_STATISTIC_TYPE_ID))
+        End Get
+    End Property
 End Class
