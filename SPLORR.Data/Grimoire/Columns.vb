@@ -42,4 +42,5 @@
     Friend Const COLUMN_CARD_ID = "CardId"
     Friend Const COLUMN_CHARACTER_TYPE_STATISTIC_ID = "CharacterTypeStatisticId"
     Friend Const COLUMN_STATISTIC_VALUE = "StatisticValue"
+    Friend Const COLUMN_CHARACTER_STATISTIC_ID = "CharacterStatisticId"
 End Module

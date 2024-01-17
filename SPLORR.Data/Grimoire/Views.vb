@@ -12,4 +12,6 @@
     Friend Const VIEW_CARD_DETAILS = "CardDetails"
     Friend Const VIEW_CHARACTER_TYPE_STATISTIC_DETAILS = "CharacterTypeStatisticDetails"
     Friend Const VIEW_CHARACTER_TYPE_AVAILABLE_STATISTIC_TYPES = "CharacterTypeAvailableStatisticTypes"
+    Friend Const VIEW_CHARACTER_STATISTIC_DETAILS = "CharacterStatisticDetails"
+    Friend Const VIEW_CHARACTER_AVAILABLE_STATISTICS = "CharacterAvailableStatistics"
 End Module

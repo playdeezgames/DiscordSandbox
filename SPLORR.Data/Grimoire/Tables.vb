@@ -21,4 +21,5 @@
     Friend Const TABLE_CARD_TYPES = "CardTypes"
     Friend Const TABLE_CARDS = "Cards"
     Friend Const TABLE_CHARACTER_TYPE_STATISTICS = "CharacterTypeStatistics"
+    Friend Const TABLE_CHARACTER_STATISTICS = "CharacterStatistics"
 End Module

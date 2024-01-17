@@ -1,5 +1,4 @@
 ﻿Imports SPLORR.Data
-Imports Terminal.Gui
 
 Friend Class CharacterTypeAddStatisticTypeWindow
     Inherits BaseListWindow(Of ICharacterTypeStore, IStatisticTypeStore)

@@ -49,6 +49,11 @@ Friend Class CharacterEditWindow
                     "Cards...",
                     Function() True,
                     Sub() Program.GoToWindow(New CharacterCardListWindow(store))
+                ),
+                (
+                    "Statistics...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CharacterStatisticListWindow(store))
                 )
             })
     End Sub

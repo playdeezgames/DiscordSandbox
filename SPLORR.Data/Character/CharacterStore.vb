@@ -84,6 +84,30 @@ WHERE
         connectionSource.DeleteForValue(TABLE_PLAYER_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
     End Sub
 
+    Public Function AddStatistic(statisticType As IStatisticTypeStore, statisticValue As Integer) As ICharacterStatisticStore Implements ICharacterStore.AddStatistic
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"
+INSERT INTO
+    {TABLE_CHARACTER_STATISTICS}
+    (
+        {COLUMN_CHARACTER_ID},
+        {COLUMN_STATISTIC_TYPE_ID},
+        {COLUMN_STATISTIC_VALUE}
+    )
+    VALUES
+    (
+        @{COLUMN_CHARACTER_ID},
+        @{COLUMN_STATISTIC_TYPE_ID},
+        @{COLUMN_STATISTIC_VALUE}
+    );"
+            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", Id)
+            command.Parameters.AddWithValue($"@{COLUMN_STATISTIC_TYPE_ID}", statisticType.Id)
+            command.Parameters.AddWithValue($"@{COLUMN_STATISTIC_VALUE}", statisticValue)
+            command.ExecuteNonQuery()
+        End Using
+        Return New CharacterStatisticStore(connectionSource, connectionSource.ReadLastIdentity)
+    End Function
+
     Public ReadOnly Property HasOtherCharacters As Boolean Implements ICharacterStore.HasOtherCharacters
         Get
             Using command = connectionSource().CreateCommand
@@ -195,6 +219,30 @@ WHERE
                 COLUMN_CARD_TYPE_NAME,
                 (COLUMN_CHARACTER_ID, Id),
                 Function(x, y) New CardStore(x, y))
+        End Get
+    End Property
+
+    Public ReadOnly Property Statistics As IRelatedTypeStore(Of ICharacterStatisticStore) Implements ICharacterStore.Statistics
+        Get
+            Return New RelatedTypeStore(Of ICharacterStatisticStore, Integer)(
+                connectionSource,
+                VIEW_CHARACTER_STATISTIC_DETAILS,
+                COLUMN_CHARACTER_STATISTIC_ID,
+                COLUMN_STATISTIC_TYPE_NAME,
+                (COLUMN_CHARACTER_ID, Id),
+                Function(x, y) New CharacterStatisticStore(x, y))
+        End Get
+    End Property
+
+    Public ReadOnly Property AvailableStatistics As IRelatedTypeStore(Of IStatisticTypeStore) Implements ICharacterStore.AvailableStatistics
+        Get
+            Return New RelatedTypeStore(Of IStatisticTypeStore, Integer)(
+                connectionSource,
+                VIEW_CHARACTER_AVAILABLE_STATISTICS,
+                COLUMN_STATISTIC_TYPE_ID,
+                COLUMN_STATISTIC_TYPE_NAME,
+                (COLUMN_CHARACTER_ID, Id),
+                Function(x, y) New StatisticTypeStore(x, y))
         End Get
     End Property
 End Class
