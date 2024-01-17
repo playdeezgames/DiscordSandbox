@@ -131,30 +131,6 @@ WHERE
         End Using
     End Function
     <Extension>
-    Function ReadIntegersForValue(Of TValue)(
-                                            connectionSource As Func(Of SqlConnection),
-                                            tableName As String,
-                                            forColumn As (Name As String, Value As TValue),
-                                            readColumnName As String) As IEnumerable(Of Integer)
-        Dim result As New List(Of Integer)
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-SELECT 
-    {readColumnName} 
-FROM 
-    {tableName} 
-WHERE 
-    {forColumn.Name}={PARAMETER_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, forColumn.Value)
-            Using reader = command.ExecuteReader
-                While reader.Read
-                    result.Add(reader.GetInt32(0))
-                End While
-            End Using
-        End Using
-        Return result
-    End Function
-    <Extension>
     Function ReadIntegersForValues(
                 connectionSource As Func(Of SqlConnection),
                 tableName As String,
