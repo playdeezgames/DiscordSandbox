@@ -31,9 +31,9 @@ Friend MustInherit Class BaseTypeStore
     Public Property Name As String Implements IBaseTypeStore.Name
         Get
             If cachedName Is Nothing Then
-                cachedName = connectionSource.ReadStringForValue(
+                cachedName = connectionSource.ReadStringForValues(
                     tableName,
-                    (idColumnName, Id),
+                    {(idColumnName, Id)},
                     nameColumnName)
             End If
             Return cachedName

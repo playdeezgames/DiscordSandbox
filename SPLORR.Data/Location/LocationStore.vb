@@ -19,9 +19,9 @@ Friend Class LocationStore
 
     Public Property Name As String Implements ILocationStore.Name
         Get
-            Return connectionSource.ReadStringForValue(
+            Return connectionSource.ReadStringForValues(
                 TABLE_LOCATIONS,
-                (COLUMN_LOCATION_ID, locationId),
+                {(COLUMN_LOCATION_ID, locationId)},
                 COLUMN_LOCATION_NAME)
         End Get
         Set(value As String)

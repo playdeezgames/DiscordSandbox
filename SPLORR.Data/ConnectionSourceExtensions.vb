@@ -30,24 +30,6 @@ WHERE ")
         End Using
     End Function
     <Extension>
-    Function ReadStringForValue(Of TValue)(
-                                          connectionSource As Func(Of SqlConnection),
-                                          tableName As String,
-                                          forColumn As (Name As String, Value As TValue),
-                                          readColumnName As String) As String
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-SELECT 
-    {readColumnName} 
-FROM 
-    {tableName} 
-WHERE 
-    {forColumn.Name}={PARAMETER_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, forColumn.Value)
-            Return CStr(command.ExecuteScalar)
-        End Using
-    End Function
-    <Extension>
     Sub WriteValueForInteger(Of TValue)(
                              connectionSource As Func(Of SqlConnection),
                              tableName As String,
