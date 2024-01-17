@@ -39,10 +39,10 @@ Friend MustInherit Class BaseTypeStore
             Return cachedName
         End Get
         Set(value As String)
-            connectionSource.WriteValueForInteger(
+            connectionSource.WriteValuesForValues(
                 tableName,
-                (idColumnName, Id),
-                (nameColumnName, value))
+                {(idColumnName, Id)},
+                {(nameColumnName, value)})
             cachedName = value
         End Set
     End Property

@@ -19,10 +19,10 @@ Friend Class CharacterTypeStatisticStore
             Return connectionSource.ReadIntegerForValue(TABLE_CHARACTER_TYPE_STATISTICS, (COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id), COLUMN_STATISTIC_VALUE)
         End Get
         Set(value As Integer)
-            connectionSource.WriteValueForInteger(
+            connectionSource.WriteValuesForValues(
                 TABLE_CHARACTER_TYPE_STATISTICS,
-                (COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id),
-                (COLUMN_STATISTIC_VALUE, value))
+                {(COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id)},
+                {(COLUMN_STATISTIC_VALUE, value)})
         End Set
     End Property
 

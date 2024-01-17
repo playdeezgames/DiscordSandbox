@@ -24,10 +24,10 @@ Friend Class ItemStore
                     COLUMN_INVENTORY_ID))
         End Get
         Set(value As IInventoryStore)
-            connectionSource.WriteValueForInteger(
+            connectionSource.WriteValuesForValues(
                 TABLE_ITEMS,
-                (COLUMN_ITEM_ID, Id),
-                (COLUMN_INVENTORY_ID, value.Id))
+                {(COLUMN_ITEM_ID, Id)},
+                {(COLUMN_INVENTORY_ID, value.Id)})
         End Set
     End Property
 
@@ -47,10 +47,10 @@ Friend Class ItemStore
                     COLUMN_ITEM_TYPE_ID))
         End Get
         Set(value As IItemTypeStore)
-            connectionSource.WriteValueForInteger(
+            connectionSource.WriteValuesForValues(
                 TABLE_ITEMS,
-                (COLUMN_ITEM_ID, Id),
-                (COLUMN_ITEM_TYPE_ID, value.Id))
+                {(COLUMN_ITEM_ID, Id)},
+                {(COLUMN_ITEM_TYPE_ID, value.Id)})
         End Set
     End Property
 End Class

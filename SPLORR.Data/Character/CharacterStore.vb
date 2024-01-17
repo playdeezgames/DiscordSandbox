@@ -20,10 +20,10 @@ Friend Class CharacterStore
                 COLUMN_CHARACTER_NAME)
         End Get
         Set(value As String)
-            connectionSource.WriteValueForInteger(
+            connectionSource.WriteValuesForValues(
                 TABLE_CHARACTERS,
-                (COLUMN_CHARACTER_ID, Id),
-                (COLUMN_CHARACTER_NAME, value))
+                {(COLUMN_CHARACTER_ID, Id)},
+                {(COLUMN_CHARACTER_NAME, value)})
         End Set
     End Property
 
@@ -187,10 +187,10 @@ WHERE
                     COLUMN_CHARACTER_TYPE_ID))
         End Get
         Set(value As ICharacterTypeStore)
-            connectionSource.WriteValueForInteger(
+            connectionSource.WriteValuesForValues(
                 TABLE_CHARACTERS,
-                (COLUMN_CHARACTER_ID, Id),
-                (COLUMN_CHARACTER_TYPE_ID, value.Id))
+                {(COLUMN_CHARACTER_ID, Id)},
+                {(COLUMN_CHARACTER_TYPE_ID, value.Id)})
         End Set
     End Property
     Public ReadOnly Property Cards As IRelatedTypeStore(Of ICardStore) Implements ICharacterStore.Cards

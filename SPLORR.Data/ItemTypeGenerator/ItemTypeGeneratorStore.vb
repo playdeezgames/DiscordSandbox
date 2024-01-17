@@ -90,10 +90,10 @@ WHERE
                 COLUMN_NOTHING_GENERATOR_WEIGHT)
         End Get
         Set(value As Integer)
-            connectionSource.WriteValueForInteger(
+            connectionSource.WriteValuesForValues(
                 TABLE_ITEM_TYPE_GENERATORS,
-                (COLUMN_ITEM_TYPE_GENERATOR_ID, Id),
-                (COLUMN_NOTHING_GENERATOR_WEIGHT, Math.Max(NOTHING_GENERATOR_WEIGHT_MINIMUM, value)))
+                {(COLUMN_ITEM_TYPE_GENERATOR_ID, Id)},
+                {(COLUMN_NOTHING_GENERATOR_WEIGHT, Math.Max(NOTHING_GENERATOR_WEIGHT_MINIMUM, value))})
         End Set
     End Property
 

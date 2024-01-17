@@ -28,10 +28,10 @@ Friend Class CharacterTypeCardStore
                 COLUMN_CARD_QUANTITY)
         End Get
         Set(value As Integer)
-            connectionSource.WriteValueForInteger(
+            connectionSource.WriteValuesForValues(
                 TABLE_CHARACTER_TYPE_CARDS,
-                (COLUMN_CHARACTER_TYPE_CARD_ID, Id),
-                (COLUMN_CARD_QUANTITY, value))
+                {(COLUMN_CHARACTER_TYPE_CARD_ID, Id)},
+                {(COLUMN_CARD_QUANTITY, value)})
         End Set
     End Property
 

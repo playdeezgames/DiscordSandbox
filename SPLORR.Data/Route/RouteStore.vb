@@ -25,10 +25,10 @@ Friend Class RouteStore
                     COLUMN_ROUTE_TYPE_ID))
         End Get
         Set(value As IRouteTypeStore)
-            connectionSource.WriteValueForInteger(
+            connectionSource.WriteValuesForValues(
                 TABLE_ROUTES,
-                (COLUMN_ROUTE_ID, Id),
-                (COLUMN_ROUTE_TYPE_ID, value.Id))
+                {(COLUMN_ROUTE_ID, Id)},
+                {(COLUMN_ROUTE_TYPE_ID, value.Id)})
         End Set
     End Property
 
@@ -42,10 +42,10 @@ Friend Class RouteStore
                     COLUMN_DIRECTION_ID))
         End Get
         Set(value As IDirectionStore)
-            connectionSource.WriteValueForInteger(
+            connectionSource.WriteValuesForValues(
                 TABLE_ROUTES,
-                (COLUMN_ROUTE_ID, Id),
-                (COLUMN_DIRECTION_ID, value.Id))
+                {(COLUMN_ROUTE_ID, Id)},
+                {(COLUMN_DIRECTION_ID, value.Id)})
         End Set
     End Property
 
@@ -54,7 +54,10 @@ Friend Class RouteStore
             Return New LocationStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), COLUMN_FROM_LOCATION_ID))
         End Get
         Set(value As ILocationStore)
-            connectionSource.WriteValueForInteger(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), (COLUMN_FROM_LOCATION_ID, value.Id))
+            connectionSource.WriteValuesForValues(
+                TABLE_ROUTES,
+                {(COLUMN_ROUTE_ID, Id)},
+                {(COLUMN_FROM_LOCATION_ID, value.Id)})
         End Set
     End Property
 
@@ -63,7 +66,10 @@ Friend Class RouteStore
             Return New LocationStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), COLUMN_TO_LOCATION_ID))
         End Get
         Set(value As ILocationStore)
-            connectionSource.WriteValueForInteger(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), (COLUMN_TO_LOCATION_ID, value.Id))
+            connectionSource.WriteValuesForValues(
+                TABLE_ROUTES,
+                {(COLUMN_ROUTE_ID, Id)},
+                {(COLUMN_TO_LOCATION_ID, value.Id)})
         End Set
     End Property
 

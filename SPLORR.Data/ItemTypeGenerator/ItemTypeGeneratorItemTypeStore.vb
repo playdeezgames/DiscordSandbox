@@ -35,10 +35,10 @@ Friend Class ItemTypeGeneratorItemTypeStore
                 COLUMN_GENERATOR_WEIGHT)
         End Get
         Set(value As Integer)
-            connectionSource.WriteValueForInteger(
+            connectionSource.WriteValuesForValues(
                 TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES,
-                (COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id),
-                (COLUMN_GENERATOR_WEIGHT, Math.Max(value, GENERATOR_WEIGHT_MINIMUM)))
+                {(COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id)},
+                {(COLUMN_GENERATOR_WEIGHT, Math.Max(value, GENERATOR_WEIGHT_MINIMUM))})
         End Set
     End Property
 

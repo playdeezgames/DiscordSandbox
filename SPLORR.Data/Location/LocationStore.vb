@@ -25,10 +25,10 @@ Friend Class LocationStore
                 COLUMN_LOCATION_NAME)
         End Get
         Set(value As String)
-            connectionSource.WriteValueForInteger(
+            connectionSource.WriteValuesForValues(
                 TABLE_LOCATIONS,
-                (COLUMN_LOCATION_ID, Id),
-                (COLUMN_LOCATION_NAME, value))
+                {(COLUMN_LOCATION_ID, Id)},
+                {(COLUMN_LOCATION_NAME, value)})
         End Set
     End Property
 
@@ -92,7 +92,10 @@ INSERT INTO
             Return New LocationTypeStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, locationId), COLUMN_LOCATION_TYPE_ID))
         End Get
         Set(value As ILocationTypeStore)
-            connectionSource.WriteValueForInteger(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, Id), (COLUMN_LOCATION_TYPE_ID, value.Id))
+            connectionSource.WriteValuesForValues(
+                TABLE_LOCATIONS,
+                {(COLUMN_LOCATION_ID, Id)},
+                {(COLUMN_LOCATION_TYPE_ID, value.Id)})
         End Set
     End Property
 

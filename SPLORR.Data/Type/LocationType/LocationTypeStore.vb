@@ -39,7 +39,10 @@ Friend Class LocationTypeStore
             If value Is Nothing Then
                 connectionSource.ClearColumnForValue(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), COLUMN_ITEM_TYPE_GENERATOR_ID)
             Else
-                connectionSource.WriteValueForInteger(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), (COLUMN_ITEM_TYPE_GENERATOR_ID, value.Id))
+                connectionSource.WriteValuesForValues(
+                    TABLE_LOCATION_TYPES,
+                    {(COLUMN_LOCATION_TYPE_ID, Id)},
+                    {(COLUMN_ITEM_TYPE_GENERATOR_ID, value.Id)})
             End If
         End Set
     End Property
