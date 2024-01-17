@@ -8,16 +8,20 @@ Friend Module ConnectionSourceExtensions
     Private Const PARAMETER_SECOND_FOR_COLUMN = "@SecondForColumn"
     Private Const PARAMETER_WRITTEN_COLUMN = "@WrittenColumn"
     <Extension>
-    Function ReadStringForValue(Of TValue)(connectionSource As Func(Of SqlConnection), tableName As String, inputColumn As (Name As String, Value As TValue), outputColumnName As String) As String
+    Function ReadStringForValue(Of TValue)(
+                                          connectionSource As Func(Of SqlConnection),
+                                          tableName As String,
+                                          forColumn As (Name As String, Value As TValue),
+                                          readColumnName As String) As String
         Using command = connectionSource().CreateCommand
             command.CommandText = $"
 SELECT 
-    {outputColumnName} 
+    {readColumnName} 
 FROM 
     {tableName} 
 WHERE 
-    {inputColumn.Name}={PARAMETER_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, inputColumn.Value)
+    {forColumn.Name}={PARAMETER_FOR_COLUMN};"
+            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, forColumn.Value)
             Return CStr(command.ExecuteScalar)
         End Using
     End Function
@@ -96,31 +100,39 @@ WHERE
         Return Nothing
     End Function
     <Extension>
-    Function ReadIntegerForValue(Of TValue)(connectionSource As Func(Of SqlConnection), tableName As String, inputColumn As (Name As String, Value As TValue), outputColumnName As String) As Integer
+    Function ReadIntegerForValue(Of TValue)(
+                                           connectionSource As Func(Of SqlConnection),
+                                           tableName As String,
+                                           forColumn As (Name As String, Value As TValue),
+                                           readColumnName As String) As Integer
         Using command = connectionSource().CreateCommand
             command.CommandText = $"
 SELECT 
-    {outputColumnName} 
+    {readColumnName} 
 FROM 
     {tableName} 
 WHERE 
-    {inputColumn.Name}={PARAMETER_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, inputColumn.Value)
+    {forColumn.Name}={PARAMETER_FOR_COLUMN};"
+            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, forColumn.Value)
             Return CInt(command.ExecuteScalar)
         End Using
     End Function
     <Extension>
-    Function ReadIntegersForValue(Of TValue)(connectionSource As Func(Of SqlConnection), tableName As String, inputColumn As (Name As String, Value As TValue), outputColumnName As String) As IEnumerable(Of Integer)
+    Function ReadIntegersForValue(Of TValue)(
+                                            connectionSource As Func(Of SqlConnection),
+                                            tableName As String,
+                                            forColumn As (Name As String, Value As TValue),
+                                            readColumnName As String) As IEnumerable(Of Integer)
         Dim result As New List(Of Integer)
         Using command = connectionSource().CreateCommand
             command.CommandText = $"
 SELECT 
-    {outputColumnName} 
+    {readColumnName} 
 FROM 
     {tableName} 
 WHERE 
-    {inputColumn.Name}={PARAMETER_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, inputColumn.Value)
+    {forColumn.Name}={PARAMETER_FOR_COLUMN};"
+            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, forColumn.Value)
             Using reader = command.ExecuteReader
                 While reader.Read
                     result.Add(reader.GetInt32(0))
@@ -133,21 +145,21 @@ WHERE
     Function ReadIntegersForValues(Of TFirstValue, TSecondValue)(
                                                                 connectionSource As Func(Of SqlConnection),
                                                                 tableName As String,
-                                                                firstInputColumn As (Name As String, Value As TFirstValue),
-                                                                secondInputColumn As (Name As String, Value As TSecondValue),
-                                                                outputColumnName As String) As IEnumerable(Of Integer)
+                                                                firstForColumn As (Name As String, Value As TFirstValue),
+                                                                secondForColumn As (Name As String, Value As TSecondValue),
+                                                                readColumnName As String) As IEnumerable(Of Integer)
         Dim result As New List(Of Integer)
         Using command = connectionSource().CreateCommand
             command.CommandText = $"
 SELECT 
-    {outputColumnName} 
+    {readColumnName} 
 FROM 
     {tableName} 
 WHERE 
-    {firstInputColumn.Name}={PARAMETER_FIRST_FOR_COLUMN} 
-    AND {secondInputColumn.Name}={PARAMETER_SECOND_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FIRST_FOR_COLUMN, firstInputColumn.Value)
-            command.Parameters.AddWithValue(PARAMETER_SECOND_FOR_COLUMN, secondInputColumn.Value)
+    {firstForColumn.Name}={PARAMETER_FIRST_FOR_COLUMN} 
+    AND {secondForColumn.Name}={PARAMETER_SECOND_FOR_COLUMN};"
+            command.Parameters.AddWithValue(PARAMETER_FIRST_FOR_COLUMN, firstForColumn.Value)
+            command.Parameters.AddWithValue(PARAMETER_SECOND_FOR_COLUMN, secondForColumn.Value)
             Using reader = command.ExecuteReader
                 While reader.Read
                     result.Add(reader.GetInt32(0))
@@ -160,10 +172,26 @@ WHERE
     Function CheckForValue(Of TValue)(
                             connectionSource As Func(Of SqlConnection),
                             tableName As String,
-                            inputColumn As (Name As String, Value As TValue)) As Boolean
+                            forColumn As (Name As String, Value As TValue)) As Boolean
         Using command = connectionSource().CreateCommand()
-            command.CommandText = $"SELECT COUNT(1) FROM {tableName} WHERE {inputColumn.Name}={PARAMETER_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, inputColumn.Value)
+            command.CommandText = $"SELECT COUNT(1) FROM {tableName} WHERE {forColumn.Name}={PARAMETER_FOR_COLUMN};"
+            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, forColumn.Value)
+            Return CInt(command.ExecuteScalar) > 0
+        End Using
+    End Function
+    <Extension>
+    Function CheckForValues(
+                           connectionSource As Func(Of SqlConnection),
+                           tableName As String,
+                           ParamArray forColumns As (Name As String, Value As Object)()) As Boolean
+        Using command = connectionSource().CreateCommand()
+            Dim builder As New StringBuilder
+            builder.Append($"SELECT COUNT(1) FROM {tableName} WHERE ")
+            builder.Append(String.Join(" AND ", forColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
+            command.CommandText = builder.ToString
+            For Each column In forColumns
+                command.Parameters.AddWithValue($"@{column.Name}", column.Value)
+            Next
             Return CInt(command.ExecuteScalar) > 0
         End Using
     End Function
@@ -180,17 +208,17 @@ WHERE
     <Extension>
     Sub DeleteForValues(Of TFirstValue, TSecondValue)(connectionSource As Func(Of SqlConnection),
                             tableName As String,
-                            firstInputColumn As (Name As String, Value As TFirstValue),
-                            secondInputColumn As (Name As String, Value As TSecondValue))
+                            firstForColumn As (Name As String, Value As TFirstValue),
+                            secondForColumn As (Name As String, Value As TSecondValue))
         Using command = connectionSource().CreateCommand()
             command.CommandText = $"
 DELETE FROM 
     {tableName} 
 WHERE 
-    {firstInputColumn.Name}={PARAMETER_FIRST_FOR_COLUMN}
-    AND {secondInputColumn.Name}={PARAMETER_SECOND_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FIRST_FOR_COLUMN, firstInputColumn.Value)
-            command.Parameters.AddWithValue(PARAMETER_SECOND_FOR_COLUMN, secondInputColumn.Value)
+    {firstForColumn.Name}={PARAMETER_FIRST_FOR_COLUMN}
+    AND {secondForColumn.Name}={PARAMETER_SECOND_FOR_COLUMN};"
+            command.Parameters.AddWithValue(PARAMETER_FIRST_FOR_COLUMN, firstForColumn.Value)
+            command.Parameters.AddWithValue(PARAMETER_SECOND_FOR_COLUMN, secondForColumn.Value)
             command.ExecuteNonQuery()
         End Using
     End Sub
