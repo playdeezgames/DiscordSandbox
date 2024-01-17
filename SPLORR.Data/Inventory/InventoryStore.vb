@@ -70,8 +70,8 @@ Friend Class InventoryStore
     Public Function ItemsByName(itemName As String) As IEnumerable(Of IItemStore) Implements IInventoryStore.ItemsByName
         Return connectionSource.ReadIntegersForValues(
             VIEW_ITEM_DETAILS,
-            (COLUMN_INVENTORY_ID, Id),
-            (COLUMN_ITEM_NAME, itemName),
+            {(COLUMN_INVENTORY_ID, Id),
+            (COLUMN_ITEM_NAME, itemName)},
             COLUMN_ITEM_ID).
             Select(Function(x) New ItemStore(connectionSource, x))
     End Function
@@ -93,8 +93,8 @@ Friend Class InventoryStore
     Public Function ItemsByType(itemType As IItemTypeStore) As IEnumerable(Of IItemStore) Implements IInventoryStore.ItemsByType
         Return connectionSource.ReadIntegersForValues(
             TABLE_ITEMS,
-            (COLUMN_INVENTORY_ID, Id),
-            (COLUMN_ITEM_TYPE_ID, itemType.Id),
+            {(COLUMN_INVENTORY_ID, Id),
+            (COLUMN_ITEM_TYPE_ID, itemType.Id)},
             COLUMN_ITEM_ID).
             Select(Function(x) New ItemStore(connectionSource, x))
     End Function
