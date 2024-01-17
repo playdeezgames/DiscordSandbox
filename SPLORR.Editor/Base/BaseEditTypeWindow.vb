@@ -1,5 +1,4 @@
-﻿Imports System.Threading
-Imports Terminal.Gui
+﻿Imports Terminal.Gui
 
 Friend MustInherit Class BaseEditTypeWindow
     Inherits Window
@@ -13,7 +12,7 @@ Friend MustInherit Class BaseEditTypeWindow
     Public Sub New(
                   title As String,
                   typeName As String,
-                  id As Integer,
+                  idColumn As (Name As String, Value As String),
                   nameColumn As (Name As String, Value As String),
                   onUpdate As (Enabled As Boolean, Caption As String, IsValidInput As Func(Of String, Boolean), NextWindow As Func(Of String, Window)),
                   onDelete As (Enabled As Boolean, Caption As String, NextWindow As Func(Of Window)),
@@ -26,12 +25,12 @@ Friend MustInherit Class BaseEditTypeWindow
         Me.updateWindowSource = onUpdate.NextWindow
         Me.canRenameCheck = onUpdate.IsValidInput
         Me.nameColumnName = nameColumn.Name
-        Dim idLabel As New Label("Id:") With
+        Dim idLabel As New Label($"{idColumn.Name}:") With
             {
                 .X = 1,
                 .Y = 1
             }
-        Dim idTextField As New TextField(id.ToString) With
+        Dim idTextField As New TextField(idColumn.Value) With
             {
                 .X = Pos.Right(idLabel) + 1,
                 .Y = idLabel.Y,

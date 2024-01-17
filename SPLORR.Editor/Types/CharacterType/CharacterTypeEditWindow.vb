@@ -7,7 +7,7 @@ Friend Class CharacterTypeEditWindow
         MyBase.New(
             $"Edit Character Type: {characterTypeStore.Name}",
             "Character Type",
-            characterTypeStore.Id,
+            ("Id", characterTypeStore.Id.ToString),
             ("Name", characterTypeStore.Name),
             (True, "Update",
             Function(x) characterTypeStore.CanRenameTo(x),

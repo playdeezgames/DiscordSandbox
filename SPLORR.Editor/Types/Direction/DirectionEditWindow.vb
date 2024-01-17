@@ -7,7 +7,7 @@ Friend Class DirectionEditWindow
         MyBase.New(
             $"Edit Direction: {directionStore.Name}",
             "Direction",
-            directionStore.Id,
+            ("Id", directionStore.Id.ToString),
             ("Name", directionStore.Name),
             (True, "Update",
             Function(x) directionStore.CanRenameTo(x),

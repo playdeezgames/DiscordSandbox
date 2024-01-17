@@ -7,7 +7,7 @@ Friend Class LocationEditWindow
         MyBase.New(
             $"Edit Location: {store.Name}",
             "Item Type",
-            store.Id,
+            ("Id", store.Id.ToString),
             ("Name", store.Name),
             (True, "Update",
             Function(x) store.CanRenameTo(x),

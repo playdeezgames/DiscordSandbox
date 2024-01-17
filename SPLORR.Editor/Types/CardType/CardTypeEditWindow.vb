@@ -7,7 +7,7 @@ Friend Class CardTypeEditWindow
         MyBase.New(
             $"Edit Card Type: {store.Name}",
             "Card Type",
-            store.Id,
+            ("Id", store.Id.ToString),
             ("Name", store.Name),
             (True, "Update",
             Function(x) store.CanRenameTo(x),

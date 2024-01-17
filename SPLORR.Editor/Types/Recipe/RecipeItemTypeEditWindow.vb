@@ -8,7 +8,7 @@ Friend Class RecipeItemTypeEditWindow
         MyBase.New(
             $"Item Type `{store.ItemType.Name}` for Recipe `{store.Recipe.Name}`:",
             "Recipe Item Type",
-            store.Id,
+            ("Id", store.Id.ToString),
             ("Item Type", store.ItemType.Name),
             (False, Nothing, Nothing, Nothing),
             (True, "Delete", Function()

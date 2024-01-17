@@ -7,7 +7,7 @@ Friend Class ItemTypeGeneratorEditNothingGeneratorWeightWindow
         MyBase.New(
             $"Edit Nothing Generator Weight for Item Type Generator: {itemTypeGeneratorStore.Name}",
             "Item Type Generator",
-            itemTypeGeneratorStore.Id,
+            ("Id", itemTypeGeneratorStore.Id.ToString),
             ("Nothing Generator Weight", itemTypeGeneratorStore.NothingGeneratorWeight.ToString),
             (True, "Update",
             Function(x)

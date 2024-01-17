@@ -9,7 +9,7 @@ Friend Class RouteTypeEditWindow
         MyBase.New(
             $"Edit Route Type: {routeTypeStore.Name}",
             "Route Type",
-            routeTypeStore.Id,
+            ("Id", routeTypeStore.Id.ToString),
             ("Name", routeTypeStore.Name),
             (True, "Update",
             Function(x) routeTypeStore.CanRenameTo(x),

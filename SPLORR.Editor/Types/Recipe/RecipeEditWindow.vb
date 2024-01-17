@@ -6,7 +6,7 @@ Friend Class RecipeEditWindow
         MyBase.New(
             $"Edit Recipe: {store.Name}",
             "Recipe",
-            store.Id,
+            ("Id", store.Id.ToString),
             ("Name", store.Name),
             (True, "Update",
             Function(x) store.CanRenameTo(x),

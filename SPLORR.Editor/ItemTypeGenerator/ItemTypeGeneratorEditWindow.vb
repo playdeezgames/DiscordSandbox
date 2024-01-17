@@ -8,7 +8,7 @@ Friend Class ItemTypeGeneratorEditWindow
         MyBase.New(
             $"Edit Item Type Generator: {itemTypeGeneratorStore.Name}",
             "Item Type Generator",
-            itemTypeGeneratorStore.Id,
+            ("Id", itemTypeGeneratorStore.Id.ToString),
             ("Name", itemTypeGeneratorStore.Name),
             (True, "Update",
             Function(x) itemTypeGeneratorStore.CanRenameTo(x),

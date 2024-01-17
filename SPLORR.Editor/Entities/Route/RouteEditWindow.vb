@@ -10,7 +10,7 @@ Friend Class RouteEditWindow
         MyBase.New(
             $"Edit Route",
             "Route",
-            store.Id,
+            ("Id", store.Id.ToString),
             ("Name", $"{store.Direction.Name} {store.RouteType.Name} from {store.FromLocation.Name} to {store.ToLocation.Name}"),
             (False, Nothing, Nothing, Nothing),
             (True, "Delete",

@@ -8,7 +8,7 @@ Friend Class CardEditWindow
         MyBase.New(
             $"Edit Card `{store.Name}` belonging to `{store.Character.Name}`",
             "Card",
-            store.Id,
+            ("Id", store.Id.ToString),
             ("Card Type", store.Name),
             (False, Nothing, Nothing, Nothing),
             (

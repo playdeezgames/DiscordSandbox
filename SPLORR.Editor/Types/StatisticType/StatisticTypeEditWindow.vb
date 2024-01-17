@@ -1,5 +1,4 @@
 ﻿Imports SPLORR.Data
-Imports Terminal.Gui
 
 Friend Class StatisticTypeEditWindow
     Inherits BaseEditTypeWindow
@@ -8,7 +7,7 @@ Friend Class StatisticTypeEditWindow
         MyBase.New(
             $"Edit Statistic Type: {statisticTypeStore.Name}",
             "Statistic Type",
-            statisticTypeStore.Id,
+            ("Id", statisticTypeStore.Id.ToString),
             ("Name", statisticTypeStore.Name),
             (True, "Update",
             Function(x) statisticTypeStore.CanRenameTo(x),

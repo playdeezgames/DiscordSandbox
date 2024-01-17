@@ -6,7 +6,7 @@ Friend Class CharacterTypeEditStatisticWindow
         MyBase.New(
             $"Statistic `{store.Name}` for Character Type `{store.CharacterType.Name}`",
             "Character Type Statistic",
-            store.Id,
+            ("Id", store.Id.ToString),
             ("Value", store.Value.ToString),
             (
                 True,

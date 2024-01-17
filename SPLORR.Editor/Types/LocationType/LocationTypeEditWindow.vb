@@ -6,7 +6,7 @@ Friend Class LocationTypeEditWindow
         MyBase.New(
             $"Edit Location Type: {locationTypeStore.Name}",
             "Location Type",
-            locationTypeStore.Id,
+            ("Id", locationTypeStore.Id.ToString),
             ("Name", locationTypeStore.Name),
             (True, "Update",
             Function(x) locationTypeStore.CanRenameTo(x),

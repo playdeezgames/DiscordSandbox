@@ -6,7 +6,7 @@ Friend Class ItemEditWindow
         MyBase.New(
             $"Edit Item: {store.Name}",
             "Item",
-            store.Id,
+            ("Id", store.Id.ToString),
             ("Name", store.Name),
             (False, Nothing, Nothing, Nothing),
             (store.CanDelete, "Delete",

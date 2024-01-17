@@ -7,7 +7,7 @@ Friend Class CharacterEditWindow
         MyBase.New(
             $"Edit Character: {store.Name}",
             "Character",
-            store.Id,
+            ("Id", store.Id.ToString),
             ("Name", store.Name),
             (True, "Update",
             Function(x) store.CanRenameTo(x),

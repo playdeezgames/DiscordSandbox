@@ -5,7 +5,7 @@
         MyBase.New(
             $"Edit Item Type `{itemTypeGeneratorItemTypeStore.ItemType.Name}` for Item Type Generator `{itemTypeGeneratorItemTypeStore.ItemTypeGenerator.Name}`:",
             "Item Type Generator Item Type",
-            itemTypeGeneratorItemTypeStore.Id,
+            ("Id", itemTypeGeneratorItemTypeStore.Id.ToString),
             ("Generator Weight", itemTypeGeneratorItemTypeStore.GeneratorWeight.ToString),
             (True, "Update",
             Function(x)
