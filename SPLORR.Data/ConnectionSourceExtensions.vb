@@ -8,6 +8,28 @@ Friend Module ConnectionSourceExtensions
     Private Const PARAMETER_SECOND_FOR_COLUMN = "@SecondForColumn"
     Private Const PARAMETER_WRITTEN_COLUMN = "@WrittenColumn"
     <Extension>
+    Function ReadStringForValues(
+                                          connectionSource As Func(Of SqlConnection),
+                                          tableName As String,
+                                          forColumns As (Name As String, Value As Object)(),
+                                          readColumnName As String) As String
+        Using command = connectionSource().CreateCommand
+            Dim builder As New StringBuilder
+            builder.Append($"
+SELECT 
+    {readColumnName} 
+FROM 
+    {tableName} 
+WHERE ")
+            builder.Append(String.Join(" AND ", forColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
+            command.CommandText = builder.ToString
+            For Each column In forColumns
+                command.Parameters.AddWithValue($"@{column.Name}", column.Value)
+            Next
+            Return CStr(command.ExecuteScalar)
+        End Using
+    End Function
+    <Extension>
     Function ReadStringForValue(Of TValue)(
                                           connectionSource As Func(Of SqlConnection),
                                           tableName As String,
