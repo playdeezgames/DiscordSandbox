@@ -185,19 +185,20 @@ WHERE ")
         End Using
     End Sub
     <Extension>
-    Sub DeleteForValues(Of TFirstValue, TSecondValue)(connectionSource As Func(Of SqlConnection),
+    Sub DeleteForValues(connectionSource As Func(Of SqlConnection),
                             tableName As String,
-                            firstForColumn As (Name As String, Value As TFirstValue),
-                            secondForColumn As (Name As String, Value As TSecondValue))
+                            ParamArray forColumns As (Name As String, Value As Object)())
         Using command = connectionSource().CreateCommand()
-            command.CommandText = $"
+            Dim builder As New StringBuilder
+            builder.Append($"
 DELETE FROM 
     {tableName} 
-WHERE 
-    {firstForColumn.Name}={PARAMETER_FIRST_FOR_COLUMN}
-    AND {secondForColumn.Name}={PARAMETER_SECOND_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FIRST_FOR_COLUMN, firstForColumn.Value)
-            command.Parameters.AddWithValue(PARAMETER_SECOND_FOR_COLUMN, secondForColumn.Value)
+WHERE ")
+            builder.Append(String.Join(" AND ", forColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
+            command.CommandText = builder.ToString
+            For Each column In forColumns
+                command.Parameters.AddWithValue($"@{column.Name}", column.Value)
+            Next
             command.ExecuteNonQuery()
         End Using
     End Sub
