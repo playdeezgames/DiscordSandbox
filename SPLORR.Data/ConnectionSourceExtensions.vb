@@ -30,6 +30,28 @@ WHERE ")
         End Using
     End Function
     <Extension>
+    Sub WriteValuesForValues(
+                             connectionSource As Func(Of SqlConnection),
+                             tableName As String,
+                             forColumns As (Name As String, Value As Object)(),
+                             writtenColumns As (Name As String, Value As Object)())
+        Using command = connectionSource().CreateCommand
+            Dim builder As New StringBuilder
+            builder.Append($"UPDATE {tableName} SET ")
+            builder.Append(String.Join(","c, writtenColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
+            builder.Append($" WHERE ")
+            builder.Append(String.Join(" AND ", forColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
+            command.CommandText = builder.ToString
+            For Each column In forColumns
+                command.Parameters.AddWithValue($"{column.Name}", column.Value)
+            Next
+            For Each column In writtenColumns
+                command.Parameters.AddWithValue($"{column.Name}", column.Value)
+            Next
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+    <Extension>
     Sub WriteValueForInteger(Of TValue)(
                              connectionSource As Func(Of SqlConnection),
                              tableName As String,
