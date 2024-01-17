@@ -69,43 +69,24 @@ WHERE ")
         End Using
     End Sub
     <Extension>
-    Function FindIntegerForValue(Of TValue)(
+    Function FindIntegerForValues(
                              connectionSource As Func(Of SqlConnection),
                              tableName As String,
-                             forColumn As (Name As String, Value As TValue),
+                             forColumns As (Name As String, Value As Object)(),
                              foundColumnName As String) As Integer?
         Using command = connectionSource().CreateCommand
-            command.CommandText = $"SELECT {foundColumnName} FROM {tableName} WHERE {forColumn.Name}={PARAMETER_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, forColumn.Value)
-            Using reader = command.ExecuteReader
-                If reader.Read Then
-                    If reader.IsDBNull(0) Then
-                        Return Nothing
-                    End If
-                    Return reader.GetInt32(0)
-                End If
-            End Using
-        End Using
-        Return Nothing
-    End Function
-    <Extension>
-    Function FindIntegerForValues(Of TFirstValue, TSecondValue)(
-                             connectionSource As Func(Of SqlConnection),
-                             tableName As String,
-                             firstForColumn As (Name As String, Value As TFirstValue),
-                             secondForColumn As (Name As String, Value As TSecondValue),
-                             foundColumnName As String) As Integer?
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
+            Dim builder = New StringBuilder
+            builder.Append($"
 SELECT 
     {foundColumnName} 
 FROM 
     {tableName} 
-WHERE 
-    {firstForColumn.Name}=@{firstForColumn.Name}
-    AND {secondForColumn.Name}=@{secondForColumn.Name};"
-            command.Parameters.AddWithValue($"@{firstForColumn.Name}", firstForColumn.Value)
-            command.Parameters.AddWithValue($"@{secondForColumn.Name}", secondForColumn.Value)
+WHERE ")
+            builder.Append(String.Join(" AND ", forColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
+            command.CommandText = builder.ToString
+            For Each column In forColumns
+                command.Parameters.AddWithValue($"@{column.Name}", column.Value)
+            Next
             Using reader = command.ExecuteReader
                 If reader.Read Then
                     If reader.IsDBNull(0) Then

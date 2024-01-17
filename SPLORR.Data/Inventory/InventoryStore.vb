@@ -26,13 +26,13 @@ Friend Class InventoryStore
 
     Public ReadOnly Property HasCharacter As Boolean Implements IInventoryStore.HasCharacter
         Get
-            Return connectionSource.FindIntegerForValue(TABLE_INVENTORIES, (COLUMN_INVENTORY_ID, Id), COLUMN_CHARACTER_ID).HasValue
+            Return connectionSource.FindIntegerForValues(TABLE_INVENTORIES, {(COLUMN_INVENTORY_ID, Id)}, COLUMN_CHARACTER_ID).HasValue
         End Get
     End Property
 
     Public ReadOnly Property Character As ICharacterStore Implements IInventoryStore.Character
         Get
-            Dim characterId = connectionSource.FindIntegerForValue(TABLE_INVENTORIES, (COLUMN_INVENTORY_ID, Id), COLUMN_CHARACTER_ID)
+            Dim characterId = connectionSource.FindIntegerForValues(TABLE_INVENTORIES, {(COLUMN_INVENTORY_ID, Id)}, COLUMN_CHARACTER_ID)
             If characterId.HasValue Then
                 Return New CharacterStore(connectionSource, characterId.Value)
             End If
@@ -42,7 +42,7 @@ Friend Class InventoryStore
 
     Public ReadOnly Property Location As ILocationStore Implements IInventoryStore.Location
         Get
-            Dim locationId = connectionSource.FindIntegerForValue(TABLE_INVENTORIES, (COLUMN_INVENTORY_ID, Id), COLUMN_LOCATION_ID)
+            Dim locationId = connectionSource.FindIntegerForValues(TABLE_INVENTORIES, {(COLUMN_INVENTORY_ID, Id)}, COLUMN_LOCATION_ID)
             If locationId.HasValue Then
                 Return New LocationStore(connectionSource, locationId.Value)
             End If
@@ -84,8 +84,8 @@ Friend Class InventoryStore
         Return If(
             connectionSource.FindIntegerForValues(
                 VIEW_INVENTORY_ITEM_TYPE_COUNTS,
-                (COLUMN_INVENTORY_ID, Id),
-                (COLUMN_ITEM_TYPE_ID, itemType.Id),
+                {(COLUMN_INVENTORY_ID, Id),
+                (COLUMN_ITEM_TYPE_ID, itemType.Id)},
                 COLUMN_ITEM_TYPE_COUNT),
             0)
     End Function

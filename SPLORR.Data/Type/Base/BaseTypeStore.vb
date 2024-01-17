@@ -52,7 +52,7 @@ Friend MustInherit Class BaseTypeStore
             (idColumnName, Id))
     End Sub
     Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
-        Return Not connectionSource.FindIntegerForValue(tableName, (nameColumnName, x), idColumnName).HasValue
+        Return Not connectionSource.FindIntegerForValues(tableName, {(nameColumnName, x)}, idColumnName).HasValue
     End Function
     Public MustOverride ReadOnly Property CanDelete As Boolean Implements IBaseTypeStore.CanDelete
 End Class

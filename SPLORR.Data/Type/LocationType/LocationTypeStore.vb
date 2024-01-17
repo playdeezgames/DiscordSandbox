@@ -29,7 +29,7 @@ Friend Class LocationTypeStore
 
     Public Property ItemTypeGenerator As IItemTypeGeneratorStore Implements ILocationTypeStore.ItemTypeGenerator
         Get
-            Dim itemTypeGeneratorId = connectionSource.FindIntegerForValue(TABLE_LOCATION_TYPES, (COLUMN_LOCATION_TYPE_ID, Id), COLUMN_ITEM_TYPE_GENERATOR_ID)
+            Dim itemTypeGeneratorId = connectionSource.FindIntegerForValues(TABLE_LOCATION_TYPES, {(COLUMN_LOCATION_TYPE_ID, Id)}, COLUMN_ITEM_TYPE_GENERATOR_ID)
             If Not itemTypeGeneratorId.HasValue Then
                 Return Nothing
             End If

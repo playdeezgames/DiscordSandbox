@@ -131,9 +131,9 @@ WHERE
 
     Public ReadOnly Property Inventory As IInventoryStore Implements ICharacterStore.Inventory
         Get
-            Dim inventoryId = connectionSource.FindIntegerForValue(
+            Dim inventoryId = connectionSource.FindIntegerForValues(
                 TABLE_INVENTORIES,
-                (COLUMN_CHARACTER_ID, Id),
+                {(COLUMN_CHARACTER_ID, Id)},
                 COLUMN_INVENTORY_ID)
             If inventoryId.HasValue Then
                 Return New InventoryStore(connectionSource, inventoryId.Value)
