@@ -1,57 +1,40 @@
-﻿Imports Microsoft.Data.SqlClient
+﻿Imports System.Reflection.Metadata.Ecma335
+Imports Microsoft.Data.SqlClient
 
 Friend Class CharacterStore
     Implements ICharacterStore
     Private ReadOnly connectionSource As Func(Of SqlConnection)
-    Private ReadOnly _characterId As Integer
 
     Public Sub New(connectionSource As Func(Of SqlConnection), characterId As Integer)
         Me.connectionSource = connectionSource
-        Me._characterId = characterId
+        Me.Id = characterId
     End Sub
 
     Public ReadOnly Property Id As Integer Implements ICharacterStore.Id
-        Get
-            Return _characterId
-        End Get
-    End Property
 
     Public Property Name As String Implements ICharacterStore.Name
         Get
             Return connectionSource.ReadStringForValue(
                 TABLE_CHARACTERS,
-                (COLUMN_CHARACTER_ID, _characterId),
+                (COLUMN_CHARACTER_ID, Id),
                 COLUMN_CHARACTER_NAME)
         End Get
         Set(value As String)
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-UPDATE 
-    {TABLE_CHARACTERS} 
-SET 
-    {COLUMN_CHARACTER_NAME}=@{COLUMN_CHARACTER_NAME} 
-WHERE 
-    {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
-                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
-                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_NAME}", value)
-                command.ExecuteNonQuery()
-            End Using
+            connectionSource.WriteValueForInteger(
+                TABLE_CHARACTERS,
+                (COLUMN_CHARACTER_ID, Id),
+                (COLUMN_CHARACTER_NAME, value))
         End Set
     End Property
 
     Public ReadOnly Property Location As ILocationStore Implements ICharacterStore.Location
         Get
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    {COLUMN_LOCATION_ID} 
-FROM 
-    {TABLE_CHARACTERS} 
-WHERE 
-    {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
-                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
-                Return New LocationStore(connectionSource, CInt(command.ExecuteScalar))
-            End Using
+            Return New LocationStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValue(
+                    TABLE_CHARACTERS,
+                    (COLUMN_CHARACTER_ID, Id),
+                    COLUMN_LOCATION_ID))
         End Get
     End Property
 
@@ -65,7 +48,7 @@ SET
     {COLUMN_LAST_MODIFIED}=@{COLUMN_LAST_MODIFIED}
 WHERE 
     {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
-            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
+            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", Id)
             command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", location.Id)
             command.Parameters.AddWithValue($"@{COLUMN_LAST_MODIFIED}", lastModified)
             command.ExecuteNonQuery()
@@ -118,7 +101,7 @@ FROM
     {VIEW_CHARACTER_LOCATION_OTHER_CHARACTERS} 
 WHERE 
     {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
-                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
+                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", Id)
                 Return CInt(command.ExecuteScalar) > 0
             End Using
         End Get
@@ -135,7 +118,7 @@ FROM
     {VIEW_CHARACTER_LOCATION_OTHER_CHARACTERS} 
 WHERE 
     {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
-                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
+                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", Id)
                 Using reader = command.ExecuteReader
                     While reader.Read
                         result.Add(New CharacterStore(connectionSource, reader.GetInt32(0)))
@@ -150,14 +133,14 @@ WHERE
         Get
             Dim inventoryId = connectionSource.FindIntegerForValue(
                 TABLE_INVENTORIES,
-                (COLUMN_CHARACTER_ID, _characterId),
+                (COLUMN_CHARACTER_ID, Id),
                 COLUMN_INVENTORY_ID)
             If inventoryId.HasValue Then
                 Return New InventoryStore(connectionSource, inventoryId.Value)
             End If
             Using command = connectionSource().CreateCommand
                 command.CommandText = $"INSERT INTO {TABLE_INVENTORIES}({COLUMN_CHARACTER_ID}) VALUES(@{COLUMN_CHARACTER_ID});"
-                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", _characterId)
+                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", Id)
                 command.ExecuteNonQuery()
             End Using
             Return New InventoryStore(connectionSource, connectionSource.ReadLastIdentity)

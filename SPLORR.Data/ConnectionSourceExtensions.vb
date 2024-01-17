@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.CompilerServices
+Imports System.Text
 Imports Microsoft.Data.SqlClient
 
 Friend Module ConnectionSourceExtensions
@@ -199,5 +200,25 @@ WHERE
             command.CommandText = $"SELECT @@IDENTITY;"
             Return CInt(command.ExecuteScalar)
         End Using
+    End Function
+    <Extension>
+    Friend Function Insert(
+                          connectionSource As Func(Of SqlConnection),
+                          tableName As String,
+                          ParamArray columns As (Name As String, Value As Object)()) As Integer
+        Using command = connectionSource().CreateCommand
+            Dim builder As New StringBuilder
+            builder.Append($"INSERT INTO {tableName}(")
+            builder.Append(String.Join(","c, columns.Select(Function(x) x.Name)))
+            builder.Append(")VALUES(")
+            builder.Append(String.Join(","c, columns.Select(Function(x) $"@{x.Name}")))
+            builder.Append(");")
+            command.CommandText = builder.ToString
+            For Each column In columns
+                command.Parameters.AddWithValue(column.Name, column.Value)
+            Next
+            command.ExecuteNonQuery()
+        End Using
+        Return connectionSource.ReadLastIdentity
     End Function
 End Module

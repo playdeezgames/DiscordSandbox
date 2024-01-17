@@ -1,15 +1,15 @@
 ﻿Imports SPLORR.Data
 
-Friend Class CharacterTypeStatisticsListWindow
-    Inherits BaseListWindow(Of ICharacterTypeStore, ICharacterTypeStatisticStore)
+Friend Class CharacterTypeCardListWindow
+    Inherits BaseListWindow(Of ICharacterTypeStore, ICharacterTypeCardStore)
 
     Public Sub New(store As Data.ICharacterTypeStore)
         MyBase.New(
-            $"Statistics for Character Type `{store.Name}`",
+            $"Cards for Character Type `{store.Name}`",
             store,
-            Function(x, y) x.Statistics.Filter(y),
-            Function(x) $"{x.Name}(Id:{x.Id},Value:{x.Value})",
-            Function(x) New CharacterTypeEditStatisticWindow(x),
+            Function(x, y) x.Cards.Filter(y),
+            Function(x) $"{x.Name}(Id:{x.Id},Quantity:{x.Quantity})",
+            Function(x) New CharacterTypeEditCardWindow(x),
             {
                 (
                     "Cancel",
@@ -19,7 +19,7 @@ Friend Class CharacterTypeStatisticsListWindow
                 (
                     "Add",
                     Function() store.CanAddStatistic,
-                    Sub() Program.GoToWindow(New CharacterTypeAddStatisticTypeWindow(store))
+                    Sub() Program.GoToWindow(New CharacterTypeAddCardTypeWindow(store))
                 )
             })
     End Sub

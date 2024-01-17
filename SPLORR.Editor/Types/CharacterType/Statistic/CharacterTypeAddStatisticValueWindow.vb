@@ -16,12 +16,12 @@ Friend Class CharacterTypeAddStatisticValueWindow
                 End Function,
                 Function(x)
                     store.AddStatistic(statisticType, Integer.Parse(x))
-                    Return New CharacterTypeStatisticsListWindow(store)
+                    Return New CharacterTypeStatisticListWindow(store)
                 End Function
             ),
             (
                 "Cancel",
-                Function() New CharacterTypeStatisticsListWindow(store)
+                Function() New CharacterTypeStatisticListWindow(store)
             ))
     End Sub
 End Class

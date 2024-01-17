@@ -1,13 +1,14 @@
 ﻿Imports SPLORR.Data
+Imports Terminal.Gui
 
-Friend Class CharacterTypeEditStatisticWindow
+Friend Class CharacterTypeEditCardWindow
     Inherits BaseEditTypeWindow
-    Public Sub New(store As ICharacterTypeStatisticStore)
+    Public Sub New(store As ICharacterTypeCardStore)
         MyBase.New(
-            $"Statistic `{store.Name}` for Character Type `{store.CharacterType.Name}`",
-            "Character Type Statistic",
+            $"Card `{store.Name}` for Character Type `{store.CharacterType.Name}`",
+            "Character Type Card",
             ("Id", store.Id.ToString),
-            ("Value", store.Value.ToString),
+            ("Quantity", store.Quantity.ToString),
             (
                 True,
                 "Update",
@@ -16,8 +17,8 @@ Friend Class CharacterTypeEditStatisticWindow
                     Return Not Integer.TryParse(x, value)
                 End Function,
                 Function(x)
-                    store.Value = Integer.Parse(x)
-                    Return New CharacterTypeEditStatisticWindow(store)
+                    store.Quantity = Integer.Parse(x)
+                    Return New CharacterTypeEditCardWindow(store)
                 End Function
             ),
             (
@@ -26,12 +27,12 @@ Friend Class CharacterTypeEditStatisticWindow
                 Function()
                     Dim characterType = store.CharacterType
                     store.Delete()
-                    Return New CharacterTypeStatisticListWindow(characterType)
+                    Return New CharacterTypeCardListWindow(characterType)
                 End Function
             ),
             (
                 "Cancel",
-                Function() New CharacterTypeStatisticListWindow(store.CharacterType)
+                Function() New CharacterTypeCardListWindow(store.CharacterType)
             ))
     End Sub
 End Class

@@ -51,6 +51,38 @@ Friend Class CharacterTypeStore
         End Get
     End Property
 
+    Public ReadOnly Property Cards As IRelatedTypeStore(Of ICharacterTypeCardStore) Implements ICharacterTypeStore.Cards
+        Get
+            Return New RelatedTypeStore(Of ICharacterTypeCardStore, Integer)(
+                connectionSource,
+                VIEW_CHARACTER_TYPE_CARD_DETAILS,
+                COLUMN_CHARACTER_TYPE_CARD_ID,
+                COLUMN_CARD_TYPE_NAME,
+                (COLUMN_CHARACTER_TYPE_ID, Id),
+                Function(x, y) New CharacterTypeCardStore(x, y))
+        End Get
+    End Property
+
+    Public ReadOnly Property AvailableCards As IRelatedTypeStore(Of ICardTypeStore) Implements ICharacterTypeStore.AvailableCards
+        Get
+            Return New RelatedTypeStore(Of ICardTypeStore, Integer)(
+                connectionSource,
+                VIEW_CHARACTER_TYPE_AVAILABLE_CARD_TYPES,
+                COLUMN_CARD_TYPE_ID,
+                COLUMN_CARD_TYPE_NAME,
+                (COLUMN_CHARACTER_TYPE_ID, Id),
+                Function(x, y) New CardTypeStore(x, y))
+        End Get
+    End Property
+
+    Public ReadOnly Property CanAddCard As Boolean Implements ICharacterTypeStore.CanAddCard
+        Get
+            Return connectionSource.CheckForValue(
+                VIEW_CHARACTER_TYPE_AVAILABLE_CARD_TYPES,
+                (COLUMN_CHARACTER_TYPE_ID, Id))
+        End Get
+    End Property
+
     Public Function CreateCharacter(name As String, location As ILocationStore) As ICharacterStore Implements ICharacterTypeStore.CreateCharacter
         Using command = connectionSource().CreateCommand
             command.CommandText = $"
@@ -97,5 +129,29 @@ VALUES
             command.ExecuteNonQuery()
         End Using
         Return New CharacterTypeStatisticStore(connectionSource, connectionSource.ReadLastIdentity)
+    End Function
+
+    Public Function AddCard(cardType As ICardTypeStore, cardQuantity As Integer) As ICharacterTypeCardStore Implements ICharacterTypeStore.AddCard
+        Using command = connectionSource().CreateCommand
+            command.CommandText = $"
+INSERT INTO 
+    {TABLE_CHARACTER_TYPE_CARDS}
+    (
+        {COLUMN_CHARACTER_TYPE_ID},
+        {COLUMN_CARD_TYPE_ID},
+        {COLUMN_CARD_QUANTITY}
+    ) 
+VALUES 
+    (
+        @{COLUMN_CHARACTER_TYPE_ID},
+        @{COLUMN_CARD_TYPE_ID},
+        @{COLUMN_CARD_QUANTITY}
+    );"
+            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_TYPE_ID}", Id)
+            command.Parameters.AddWithValue($"@{COLUMN_CARD_TYPE_ID}", cardType.Id)
+            command.Parameters.AddWithValue($"@{COLUMN_CARD_QUANTITY}", cardQuantity)
+            command.ExecuteNonQuery()
+        End Using
+        Return New CharacterTypeCardStore(connectionSource, connectionSource.ReadLastIdentity)
     End Function
 End Class

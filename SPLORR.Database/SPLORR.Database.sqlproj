@@ -107,7 +107,9 @@
     <Build Include="dbo\Tables\Character\Type\CharacterTypeStatistics.sql" />
     <Build Include="dbo\Tables\Character\Player\PlayerCharacters.sql" />
     <Build Include="dbo\Tables\Character\Player\PlayerCharacterTypes.sql" />
-    <Build Include="dbo\Tables\Character\Type\CharacterTypeCardTypes.sql" />
+    <Build Include="dbo\Tables\Character\Type\CharacterTypeCards.sql" />
+    <Build Include="dbo\Views\CharacterTypeAvailableCards.sql" />
+    <Build Include="dbo\Views\CharacterTypeCardDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />

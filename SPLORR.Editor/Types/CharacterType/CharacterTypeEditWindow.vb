@@ -30,7 +30,12 @@ Friend Class CharacterTypeEditWindow
                 (
                     "Statistics...",
                     Function() True,
-                    Sub() Program.GoToWindow(New CharacterTypeStatisticsListWindow(characterTypeStore))
+                    Sub() Program.GoToWindow(New CharacterTypeStatisticListWindow(characterTypeStore))
+                ),
+                (
+                    "Cards...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CharacterTypeCardListWindow(characterTypeStore))
                 )
             })
     End Sub
