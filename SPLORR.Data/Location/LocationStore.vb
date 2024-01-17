@@ -107,19 +107,19 @@ INSERT INTO
 
     Private ReadOnly Property HasCharacters As Boolean
         Get
-            Return connectionSource.CheckForValue(TABLE_CHARACTERS, (COLUMN_LOCATION_ID, Id))
+            Return connectionSource.CheckForValues(TABLE_CHARACTERS, (COLUMN_LOCATION_ID, Id))
         End Get
     End Property
 
     Private ReadOnly Property IsDestination As Boolean
         Get
-            Return connectionSource.CheckForValue(TABLE_ROUTES, (COLUMN_TO_LOCATION_ID, Id))
+            Return connectionSource.CheckForValues(TABLE_ROUTES, (COLUMN_TO_LOCATION_ID, Id))
         End Get
     End Property
 
     Private ReadOnly Property HasInventory As Boolean
         Get
-            Return connectionSource.CheckForValue(TABLE_INVENTORIES, (COLUMN_LOCATION_ID, Id))
+            Return connectionSource.CheckForValues(TABLE_INVENTORIES, (COLUMN_LOCATION_ID, Id))
         End Get
     End Property
 
@@ -131,7 +131,7 @@ INSERT INTO
 
     Public ReadOnly Property HasCharacter As Boolean Implements ILocationStore.HasCharacter
         Get
-            Return connectionSource.CheckForValue(TABLE_CHARACTERS, (COLUMN_LOCATION_ID, Id))
+            Return connectionSource.CheckForValues(TABLE_CHARACTERS, (COLUMN_LOCATION_ID, Id))
         End Get
     End Property
 
@@ -161,7 +161,7 @@ INSERT INTO
 
     Public ReadOnly Property CanAddRoute As Boolean Implements ILocationStore.CanAddRoute
         Get
-            Return connectionSource.CheckForValue(
+            Return connectionSource.CheckForValues(
                 VIEW_LOCATION_AVAILABLE_DIRECTIONS,
                 (COLUMN_LOCATION_ID, Id))
         End Get

@@ -15,7 +15,7 @@ Friend Class CharacterTypeStore
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get
-            Return Not connectionSource.CheckForValue(TABLE_CHARACTERS, (COLUMN_CHARACTER_TYPE_ID, Id))
+            Return Not connectionSource.CheckForValues(TABLE_CHARACTERS, (COLUMN_CHARACTER_TYPE_ID, Id))
         End Get
     End Property
 
@@ -33,7 +33,7 @@ Friend Class CharacterTypeStore
 
     Public ReadOnly Property CanAddStatistic As Boolean Implements ICharacterTypeStore.CanAddStatistic
         Get
-            Return connectionSource.CheckForValue(
+            Return connectionSource.CheckForValues(
                 VIEW_CHARACTER_TYPE_AVAILABLE_STATISTIC_TYPES,
                 (COLUMN_CHARACTER_TYPE_ID, Id))
         End Get
@@ -77,7 +77,7 @@ Friend Class CharacterTypeStore
 
     Public ReadOnly Property CanAddCard As Boolean Implements ICharacterTypeStore.CanAddCard
         Get
-            Return connectionSource.CheckForValue(
+            Return connectionSource.CheckForValues(
                 VIEW_CHARACTER_TYPE_AVAILABLE_CARD_TYPES,
                 (COLUMN_CHARACTER_TYPE_ID, Id))
         End Get

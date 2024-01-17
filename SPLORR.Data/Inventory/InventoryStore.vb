@@ -8,7 +8,7 @@ Friend Class InventoryStore
 
     Public ReadOnly Property HasItems As Boolean Implements IInventoryStore.HasItems
         Get
-            Return connectionSource.CheckForValue(TABLE_ITEMS, (COLUMN_INVENTORY_ID, Id))
+            Return connectionSource.CheckForValues(TABLE_ITEMS, (COLUMN_INVENTORY_ID, Id))
         End Get
     End Property
 
@@ -52,7 +52,7 @@ Friend Class InventoryStore
 
     Public ReadOnly Property CanDelete As Boolean Implements IInventoryStore.CanDelete
         Get
-            Return Not connectionSource.CheckForValue(TABLE_ITEMS, (COLUMN_INVENTORY_ID, Id))
+            Return Not connectionSource.CheckForValues(TABLE_ITEMS, (COLUMN_INVENTORY_ID, Id))
         End Get
     End Property
 

@@ -18,7 +18,7 @@ Friend Class RecipeStore
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get
-            Return Not connectionSource.CheckForValue(TABLE_RECIPE_ITEM_TYPES, (COLUMN_RECIPE_ID, Id))
+            Return Not connectionSource.CheckForValues(TABLE_RECIPE_ITEM_TYPES, (COLUMN_RECIPE_ID, Id))
         End Get
     End Property
 
@@ -36,7 +36,7 @@ Friend Class RecipeStore
 
     Public ReadOnly Property CanAddItemType As Boolean Implements IRecipeStore.CanAddItemType
         Get
-            Return connectionSource.CheckForValue(VIEW_RECIPE_AVAILABLE_ITEM_TYPES, (COLUMN_RECIPE_ID, Id))
+            Return connectionSource.CheckForValues(VIEW_RECIPE_AVAILABLE_ITEM_TYPES, (COLUMN_RECIPE_ID, Id))
         End Get
     End Property
 

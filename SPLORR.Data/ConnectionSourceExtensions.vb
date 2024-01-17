@@ -169,17 +169,6 @@ WHERE
         Return result
     End Function
     <Extension>
-    Function CheckForValue(Of TValue)(
-                            connectionSource As Func(Of SqlConnection),
-                            tableName As String,
-                            forColumn As (Name As String, Value As TValue)) As Boolean
-        Using command = connectionSource().CreateCommand()
-            command.CommandText = $"SELECT COUNT(1) FROM {tableName} WHERE {forColumn.Name}={PARAMETER_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, forColumn.Value)
-            Return CInt(command.ExecuteScalar) > 0
-        End Using
-    End Function
-    <Extension>
     Function CheckForValues(
                            connectionSource As Func(Of SqlConnection),
                            tableName As String,

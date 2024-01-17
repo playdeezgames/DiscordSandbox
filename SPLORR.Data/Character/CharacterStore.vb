@@ -155,19 +155,19 @@ WHERE
 
     Private ReadOnly Property HasCards As Boolean
         Get
-            Return connectionSource.CheckForValue(TABLE_CARDS, (COLUMN_CHARACTER_ID, Id))
+            Return connectionSource.CheckForValues(TABLE_CARDS, (COLUMN_CHARACTER_ID, Id))
         End Get
     End Property
 
     Public ReadOnly Property HasPlayer As Boolean Implements ICharacterStore.HasPlayer
         Get
-            Return connectionSource.CheckForValue(TABLE_PLAYER_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
+            Return connectionSource.CheckForValues(TABLE_PLAYER_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
         End Get
     End Property
 
     Private ReadOnly Property HasInventory As Boolean
         Get
-            Return connectionSource.CheckForValue(TABLE_INVENTORIES, (COLUMN_CHARACTER_ID, Id))
+            Return connectionSource.CheckForValues(TABLE_INVENTORIES, (COLUMN_CHARACTER_ID, Id))
         End Get
     End Property
 

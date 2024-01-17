@@ -21,7 +21,7 @@ Friend Class LocationTypeStore
 
     Public ReadOnly Property HasLocations As Boolean Implements ILocationTypeStore.HasLocations
         Get
-            Return connectionSource.CheckForValue(
+            Return connectionSource.CheckForValues(
                 TABLE_LOCATIONS,
                 (COLUMN_LOCATION_TYPE_ID, Id))
         End Get

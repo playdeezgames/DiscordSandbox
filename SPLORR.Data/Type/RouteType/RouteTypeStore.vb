@@ -17,7 +17,7 @@ Friend Class RouteTypeStore
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get
-            Return Not connectionSource.CheckForValue(TABLE_ROUTES, (COLUMN_ROUTE_TYPE_ID, Id))
+            Return Not connectionSource.CheckForValues(TABLE_ROUTES, (COLUMN_ROUTE_TYPE_ID, Id))
         End Get
     End Property
 End Class
