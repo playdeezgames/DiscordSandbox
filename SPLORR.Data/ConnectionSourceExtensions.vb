@@ -52,14 +52,19 @@ WHERE ")
         End Using
     End Sub
     <Extension>
-    Sub ClearColumnForValue(Of TValue)(
+    Sub ClearColumnForValues(
                              connectionSource As Func(Of SqlConnection),
                              tableName As String,
-                             forColumn As (Name As String, Value As TValue),
+                             forColumns As (Name As String, Value As Object)(),
                              clearedColumnName As String)
         Using command = connectionSource().CreateCommand
-            command.CommandText = $"UPDATE {tableName} SET {clearedColumnName}=NULL WHERE {forColumn.Name}={PARAMETER_FOR_COLUMN};"
-            command.Parameters.AddWithValue(PARAMETER_FOR_COLUMN, forColumn.Value)
+            Dim builder As New StringBuilder
+            builder.Append($"UPDATE {tableName} SET {clearedColumnName}=NULL WHERE ")
+            builder.Append(String.Join(" AND ", forColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
+            command.CommandText = builder.ToString
+            For Each column In forColumns
+                command.Parameters.AddWithValue($"@{column.Name}", column.Value)
+            Next
             command.ExecuteNonQuery()
         End Using
     End Sub
