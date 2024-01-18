@@ -39,20 +39,15 @@ Friend Class CharacterStore
     End Property
 
     Public Sub SetLocation(location As ILocationStore, lastModified As DateTimeOffset) Implements ICharacterStore.SetLocation
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-UPDATE 
-    {TABLE_CHARACTERS} 
-SET 
-    {COLUMN_LOCATION_ID}=@{COLUMN_LOCATION_ID},
-    {COLUMN_LAST_MODIFIED}=@{COLUMN_LAST_MODIFIED}
-WHERE 
-    {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
-            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", Id)
-            command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", location.Id)
-            command.Parameters.AddWithValue($"@{COLUMN_LAST_MODIFIED}", lastModified)
-            command.ExecuteNonQuery()
-        End Using
+        connectionSource.WriteValuesForValues(
+            TABLE_CHARACTERS,
+            {
+                (COLUMN_CHARACTER_ID, Id)
+            },
+            {
+                (COLUMN_LOCATION_ID, location.Id),
+                (COLUMN_LAST_MODIFIED, lastModified)
+            })
     End Sub
 
     Public Sub Delete() Implements IBaseTypeStore.Delete
@@ -64,31 +59,19 @@ WHERE
     End Function
 
     Public Sub ClearPlayer() Implements ICharacterStore.ClearPlayer
-        connectionSource.DeleteForValues(TABLE_PLAYER_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
+        connectionSource.DeleteForValues(
+            TABLE_PLAYER_CHARACTERS,
+            (COLUMN_CHARACTER_ID, Id))
     End Sub
 
     Public Function AddStatistic(statisticType As IStatisticTypeStore, statisticValue As Integer) As ICharacterStatisticStore Implements ICharacterStore.AddStatistic
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-INSERT INTO
-    {TABLE_CHARACTER_STATISTICS}
-    (
-        {COLUMN_CHARACTER_ID},
-        {COLUMN_STATISTIC_TYPE_ID},
-        {COLUMN_STATISTIC_VALUE}
-    )
-    VALUES
-    (
-        @{COLUMN_CHARACTER_ID},
-        @{COLUMN_STATISTIC_TYPE_ID},
-        @{COLUMN_STATISTIC_VALUE}
-    );"
-            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", Id)
-            command.Parameters.AddWithValue($"@{COLUMN_STATISTIC_TYPE_ID}", statisticType.Id)
-            command.Parameters.AddWithValue($"@{COLUMN_STATISTIC_VALUE}", statisticValue)
-            command.ExecuteNonQuery()
-        End Using
-        Return New CharacterStatisticStore(connectionSource, connectionSource.ReadLastIdentity)
+        Return New CharacterStatisticStore(
+            connectionSource,
+            connectionSource.Insert(
+                TABLE_CHARACTER_STATISTICS,
+                (COLUMN_CHARACTER_ID, Id),
+                (COLUMN_STATISTIC_TYPE_ID, statisticType.Id),
+                (COLUMN_STATISTIC_VALUE, statisticValue)))
     End Function
 
     Public ReadOnly Property HasOtherCharacters As Boolean Implements ICharacterStore.HasOtherCharacters
