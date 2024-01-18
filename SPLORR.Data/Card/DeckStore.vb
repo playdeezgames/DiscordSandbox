@@ -23,6 +23,7 @@ FROM
     {tableName} 
 WHERE 
     {relatedColumnName}=@{relatedColumnName} 
+    AND {COLUMN_IN_DRAW_PILE}=1
 ORDER BY 
     {COLUMN_DRAW_ORDER} ASC;"
                 command.Parameters.AddWithValue($"@{relatedColumnName}", relatedColumnValue)
@@ -66,14 +67,21 @@ ORDER BY
         Using command = connectionSource().CreateCommand
             command.CommandText = $"
 SELECT
-	MAX({COLUMN_DRAW_ORDER})+1
+	MAX({COLUMN_DRAW_ORDER})
 FROM	
 	{tableName}
 WHERE
-	{relatedColumnName}=@{relatedColumnValue};"
+	{relatedColumnName}=@{relatedColumnName};"
             command.Parameters.AddWithValue($"@{relatedColumnName}", relatedColumnValue)
-            Dim result = command.ExecuteScalar
-            card.DrawOrder = If(result Is Nothing, 1, CInt(result))
+            Dim result As Integer = 1
+            Using reader = command.ExecuteReader
+                If reader.Read Then
+                    If Not reader.IsDBNull(0) Then
+                        result = CInt(reader.GetInt32(0) + 1)
+                    End If
+                End If
+            End Using
+            card.DrawOrder = result
         End Using
     End Sub
 End Class

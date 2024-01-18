@@ -104,11 +104,11 @@ Friend Class CharacterModel
     End Sub
 
     Private Function DrawCard() As Boolean
-        If Not TryDrawCard() Then
-            RestockCards()
-            Return TryDrawCard()
+        If TryDrawCard() Then
+            Return True
         End If
-        Return True
+        RestockCards()
+        Return TryDrawCard()
     End Function
 
     Private Sub RestockCards()
