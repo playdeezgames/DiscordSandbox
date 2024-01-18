@@ -4,35 +4,41 @@ Imports SPLORR.Game
 Friend Class PlayerModel
     Implements IPlayerModel
     Const DEFAULT_CHARACTER_NAME = "N00b"
-    Private ReadOnly _playerStore As IPlayerStore
+    Private ReadOnly store As IPlayerStore
 
     Public Sub New(playerStore As IPlayerStore)
-        _playerStore = playerStore
+        store = playerStore
     End Sub
 
     Public ReadOnly Property HasCharacter As Boolean Implements IPlayerModel.HasCharacter
         Get
-            Return _playerStore.HasCharacter
+            Return store.HasCharacter
         End Get
     End Property
 
     Public ReadOnly Property Character As ICharacterModel Implements IPlayerModel.Character
         Get
-            Return New CharacterModel(_playerStore.Character)
+            Return New CharacterModel(store.Character)
         End Get
     End Property
 
     Public Sub CreateCharacter() Implements IPlayerModel.CreateCharacter
         Dim characterType = GenerateCharacterType()
-        _playerStore.Character = _playerStore.CreateCharacter(
+        Dim character = store.CreateCharacter(
             GenerateCharacterName(),
             GenerateStartingLocation(),
             characterType,
             characterType.Statistics.Filter("%").ToDictionary(Function(x) x.StatisticType, Function(x) x.Value))
+        store.Character = character
+        For Each entry In characterType.Cards.Filter("%")
+            For Each dummy In Enumerable.Range(0, entry.Quantity)
+                entry.CardType.CreateCard(character)
+            Next
+        Next
     End Sub
 
     Private Function GenerateCharacterType() As ICharacterTypeStore
-        Dim generator = _playerStore.GetCharacterTypeGenerator()
+        Dim generator = store.GetCharacterTypeGenerator()
         Return RNG.FromGenerator(generator)
     End Function
 
@@ -41,7 +47,7 @@ Friend Class PlayerModel
     End Function
 
     Private Function GenerateStartingLocation() As ILocationStore
-        Dim generator = _playerStore.GetLocationGenerator()
+        Dim generator = store.GetLocationGenerator()
         Return RNG.FromGenerator(generator)
     End Function
 End Class
