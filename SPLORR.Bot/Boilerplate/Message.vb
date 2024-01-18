@@ -5,6 +5,7 @@ Friend Module Message
         New Dictionary(Of String, Action(Of IPlayerModel, String(), Action(Of String))) From
         {
             {TOKEN_CARDS, AddressOf CardsMessage.Handle},
+            {TOKEN_CHARACTER, AddressOf CharacterMessage.Handle},
             {TOKEN_CRAFT, AddressOf CraftMessage.Handle},
             {TOKEN_CREATE, AddressOf CreateMessage.Handle},
             {TOKEN_DROP, AddressOf DropMessage.Handle},

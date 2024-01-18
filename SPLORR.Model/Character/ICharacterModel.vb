@@ -9,4 +9,10 @@
     Function CanCraft(recipe As IRecipeModel) As Boolean
     Function Craft(recipe As IRecipeModel) As IEnumerable(Of (Quantity As Integer, ItemType As IItemTypeModel))
     ReadOnly Property Cards As IEnumerable(Of ICardModel)
+    ReadOnly Property Health As Integer
+    ReadOnly Property MaximumHealth As Integer
+    ReadOnly Property Satiety As Integer
+    ReadOnly Property MaximumSatiety As Integer
+    ReadOnly Property Energy As Integer
+    ReadOnly Property MaximumEnergy As Integer
 End Interface

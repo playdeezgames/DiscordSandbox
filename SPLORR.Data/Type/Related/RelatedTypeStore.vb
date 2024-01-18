@@ -48,4 +48,12 @@ WHERE
         End Using
         Return result
     End Function
+
+    Public Function FromName(name As String) As TTypeStore Implements IRelatedTypeStore(Of TTypeStore).FromName
+        Dim id = connectionSource.FindIntegerForValues(tableName, {(nameColumnName, name), (relatedColumnName, relatedColumnValue)}, idColumnName)
+        If Not id.HasValue Then
+            Return Nothing
+        End If
+        Return convertor(connectionSource, id.Value)
+    End Function
 End Class
