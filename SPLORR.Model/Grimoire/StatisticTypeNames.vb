@@ -5,4 +5,5 @@
     Friend Const STATISTIC_TYPE_FATIGUE = "Fatigue"
     Friend Const STATISTIC_TYPE_SATIETY = "Satiety"
     Friend Const STATISTIC_TYPE_HUNGER = "Hunger"
+    Friend Const STATISTIC_TYPE_HAND_SIZE = "HandSize"
 End Module

@@ -3,13 +3,19 @@
 Public Class RelatedTypeStore(Of TTypeStore, TRelatedValue)
     Implements IRelatedTypeStore(Of TTypeStore)
 
-    Private ReadOnly connectionSource As Func(Of SqlConnection)
-    Private ReadOnly tableName As String
-    Private ReadOnly idColumnName As String
-    Private ReadOnly nameColumnName As String
+    Protected ReadOnly connectionSource As Func(Of SqlConnection)
+    Protected ReadOnly tableName As String
+    Protected ReadOnly idColumnName As String
+    Protected ReadOnly nameColumnName As String
     Private ReadOnly convertor As Func(Of Func(Of SqlConnection), Integer, TTypeStore)
-    Private ReadOnly relatedColumnName As String
-    Private ReadOnly relatedColumnValue As TRelatedValue
+    Protected ReadOnly relatedColumnName As String
+    Protected ReadOnly relatedColumnValue As TRelatedValue
+
+    Public ReadOnly Property All As IEnumerable(Of TTypeStore) Implements IRelatedTypeStore(Of TTypeStore).All
+        Get
+            Return Filter("%")
+        End Get
+    End Property
 
     Public Sub New(
                   connectionSource As Func(Of SqlConnection),

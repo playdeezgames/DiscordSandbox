@@ -84,6 +84,55 @@ Friend Class CharacterModel
         End Get
     End Property
 
+    Public ReadOnly Property HandSize As Integer Implements ICharacterModel.HandSize
+        Get
+            Return store.Statistics.FromName(STATISTIC_TYPE_HAND_SIZE).Value
+        End Get
+    End Property
+
+    Public Sub RefreshHand() Implements ICharacterModel.RefreshHand
+        DiscardHand()
+        DrawHand()
+    End Sub
+
+    Private Sub DrawHand()
+        For Each dummy In Enumerable.Range(0, HandSize)
+            If Not DrawCard() Then
+                Exit For
+            End If
+        Next
+    End Sub
+
+    Private Function DrawCard() As Boolean
+        If Not TryDrawCard() Then
+            RestockCards()
+            Return TryDrawCard()
+        End If
+        Return True
+    End Function
+
+    Private Sub RestockCards()
+        Dim cards As IEnumerable(Of ICardStore) = store.Cards.DiscardPile.OrderBy(Function(x) Guid.NewGuid)
+        For Each card In cards
+            store.Cards.AddToDrawPile(card)
+        Next
+    End Sub
+
+    Private Function TryDrawCard() As Boolean
+        Dim card As ICardStore = store.Cards.TopOfDeck
+        If card Is Nothing Then
+            Return False
+        End If
+        card.AddToHand()
+        Return True
+    End Function
+
+    Private Sub DiscardHand()
+        For Each card In store.Cards.Hand
+            card.Discard()
+        Next
+    End Sub
+
     Public Function UseRoute(route As IRouteModel) As (Result As Boolean, Messages As String()) Implements ICharacterModel.UseRoute
         If route Is Nothing Then
             Return (False, {"The route does not exist!"})
@@ -141,4 +190,20 @@ Friend Class CharacterModel
                                  Return result
                              End Function)
     End Function
+
+    Public Sub Die() Implements ICharacterModel.Die
+        Dim location = store.Location
+        For Each card In store.Cards.All
+            card.Delete()
+        Next
+        For Each statistic In store.Statistics.All
+            statistic.Delete()
+        Next
+        For Each item In store.Inventory.Items.All
+            item.Inventory = location.Inventory
+        Next
+        store.Inventory.Delete()
+        store.ClearPlayer()
+        store.Delete()
+    End Sub
 End Class

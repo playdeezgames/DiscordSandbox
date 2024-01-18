@@ -8,7 +8,8 @@
     ReadOnly Property OtherCharacters As IEnumerable(Of ICharacterStore)
     ReadOnly Property Inventory As IInventoryStore
     Property CharacterType As ICharacterTypeStore
-    ReadOnly Property Cards As IRelatedTypeStore(Of ICardStore)
+    'ReadOnly Property Cards As IRelatedTypeStore(Of ICardStore)
+    ReadOnly Property Cards As IDeckStore
     ReadOnly Property Statistics As IRelatedTypeStore(Of ICharacterStatisticStore)
     ReadOnly Property HasPlayer As Boolean
     ReadOnly Property AvailableStatistics As IRelatedTypeStore(Of IStatisticTypeStore)

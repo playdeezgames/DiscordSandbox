@@ -131,7 +131,7 @@ SELECT
 FROM 
     {tableName} 
 WHERE ")
-            builder.Append(String.Join("AND", forColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
+            builder.Append(String.Join(" AND ", forColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
             command.CommandText = builder.ToString
             For Each column In forColumns
                 command.Parameters.AddWithValue($"@{column.Name}", column.Value)

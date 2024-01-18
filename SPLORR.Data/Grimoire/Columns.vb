@@ -45,4 +45,8 @@
     Friend Const COLUMN_CHARACTER_STATISTIC_ID = "CharacterStatisticId"
     Friend Const COLUMN_CARD_QUANTITY = "CardQuantity"
     Friend Const COLUMN_CHARACTER_TYPE_CARD_ID = "CharacterTypeCardId"
+    Friend Const COLUMN_IN_HAND = "InHand"
+    Friend Const COLUMN_IN_DISCARD_PILE = "InDiscardPile"
+    Friend Const COLUMN_IN_DRAW_PILE = "InDrawPile"
+    Friend Const COLUMN_DRAW_ORDER = "DrawOrder"
 End Module

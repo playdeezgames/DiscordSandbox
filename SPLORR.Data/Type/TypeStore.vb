@@ -22,6 +22,12 @@ Friend Class TypeStore(Of TTypeStore As IBaseTypeStore)
         Me.convertor = convertor
     End Sub
 
+    Public ReadOnly Property All As IEnumerable(Of TTypeStore) Implements IRelatedTypeStore(Of TTypeStore).All
+        Get
+            Return Filter("%")
+        End Get
+    End Property
+
     Public Function Create(name As String) As TTypeStore Implements ITypeStore(Of TTypeStore).Create
         Using command = connectionSource().CreateCommand
             command.CommandText = $"INSERT INTO {tableName}({nameColumnName}) VALUES(@{nameColumnName});"

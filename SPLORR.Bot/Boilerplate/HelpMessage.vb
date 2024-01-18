@@ -9,6 +9,7 @@ Friend Module HelpMessage
             {TOKEN_CHARACTER, "Shows yer character's vital statistics."},
             {TOKEN_CRAFT, "Crafts items from other items."},
             {TOKEN_CREATE, "Allows you to create stuff."},
+            {TOKEN_DIE, "Causes yer character to die."},
             {TOKEN_DROP, "Drops items from yer inventory to the ground."},
             {TOKEN_FORAGE, "Forages for items."},
             {TOKEN_GO, "Allows you to move yer character in a direction."},
@@ -23,9 +24,10 @@ Friend Module HelpMessage
         New Dictionary(Of String, Action(Of IPlayerModel, String(), Action(Of String))) From
         {
             {TOKEN_CARDS, AddressOf HelpCards},
-            {TOKEN_CARDS, AddressOf HelpCharacter},
+            {TOKEN_CHARACTER, AddressOf HelpCharacter},
             {TOKEN_CRAFT, AddressOf HelpCraft},
             {TOKEN_CREATE, AddressOf HelpCreate},
+            {TOKEN_DIE, AddressOf HelpDie},
             {TOKEN_DROP, AddressOf HelpDrop},
             {TOKEN_FORAGE, AddressOf HelpForage},
             {TOKEN_GO, AddressOf HelpGo},
@@ -36,6 +38,15 @@ Friend Module HelpMessage
             {TOKEN_STATUS, AddressOf HelpStatus},
             {TOKEN_TAKE, AddressOf HelpTake}
         }
+
+    Private Sub HelpDie(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
+        If tokens.Length <> 0 Then
+            InvalidMessage.Handle(player, tokens, outputter)
+            Return
+        End If
+        outputter($"Help for {TOKEN_DIE}:")
+        outputter($"- usage: {TOKEN_DIE}")
+    End Sub
 
     Private Sub HelpCharacter(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length <> 0 Then

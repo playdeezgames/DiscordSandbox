@@ -35,6 +35,8 @@ Friend Class PlayerModel
                 entry.CardType.CreateCard(character)
             Next
         Next
+        Dim characterModel As ICharacterModel = New CharacterModel(character)
+        characterModel.RefreshHand()
     End Sub
 
     Private Function GenerateCharacterType() As ICharacterTypeStore
