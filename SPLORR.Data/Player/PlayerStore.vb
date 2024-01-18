@@ -2,16 +2,16 @@
 
 Friend Class PlayerStore
     Implements IPlayerStore
-    Private ReadOnly _connectionSource As Func(Of SqlConnection)
+    Private ReadOnly connectionSource As Func(Of SqlConnection)
     Private ReadOnly _playerId As Integer
     Sub New(connectionSource As Func(Of SqlConnection), playerId As Integer)
-        _connectionSource = connectionSource
+        Me.connectionSource = connectionSource
         _playerId = playerId
     End Sub
 
     Public ReadOnly Property HasCharacter As Boolean Implements IPlayerStore.HasCharacter
         Get
-            Using command = _connectionSource().CreateCommand
+            Using command = connectionSource().CreateCommand
                 command.CommandText = $"
 SELECT 
     COUNT(1) 
@@ -28,12 +28,17 @@ WHERE
     Public Property Character As ICharacterStore Implements IPlayerStore.Character
         Get
             If HasCharacter Then
-                Return New CharacterStore(_connectionSource, _connectionSource.ReadIntegerForValue(TABLE_PLAYER_CHARACTERS, (COLUMN_PLAYER_ID, _playerId), COLUMN_CHARACTER_ID))
+                Return New CharacterStore(
+                    connectionSource,
+                    connectionSource.ReadIntegerForValues(
+                        TABLE_PLAYER_CHARACTERS,
+                        {(COLUMN_PLAYER_ID, _playerId)},
+                        COLUMN_CHARACTER_ID))
             End If
             Return Nothing
         End Get
         Set(value As ICharacterStore)
-            Using command = _connectionSource().CreateCommand
+            Using command = connectionSource().CreateCommand
                 command.CommandText = $"
 DELETE FROM 
     {TABLE_PLAYER_CHARACTERS} 
@@ -42,7 +47,7 @@ WHERE
                 command.Parameters.AddWithValue($"@{COLUMN_PLAYER_ID}", _playerId)
                 command.ExecuteNonQuery()
             End Using
-            Using command = _connectionSource().CreateCommand
+            Using command = connectionSource().CreateCommand
                 command.CommandText = $"
 INSERT INTO 
     {TABLE_PLAYER_CHARACTERS}
@@ -64,7 +69,7 @@ INSERT INTO
 
     Private ReadOnly Property Store As IDataStore
         Get
-            Return New DataStore(_connectionSource())
+            Return New DataStore(connectionSource())
         End Get
     End Property
 

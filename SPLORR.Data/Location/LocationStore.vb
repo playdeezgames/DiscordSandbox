@@ -89,7 +89,12 @@ INSERT INTO
 
     Public Property LocationType As ILocationTypeStore Implements ILocationStore.LocationType
         Get
-            Return New LocationTypeStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, locationId), COLUMN_LOCATION_TYPE_ID))
+            Return New LocationTypeStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValues(
+                    TABLE_LOCATIONS,
+                    {(COLUMN_LOCATION_ID, locationId)},
+                    COLUMN_LOCATION_TYPE_ID))
         End Get
         Set(value As ILocationTypeStore)
             connectionSource.WriteValuesForValues(

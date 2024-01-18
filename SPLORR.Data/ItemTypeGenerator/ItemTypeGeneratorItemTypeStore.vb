@@ -23,15 +23,20 @@ Friend Class ItemTypeGeneratorItemTypeStore
 
     Public ReadOnly Property ItemType As IItemTypeStore Implements IItemTypeGeneratorItemTypeStore.ItemType
         Get
-            Return New ItemTypeStore(connectionSource, connectionSource.ReadIntegerForValue(VIEW_ITEM_TYPE_GENERATOR_ITEM_TYPE_DETAILS, (COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id), COLUMN_ITEM_TYPE_ID))
+            Return New ItemTypeStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValues(
+                VIEW_ITEM_TYPE_GENERATOR_ITEM_TYPE_DETAILS,
+                {(COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id)},
+                COLUMN_ITEM_TYPE_ID))
         End Get
     End Property
 
     Public Property GeneratorWeight As Integer Implements IItemTypeGeneratorItemTypeStore.GeneratorWeight
         Get
-            Return connectionSource.ReadIntegerForValue(
+            Return connectionSource.ReadIntegerForValues(
                 TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES,
-                (COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id),
+                {(COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id)},
                 COLUMN_GENERATOR_WEIGHT)
         End Get
         Set(value As Integer)
@@ -44,7 +49,12 @@ Friend Class ItemTypeGeneratorItemTypeStore
 
     Public ReadOnly Property ItemTypeGenerator As IItemTypeGeneratorStore Implements IItemTypeGeneratorItemTypeStore.ItemTypeGenerator
         Get
-            Return New ItemTypeGeneratorStore(connectionSource, connectionSource.ReadIntegerForValue(Of Integer)(TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES, (COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id), COLUMN_ITEM_TYPE_GENERATOR_ID))
+            Return New ItemTypeGeneratorStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValues(
+                    TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES,
+                    {(COLUMN_ITEM_TYPE_GENERATOR_ITEM_TYPE_ID, Id)},
+                    COLUMN_ITEM_TYPE_GENERATOR_ID))
         End Get
     End Property
 End Class

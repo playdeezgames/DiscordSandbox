@@ -22,9 +22,9 @@ Friend Class CharacterTypeCardStore
 
     Public Property Quantity As Integer Implements ICharacterTypeCardStore.Quantity
         Get
-            Return connectionSource.ReadIntegerForValue(
+            Return connectionSource.ReadIntegerForValues(
                 TABLE_CHARACTER_TYPE_CARDS,
-                (COLUMN_CHARACTER_TYPE_CARD_ID, Id),
+                {(COLUMN_CHARACTER_TYPE_CARD_ID, Id)},
                 COLUMN_CARD_QUANTITY)
         End Get
         Set(value As Integer)
@@ -39,9 +39,9 @@ Friend Class CharacterTypeCardStore
         Get
             Return New CharacterTypeStore(
                 connectionSource,
-                connectionSource.ReadIntegerForValue(
+                connectionSource.ReadIntegerForValues(
                     TABLE_CHARACTER_TYPE_CARDS,
-                    (COLUMN_CHARACTER_TYPE_CARD_ID, Id),
+                    {(COLUMN_CHARACTER_TYPE_CARD_ID, Id)},
                     COLUMN_CHARACTER_TYPE_ID))
         End Get
     End Property
@@ -50,9 +50,9 @@ Friend Class CharacterTypeCardStore
         Get
             Return New CardTypeStore(
                 connectionSource,
-                connectionSource.ReadIntegerForValue(
+                connectionSource.ReadIntegerForValues(
                     TABLE_CHARACTER_TYPE_CARDS,
-                    (COLUMN_CHARACTER_TYPE_CARD_ID, Id),
+                    {(COLUMN_CHARACTER_TYPE_CARD_ID, Id)},
                     COLUMN_CARD_TYPE_ID))
         End Get
     End Property

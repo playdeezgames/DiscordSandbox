@@ -14,25 +14,41 @@ Friend Class RecipeItemTypeStore
 
     Public ReadOnly Property ItemType As IItemTypeStore Implements IRecipeItemTypeStore.ItemType
         Get
-            Return New ItemTypeStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_RECIPE_ITEM_TYPES, (COLUMN_RECIPE_ITEM_TYPE_ID, Id), COLUMN_ITEM_TYPE_ID))
+            Return New ItemTypeStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValues(
+                    TABLE_RECIPE_ITEM_TYPES,
+                    {(COLUMN_RECIPE_ITEM_TYPE_ID, Id)},
+                    COLUMN_ITEM_TYPE_ID))
         End Get
     End Property
 
     Public ReadOnly Property QuantityIn As Integer Implements IRecipeItemTypeStore.QuantityIn
         Get
-            Return connectionSource.ReadIntegerForValue(TABLE_RECIPE_ITEM_TYPES, (COLUMN_RECIPE_ITEM_TYPE_ID, Id), COLUMN_QUANTITY_IN)
+            Return connectionSource.ReadIntegerForValues(
+                TABLE_RECIPE_ITEM_TYPES,
+                {(COLUMN_RECIPE_ITEM_TYPE_ID, Id)},
+                COLUMN_QUANTITY_IN)
         End Get
     End Property
 
     Public ReadOnly Property QuantityOut As Integer Implements IRecipeItemTypeStore.QuantityOut
         Get
-            Return connectionSource.ReadIntegerForValue(TABLE_RECIPE_ITEM_TYPES, (COLUMN_RECIPE_ITEM_TYPE_ID, Id), COLUMN_QUANTITY_OUT)
+            Return connectionSource.ReadIntegerForValues(
+                TABLE_RECIPE_ITEM_TYPES,
+                {(COLUMN_RECIPE_ITEM_TYPE_ID, Id)},
+                COLUMN_QUANTITY_OUT)
         End Get
     End Property
 
     Public ReadOnly Property Recipe As IRecipeStore Implements IRecipeItemTypeStore.Recipe
         Get
-            Return New RecipeStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_RECIPE_ITEM_TYPES, (COLUMN_RECIPE_ITEM_TYPE_ID, Id), COLUMN_RECIPE_ID))
+            Return New RecipeStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValues(
+                    TABLE_RECIPE_ITEM_TYPES,
+                    {(COLUMN_RECIPE_ITEM_TYPE_ID, Id)},
+                    COLUMN_RECIPE_ID))
         End Get
     End Property
 

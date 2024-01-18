@@ -16,7 +16,10 @@ Friend Class CharacterTypeStatisticStore
 
     Public Property Value As Integer Implements ICharacterTypeStatisticStore.Value
         Get
-            Return connectionSource.ReadIntegerForValue(TABLE_CHARACTER_TYPE_STATISTICS, (COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id), COLUMN_STATISTIC_VALUE)
+            Return connectionSource.ReadIntegerForValues(
+                TABLE_CHARACTER_TYPE_STATISTICS,
+                {(COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id)},
+                COLUMN_STATISTIC_VALUE)
         End Get
         Set(value As Integer)
             connectionSource.WriteValuesForValues(
@@ -30,9 +33,9 @@ Friend Class CharacterTypeStatisticStore
         Get
             Return New CharacterTypeStore(
                 connectionSource,
-                connectionSource.ReadIntegerForValue(
+                connectionSource.ReadIntegerForValues(
                     TABLE_CHARACTER_TYPE_STATISTICS,
-                    (COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id),
+                    {(COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id)},
                     COLUMN_CHARACTER_TYPE_ID))
         End Get
     End Property
@@ -41,9 +44,9 @@ Friend Class CharacterTypeStatisticStore
         Get
             Return New StatisticTypeStore(
                 connectionSource,
-                connectionSource.ReadIntegerForValue(
+                connectionSource.ReadIntegerForValues(
                     TABLE_CHARACTER_TYPE_STATISTICS,
-                    (COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id),
+                    {(COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id)},
                     COLUMN_STATISTIC_TYPE_ID))
         End Get
     End Property

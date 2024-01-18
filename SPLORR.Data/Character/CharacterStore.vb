@@ -31,9 +31,9 @@ Friend Class CharacterStore
         Get
             Return New LocationStore(
                 connectionSource,
-                connectionSource.ReadIntegerForValue(
+                connectionSource.ReadIntegerForValues(
                     TABLE_CHARACTERS,
-                    (COLUMN_CHARACTER_ID, Id),
+                    {(COLUMN_CHARACTER_ID, Id)},
                     COLUMN_LOCATION_ID))
         End Get
     End Property
@@ -170,9 +170,9 @@ WHERE
         Get
             Return New CharacterTypeStore(
                 connectionSource,
-                connectionSource.ReadIntegerForValue(
+                connectionSource.ReadIntegerForValues(
                     TABLE_CHARACTERS,
-                    (COLUMN_CHARACTER_ID, Id),
+                    {(COLUMN_CHARACTER_ID, Id)},
                     COLUMN_CHARACTER_TYPE_ID))
         End Get
         Set(value As ICharacterTypeStore)

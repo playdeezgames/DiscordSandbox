@@ -22,9 +22,9 @@ Friend Class CharacterStatisticStore
 
     Public Property Value As Integer Implements ICharacterStatisticStore.Value
         Get
-            Return connectionSource.ReadIntegerForValue(
+            Return connectionSource.ReadIntegerForValues(
                     TABLE_CHARACTER_STATISTICS,
-                    (COLUMN_CHARACTER_STATISTIC_ID, Id),
+                    {(COLUMN_CHARACTER_STATISTIC_ID, Id)},
                     COLUMN_STATISTIC_VALUE)
         End Get
         Set(value As Integer)
@@ -39,9 +39,9 @@ Friend Class CharacterStatisticStore
         Get
             Return New CharacterStore(
                 connectionSource,
-                connectionSource.ReadIntegerForValue(
+                connectionSource.ReadIntegerForValues(
                     TABLE_CHARACTER_STATISTICS,
-                    (COLUMN_CHARACTER_STATISTIC_ID, Id),
+                    {(COLUMN_CHARACTER_STATISTIC_ID, Id)},
                     COLUMN_CHARACTER_ID))
         End Get
     End Property

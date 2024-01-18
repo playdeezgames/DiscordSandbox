@@ -19,9 +19,9 @@ Friend Class RouteStore
         Get
             Return New RouteTypeStore(
                 connectionSource,
-                connectionSource.ReadIntegerForValue(
+                connectionSource.ReadIntegerForValues(
                     TABLE_ROUTES,
-                    (COLUMN_ROUTE_ID, Id),
+                    {(COLUMN_ROUTE_ID, Id)},
                     COLUMN_ROUTE_TYPE_ID))
         End Get
         Set(value As IRouteTypeStore)
@@ -36,9 +36,9 @@ Friend Class RouteStore
         Get
             Return New DirectionStore(
                 connectionSource,
-                connectionSource.ReadIntegerForValue(
+                connectionSource.ReadIntegerForValues(
                     TABLE_ROUTES,
-                    (COLUMN_ROUTE_ID, Id),
+                    {(COLUMN_ROUTE_ID, Id)},
                     COLUMN_DIRECTION_ID))
         End Get
         Set(value As IDirectionStore)
@@ -51,7 +51,12 @@ Friend Class RouteStore
 
     Public Property FromLocation As ILocationStore Implements IRouteStore.FromLocation
         Get
-            Return New LocationStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), COLUMN_FROM_LOCATION_ID))
+            Return New LocationStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValues(
+                    TABLE_ROUTES,
+                    {(COLUMN_ROUTE_ID, Id)},
+                    COLUMN_FROM_LOCATION_ID))
         End Get
         Set(value As ILocationStore)
             connectionSource.WriteValuesForValues(
@@ -63,7 +68,12 @@ Friend Class RouteStore
 
     Public Property ToLocation As ILocationStore Implements IRouteStore.ToLocation
         Get
-            Return New LocationStore(connectionSource, connectionSource.ReadIntegerForValue(TABLE_ROUTES, (COLUMN_ROUTE_ID, Id), COLUMN_TO_LOCATION_ID))
+            Return New LocationStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValues(
+                    TABLE_ROUTES,
+                    {(COLUMN_ROUTE_ID, Id)},
+                    COLUMN_TO_LOCATION_ID))
         End Get
         Set(value As ILocationStore)
             connectionSource.WriteValuesForValues(

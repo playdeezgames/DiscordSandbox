@@ -18,9 +18,9 @@ Friend Class ItemStore
         Get
             Return New InventoryStore(
                 connectionSource,
-                connectionSource.ReadIntegerForValue(
+                connectionSource.ReadIntegerForValues(
                     TABLE_ITEMS,
-                    (COLUMN_ITEM_ID, Id),
+                    {(COLUMN_ITEM_ID, Id)},
                     COLUMN_INVENTORY_ID))
         End Get
         Set(value As IInventoryStore)
@@ -41,9 +41,9 @@ Friend Class ItemStore
         Get
             Return New ItemTypeStore(
                 connectionSource,
-                connectionSource.ReadIntegerForValue(
+                connectionSource.ReadIntegerForValues(
                     TABLE_ITEMS,
-                    (COLUMN_ITEM_ID, Id),
+                    {(COLUMN_ITEM_ID, Id)},
                     COLUMN_ITEM_TYPE_ID))
         End Get
         Set(value As IItemTypeStore)

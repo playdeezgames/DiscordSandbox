@@ -84,9 +84,9 @@ WHERE
 
     Public Property NothingGeneratorWeight As Integer Implements IItemTypeGeneratorStore.NothingGeneratorWeight
         Get
-            Return connectionSource.ReadIntegerForValue(
+            Return connectionSource.ReadIntegerForValues(
                 TABLE_ITEM_TYPE_GENERATORS,
-                (COLUMN_ITEM_TYPE_GENERATOR_ID, Id),
+                {(COLUMN_ITEM_TYPE_GENERATOR_ID, Id)},
                 COLUMN_NOTHING_GENERATOR_WEIGHT)
         End Get
         Set(value As Integer)

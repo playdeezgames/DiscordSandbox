@@ -24,9 +24,9 @@ Friend Class CardStore
         Get
             Return New CharacterStore(
                 connectionSource,
-                connectionSource.ReadIntegerForValue(
+                connectionSource.ReadIntegerForValues(
                     TABLE_CARDS,
-                    (COLUMN_CARD_ID, Id),
+                    {(COLUMN_CARD_ID, Id)},
                     COLUMN_CHARACTER_ID))
         End Get
     End Property
