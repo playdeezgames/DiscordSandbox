@@ -3,16 +3,12 @@ Imports System.Text
 Imports Microsoft.Data.SqlClient
 
 Friend Module ConnectionSourceExtensions
-    Private Const PARAMETER_FOR_COLUMN = "@ForColumn"
-    Private Const PARAMETER_FIRST_FOR_COLUMN = "@FirstForColumn"
-    Private Const PARAMETER_SECOND_FOR_COLUMN = "@SecondForColumn"
-    Private Const PARAMETER_WRITTEN_COLUMN = "@WrittenColumn"
     <Extension>
     Function ReadStringForValues(
-                                          connectionSource As Func(Of SqlConnection),
-                                          tableName As String,
-                                          forColumns As (Name As String, Value As Object)(),
-                                          readColumnName As String) As String
+                                connectionSource As Func(Of SqlConnection),
+                                tableName As String,
+                                forColumns As (Name As String, Value As Object)(),
+                                readColumnName As String) As String
         Using command = connectionSource().CreateCommand
             Dim builder As New StringBuilder
             builder.Append($"
@@ -73,7 +69,8 @@ WHERE ")
                              connectionSource As Func(Of SqlConnection),
                              tableName As String,
                              forColumns As (Name As String, Value As Object)(),
-                             foundColumnName As String) As Integer?
+                             foundColumnName As String,
+                             Optional orders As (Name As String, Ascending As Boolean)() = Nothing) As Integer?
         Using command = connectionSource().CreateCommand
             Dim builder = New StringBuilder
             builder.Append($"
@@ -83,6 +80,10 @@ FROM
     {tableName} 
 WHERE ")
             builder.Append(String.Join(" AND ", forColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
+            If orders IsNot Nothing AndAlso orders.Any Then
+                builder.Append(" ORDER BY ")
+                builder.Append(String.Join(",", orders.Select(Function(x) $"{x.Name} {If(x.Ascending, "ASC", "DESC")}")))
+            End If
             command.CommandText = builder.ToString
             For Each column In forColumns
                 command.Parameters.AddWithValue($"@{column.Name}", column.Value)
@@ -100,10 +101,11 @@ WHERE ")
     End Function
     <Extension>
     Function ReadIntegerForValues(
-                                           connectionSource As Func(Of SqlConnection),
-                                           tableName As String,
-                                           forColumns As (Name As String, Value As Object)(),
-                                           readColumnName As String) As Integer
+                                connectionSource As Func(Of SqlConnection),
+                                tableName As String,
+                                forColumns As (Name As String, Value As Object)(),
+                                readColumnName As String,
+                                Optional orders As (Name As String, Ascending As Boolean)() = Nothing) As Integer
         Using command = connectionSource().CreateCommand
             Dim builder As New StringBuilder
             builder.Append($"
@@ -113,6 +115,10 @@ FROM
     {tableName} 
 WHERE ")
             builder.Append(String.Join(" AND ", forColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
+            If orders IsNot Nothing AndAlso orders.Any Then
+                builder.Append(" ORDER BY ")
+                builder.Append(String.Join(",", orders.Select(Function(x) $"{x.Name} {If(x.Ascending, "ASC", "DESC")}")))
+            End If
             command.CommandText = builder.ToString
             For Each column In forColumns
                 command.Parameters.AddWithValue($"@{column.Name}", column.Value)

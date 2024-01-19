@@ -76,39 +76,19 @@ Friend Class CharacterStore
 
     Public ReadOnly Property HasOtherCharacters As Boolean Implements ICharacterStore.HasOtherCharacters
         Get
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    COUNT(1) 
-FROM 
-    {VIEW_CHARACTER_LOCATION_OTHER_CHARACTERS} 
-WHERE 
-    {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
-                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", Id)
-                Return CInt(command.ExecuteScalar) > 0
-            End Using
+            Return connectionSource.ReadIntegerForValues(
+                VIEW_CHARACTER_LOCATION_OTHER_CHARACTERS,
+                {(COLUMN_CHARACTER_ID, Id)},
+                "COUNT(1)") > 0
         End Get
     End Property
 
     Public ReadOnly Property OtherCharacters As IEnumerable(Of ICharacterStore) Implements ICharacterStore.OtherCharacters
         Get
-            Dim result As New List(Of ICharacterStore)
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    {COLUMN_OTHER_CHARACTER_ID}
-FROM 
-    {VIEW_CHARACTER_LOCATION_OTHER_CHARACTERS} 
-WHERE 
-    {COLUMN_CHARACTER_ID}=@{COLUMN_CHARACTER_ID};"
-                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", Id)
-                Using reader = command.ExecuteReader
-                    While reader.Read
-                        result.Add(New CharacterStore(connectionSource, reader.GetInt32(0)))
-                    End While
-                End Using
-            End Using
-            Return result
+            Return connectionSource.ReadIntegersForValues(
+                VIEW_CHARACTER_LOCATION_OTHER_CHARACTERS,
+                {(COLUMN_CHARACTER_ID, Id)},
+                COLUMN_OTHER_CHARACTER_ID).Select(Function(x) New CharacterStore(connectionSource, x))
         End Get
     End Property
 
@@ -121,12 +101,7 @@ WHERE
             If inventoryId.HasValue Then
                 Return New InventoryStore(connectionSource, inventoryId.Value)
             End If
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"INSERT INTO {TABLE_INVENTORIES}({COLUMN_CHARACTER_ID}) VALUES(@{COLUMN_CHARACTER_ID});"
-                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", Id)
-                command.ExecuteNonQuery()
-            End Using
-            Return New InventoryStore(connectionSource, connectionSource.ReadLastIdentity)
+            Return New InventoryStore(connectionSource, connectionSource.Insert(TABLE_INVENTORIES, (COLUMN_CHARACTER_ID, Id)))
         End Get
     End Property
 

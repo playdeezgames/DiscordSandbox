@@ -15,24 +15,20 @@ Public Class DeckStore
 
     Public ReadOnly Property TopOfDeck As ICardStore Implements IDeckStore.TopOfDeck
         Get
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT TOP 1 
-    {idColumnName} 
-FROM 
-    {tableName} 
-WHERE 
-    {relatedColumnName}=@{relatedColumnName} 
-    AND {COLUMN_IN_DRAW_PILE}=1
-ORDER BY 
-    {COLUMN_DRAW_ORDER} ASC;"
-                command.Parameters.AddWithValue($"@{relatedColumnName}", relatedColumnValue)
-                Using reader = command.ExecuteReader
-                    If reader.Read Then
-                        Return New CardStore(connectionSource, reader.GetInt32(0))
-                    End If
-                End Using
-            End Using
+            Dim cardId = connectionSource.FindIntegerForValues(
+                tableName,
+                {
+                    (relatedColumnName, relatedColumnValue),
+                    (COLUMN_IN_DRAW_PILE, 1)
+                },
+                idColumnName,
+                orders:=
+                {
+                    (COLUMN_DRAW_ORDER, True)
+                })
+            If cardId.HasValue Then
+                Return New CardStore(connectionSource, cardId.Value)
+            End If
             Return Nothing
         End Get
     End Property
@@ -64,24 +60,10 @@ ORDER BY
     End Property
 
     Public Sub AddToDrawPile(card As ICardStore) Implements IDeckStore.AddToDrawPile
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-SELECT
-	MAX({COLUMN_DRAW_ORDER})
-FROM	
-	{tableName}
-WHERE
-	{relatedColumnName}=@{relatedColumnName};"
-            command.Parameters.AddWithValue($"@{relatedColumnName}", relatedColumnValue)
-            Dim result As Integer = 1
-            Using reader = command.ExecuteReader
-                If reader.Read Then
-                    If Not reader.IsDBNull(0) Then
-                        result = CInt(reader.GetInt32(0) + 1)
-                    End If
-                End If
-            End Using
-            card.DrawOrder = result
-        End Using
+        Dim result = connectionSource.FindIntegerForValues(
+            tableName,
+            {(relatedColumnName, relatedColumnValue)},
+            $"MAX({COLUMN_DRAW_ORDER})")
+        card.DrawOrder = If(result, 0) + 1
     End Sub
 End Class
