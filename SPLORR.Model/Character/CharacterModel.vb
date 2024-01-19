@@ -214,7 +214,11 @@ Friend Class CharacterModel
     End Sub
 
     Public Function HandCardByName(cardName As String) As ICardModel Implements ICharacterModel.HandCardByName
-        Return New CardModel(store.Cards.HandCardByName(cardName))
+        Dim card = Store.Cards.HandCardByName(cardName)
+        If card Is Nothing Then
+            Return Nothing
+        End If
+        Return New CardModel(card)
     End Function
 
     Public Function CanPlay(card As ICardModel) As Boolean Implements ICharacterModel.CanPlay

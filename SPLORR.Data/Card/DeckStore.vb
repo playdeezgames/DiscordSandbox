@@ -72,6 +72,7 @@ Public Class DeckStore
             VIEW_CARD_DETAILS,
             {
                 (relatedColumnName, relatedColumnValue),
+                (COLUMN_CARD_TYPE_NAME, cardName),
                 (COLUMN_IN_HAND, 1)
             }, COLUMN_CARD_ID)
         If cardId.HasValue Then
