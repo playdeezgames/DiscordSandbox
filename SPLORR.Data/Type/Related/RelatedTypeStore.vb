@@ -34,25 +34,11 @@ Public Class RelatedTypeStore(Of TTypeStore, TRelatedValue)
     End Sub
 
     Public Function Filter(textFilter As String) As IEnumerable(Of TTypeStore) Implements IRelatedTypeStore(Of TTypeStore).Filter
-        Dim result As New List(Of TTypeStore)
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-SELECT 
-    {idColumnName} 
-FROM 
-    {tableName} 
-WHERE 
-    {relatedColumnName} = @{relatedColumnName}
-    AND {nameColumnName} LIKE @{nameColumnName};"
-            command.Parameters.AddWithValue($"@{nameColumnName}", textFilter)
-            command.Parameters.AddWithValue($"@{relatedColumnName}", relatedColumnValue)
-            Using reader = command.ExecuteReader
-                While reader.Read
-                    result.Add(convertor(connectionSource, reader.GetInt32(0)))
-                End While
-            End Using
-        End Using
-        Return result
+        Return connectionSource.ReadIntegersForValues(
+            tableName,
+            {(relatedColumnName, relatedColumnValue)},
+            {(nameColumnName, textFilter)},
+            idColumnName).Select(Function(x) convertor(connectionSource, x))
     End Function
 
     Public Function FromName(name As String) As TTypeStore Implements IRelatedTypeStore(Of TTypeStore).FromName

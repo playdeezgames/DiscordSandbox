@@ -88,6 +88,7 @@ Friend Class CharacterStore
             Return connectionSource.ReadIntegersForValues(
                 VIEW_CHARACTER_LOCATION_OTHER_CHARACTERS,
                 {(COLUMN_CHARACTER_ID, Id)},
+                Array.Empty(Of (Name As String, Value As String))(),
                 COLUMN_OTHER_CHARACTER_ID).Select(Function(x) New CharacterStore(connectionSource, x))
         End Get
     End Property

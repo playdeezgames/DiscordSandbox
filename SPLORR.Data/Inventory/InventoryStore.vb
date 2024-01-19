@@ -72,6 +72,7 @@ Friend Class InventoryStore
             VIEW_ITEM_DETAILS,
             {(COLUMN_INVENTORY_ID, Id),
             (COLUMN_ITEM_NAME, itemName)},
+            Array.Empty(Of (Name As String, Value As String))(),
             COLUMN_ITEM_ID).
             Select(Function(x) New ItemStore(connectionSource, x))
     End Function
@@ -95,6 +96,7 @@ Friend Class InventoryStore
             TABLE_ITEMS,
             {(COLUMN_INVENTORY_ID, Id),
             (COLUMN_ITEM_TYPE_ID, itemType.Id)},
+            Array.Empty(Of (Name As String, Value As String))(),
             COLUMN_ITEM_ID).
             Select(Function(x) New ItemStore(connectionSource, x))
     End Function

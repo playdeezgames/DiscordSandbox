@@ -41,6 +41,7 @@ Public Class DeckStore
                     (relatedColumnName, relatedColumnValue),
                     (COLUMN_IN_HAND, 1)
                 },
+                Array.Empty(Of (Name As String, Value As String))(),
                 idColumnName).
                 Select(Function(x) New CardStore(connectionSource, x))
         End Get
@@ -54,6 +55,7 @@ Public Class DeckStore
                     (relatedColumnName, relatedColumnValue),
                     (COLUMN_IN_DISCARD_PILE, 1)
                 },
+                Array.Empty(Of (Name As String, Value As String))(),
                 idColumnName).
                 Select(Function(x) New CardStore(connectionSource, x))
         End Get

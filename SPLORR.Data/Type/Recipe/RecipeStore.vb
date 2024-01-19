@@ -101,28 +101,11 @@ WHERE
     End Property
 
     Public Function CreateRecipeItemType(itemType As IItemTypeStore, quantityIn As Integer, quantityOut As Integer) As IRecipeItemTypeStore Implements IRecipeStore.CreateRecipeItemType
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-INSERT INTO 
-    {TABLE_RECIPE_ITEM_TYPES}
-    (
-        {COLUMN_RECIPE_ID},
-        {COLUMN_ITEM_TYPE_ID},
-        {COLUMN_QUANTITY_IN},
-        {COLUMN_QUANTITY_OUT}
-    ) 
-    VALUES 
-    (
-        @{COLUMN_RECIPE_ID},
-        @{COLUMN_ITEM_TYPE_ID},
-        @{COLUMN_QUANTITY_IN},
-        @{COLUMN_QUANTITY_OUT});"
-            command.Parameters.AddWithValue($"@{COLUMN_RECIPE_ID}", Id)
-            command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_ID}", itemType.Id)
-            command.Parameters.AddWithValue($"@{COLUMN_QUANTITY_IN}", quantityIn)
-            command.Parameters.AddWithValue($"@{COLUMN_QUANTITY_OUT}", quantityOut)
-            command.ExecuteNonQuery()
-        End Using
-        Return New RecipeItemTypeStore(connectionSource, connectionSource.ReadLastIdentity)
+        Return New RecipeItemTypeStore(connectionSource, connectionSource.Insert(
+            TABLE_RECIPE_ITEM_TYPES,
+            (COLUMN_RECIPE_ID, Id),
+            (COLUMN_ITEM_TYPE_ID, itemType.Id),
+            (COLUMN_QUANTITY_IN, quantityIn),
+            (COLUMN_QUANTITY_OUT, quantityOut)))
     End Function
 End Class

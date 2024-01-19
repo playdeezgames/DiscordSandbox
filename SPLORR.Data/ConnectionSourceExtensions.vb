@@ -131,6 +131,7 @@ WHERE ")
                 connectionSource As Func(Of SqlConnection),
                 tableName As String,
                 forColumns As (Name As String, Value As Object)(),
+                likeColumns As (Name As String, Value As String)(),
                 readColumnName As String) As IEnumerable(Of Integer)
         Dim result As New List(Of Integer)
         Using command = connectionSource().CreateCommand
@@ -142,8 +143,15 @@ FROM
     {tableName} 
 WHERE ")
             builder.Append(String.Join(" AND ", forColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
+            If forColumns.Length <> 0 AndAlso likeColumns.Length <> 0 Then
+                builder.Append(" AND ")
+            End If
+            builder.Append(String.Join(" AND ", likeColumns.Select(Function(x) $"{x.Name} LIKE @{x.Name}")))
             command.CommandText = builder.ToString
             For Each column In forColumns
+                command.Parameters.AddWithValue($"@{column.Name}", column.Value)
+            Next
+            For Each column In likeColumns
                 command.Parameters.AddWithValue($"@{column.Name}", column.Value)
             Next
             Using reader = command.ExecuteReader
@@ -159,7 +167,7 @@ WHERE ")
                            connectionSource As Func(Of SqlConnection),
                            tableName As String,
                            ParamArray forColumns As (Name As String, Value As Object)()) As Boolean
-        Using command = connectionSource().CreateCommand()
+        Using command = connectionSource().CreateCommand
             Dim builder As New StringBuilder
             builder.Append($"SELECT COUNT(1) FROM {tableName} WHERE ")
             builder.Append(String.Join(" AND ", forColumns.Select(Function(x) $"{x.Name}=@{x.Name}")))
@@ -174,7 +182,7 @@ WHERE ")
     Sub DeleteForValues(connectionSource As Func(Of SqlConnection),
                             tableName As String,
                             ParamArray forColumns As (Name As String, Value As Object)())
-        Using command = connectionSource().CreateCommand()
+        Using command = connectionSource().CreateCommand
             Dim builder As New StringBuilder
             builder.Append($"
 DELETE FROM 
