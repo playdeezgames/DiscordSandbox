@@ -17,6 +17,7 @@ Friend Module HelpMessage
             {TOKEN_HAND, "Looks at the cards in yer hand."},
             {TOKEN_HELP, "Shows help."},
             {TOKEN_INVENTORY, "Looks at the items in yer inventory."},
+            {TOKEN_PLAY, "Plays a card from yer hand."},
             {TOKEN_RENAME, "Renames stuff."},
             {TOKEN_STATUS, "Shows yer status."},
             {TOKEN_TAKE, "Takes items from the ground into yer inventory."}
@@ -36,10 +37,20 @@ Friend Module HelpMessage
             {TOKEN_HAND, AddressOf HelpHand},
             {TOKEN_HELP, AddressOf HelpHelp},
             {TOKEN_INVENTORY, AddressOf HelpInventory},
+            {TOKEN_PLAY, AddressOf HelpPlay},
             {TOKEN_RENAME, AddressOf HelpRename},
             {TOKEN_STATUS, AddressOf HelpStatus},
             {TOKEN_TAKE, AddressOf HelpTake}
         }
+
+    Private Sub HelpPlay(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
+        If tokens.Length <> 0 Then
+            InvalidMessage.Handle(player, tokens, outputter)
+            Return
+        End If
+        outputter($"Help for {TOKEN_PLAY}:")
+        outputter($"- usage: {TOKEN_PLAY} <card name>")
+    End Sub
 
     Private Sub HelpHand(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length <> 0 Then

@@ -3,7 +3,7 @@
 Friend Class CharacterModel
     Implements ICharacterModel
 
-    Private ReadOnly store As ICharacterStore
+    ReadOnly Property Store As ICharacterStore Implements ICharacterModel.Store
     Sub New(characterStore As ICharacterStore)
         store = characterStore
     End Sub
@@ -212,4 +212,24 @@ Friend Class CharacterModel
         store.ClearPlayer()
         store.Delete()
     End Sub
+
+    Public Function HandCardByName(cardName As String) As ICardModel Implements ICharacterModel.HandCardByName
+        Return New CardModel(store.Cards.HandCardByName(cardName))
+    End Function
+
+    Public Function CanPlay(card As ICardModel) As Boolean Implements ICharacterModel.CanPlay
+        If Not card.Character.Store.Id = store.Id Then
+            Return False
+        End If
+        If Not card.InHand Then
+            Return False
+        End If
+        Return True
+    End Function
+
+    Public Function Play(card As ICardModel) As IEnumerable(Of String) Implements ICharacterModel.Play
+        Dim result As New List(Of String)
+        card.Discard()
+        Return result
+    End Function
 End Class

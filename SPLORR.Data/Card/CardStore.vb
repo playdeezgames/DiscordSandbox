@@ -47,6 +47,12 @@ Friend Class CardStore
         End Set
     End Property
 
+    Public ReadOnly Property InHand As Boolean Implements ICardStore.InHand
+        Get
+            Return connectionSource.CheckForValues(TABLE_CARDS, (COLUMN_CARD_ID, Id), (COLUMN_IN_HAND, 1))
+        End Get
+    End Property
+
     Public Sub AddToHand() Implements ICardStore.AddToHand
         connectionSource.WriteValuesForValues(
                 TABLE_CARDS,

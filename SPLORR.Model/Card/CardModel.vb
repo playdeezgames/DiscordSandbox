@@ -11,7 +11,23 @@ Friend Class CardModel
         End Get
     End Property
 
+    Public ReadOnly Property Character As ICharacterModel Implements ICardModel.Character
+        Get
+            Return New CharacterModel(Store.Character)
+        End Get
+    End Property
+
+    Public ReadOnly Property InHand As Boolean Implements ICardModel.InHand
+        Get
+            Return Store.InHand
+        End Get
+    End Property
+
     Public Sub New(store As ICardStore)
         Me.Store = store
+    End Sub
+
+    Public Sub Discard() Implements ICardModel.Discard
+        Store.Discard()
     End Sub
 End Class

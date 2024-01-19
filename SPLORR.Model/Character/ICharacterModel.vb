@@ -1,4 +1,6 @@
-﻿Public Interface ICharacterModel
+﻿Imports SPLORR.Data
+
+Public Interface ICharacterModel
     Property Name As String
     Property Location As ILocationModel
     ReadOnly Property Inventory As IInventoryModel
@@ -10,6 +12,9 @@
     Function Craft(recipe As IRecipeModel) As IEnumerable(Of (Quantity As Integer, ItemType As IItemTypeModel))
     Sub RefreshHand()
     Sub Die()
+    Function HandCardByName(cardName As String) As ICardModel
+    Function CanPlay(card As ICardModel) As Boolean
+    Function Play(card As ICardModel) As IEnumerable(Of String)
     ReadOnly Property Cards As IEnumerable(Of ICardModel)
     ReadOnly Property Hand As IEnumerable(Of ICardModel)
     ReadOnly Property Health As Integer
@@ -19,4 +24,5 @@
     ReadOnly Property Energy As Integer
     ReadOnly Property MaximumEnergy As Integer
     ReadOnly Property HandSize As Integer
+    ReadOnly Property Store As ICharacterStore
 End Interface

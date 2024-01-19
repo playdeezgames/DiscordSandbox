@@ -66,4 +66,17 @@ Public Class DeckStore
             $"MAX({COLUMN_DRAW_ORDER})")
         card.DrawOrder = If(result, 0) + 1
     End Sub
+
+    Public Function HandCardByName(cardName As String) As ICardStore Implements IDeckStore.HandCardByName
+        Dim cardId = connectionSource.FindIntegerForValues(
+            VIEW_CARD_DETAILS,
+            {
+                (relatedColumnName, relatedColumnValue),
+                (COLUMN_IN_HAND, 1)
+            }, COLUMN_CARD_ID)
+        If cardId.HasValue Then
+            Return New CardStore(connectionSource, cardId.Value)
+        End If
+        Return Nothing
+    End Function
 End Class
