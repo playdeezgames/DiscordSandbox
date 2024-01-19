@@ -45,4 +45,48 @@ Friend Class CharacterStatisticStore
                     COLUMN_CHARACTER_ID))
         End Get
     End Property
+
+    Public Property Minimum As Integer? Implements ICharacterStatisticStore.Minimum
+        Get
+            Return connectionSource.ReadIntegerForValues(
+                    TABLE_CHARACTER_STATISTICS,
+                    {(COLUMN_CHARACTER_STATISTIC_ID, Id)},
+                    COLUMN_MINIMUM_VALUE)
+        End Get
+        Set(value As Integer?)
+            If Not value.HasValue Then
+                connectionSource.ClearColumnForValues(
+                    TABLE_CHARACTER_STATISTICS,
+                    {(COLUMN_CHARACTER_STATISTIC_ID, Id)},
+                    COLUMN_MINIMUM_VALUE)
+                Return
+            End If
+            connectionSource.WriteValuesForValues(
+                TABLE_CHARACTER_STATISTICS,
+                {(COLUMN_CHARACTER_STATISTIC_ID, Id)},
+                {(COLUMN_MINIMUM_VALUE, value.Value)})
+        End Set
+    End Property
+
+    Public Property Maximum As Integer? Implements ICharacterStatisticStore.Maximum
+        Get
+            Return connectionSource.ReadIntegerForValues(
+                    TABLE_CHARACTER_STATISTICS,
+                    {(COLUMN_CHARACTER_STATISTIC_ID, Id)},
+                    COLUMN_MAXIMUM_VALUE)
+        End Get
+        Set(value As Integer?)
+            If Not value.HasValue Then
+                connectionSource.ClearColumnForValues(
+                    TABLE_CHARACTER_STATISTICS,
+                    {(COLUMN_CHARACTER_STATISTIC_ID, Id)},
+                    COLUMN_MAXIMUM_VALUE)
+                Return
+            End If
+            connectionSource.WriteValuesForValues(
+                TABLE_CHARACTER_STATISTICS,
+                {(COLUMN_CHARACTER_STATISTIC_ID, Id)},
+                {(COLUMN_MAXIMUM_VALUE, value.Value)})
+        End Set
+    End Property
 End Class

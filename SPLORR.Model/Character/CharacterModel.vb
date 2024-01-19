@@ -50,37 +50,37 @@ Friend Class CharacterModel
 
     Public ReadOnly Property Health As Integer Implements ICharacterModel.Health
         Get
-            Return MaximumHealth - store.Statistics.FromName(STATISTIC_TYPE_WOUNDS).Value
+            Return Store.Statistics.FromName(STATISTIC_TYPE_HEALTH).Value
         End Get
     End Property
 
     Public ReadOnly Property MaximumHealth As Integer Implements ICharacterModel.MaximumHealth
         Get
-            Return store.Statistics.FromName(STATISTIC_TYPE_HEALTH).Value
+            Return Store.Statistics.FromName(STATISTIC_TYPE_HEALTH).Maximum.Value
         End Get
     End Property
 
     Public ReadOnly Property Satiety As Integer Implements ICharacterModel.Satiety
         Get
-            Return MaximumSatiety - store.Statistics.FromName(STATISTIC_TYPE_HUNGER).Value
+            Return Store.Statistics.FromName(STATISTIC_TYPE_SATIETY).Value
         End Get
     End Property
 
     Public ReadOnly Property MaximumSatiety As Integer Implements ICharacterModel.MaximumSatiety
         Get
-            Return store.Statistics.FromName(STATISTIC_TYPE_SATIETY).Value
+            Return Store.Statistics.FromName(STATISTIC_TYPE_SATIETY).Maximum.Value
         End Get
     End Property
 
     Public ReadOnly Property Energy As Integer Implements ICharacterModel.Energy
         Get
-            Return MaximumEnergy - store.Statistics.FromName(STATISTIC_TYPE_FATIGUE).Value
+            Return Store.Statistics.FromName(STATISTIC_TYPE_ENERGY).Value
         End Get
     End Property
 
     Public ReadOnly Property MaximumEnergy As Integer Implements ICharacterModel.MaximumEnergy
         Get
-            Return store.Statistics.FromName(STATISTIC_TYPE_ENERGY).Value
+            Return Store.Statistics.FromName(STATISTIC_TYPE_ENERGY).Maximum.Value
         End Get
     End Property
 
