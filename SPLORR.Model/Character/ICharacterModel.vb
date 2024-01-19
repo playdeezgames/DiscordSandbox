@@ -11,6 +11,7 @@
     Sub RefreshHand()
     Sub Die()
     ReadOnly Property Cards As IEnumerable(Of ICardModel)
+    ReadOnly Property Hand As IEnumerable(Of ICardModel)
     ReadOnly Property Health As Integer
     ReadOnly Property MaximumHealth As Integer
     ReadOnly Property Satiety As Integer

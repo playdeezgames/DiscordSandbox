@@ -13,6 +13,7 @@ Friend Module Message
             {TOKEN_FORAGE, AddressOf ForageMessage.Handle},
             {TOKEN_GO, AddressOf GoMessage.Handle},
             {TOKEN_GROUND, AddressOf GroundMessage.Handle},
+            {TOKEN_HAND, AddressOf HandMessage.Handle},
             {TOKEN_HELP, AddressOf HelpMessage.Handle},
             {TOKEN_INVENTORY, AddressOf InventoryMessage.Handle},
             {TOKEN_RENAME, AddressOf RenameMessage.Handle},

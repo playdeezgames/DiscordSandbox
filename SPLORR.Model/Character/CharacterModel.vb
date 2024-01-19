@@ -44,7 +44,7 @@ Friend Class CharacterModel
 
     Public ReadOnly Property Cards As IEnumerable(Of ICardModel) Implements ICharacterModel.Cards
         Get
-            Return store.Cards.Filter("%").Select(Function(x) New CardModel(x))
+            Return store.Cards.All.Select(Function(x) New CardModel(x))
         End Get
     End Property
 
@@ -87,6 +87,12 @@ Friend Class CharacterModel
     Public ReadOnly Property HandSize As Integer Implements ICharacterModel.HandSize
         Get
             Return store.Statistics.FromName(STATISTIC_TYPE_HAND_SIZE).Value
+        End Get
+    End Property
+
+    Public ReadOnly Property Hand As IEnumerable(Of ICardModel) Implements ICharacterModel.Hand
+        Get
+            Return store.Cards.Hand.Select(Function(x) New CardModel(x))
         End Get
     End Property
 
