@@ -49,4 +49,6 @@
     Friend Const COLUMN_IN_DISCARD_PILE = "InDiscardPile"
     Friend Const COLUMN_IN_DRAW_PILE = "InDrawPile"
     Friend Const COLUMN_DRAW_ORDER = "DrawOrder"
+    Friend Const COLUMN_MINIMUM_VALUE = "MinimumValue"
+    Friend Const COLUMN_MAXIMUM_VALUE = "MaximumValue"
 End Module

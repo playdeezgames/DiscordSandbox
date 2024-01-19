@@ -8,7 +8,11 @@ Friend Class CharacterTypeStatisticListWindow
             $"Statistics for Character Type `{store.Name}`",
             store,
             Function(x, y) x.Statistics.Filter(y),
-            Function(x) $"{x.Name}(Id:{x.Id},Value:{x.Value})",
+            Function(x)
+                Dim minimum = x.Minimum
+                Dim maximum = x.Maximum
+                Return $"{x.Name}(Id:{x.Id},Value:{x.Value}{If(minimum.HasValue, $",Minimum:{minimum.Value}", "")}{If(maximum.HasValue, $",Maximum:{maximum.Value}", "")})"
+            End Function,
             Function(x) New CharacterTypeEditStatisticWindow(x),
             {
                 (

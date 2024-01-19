@@ -50,4 +50,48 @@ Friend Class CharacterTypeStatisticStore
                     COLUMN_STATISTIC_TYPE_ID))
         End Get
     End Property
+
+    Public Property Minimum As Integer? Implements ICharacterTypeStatisticStore.Minimum
+        Get
+            Return connectionSource.FindIntegerForValues(
+                TABLE_CHARACTER_TYPE_STATISTICS,
+                {(COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id)},
+                COLUMN_MINIMUM_VALUE)
+        End Get
+        Set(value As Integer?)
+            If Not value.HasValue Then
+                connectionSource.ClearColumnForValues(
+                    TABLE_CHARACTER_TYPE_STATISTICS,
+                    {(COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id)},
+                    COLUMN_MINIMUM_VALUE)
+                Return
+            End If
+            connectionSource.WriteValuesForValues(
+                TABLE_CHARACTER_TYPE_STATISTICS,
+                {(COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id)},
+                {(COLUMN_MINIMUM_VALUE, value.Value)})
+        End Set
+    End Property
+
+    Public Property Maximum As Integer? Implements ICharacterTypeStatisticStore.Maximum
+        Get
+            Return connectionSource.FindIntegerForValues(
+                TABLE_CHARACTER_TYPE_STATISTICS,
+                {(COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id)},
+                COLUMN_MAXIMUM_VALUE)
+        End Get
+        Set(value As Integer?)
+            If Not value.HasValue Then
+                connectionSource.ClearColumnForValues(
+                    TABLE_CHARACTER_TYPE_STATISTICS,
+                    {(COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id)},
+                    COLUMN_MAXIMUM_VALUE)
+                Return
+            End If
+            connectionSource.WriteValuesForValues(
+                TABLE_CHARACTER_TYPE_STATISTICS,
+                {(COLUMN_CHARACTER_TYPE_STATISTIC_ID, Id)},
+                {(COLUMN_MAXIMUM_VALUE, value.Value)})
+        End Set
+    End Property
 End Class

@@ -13,7 +13,7 @@ Friend Class CharacterTypeEditStatisticWindow
                 "Update",
                 Function(x)
                     Dim value As Integer = 0
-                    Return Not Integer.TryParse(x, value)
+                    Return Integer.TryParse(x, value)
                 End Function,
                 Function(x)
                     store.Value = Integer.Parse(x)
@@ -32,6 +32,18 @@ Friend Class CharacterTypeEditStatisticWindow
             (
                 "Cancel",
                 Function() New CharacterTypeStatisticListWindow(store.CharacterType)
-            ))
+            ),
+            {
+                (
+                    $"Minimum: {If(store.Minimum.HasValue, store.Minimum.Value.ToString, "n/a")}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CharacterTypeEditStatisticMinimumWindow(store))
+                ),
+                (
+                    $"Maximum: {If(store.Maximum.HasValue, store.Maximum.Value.ToString, "n/a")}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CharacterTypeEditStatisticMaximumWindow(store))
+                )
+            })
     End Sub
 End Class
