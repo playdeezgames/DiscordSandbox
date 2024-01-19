@@ -27,18 +27,11 @@ Friend Class ItemTypeGeneratorStore
 
     Public ReadOnly Property TotalWeight As Integer Implements IItemTypeGeneratorStore.TotalWeight
         Get
-            Dim total = NothingGeneratorWeight
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    SUM({COLUMN_GENERATOR_WEIGHT}) 
-FROM 
-    {TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES} 
-WHERE 
-    {COLUMN_ITEM_TYPE_GENERATOR_ID}=@{COLUMN_ITEM_TYPE_GENERATOR_ID};"
-                command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_GENERATOR_ID}", Id)
-                Return CInt(command.ExecuteScalar) + total
-            End Using
+            Return NothingGeneratorWeight +
+                connectionSource.ReadIntegerForValues(
+                    TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES,
+                    {(COLUMN_ITEM_TYPE_GENERATOR_ID, Id)},
+                    $"SUM({COLUMN_GENERATOR_WEIGHT}) ")
         End Get
     End Property
 
@@ -52,11 +45,10 @@ WHERE
 
     Public ReadOnly Property CanAddItemType As Boolean Implements IItemTypeGeneratorStore.CanAddItemType
         Get
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"SELECT COUNT(1) FROM {VIEW_ITEM_TYPE_GENERATOR_AVAILABLE_ITEM_TYPES} WHERE {COLUMN_ITEM_TYPE_GENERATOR_ID}=@{COLUMN_ITEM_TYPE_GENERATOR_ID};"
-                command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_GENERATOR_ID}", Id)
-                Return CInt(command.ExecuteScalar) > 0
-            End Using
+            Return connectionSource.ReadIntegerForValues(
+                VIEW_ITEM_TYPE_GENERATOR_AVAILABLE_ITEM_TYPES,
+                {(COLUMN_ITEM_TYPE_GENERATOR_ID, 1)},
+                "COUNT(1)") > 0
         End Get
     End Property
 
@@ -98,27 +90,13 @@ WHERE
     End Property
 
     Public Function AddItemType(itemType As IItemTypeStore, quantity As Integer) As IItemTypeGeneratorItemTypeStore Implements IItemTypeGeneratorStore.AddItemType
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-INSERT INTO 
-    {TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES}
-    (
-        {COLUMN_ITEM_TYPE_ID},
-        {COLUMN_ITEM_TYPE_GENERATOR_ID},
-        {COLUMN_GENERATOR_WEIGHT}
-    ) 
-    VALUES 
-    (
-        @{COLUMN_ITEM_TYPE_ID},
-        @{COLUMN_ITEM_TYPE_GENERATOR_ID},
-        @{COLUMN_GENERATOR_WEIGHT}
-    );"
-            command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_ID}", itemType.Id)
-            command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_GENERATOR_ID}", Id)
-            command.Parameters.AddWithValue($"@{COLUMN_GENERATOR_WEIGHT}", quantity)
-            command.ExecuteNonQuery()
-        End Using
-        Return New ItemTypeGeneratorItemTypeStore(connectionSource, connectionSource.ReadLastIdentity)
+        Return New ItemTypeGeneratorItemTypeStore(
+            connectionSource,
+            connectionSource.Insert(
+                TABLE_ITEM_TYPE_GENERATOR_ITEM_TYPES,
+                (COLUMN_ITEM_TYPE_ID, itemType.Id),
+                (COLUMN_ITEM_TYPE_GENERATOR_ID, Id),
+                (COLUMN_GENERATOR_WEIGHT, quantity)))
     End Function
 
     Public Function Generate(generated As Integer) As IItemTypeStore Implements IItemTypeGeneratorStore.Generate

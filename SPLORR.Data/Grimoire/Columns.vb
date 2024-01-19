@@ -30,7 +30,6 @@
     Friend Const COLUMN_RECIPE_ITEM_TYPE_ID = "RecipeItemTypeId"
     Friend Const COLUMN_RECIPE_NAME = "RecipeName"
     Friend Const COLUMN_ROUTE_ID = "RouteId"
-    Friend Const COLUMN_ROUTE_NAME = "RouteName"
     Friend Const COLUMN_ROUTE_TYPE_ID = "RouteTypeId"
     Friend Const COLUMN_ROUTE_TYPE_NAME = "RouteTypeName"
     Friend Const COLUMN_STATISTIC_TYPE_ID = "StatisticTypeId"

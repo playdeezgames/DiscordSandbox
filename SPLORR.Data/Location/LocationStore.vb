@@ -1,27 +1,23 @@
-﻿Imports Microsoft.Data.SqlClient
+﻿Imports System.Diagnostics.Eventing
+Imports Microsoft.Data.SqlClient
 
 Friend Class LocationStore
     Implements ILocationStore
 
     Private ReadOnly connectionSource As Func(Of SqlConnection)
-    Private ReadOnly locationId As Integer
 
     Public Sub New(connectionSource As Func(Of SqlConnection), locationId As Integer)
         Me.connectionSource = connectionSource
-        Me.locationId = locationId
+        Me.Id = locationId
     End Sub
 
     Public ReadOnly Property Id As Integer Implements ILocationStore.Id
-        Get
-            Return locationId
-        End Get
-    End Property
 
     Public Property Name As String Implements ILocationStore.Name
         Get
             Return connectionSource.ReadStringForValues(
                 TABLE_LOCATIONS,
-                {(COLUMN_LOCATION_ID, locationId)},
+                {(COLUMN_LOCATION_ID, Id)},
                 COLUMN_LOCATION_NAME)
         End Get
         Set(value As String)
@@ -34,17 +30,10 @@ Friend Class LocationStore
 
     Public ReadOnly Property HasRoutes As Boolean Implements ILocationStore.HasRoutes
         Get
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    COUNT(1) 
-FROM 
-    {TABLE_ROUTES} 
-WHERE 
-    {COLUMN_FROM_LOCATION_ID}=@{COLUMN_LOCATION_ID};"
-                command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", locationId)
-                Return CInt(command.ExecuteScalar) > 0
-            End Using
+            Return connectionSource.ReadIntegerForValues(
+                TABLE_ROUTES,
+                {(COLUMN_FROM_LOCATION_ID, Id)},
+                "COUNT(1)") > 0
         End Get
     End Property
 
@@ -54,7 +43,7 @@ WHERE
                 connectionSource,
                 VIEW_ROUTE_DETAILS,
                 COLUMN_ROUTE_ID,
-                COLUMN_ROUTE_NAME,
+                COLUMN_DIRECTION_NAME,
                 (COLUMN_FROM_LOCATION_ID, Id),
                 Function(x, y) New RouteStore(x, y))
         End Get
@@ -64,26 +53,16 @@ WHERE
         Get
             Dim inventoryId = connectionSource.FindIntegerForValues(
                 TABLE_INVENTORIES,
-                {(COLUMN_LOCATION_ID, locationId)},
+                {(COLUMN_LOCATION_ID, Id)},
                 COLUMN_INVENTORY_ID)
             If inventoryId.HasValue Then
                 Return New InventoryStore(connectionSource, inventoryId.Value)
             End If
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-INSERT INTO 
-    {TABLE_INVENTORIES}
-    (
-        {COLUMN_LOCATION_ID}
-    )
-    VALUES
-    (
-        @{COLUMN_LOCATION_ID}
-    );"
-                command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", locationId)
-                command.ExecuteNonQuery()
-            End Using
-            Return New InventoryStore(connectionSource, connectionSource.ReadLastIdentity)
+            Return New InventoryStore(
+                connectionSource,
+                connectionSource.Insert(
+                    TABLE_INVENTORIES,
+                    (COLUMN_LOCATION_ID, Id)))
         End Get
     End Property
 
@@ -93,7 +72,7 @@ INSERT INTO
                 connectionSource,
                 connectionSource.ReadIntegerForValues(
                     TABLE_LOCATIONS,
-                    {(COLUMN_LOCATION_ID, locationId)},
+                    {(COLUMN_LOCATION_ID, Id)},
                     COLUMN_LOCATION_TYPE_ID))
         End Get
         Set(value As ILocationTypeStore)
@@ -180,58 +159,32 @@ INSERT INTO
     End Sub
 
     Public Function FindRouteByDirectionName(directionName As String) As IRouteStore Implements ILocationStore.FindRouteByDirectionName
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-SELECT 
-    {COLUMN_ROUTE_ID} 
-FROM 
-    {TABLE_ROUTES} r 
-JOIN 
-    {TABLE_DIRECTIONS} d ON r.{COLUMN_DIRECTION_ID}=d.{COLUMN_DIRECTION_ID}
-WHERE 
-    r.{COLUMN_FROM_LOCATION_ID}=@{COLUMN_LOCATION_ID} 
-    AND d.{COLUMN_DIRECTION_NAME}=@{COLUMN_DIRECTION_NAME};"
-            command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", locationId)
-            command.Parameters.AddWithValue($"@{COLUMN_DIRECTION_NAME}", directionName)
-            Using reader = command.ExecuteReader
-                If reader.Read Then
-                    Return New RouteStore(connectionSource, reader.GetInt32(0))
-                End If
-            End Using
-            Return Nothing
-        End Using
+        Dim routeId = connectionSource.FindIntegerForValues(
+            VIEW_ROUTE_DETAILS,
+            {(COLUMN_FROM_LOCATION_ID, Id),
+            (COLUMN_DIRECTION_NAME, directionName)},
+            COLUMN_ROUTE_ID)
+        If routeId.HasValue Then
+            Return New RouteStore(connectionSource, routeId.Value)
+        End If
+        Return Nothing
     End Function
 
     Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
         Return True
     End Function
 
-    Public Function AddRoute(direction As IDirectionStore, routeType As IRouteTypeStore, toLocation As ILocationStore) As IRouteStore Implements ILocationStore.AddRoute
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-INSERT INTO 
-    {TABLE_ROUTES}
-    (
-        {COLUMN_DIRECTION_ID},
-        {COLUMN_ROUTE_TYPE_ID},
-        {COLUMN_FROM_LOCATION_ID},
-        {COLUMN_TO_LOCATION_ID}
-    ) 
-    VALUES 
-    (
-        @{COLUMN_DIRECTION_ID},
-        @{COLUMN_ROUTE_TYPE_ID},
-        @{COLUMN_FROM_LOCATION_ID},
-        @{COLUMN_TO_LOCATION_ID}
-    );"
-            command.Parameters.AddWithValue($"@{COLUMN_DIRECTION_ID}", direction.Id)
-            command.Parameters.AddWithValue($"@{COLUMN_ROUTE_TYPE_ID}", routeType.Id)
-            command.Parameters.AddWithValue($"@{COLUMN_FROM_LOCATION_ID}", Id)
-            command.Parameters.AddWithValue($"@{COLUMN_TO_LOCATION_ID}", toLocation.Id)
-            command.ExecuteNonQuery()
-        End Using
+    Public Function AddRoute(
+                            direction As IDirectionStore,
+                            routeType As IRouteTypeStore,
+                            toLocation As ILocationStore) As IRouteStore Implements ILocationStore.AddRoute
         Return New RouteStore(
             connectionSource,
-            connectionSource.ReadLastIdentity)
+            connectionSource.Insert(
+                TABLE_ROUTES,
+                (COLUMN_DIRECTION_ID, direction.Id),
+                (COLUMN_ROUTE_TYPE_ID, routeType.Id),
+                (COLUMN_FROM_LOCATION_ID, Id),
+                (COLUMN_TO_LOCATION_ID, toLocation.Id)))
     End Function
 End Class

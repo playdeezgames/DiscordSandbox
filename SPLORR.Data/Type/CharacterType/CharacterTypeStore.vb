@@ -84,74 +84,32 @@ Friend Class CharacterTypeStore
     End Property
 
     Public Function CreateCharacter(name As String, location As ILocationStore) As ICharacterStore Implements ICharacterTypeStore.CreateCharacter
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-INSERT INTO 
-    {TABLE_CHARACTERS}
-    (
-        {COLUMN_CHARACTER_NAME},
-        {COLUMN_CHARACTER_TYPE_ID},
-        {COLUMN_LOCATION_ID}
-    ) 
-    VALUES 
-    (
-        @{COLUMN_CHARACTER_NAME},
-        @{COLUMN_CHARACTER_TYPE_ID},
-        @{COLUMN_LOCATION_ID}
-    );"
-            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_NAME}", name)
-            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_TYPE_ID}", Id)
-            command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", location.Id)
-            command.ExecuteNonQuery()
-        End Using
-        Return New CharacterStore(connectionSource, connectionSource.ReadLastIdentity)
+        Return New CharacterStore(
+            connectionSource,
+            connectionSource.Insert(
+                TABLE_CHARACTERS,
+                (COLUMN_CHARACTER_NAME, name),
+                (COLUMN_CHARACTER_TYPE_ID, Id),
+                (COLUMN_LOCATION_ID, location.Id)))
     End Function
 
     Public Function AddStatistic(statisticType As IStatisticTypeStore, statisticValue As Integer) As ICharacterTypeStatisticStore Implements ICharacterTypeStore.AddStatistic
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-INSERT INTO 
-    {TABLE_CHARACTER_TYPE_STATISTICS}
-    (
-        {COLUMN_CHARACTER_TYPE_ID},
-        {COLUMN_STATISTIC_TYPE_ID},
-        {COLUMN_STATISTIC_VALUE}
-    ) 
-VALUES 
-    (
-        @{COLUMN_CHARACTER_TYPE_ID},
-        @{COLUMN_STATISTIC_TYPE_ID},
-        @{COLUMN_STATISTIC_VALUE}
-    );"
-            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_TYPE_ID}", Id)
-            command.Parameters.AddWithValue($"@{COLUMN_STATISTIC_TYPE_ID}", statisticType.Id)
-            command.Parameters.AddWithValue($"@{COLUMN_STATISTIC_VALUE}", statisticValue)
-            command.ExecuteNonQuery()
-        End Using
-        Return New CharacterTypeStatisticStore(connectionSource, connectionSource.ReadLastIdentity)
+        Return New CharacterTypeStatisticStore(
+            connectionSource,
+            connectionSource.Insert(
+                TABLE_CHARACTER_TYPE_STATISTICS,
+                (COLUMN_CHARACTER_TYPE_ID, Id),
+                (COLUMN_STATISTIC_TYPE_ID, statisticType.Id),
+                (COLUMN_STATISTIC_VALUE, statisticValue)))
     End Function
 
     Public Function AddCard(cardType As ICardTypeStore, cardQuantity As Integer) As ICharacterTypeCardStore Implements ICharacterTypeStore.AddCard
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-INSERT INTO 
-    {TABLE_CHARACTER_TYPE_CARDS}
-    (
-        {COLUMN_CHARACTER_TYPE_ID},
-        {COLUMN_CARD_TYPE_ID},
-        {COLUMN_CARD_QUANTITY}
-    ) 
-VALUES 
-    (
-        @{COLUMN_CHARACTER_TYPE_ID},
-        @{COLUMN_CARD_TYPE_ID},
-        @{COLUMN_CARD_QUANTITY}
-    );"
-            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_TYPE_ID}", Id)
-            command.Parameters.AddWithValue($"@{COLUMN_CARD_TYPE_ID}", cardType.Id)
-            command.Parameters.AddWithValue($"@{COLUMN_CARD_QUANTITY}", cardQuantity)
-            command.ExecuteNonQuery()
-        End Using
-        Return New CharacterTypeCardStore(connectionSource, connectionSource.ReadLastIdentity)
+        Return New CharacterTypeCardStore(
+            connectionSource,
+            connectionSource.Insert(
+                TABLE_CHARACTER_TYPE_CARDS,
+                (COLUMN_CHARACTER_TYPE_ID, Id),
+                (COLUMN_CARD_TYPE_ID, cardType.Id),
+                (COLUMN_CARD_QUANTITY, cardQuantity)))
     End Function
 End Class

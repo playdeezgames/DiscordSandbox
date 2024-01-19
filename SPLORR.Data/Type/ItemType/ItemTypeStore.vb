@@ -21,23 +21,11 @@ Friend Class ItemTypeStore
     End Property
 
     Public Function CreateItem(inventoryStore As IInventoryStore) As IItemStore Implements IItemTypeStore.CreateItem
-        Using command = connectionSource().CreateCommand
-            command.CommandText = $"
-INSERT INTO 
-    {TABLE_ITEMS}
-    (
-        {COLUMN_ITEM_TYPE_ID},
-        {COLUMN_INVENTORY_ID}
-    )
-    VALUES
-    (
-        @{COLUMN_ITEM_TYPE_ID},
-        @{COLUMN_INVENTORY_ID}
-    );"
-            command.Parameters.AddWithValue($"@{COLUMN_ITEM_TYPE_ID}", Id)
-            command.Parameters.AddWithValue($"@{COLUMN_INVENTORY_ID}", inventoryStore.Id)
-            command.ExecuteNonQuery()
-        End Using
-        Return New ItemStore(connectionSource, connectionSource.ReadLastIdentity)
+        Return New ItemStore(
+            connectionSource,
+            connectionSource.Insert(
+                TABLE_ITEMS,
+                (COLUMN_ITEM_TYPE_ID, Id),
+                (COLUMN_INVENTORY_ID, inventoryStore.Id)))
     End Function
 End Class

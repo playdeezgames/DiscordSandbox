@@ -215,92 +215,30 @@ FROM
     End Function
 
     Public Function CreateCharacter(characterName As String, location As ILocationStore, characterType As ICharacterTypeStore) As ICharacterStore Implements IDataStore.CreateCharacter
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"
-INSERT INTO 
-    {TABLE_CHARACTERS}
-    (
-        {COLUMN_CHARACTER_NAME},
-        {COLUMN_LOCATION_ID},
-        {COLUMN_CHARACTER_TYPE_ID}
-    ) 
-    VALUES 
-    (
-        @{COLUMN_CHARACTER_NAME},
-        @{COLUMN_LOCATION_ID},
-        @{COLUMN_CHARACTER_TYPE_ID}
-    );"
-            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_NAME}", characterName)
-            command.Parameters.AddWithValue($"@{COLUMN_LOCATION_ID}", location.Id)
-            command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_TYPE_ID}", characterType.Id)
-            command.ExecuteNonQuery()
-        End Using
-        Return GetCharacter(ConnectionSource.ReadLastIdentity())
+
+        Return New CharacterStore(
+            ConnectionSource,
+            ConnectionSource.Insert(
+                TABLE_CHARACTERS,
+                (COLUMN_CHARACTER_NAME, characterName),
+                (COLUMN_LOCATION_ID, location.Id),
+                (COLUMN_CHARACTER_TYPE_ID, characterType.Id)))
     End Function
 
     Private Function FindAuthorPlayer(authorId As ULong) As Integer?
-        Dim discordId = CLng(authorId)
-        Using command = GetConnection().CreateCommand()
-            command.CommandText = $"
-        SELECT 
-            {COLUMN_PLAYER_ID} 
-        FROM 
-            {TABLE_PLAYERS} 
-        WHERE 
-            {COLUMN_DISCORD_ID}=@{COLUMN_DISCORD_ID};"
-            command.Parameters.AddWithValue($"@{COLUMN_DISCORD_ID}", discordId)
-            Using reader = command.ExecuteReader
-                If reader.Read Then
-                    Return reader.GetInt32(0)
-                End If
-            End Using
-        End Using
-        Return Nothing
+        Return ConnectionSource.FindIntegerForValues(
+            TABLE_PLAYERS,
+            {(COLUMN_DISCORD_ID, CLng(authorId))},
+            COLUMN_PLAYER_ID)
     End Function
 
     Public Function GetAuthorPlayer(authorId As ULong) As IPlayerStore Implements IDataStore.GetAuthorPlayer
         Dim playerId As Integer? = FindAuthorPlayer(authorId)
         If Not playerId.HasValue Then
-            Using command = GetConnection().CreateCommand
-                command.CommandText = $"
-        INSERT INTO 
-            {TABLE_PLAYERS}
-            (
-                {COLUMN_DISCORD_ID}
-            ) 
-        VALUES
-            (
-                @{COLUMN_DISCORD_ID}
-            );"
-                command.Parameters.AddWithValue($"@{COLUMN_DISCORD_ID}", CLng(authorId))
-                command.ExecuteNonQuery()
-            End Using
-            playerId = FindAuthorPlayer(authorId)
+            playerId = ConnectionSource.Insert(
+                TABLE_PLAYERS,
+                (COLUMN_DISCORD_ID, authorId))
         End If
         Return New PlayerStore(AddressOf GetConnection, playerId.Value)
-    End Function
-
-    Private Function FilterType(Of TStore)(
-                                          tableName As String,
-                                          filterColumn As (Name As String, Filter As String),
-                                          outputColumnName As String,
-                                          convertor As Func(Of SqlDataReader, TStore)) As IEnumerable(Of TStore)
-        Dim result As New List(Of TStore)
-        Using command = GetConnection().CreateCommand
-            command.CommandText = $"
-SELECT 
-    {outputColumnName} 
-FROM 
-    {tableName} 
-WHERE 
-    {filterColumn.Name} LIKE @{filterColumn.Name};"
-            command.Parameters.AddWithValue($"@{filterColumn.Name}", filterColumn.Filter)
-            Using reader = command.ExecuteReader
-                While reader.Read
-                    result.Add(convertor(reader))
-                End While
-            End Using
-        End Using
-        Return result
     End Function
 End Class

@@ -11,17 +11,7 @@ Friend Class PlayerStore
 
     Public ReadOnly Property HasCharacter As Boolean Implements IPlayerStore.HasCharacter
         Get
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-SELECT 
-    COUNT(1) 
-FROM 
-    {TABLE_PLAYER_CHARACTERS} 
-WHERE 
-    {COLUMN_PLAYER_ID}=@{COLUMN_PLAYER_ID};"
-                command.Parameters.AddWithValue($"@{COLUMN_PLAYER_ID}", _playerId)
-                Return CInt(command.ExecuteScalar) > 0
-            End Using
+            Return connectionSource.ReadIntegerForValues(TABLE_PLAYER_CHARACTERS, {(COLUMN_PLAYER_ID, _playerId)}, "COUNT(1)") > 0
         End Get
     End Property
 
@@ -38,32 +28,13 @@ WHERE
             Return Nothing
         End Get
         Set(value As ICharacterStore)
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-DELETE FROM 
-    {TABLE_PLAYER_CHARACTERS} 
-WHERE 
-    {COLUMN_PLAYER_ID}=@{COLUMN_PLAYER_ID};"
-                command.Parameters.AddWithValue($"@{COLUMN_PLAYER_ID}", _playerId)
-                command.ExecuteNonQuery()
-            End Using
-            Using command = connectionSource().CreateCommand
-                command.CommandText = $"
-INSERT INTO 
-    {TABLE_PLAYER_CHARACTERS}
-    (
-        {COLUMN_PLAYER_ID},
-        {COLUMN_CHARACTER_ID}
-    ) 
-    VALUES 
-    (
-        @{COLUMN_PLAYER_ID},
-        @{COLUMN_CHARACTER_ID}
-    );"
-                command.Parameters.AddWithValue($"@{COLUMN_PLAYER_ID}", _playerId)
-                command.Parameters.AddWithValue($"@{COLUMN_CHARACTER_ID}", value.Id)
-                command.ExecuteNonQuery()
-            End Using
+            connectionSource.DeleteForValues(
+                TABLE_PLAYER_CHARACTERS,
+                (COLUMN_PLAYER_ID, _playerId))
+            connectionSource.Insert(
+                TABLE_PLAYER_CHARACTERS,
+                (COLUMN_PLAYER_ID, _playerId),
+                (COLUMN_CHARACTER_ID, value.Id))
         End Set
     End Property
 
