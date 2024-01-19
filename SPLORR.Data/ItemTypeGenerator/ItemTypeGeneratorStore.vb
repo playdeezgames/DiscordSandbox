@@ -124,9 +124,6 @@ ORDER BY
                 While reader.Read
                     Dim generatorWeight = reader.GetInt32(1)
                     If generated < generatorWeight Then
-                        If reader.IsDBNull(0) Then
-                            Return Nothing
-                        End If
                         Return New ItemTypeStore(connectionSource, reader.GetInt32(0))
                     End If
                     generated -= generatorWeight
