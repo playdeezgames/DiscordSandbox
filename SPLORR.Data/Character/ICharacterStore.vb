@@ -3,7 +3,7 @@
     ReadOnly Property Location As ILocationStore
     Sub SetLocation(location As ILocationStore, lastModified As DateTimeOffset)
     Sub ClearPlayer()
-    Function AddStatistic(statisticType As IStatisticTypeStore, statisticValue As Integer) As ICharacterStatisticStore
+    Function AddStatistic(statisticType As IStatisticTypeStore, statisticValue As Integer, minimumValue As Integer?, maximumValue As Integer?) As ICharacterStatisticStore
     ReadOnly Property HasOtherCharacters As Boolean
     ReadOnly Property OtherCharacters As IEnumerable(Of ICharacterStore)
     ReadOnly Property Inventory As IInventoryStore

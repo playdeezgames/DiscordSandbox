@@ -32,6 +32,18 @@ Friend Class CharacterStatisticEditWindow
             (
                 "Cancel",
                 Function() New CharacterStatisticListWindow(store.Character)
-            ))
+            ),
+            {
+                (
+                    $"Minimum: {If(store.Minimum.HasValue, store.Minimum.Value.ToString, "n/a")}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CharacterEditStatisticMinimumWindow(store))
+                ),
+                (
+                    $"Maximum: {If(store.Maximum.HasValue, store.Maximum.Value.ToString, "n/a")}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CharacterEditStatisticMaximumWindow(store))
+                )
+            })
     End Sub
 End Class

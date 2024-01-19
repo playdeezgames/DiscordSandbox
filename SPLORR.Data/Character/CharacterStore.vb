@@ -64,14 +64,28 @@ Friend Class CharacterStore
             (COLUMN_CHARACTER_ID, Id))
     End Sub
 
-    Public Function AddStatistic(statisticType As IStatisticTypeStore, statisticValue As Integer) As ICharacterStatisticStore Implements ICharacterStore.AddStatistic
+    Public Function AddStatistic(
+                                statisticType As IStatisticTypeStore,
+                                statisticValue As Integer,
+                                minimumValue As Integer?,
+                                maximumValue As Integer?) As ICharacterStatisticStore Implements ICharacterStore.AddStatistic
+        Dim columns As New List(Of (String, Object)) From
+            {
+                (COLUMN_CHARACTER_ID, Id),
+                (COLUMN_STATISTIC_TYPE_ID, statisticType.Id),
+                (COLUMN_STATISTIC_VALUE, statisticValue)
+            }
+        If minimumValue.HasValue Then
+            columns.Add((COLUMN_MINIMUM_VALUE, minimumValue.Value))
+        End If
+        If maximumValue.HasValue Then
+            columns.Add((COLUMN_MAXIMUM_VALUE, maximumValue.Value))
+        End If
         Return New CharacterStatisticStore(
             connectionSource,
             connectionSource.Insert(
                 TABLE_CHARACTER_STATISTICS,
-                (COLUMN_CHARACTER_ID, Id),
-                (COLUMN_STATISTIC_TYPE_ID, statisticType.Id),
-                (COLUMN_STATISTIC_VALUE, statisticValue)))
+                columns.ToArray))
     End Function
 
     Public ReadOnly Property HasOtherCharacters As Boolean Implements ICharacterStore.HasOtherCharacters

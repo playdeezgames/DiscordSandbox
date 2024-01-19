@@ -14,7 +14,7 @@ Friend Class CharacterAddStatisticValueWindow
                     Return Not Integer.TryParse(x, value)
                 End Function,
                 Function(x)
-                    store.AddStatistic(statisticType, Integer.Parse(x))
+                    store.AddStatistic(statisticType, Integer.Parse(x), Nothing, Nothing)
                     Return New CharacterStatisticListWindow(store)
                 End Function
             ),

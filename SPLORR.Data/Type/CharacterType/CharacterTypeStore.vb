@@ -93,14 +93,24 @@ Friend Class CharacterTypeStore
                 (COLUMN_LOCATION_ID, location.Id)))
     End Function
 
-    Public Function AddStatistic(statisticType As IStatisticTypeStore, statisticValue As Integer) As ICharacterTypeStatisticStore Implements ICharacterTypeStore.AddStatistic
+    Public Function AddStatistic(statisticType As IStatisticTypeStore, statisticValue As Integer, minimumValue As Integer?, maximumValue As Integer?) As ICharacterTypeStatisticStore Implements ICharacterTypeStore.AddStatistic
+        Dim columns As New List(Of (String, Object)) From
+            {
+                (COLUMN_CHARACTER_TYPE_ID, Id),
+                (COLUMN_STATISTIC_TYPE_ID, statisticType.Id),
+                (COLUMN_STATISTIC_VALUE, statisticValue)
+            }
+        If minimumValue.HasValue Then
+            columns.Add((COLUMN_MINIMUM_VALUE, minimumValue.Value))
+        End If
+        If maximumValue.HasValue Then
+            columns.Add((COLUMN_MAXIMUM_VALUE, maximumValue.Value))
+        End If
         Return New CharacterTypeStatisticStore(
             connectionSource,
             connectionSource.Insert(
                 TABLE_CHARACTER_TYPE_STATISTICS,
-                (COLUMN_CHARACTER_TYPE_ID, Id),
-                (COLUMN_STATISTIC_TYPE_ID, statisticType.Id),
-                (COLUMN_STATISTIC_VALUE, statisticValue)))
+                columns.ToArray))
     End Function
 
     Public Function AddCard(cardType As ICardTypeStore, cardQuantity As Integer) As ICharacterTypeCardStore Implements ICharacterTypeStore.AddCard

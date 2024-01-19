@@ -28,7 +28,7 @@ Friend Class PlayerModel
             GenerateCharacterName(),
             GenerateStartingLocation(),
             characterType,
-            characterType.Statistics.Filter("%").ToDictionary(Function(x) x.StatisticType, Function(x) x.Value))
+            characterType.Statistics.Filter("%").ToDictionary(Function(x) x.StatisticType, Function(x) (x.Value, x.Minimum, x.Maximum)))
         store.Character = character
         For Each entry In characterType.Cards.Filter("%")
             For Each dummy In Enumerable.Range(0, entry.Quantity)

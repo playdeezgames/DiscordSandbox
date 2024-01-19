@@ -48,11 +48,11 @@ Friend Class PlayerStore
                                    characterName As String,
                                    location As ILocationStore,
                                    characterType As ICharacterTypeStore,
-                                   statistics As IReadOnlyDictionary(Of IStatisticTypeStore, Integer)
+                                   statistics As IReadOnlyDictionary(Of IStatisticTypeStore, (Value As Integer, Minimum As Integer?, Maximum As Integer?))
                                    ) As ICharacterStore Implements IPlayerStore.CreateCharacter
         Dim character = Store.CreateCharacter(characterName, location, characterType)
         For Each entry In statistics
-            character.AddStatistic(entry.Key, entry.Value)
+            character.AddStatistic(entry.Key, entry.Value.Value, entry.Value.Minimum, entry.Value.Maximum)
         Next
         Return character
     End Function
