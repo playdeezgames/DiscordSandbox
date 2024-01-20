@@ -7,6 +7,7 @@ Module Program
     Private Const ENV_VAR_CONNECTION_STRING = "CONNECTION_STRING"
     Private bot As IBot
     Sub Main(args As String())
+        Console.Title = "SPLORR!! Console Host"
         AddHandler Console.CancelKeyPress, AddressOf OnCancelKeyPress
         Try
             Dim worldModel As New WorldModel(New DataStore(Environment.GetEnvironmentVariable(ENV_VAR_CONNECTION_STRING)))

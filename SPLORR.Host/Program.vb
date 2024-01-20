@@ -10,6 +10,7 @@ Module Program
     Private Const ENV_VAR_CONNECTION_STRING = "CONNECTION_STRING"
     Private completionSource As TaskCompletionSource = New TaskCompletionSource
     Sub Main(args As String())
+        Console.Title = "SPLORR!! Discord Host"
         AddHandler Console.CancelKeyPress, AddressOf OnCancelKeyPress
         MainAsync(args).
             GetAwaiter().
