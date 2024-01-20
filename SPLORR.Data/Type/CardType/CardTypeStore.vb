@@ -15,7 +15,15 @@ Friend Class CardTypeStore
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get
-            Return True
+            Return Not HasDeltas
+        End Get
+    End Property
+
+    Private ReadOnly Property HasDeltas As Boolean
+        Get
+            Return connectionSource.CheckForValues(
+                TABLE_CARD_TYPE_STATISTIC_DELTAS,
+                (COLUMN_CARD_TYPE_ID, Id))
         End Get
     End Property
 
