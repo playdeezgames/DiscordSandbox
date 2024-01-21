@@ -5,4 +5,5 @@
     ReadOnly Property InHand As Boolean
     Sub AddToHand()
     Sub Discard()
+    ReadOnly Property CardType As ICardTypeStore
 End Interface

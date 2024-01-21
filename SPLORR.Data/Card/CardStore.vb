@@ -53,6 +53,17 @@ Friend Class CardStore
         End Get
     End Property
 
+    Public ReadOnly Property CardType As ICardTypeStore Implements ICardStore.CardType
+        Get
+            Return New CardTypeStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValues(
+                    TABLE_CARDS,
+                    {(COLUMN_CARD_ID, Id)},
+                    COLUMN_CARD_TYPE_ID))
+        End Get
+    End Property
+
     Public Sub AddToHand() Implements ICardStore.AddToHand
         connectionSource.WriteValuesForValues(
                 TABLE_CARDS,

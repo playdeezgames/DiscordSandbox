@@ -23,6 +23,16 @@ Friend Class CardModel
         End Get
     End Property
 
+    Public ReadOnly Property StatisticDeltas As IEnumerable(Of ICardTypeStatisticDeltaModel) Implements ICardModel.StatisticDeltas
+        Get
+            Return Store.
+                CardType.
+                StatisticDeltas.
+                All.
+                Select(Function(x) New CardTypeStatisticDeltaModel(x))
+        End Get
+    End Property
+
     Public Sub New(store As ICardStore)
         Me.Store = store
     End Sub

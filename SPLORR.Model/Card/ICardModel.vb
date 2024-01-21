@@ -6,4 +6,5 @@ Public Interface ICardModel
     ReadOnly Property Character As ICharacterModel
     ReadOnly Property InHand As Boolean
     Sub Discard()
+    ReadOnly Property StatisticDeltas As IEnumerable(Of ICardTypeStatisticDeltaModel)
 End Interface
