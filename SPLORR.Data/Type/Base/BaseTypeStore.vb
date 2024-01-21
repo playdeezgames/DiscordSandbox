@@ -7,6 +7,7 @@ Friend MustInherit Class BaseTypeStore
     Private ReadOnly idColumnName As String
     Private ReadOnly nameColumnName As String
     Private ReadOnly deleteTableName As String
+    Private ReadOnly relatedColumns As (Name As String, Value As Object)()
     Private cachedName As String = Nothing
     Sub New(
            connectionSource As Func(Of SqlConnection),
@@ -14,13 +15,15 @@ Friend MustInherit Class BaseTypeStore
            tableName As String,
            idColumnName As String,
            nameColumnName As String,
-           Optional deleteTableName As String = Nothing)
+           Optional deleteTableName As String = Nothing,
+           Optional relatedColumns As (Name As String, Value As Object)() = Nothing)
         Me.connectionSource = connectionSource
         Me.Id = id
         Me.tableName = tableName
         Me.idColumnName = idColumnName
         Me.nameColumnName = nameColumnName
         Me.deleteTableName = If(deleteTableName, tableName)
+        Me.relatedColumns = If(relatedColumns, Array.Empty(Of (Name As String, Value As Object))())
     End Sub
     Public ReadOnly Property Store As IDataStore Implements IBaseTypeStore.Store
         Get
