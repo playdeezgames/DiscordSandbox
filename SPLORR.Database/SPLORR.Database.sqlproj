@@ -111,6 +111,8 @@
     <Build Include="dbo\Views\CharacterTypeAvailableCards.sql" />
     <Build Include="dbo\Views\CharacterTypeCardDetails.sql" />
     <Build Include="dbo\Tables\Card\CardTypeStatisticDeltas.sql" />
+    <Build Include="dbo\Views\CardTypeStatisticDeltaDetails.sql" />
+    <Build Include="dbo\Views\CardTypeAvailableStatisticDeltas.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />

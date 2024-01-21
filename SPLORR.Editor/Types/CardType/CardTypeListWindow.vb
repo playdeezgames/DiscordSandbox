@@ -1,5 +1,4 @@
 ﻿Imports SPLORR.Data
-Imports Terminal.Gui
 
 Friend Class CardTypeListWindow
     Inherits BaseListWindow(Of IDataStore, ICardTypeStore)

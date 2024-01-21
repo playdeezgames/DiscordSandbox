@@ -20,6 +20,12 @@ Friend Class CardTypeEditWindow
                 store.Delete()
                 Return New CardTypeListWindow(store.Store)
             End Function),
-            ("Cancel", Function() New CardTypeListWindow(store.Store)))
+            ("Cancel", Function() New CardTypeListWindow(store.Store)),
+            {
+                (
+                    "Statistic Deltas...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CardTypeStatisticDeltaListWindow(store)))
+            })
     End Sub
 End Class
