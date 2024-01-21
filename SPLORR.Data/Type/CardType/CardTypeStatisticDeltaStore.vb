@@ -81,4 +81,15 @@ Friend Class CardTypeStatisticDeltaStore
                 {(COLUMN_ALLOW_DEFICIT, If(value, 1, 0))})
         End Set
     End Property
+
+    Public ReadOnly Property StatisticType As IStatisticTypeStore Implements ICardTypeStatisticDeltaStore.StatisticType
+        Get
+            Return New StatisticTypeStore(
+                connectionSource,
+                connectionSource.ReadIntegerForValues(
+                    TABLE_CARD_TYPE_STATISTIC_DELTAS,
+                    {(COLUMN_CARD_TYPE_STATISTIC_DELTA_ID, Id)},
+                    COLUMN_STATISTIC_TYPE_ID))
+        End Get
+    End Property
 End Class

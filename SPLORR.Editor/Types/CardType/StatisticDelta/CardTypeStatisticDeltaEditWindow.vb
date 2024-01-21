@@ -5,9 +5,9 @@ Friend Class CardTypeStatisticDeltaEditWindow
     Inherits BaseEditTypeWindow
     Public Sub New(store As ICardTypeStatisticDeltaStore)
         MyBase.New(
-            "Card Type Statistic Delta",
+            $"Card Type Statistic Delta for `{store.CardType.Name}`",
             "Statistic Delta",
-            ("Card Type:", store.CardType.Name),
+            ("Statistic Type", store.StatisticType.Name),
             ("Delta", store.Delta.ToString),
             (
                 True,
