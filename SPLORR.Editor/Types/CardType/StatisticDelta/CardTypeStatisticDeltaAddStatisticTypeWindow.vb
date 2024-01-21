@@ -10,6 +10,9 @@ Friend Class CardTypeStatisticDeltaAddStatisticTypeWindow
             store,
             Function(x, y) store.AvailableStatisticDeltas.Filter(y),
             Function(x) $"{x.Name}(Id:{x.Id}",
-            Function(x) New CardTypeStatisticDeltaAddDeltaWindow(store, x))
+            Function(x) New CardTypeStatisticDeltaAddDeltaWindow(store, x),
+            {
+                ("Cancel", Function() True, Sub() Program.GoToWindow(New CardTypeStatisticDeltaListWindow(store)))
+            })
     End Sub
 End Class

@@ -5,7 +5,6 @@
 	[StatisticTypeId] INT NOT NULL,
 	[StatisticDelta] INT NOT NULL,
 	[AllowOverage] BIT NOT NULL,
-	[AllowDeficit] BIT NOT NULL,
 	CONSTRAINT PK_CardTypeStatisticDeltas PRIMARY KEY(CardTypeStatisticDeltaId),
 	CONSTRAINT AK_CardTypeStatisticDeltas_CardTypeId_StatisticTypeId UNIQUE(CardTypeId, StatisticTypeId),
 	CONSTRAINT FK_CardTypeStatisticDeltas_CardTypes FOREIGN KEY (CardTypeId) REFERENCES CardTypes(CardTypeId),

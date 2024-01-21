@@ -74,7 +74,6 @@ Friend Class CardTypeStore
                 (COLUMN_CARD_TYPE_ID, Id),
                 (COLUMN_STATISTIC_TYPE_ID, statisticType.Id),
                 (COLUMN_ALLOW_OVERAGE, 0),
-                (COLUMN_ALLOW_DEFICIT, 0),
                 (COLUMN_STATISTIC_DELTA, delta)))
     End Function
 End Class

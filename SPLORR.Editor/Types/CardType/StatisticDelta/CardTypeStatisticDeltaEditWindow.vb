@@ -36,14 +36,8 @@ Friend Class CardTypeStatisticDeltaEditWindow
                     Sub()
                         store.AllowOverage = Not store.AllowOverage
                         Program.GoToWindow(New CardTypeStatisticDeltaEditWindow(store))
-                    End Sub),
-                (
-                    $"Deficit: {store.AllowDeficit}",
-                    Function() True,
-                    Sub()
-                        store.AllowDeficit = Not store.AllowDeficit
-                        Program.GoToWindow(New CardTypeStatisticDeltaEditWindow(store))
-                    End Sub)
+                    End Sub
+                )
             })
     End Sub
 End Class

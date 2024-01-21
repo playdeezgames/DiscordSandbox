@@ -64,24 +64,6 @@ Friend Class CardTypeStatisticDeltaStore
         End Set
     End Property
 
-    Public Property AllowDeficit As Boolean Implements ICardTypeStatisticDeltaStore.AllowDeficit
-        Get
-            Return connectionSource.ReadIntegerForValues(
-                TABLE_CARD_TYPE_STATISTIC_DELTAS,
-                {
-                    (COLUMN_CARD_TYPE_STATISTIC_DELTA_ID, Id),
-                    (COLUMN_ALLOW_DEFICIT, 1)
-                },
-                "COUNT(1)") > 0
-        End Get
-        Set(value As Boolean)
-            connectionSource.WriteValuesForValues(
-                TABLE_CARD_TYPE_STATISTIC_DELTAS,
-                {(COLUMN_CARD_TYPE_STATISTIC_DELTA_ID, Id)},
-                {(COLUMN_ALLOW_DEFICIT, If(value, 1, 0))})
-        End Set
-    End Property
-
     Public ReadOnly Property StatisticType As IStatisticTypeStore Implements ICardTypeStatisticDeltaStore.StatisticType
         Get
             Return New StatisticTypeStore(

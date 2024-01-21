@@ -5,10 +5,10 @@ Friend Class CardTypeStatisticDeltaListWindow
 
     Public Sub New(store As Data.ICardTypeStore)
         MyBase.New(
-            "Card Types",
+            $"Statistic Deltas for Card Type `{store.Name}`",
             store,
             Function(x, y) x.StatisticDeltas.Filter(y),
-            Function(x) $"{x.Name}(Id:{x.Id})",
+            Function(x) $"{x.Name}(Id:{x.Id},Delta:{x.Delta},Overage:{x.AllowOverage})",
             Function(x) New CardTypeStatisticDeltaEditWindow(x),
             {
                 (

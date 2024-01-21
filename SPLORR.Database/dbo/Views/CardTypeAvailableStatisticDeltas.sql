@@ -7,6 +7,6 @@ SELECT
 FROM
 	CardTypes ct
 	CROSS JOIN StatisticTypes st
-	LEFT JOIN CardTypeStatisticDeltas ctsd ON ctsd.CardTypeId=ct.CardTypeId
+	LEFT JOIN CardTypeStatisticDeltas ctsd ON ctsd.CardTypeId=ct.CardTypeId AND ctsd.StatisticTypeId=st.StatisticTypeId
 WHERE
 	ctsd.CardTypeStatisticDeltaId IS NULL
