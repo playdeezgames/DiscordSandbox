@@ -5,4 +5,5 @@
     ReadOnly Property StatisticDeltas As IRelatedTypeStore(Of ICardTypeStatisticDeltaStore)
     ReadOnly Property AvailableStatisticDeltas As IRelatedTypeStore(Of IStatisticTypeStore)
     ReadOnly Property CanAddStatisticDelta As Boolean
+    ReadOnly Property Tags As ITypeStore(Of ICardTypeTagStore)
 End Interface

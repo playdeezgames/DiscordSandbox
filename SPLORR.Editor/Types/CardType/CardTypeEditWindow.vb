@@ -25,7 +25,13 @@ Friend Class CardTypeEditWindow
                 (
                     "Statistic Deltas...",
                     Function() True,
-                    Sub() Program.GoToWindow(New CardTypeStatisticDeltaListWindow(store)))
+                    Sub() Program.GoToWindow(New CardTypeStatisticDeltaListWindow(store))
+                ),
+                (
+                    "Tags...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CardTypeTagListWindow(store))
+                )
             })
     End Sub
 End Class

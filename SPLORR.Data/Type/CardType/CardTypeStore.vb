@@ -15,7 +15,7 @@ Friend Class CardTypeStore
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get
-            Return Not HasDeltas
+            Return Not HasDeltas AndAlso Not HasTags
         End Get
     End Property
 
@@ -49,10 +49,29 @@ Friend Class CardTypeStore
         End Get
     End Property
 
+    Public ReadOnly Property Tags As ITypeStore(Of ICardTypeTagStore) Implements ICardTypeStore.Tags
+        Get
+            Return New TypeStore(Of ICardTypeTagStore)(
+                connectionSource,
+                TABLE_CARD_TYPE_TAGS,
+                COLUMN_CARD_TYPE_TAG_ID,
+                COLUMN_TAG_NAME,
+                Function(x, y) New CardTypeTagStore(x, y))
+        End Get
+    End Property
+
     Private ReadOnly Property HasDeltas As Boolean
         Get
             Return connectionSource.CheckForValues(
                 TABLE_CARD_TYPE_STATISTIC_DELTAS,
+                (COLUMN_CARD_TYPE_ID, Id))
+        End Get
+    End Property
+
+    Private ReadOnly Property HasTags As Boolean
+        Get
+            Return connectionSource.CheckForValues(
+                TABLE_CARD_TYPE_TAGS,
                 (COLUMN_CARD_TYPE_ID, Id))
         End Get
     End Property
