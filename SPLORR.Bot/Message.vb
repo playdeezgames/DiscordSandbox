@@ -18,6 +18,7 @@ Friend Module Message
             {TOKEN_INVENTORY, AddressOf InventoryMessage.Handle},
             {TOKEN_PLAY, AddressOf PlayMessage.Handle},
             {TOKEN_RENAME, AddressOf RenameMessage.Handle},
+            {TOKEN_REST, AddressOf RestMessage.Handle},
             {TOKEN_STATUS, AddressOf StatusMessage.Handle},
             {TOKEN_TAKE, AddressOf TakeMessage.Handle}
         }

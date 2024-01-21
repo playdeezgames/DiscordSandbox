@@ -249,4 +249,32 @@ Friend Class CharacterModel
         card.Discard()
         Return result
     End Function
+
+    Public Function Rest() As IEnumerable(Of String) Implements ICharacterModel.Rest
+        Dim result As New List(Of String)
+        Dim energy = Store.Statistics.FromName(STATISTIC_TYPE_ENERGY)
+        If energy.Value >= energy.Maximum Then
+            result.Add($"{Store.Name}'s energy is at maximum, so there is no need to rest!")
+            Return result
+        End If
+        Dim satiety = Store.Statistics.FromName(STATISTIC_TYPE_SATIETY)
+        If satiety.Value = 0 Then
+            Dim health = Store.Statistics.FromName(STATISTIC_TYPE_HEALTH)
+            If health.Value <= 1 Then
+                result.Add($"{Store.Name} starves to death!")
+                Die()
+                Return result
+            End If
+            health.Value -= 1
+            result.Add($"-1 {STATISTIC_TYPE_HEALTH}")
+        Else
+            satiety.Value -= 1
+            result.Add($"-1 {STATISTIC_TYPE_SATIETY}")
+        End If
+        Dim delta = energy.Maximum.Value - energy.Value
+        result.Add($"+{delta} {STATISTIC_TYPE_ENERGY}")
+        energy.Value = energy.Maximum.Value
+        RefreshHand()
+        Return result
+    End Function
 End Class

@@ -25,4 +25,5 @@ Public Interface ICharacterModel
     ReadOnly Property MaximumEnergy As Integer
     ReadOnly Property HandSize As Integer
     ReadOnly Property Store As ICharacterStore
+    Function Rest() As IEnumerable(Of String)
 End Interface

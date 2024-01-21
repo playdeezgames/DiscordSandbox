@@ -15,4 +15,5 @@
     Friend Const TOKEN_CRAFT As String = "craft"
     Friend Const TOKEN_CARDS As String = "cards"
     Friend Const TOKEN_DIE As String = "die"
+    Friend Const TOKEN_REST As String = "rest"
 End Module
