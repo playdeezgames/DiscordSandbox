@@ -31,7 +31,14 @@ Friend Class CharacterStatisticStore
             connectionSource.WriteValuesForValues(
                     TABLE_CHARACTER_STATISTICS,
                     {(COLUMN_CHARACTER_STATISTIC_ID, Id)},
-                    {(COLUMN_STATISTIC_VALUE, value)})
+                    {
+                        (
+                            COLUMN_STATISTIC_VALUE,
+                            Math.Clamp(
+                                value,
+                                If(Minimum, Integer.MinValue),
+                                If(Maximum, Integer.MaxValue)))
+                    })
         End Set
     End Property
 

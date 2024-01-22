@@ -18,7 +18,7 @@ Friend Class CharacterTypeCardListWindow
                 ),
                 (
                     "Add",
-                    Function() store.CanAddStatistic,
+                    Function() store.CanAddCard,
                     Sub() Program.GoToWindow(New CharacterTypeAddCardTypeWindow(store))
                 )
             })

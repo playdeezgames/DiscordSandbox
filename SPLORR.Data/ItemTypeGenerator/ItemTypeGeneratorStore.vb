@@ -45,10 +45,9 @@ Friend Class ItemTypeGeneratorStore
 
     Public ReadOnly Property CanAddItemType As Boolean Implements IItemTypeGeneratorStore.CanAddItemType
         Get
-            Return connectionSource.ReadIntegerForValues(
+            Return connectionSource.CheckForValues(
                 VIEW_ITEM_TYPE_GENERATOR_AVAILABLE_ITEM_TYPES,
-                {(COLUMN_ITEM_TYPE_GENERATOR_ID, 1)},
-                "COUNT(1)") > 0
+                {(COLUMN_ITEM_TYPE_GENERATOR_ID, Id)})
         End Get
     End Property
 

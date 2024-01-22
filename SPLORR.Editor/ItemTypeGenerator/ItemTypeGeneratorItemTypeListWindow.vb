@@ -8,7 +8,7 @@ Friend Class ItemTypeGeneratorItemTypeListWindow
             $"List Item Types For: {itemTypeGeneratorStore.Name}",
             itemTypeGeneratorStore,
             Function(x, y) x.ItemTypes.Filter(y),
-            Function(x) $"{x.Name}(Id:{x.Id})",
+            Function(x) $"{x.Name}(Id:{x.Id},Weight:{x.GeneratorWeight})",
             ToResultWindow:=Function(x)
                                 Return New ItemTypeGeneratorItemTypeEditWindow(x)
                             End Function,
