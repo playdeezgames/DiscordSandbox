@@ -133,4 +133,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="AK_RecipeItemTypes_RecipeId_ItemTypeId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="de989d52-ffa7-4947-ab2e-cf722d735475" ChangeDateTime="01/22/2024 11:50:34">
+    <Property Name="ElementName" Value="[dbo].[CardTypes].[DeleteOnDiscard]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CardTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DeleteOnPlay" />
+  </Operation>
 </Operations>

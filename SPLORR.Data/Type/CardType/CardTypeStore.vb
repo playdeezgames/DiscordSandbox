@@ -66,13 +66,13 @@ Friend Class CardTypeStore
             Return connectionSource.CheckForValues(
                 TABLE_CARD_TYPES,
                 (COLUMN_CARD_TYPE_ID, Id),
-                (COLUMN_DELETE_ON_DISCARD, 1))
+                (COLUMN_DELETE_ON_PLAY, 1))
         End Get
         Set(value As Boolean)
             connectionSource.WriteValuesForValues(
                 TABLE_CARD_TYPES,
                 {(COLUMN_CARD_TYPE_ID, Id)},
-                {(COLUMN_DELETE_ON_DISCARD, If(value, 1, 0))})
+                {(COLUMN_DELETE_ON_PLAY, If(value, 1, 0))})
         End Set
     End Property
 
