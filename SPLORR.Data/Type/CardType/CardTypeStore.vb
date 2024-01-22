@@ -56,7 +56,7 @@ Friend Class CardTypeStore
                 TABLE_CARD_TYPE_TAGS,
                 COLUMN_CARD_TYPE_TAG_ID,
                 COLUMN_TAG_NAME,
-                Function(x, y) New CardTypeTagStore(x, y))
+                Function(x, y) New CardTypeTagStore(x, y, Me))
         End Get
     End Property
 

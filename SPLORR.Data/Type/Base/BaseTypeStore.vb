@@ -31,12 +31,22 @@ Friend MustInherit Class BaseTypeStore
         End Get
     End Property
     Public ReadOnly Property Id As Integer Implements IBaseTypeStore.Id
+    Private Function ForIdColumns() As (Name As String, Value As Object)()
+        Dim result As New List(Of (Name As String, Value As Object))(relatedColumns)
+        result.Add((idColumnName, Id))
+        Return result.ToArray
+    End Function
+    Protected Function ForNameColumns(name As String) As (Name As String, Value As Object)()
+        Dim result As New List(Of (Name As String, Value As Object))(relatedColumns)
+        result.Add((nameColumnName, name))
+        Return result.ToArray
+    End Function
     Public Property Name As String Implements IBaseTypeStore.Name
         Get
             If cachedName Is Nothing Then
                 cachedName = connectionSource.ReadStringForValues(
                     tableName,
-                    {(idColumnName, Id)},
+                    ForIdColumns,
                     nameColumnName)
             End If
             Return cachedName
@@ -44,7 +54,7 @@ Friend MustInherit Class BaseTypeStore
         Set(value As String)
             connectionSource.WriteValuesForValues(
                 tableName,
-                {(idColumnName, Id)},
+                ForIdColumns,
                 {(nameColumnName, value)})
             cachedName = value
         End Set
@@ -55,7 +65,10 @@ Friend MustInherit Class BaseTypeStore
             (idColumnName, Id))
     End Sub
     Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
-        Return Not connectionSource.FindIntegerForValues(tableName, {(nameColumnName, x)}, idColumnName).HasValue
+        Return Not connectionSource.FindIntegerForValues(
+            tableName,
+            ForNameColumns(x),
+            idColumnName).HasValue
     End Function
     Public MustOverride ReadOnly Property CanDelete As Boolean Implements IBaseTypeStore.CanDelete
 End Class

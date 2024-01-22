@@ -4,13 +4,14 @@ Friend Class CardTypeTagStore
     Inherits BaseTypeStore
     Implements ICardTypeTagStore
 
-    Public Sub New(connectionSource As Func(Of SqlConnection), id As Integer)
+    Public Sub New(connectionSource As Func(Of SqlConnection), id As Integer, cardType As ICardTypeStore)
         MyBase.New(
             connectionSource,
             id,
             TABLE_CARD_TYPE_TAGS,
             COLUMN_CARD_TYPE_TAG_ID,
-            COLUMN_TAG_NAME)
+            COLUMN_TAG_NAME,
+            relatedColumns:={(COLUMN_CARD_TYPE_ID, cardType.Id)})
     End Sub
 
     Public ReadOnly Property CardType As ICardTypeStore Implements ICardTypeTagStore.CardType
