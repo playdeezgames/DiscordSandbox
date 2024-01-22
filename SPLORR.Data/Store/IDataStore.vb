@@ -2,19 +2,14 @@ Public Interface IDataStore
     Sub CleanUp()
     ReadOnly Property CardTypes As ITypeStore(Of ICardTypeStore)
     ReadOnly Property Characters As ITypeStore(Of ICharacterStore)
-    ReadOnly Property Items As ITypeStore(Of IItemStore)
     ReadOnly Property Locations As ITypeStore(Of ILocationStore)
     ReadOnly Property CharacterTypes As ITypeStore(Of ICharacterTypeStore)
-    ReadOnly Property Recipes As ITypeStore(Of IRecipeStore)
     ReadOnly Property RouteTypes As ITypeStore(Of IRouteTypeStore)
     ReadOnly Property StatisticTypes As ITypeStore(Of IStatisticTypeStore)
     ReadOnly Property Directions As ITypeStore(Of IDirectionStore)
     'Location Type
     ReadOnly Property LocationTypes As ITypeStore(Of ILocationTypeStore)
     'Item Type
-    ReadOnly Property ItemTypes As ITypeStore(Of IItemTypeStore)
-    'Item Type Generator
-    ReadOnly Property ItemTypeGenerators As ITypeStore(Of IItemTypeGeneratorStore)
 
     'Character Type
     Function GetCharacterType(characterTypeId As Integer) As ICharacterTypeStore

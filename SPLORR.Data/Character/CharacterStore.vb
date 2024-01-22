@@ -107,22 +107,9 @@ Friend Class CharacterStore
         End Get
     End Property
 
-    Public ReadOnly Property Inventory As IInventoryStore Implements ICharacterStore.Inventory
-        Get
-            Dim inventoryId = connectionSource.FindIntegerForValues(
-                TABLE_INVENTORIES,
-                {(COLUMN_CHARACTER_ID, Id)},
-                COLUMN_INVENTORY_ID)
-            If inventoryId.HasValue Then
-                Return New InventoryStore(connectionSource, inventoryId.Value)
-            End If
-            Return New InventoryStore(connectionSource, connectionSource.Insert(TABLE_INVENTORIES, (COLUMN_CHARACTER_ID, Id)))
-        End Get
-    End Property
-
     Public ReadOnly Property CanDelete As Boolean Implements ICharacterStore.CanDelete
         Get
-            Return Not HasPlayer AndAlso Not HasInventory AndAlso Not HasCards AndAlso Not HasStatistics
+            Return Not HasPlayer AndAlso Not HasCards AndAlso Not HasStatistics
         End Get
     End Property
 
@@ -141,12 +128,6 @@ Friend Class CharacterStore
     Public ReadOnly Property HasPlayer As Boolean Implements ICharacterStore.HasPlayer
         Get
             Return connectionSource.CheckForValues(TABLE_PLAYER_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
-        End Get
-    End Property
-
-    Private ReadOnly Property HasInventory As Boolean
-        Get
-            Return connectionSource.CheckForValues(TABLE_INVENTORIES, (COLUMN_CHARACTER_ID, Id))
         End Get
     End Property
 

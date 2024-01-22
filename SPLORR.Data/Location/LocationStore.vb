@@ -49,23 +49,6 @@ Friend Class LocationStore
         End Get
     End Property
 
-    Public ReadOnly Property Inventory As IInventoryStore Implements ILocationStore.Inventory
-        Get
-            Dim inventoryId = connectionSource.FindIntegerForValues(
-                TABLE_INVENTORIES,
-                {(COLUMN_LOCATION_ID, Id)},
-                COLUMN_INVENTORY_ID)
-            If inventoryId.HasValue Then
-                Return New InventoryStore(connectionSource, inventoryId.Value)
-            End If
-            Return New InventoryStore(
-                connectionSource,
-                connectionSource.Insert(
-                    TABLE_INVENTORIES,
-                    (COLUMN_LOCATION_ID, Id)))
-        End Get
-    End Property
-
     Public Property LocationType As ILocationTypeStore Implements ILocationStore.LocationType
         Get
             Return New LocationTypeStore(
@@ -87,8 +70,7 @@ Friend Class LocationStore
         Get
             Return Not HasCharacters AndAlso
                 Not HasRoutes AndAlso
-                Not IsDestination AndAlso
-                Not HasInventory
+                Not IsDestination
         End Get
     End Property
 
@@ -101,12 +83,6 @@ Friend Class LocationStore
     Private ReadOnly Property IsDestination As Boolean
         Get
             Return connectionSource.CheckForValues(TABLE_ROUTES, (COLUMN_TO_LOCATION_ID, Id))
-        End Get
-    End Property
-
-    Private ReadOnly Property HasInventory As Boolean
-        Get
-            Return connectionSource.CheckForValues(TABLE_INVENTORIES, (COLUMN_LOCATION_ID, Id))
         End Get
     End Property
 

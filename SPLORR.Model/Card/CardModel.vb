@@ -81,11 +81,6 @@ Friend Class CardModel
 
     Private Sub ExecuteForageTag(outputter As Action(Of String))
         Dim character = New CharacterModel(Store.Character)
-        Dim foragedItem = character.Location.GenerateForageItem(character.Inventory)
-        If foragedItem Is Nothing Then
-            outputter($"{character.Name} finds nothing!")
-            Return
-        End If
-        outputter($"{character.Name} finds {foragedItem.Name}.")
+        outputter($"{character.Name} finds nothing!")
     End Sub
 End Class

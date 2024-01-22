@@ -31,21 +31,6 @@ Friend Class LocationTypeEditWindow
                     Function() True,
                     Sub() Program.GoToWindow(New LocationEditWindow(locationTypeStore.CreateLocation("New Location")))
                 )
-            },
-            {
-                (
-                    "Set Item Type Generator...",
-                    Function() True,
-                    Sub() Program.GoToWindow(New LocationTypeEditItemTypeGeneratorWindow(locationTypeStore))
-                ),
-                (
-                    "Clear Item Type Generator",
-                    Function() locationTypeStore.ItemTypeGenerator IsNot Nothing,
-                    Sub()
-                        locationTypeStore.ItemTypeGenerator = Nothing
-                        Program.GoToWindow(New LocationTypeEditWindow(locationTypeStore))
-                    End Sub
-                )
             })
     End Sub
 End Class

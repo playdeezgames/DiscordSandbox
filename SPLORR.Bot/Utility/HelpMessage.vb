@@ -7,40 +7,30 @@ Friend Module HelpMessage
         {
             {TOKEN_CARDS, "Shows the cards in yer deck."},
             {TOKEN_CHARACTER, "Shows yer character's vital statistics."},
-            {TOKEN_CRAFT, "Crafts items from other items."},
             {TOKEN_CREATE, "Allows you to create stuff."},
             {TOKEN_DIE, "Causes yer character to die."},
-            {TOKEN_DROP, "Drops items from yer inventory to the ground."},
             {TOKEN_GO, "Allows you to move yer character in a direction."},
-            {TOKEN_GROUND, "Looks at the items on the ground."},
             {TOKEN_HAND, "Looks at the cards in yer hand."},
             {TOKEN_HELP, "Shows help."},
-            {TOKEN_INVENTORY, "Looks at the items in yer inventory."},
             {TOKEN_PLAY, "Plays a card from yer hand."},
             {TOKEN_RENAME, "Renames stuff."},
             {TOKEN_REST, "Allows yer character to rest."},
-            {TOKEN_STATUS, "Shows yer status."},
-            {TOKEN_TAKE, "Takes items from the ground into yer inventory."}
+            {TOKEN_STATUS, "Shows yer status."}
         }
     Private ReadOnly helpTopics As IReadOnlyDictionary(Of String, Action(Of IPlayerModel, String(), Action(Of String))) =
         New Dictionary(Of String, Action(Of IPlayerModel, String(), Action(Of String))) From
         {
             {TOKEN_CARDS, AddressOf HelpCards},
             {TOKEN_CHARACTER, AddressOf HelpCharacter},
-            {TOKEN_CRAFT, AddressOf HelpCraft},
             {TOKEN_CREATE, AddressOf HelpCreate},
             {TOKEN_DIE, AddressOf HelpDie},
-            {TOKEN_DROP, AddressOf HelpDrop},
             {TOKEN_GO, AddressOf HelpGo},
-            {TOKEN_GROUND, AddressOf HelpGround},
             {TOKEN_HAND, AddressOf HelpHand},
             {TOKEN_HELP, AddressOf HelpHelp},
-            {TOKEN_INVENTORY, AddressOf HelpInventory},
             {TOKEN_PLAY, AddressOf HelpPlay},
             {TOKEN_RENAME, AddressOf HelpRename},
             {TOKEN_REST, AddressOf HelpRest},
-            {TOKEN_STATUS, AddressOf HelpStatus},
-            {TOKEN_TAKE, AddressOf HelpTake}
+            {TOKEN_STATUS, AddressOf HelpStatus}
         }
 
     Private Sub HelpRest(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
@@ -88,15 +78,6 @@ Friend Module HelpMessage
         outputter($"- usage: {TOKEN_CHARACTER}")
     End Sub
 
-    Private Sub HelpTake(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
-        If tokens.Length <> 0 Then
-            InvalidMessage.Handle(player, tokens, outputter)
-            Return
-        End If
-        outputter($"Help for {TOKEN_TAKE}:")
-        outputter($"- usage: {TOKEN_TAKE} <item>")
-    End Sub
-
     Private Sub HelpRename(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length <> 0 Then
             InvalidMessage.Handle(player, tokens, outputter)
@@ -105,42 +86,6 @@ Friend Module HelpMessage
         outputter($"Help for {TOKEN_RENAME}:")
         outputter($"- usage: {TOKEN_RENAME} <thing> <new name>")
         outputter($"- values for <thing>: {TOKEN_CHARACTER}")
-    End Sub
-
-    Private Sub HelpInventory(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
-        If tokens.Length <> 0 Then
-            InvalidMessage.Handle(player, tokens, outputter)
-            Return
-        End If
-        outputter($"Help for {TOKEN_INVENTORY}:")
-        outputter($"- usage: {TOKEN_INVENTORY}")
-    End Sub
-
-    Private Sub HelpGround(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
-        If tokens.Length <> 0 Then
-            InvalidMessage.Handle(player, tokens, outputter)
-            Return
-        End If
-        outputter($"Help for {TOKEN_GROUND}:")
-        outputter($"- usage: {TOKEN_GROUND}")
-    End Sub
-
-    Private Sub HelpDrop(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
-        If tokens.Length <> 0 Then
-            InvalidMessage.Handle(player, tokens, outputter)
-            Return
-        End If
-        outputter($"Help for {TOKEN_DROP}:")
-        outputter($"- usage: {TOKEN_DROP} <item>")
-    End Sub
-
-    Private Sub HelpCraft(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
-        If tokens.Length <> 0 Then
-            InvalidMessage.Handle(player, tokens, outputter)
-            Return
-        End If
-        outputter($"Help for {TOKEN_DROP}:")
-        outputter($"- usage: {TOKEN_DROP} <item>")
     End Sub
 
     Private Sub HelpCards(player As IPlayerModel, tokens() As String, outputter As Action(Of String))

@@ -1,4 +1,0 @@
-﻿Public Interface IItemTypeStore
-    Inherits IBaseTypeStore(Of IDataStore)
-    Function CreateItem(inventoryStore As IInventoryStore) As IItemStore
-End Interface

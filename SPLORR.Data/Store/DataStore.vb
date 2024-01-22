@@ -34,28 +34,6 @@ Public Class DataStore
         End Get
     End Property
 
-    Public ReadOnly Property ItemTypes As ITypeStore(Of IItemTypeStore) Implements IDataStore.ItemTypes
-        Get
-            Return New TypeStore(Of IItemTypeStore)(
-                ConnectionSource,
-                TABLE_ITEM_TYPES,
-                COLUMN_ITEM_TYPE_ID,
-                COLUMN_ITEM_TYPE_NAME,
-                Function(x, y) New ItemTypeStore(x, y))
-        End Get
-    End Property
-
-    Public ReadOnly Property ItemTypeGenerators As ITypeStore(Of IItemTypeGeneratorStore) Implements IDataStore.ItemTypeGenerators
-        Get
-            Return New TypeStore(Of IItemTypeGeneratorStore)(
-                ConnectionSource,
-                TABLE_ITEM_TYPE_GENERATORS,
-                COLUMN_ITEM_TYPE_GENERATOR_ID,
-                COLUMN_ITEM_TYPE_GENERATOR_NAME,
-                Function(x, y) New ItemTypeGeneratorStore(x, y))
-        End Get
-    End Property
-
     Public ReadOnly Property Directions As ITypeStore(Of IDirectionStore) Implements IDataStore.Directions
         Get
             Return New TypeStore(Of IDirectionStore)(
@@ -89,17 +67,6 @@ Public Class DataStore
         End Get
     End Property
 
-    Public ReadOnly Property Recipes As ITypeStore(Of IRecipeStore) Implements IDataStore.Recipes
-        Get
-            Return New TypeStore(Of IRecipeStore)(
-                ConnectionSource,
-                TABLE_RECIPES,
-                COLUMN_RECIPE_ID,
-                COLUMN_RECIPE_NAME,
-                Function(x, y) New RecipeStore(x, y))
-        End Get
-    End Property
-
     Public ReadOnly Property RouteTypes As ITypeStore(Of IRouteTypeStore) Implements IDataStore.RouteTypes
         Get
             Return New TypeStore(Of IRouteTypeStore)(
@@ -130,17 +97,6 @@ Public Class DataStore
                 COLUMN_LOCATION_ID,
                 COLUMN_LOCATION_NAME,
                 Function(x, y) New LocationStore(x, y))
-        End Get
-    End Property
-
-    Public ReadOnly Property Items As ITypeStore(Of IItemStore) Implements IDataStore.Items
-        Get
-            Return New TypeStore(Of IItemStore)(
-                ConnectionSource,
-                VIEW_ITEM_DETAILS,
-                COLUMN_ITEM_ID,
-                COLUMN_ITEM_NAME,
-                Function(x, y) New ItemStore(x, y))
         End Get
     End Property
 

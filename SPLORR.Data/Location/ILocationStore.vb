@@ -2,7 +2,6 @@
     Inherits IBaseTypeStore(Of IDataStore)
     ReadOnly Property HasRoutes As Boolean
     ReadOnly Property Routes As IRelatedTypeStore(Of IRouteStore)
-    ReadOnly Property Inventory As IInventoryStore
     Function FindRouteByDirectionName(directionName As String) As IRouteStore
     Function AddRoute(direction As IDirectionStore, routeType As IRouteTypeStore, toLocation As ILocationStore) As IRouteStore
     Property LocationType As ILocationTypeStore
