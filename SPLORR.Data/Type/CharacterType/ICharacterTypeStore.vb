@@ -1,5 +1,5 @@
 ﻿Public Interface ICharacterTypeStore
-    Inherits IBaseTypeStore
+    Inherits IBaseTypeStore(Of IDataStore)
     Function CreateCharacter(name As String, location As ILocationStore) As ICharacterStore
     ReadOnly Property Statistics As IRelatedTypeStore(Of ICharacterTypeStatisticStore)
     ReadOnly Property AvailableStatistics As IRelatedTypeStore(Of IStatisticTypeStore)

@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class CardTypeStatisticDeltaStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements ICardTypeStatisticDeltaStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), id As Integer)
@@ -11,6 +11,7 @@ Friend Class CardTypeStatisticDeltaStore
             VIEW_CARD_TYPE_STATISTIC_DELTA_DETAILS,
             COLUMN_CARD_TYPE_STATISTIC_DELTA_ID,
             COLUMN_STATISTIC_TYPE_NAME,
+            New DataStore(connectionSource()),
             TABLE_CARD_TYPE_STATISTIC_DELTAS)
     End Sub
 

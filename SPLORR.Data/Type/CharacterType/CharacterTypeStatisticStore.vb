@@ -1,11 +1,18 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class CharacterTypeStatisticStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements ICharacterTypeStatisticStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), id As Integer)
-        MyBase.New(connectionSource, id, VIEW_CHARACTER_TYPE_STATISTIC_DETAILS, COLUMN_CHARACTER_TYPE_STATISTIC_ID, COLUMN_STATISTIC_TYPE_NAME, TABLE_CHARACTER_TYPE_STATISTICS)
+        MyBase.New(
+            connectionSource,
+            id,
+            VIEW_CHARACTER_TYPE_STATISTIC_DETAILS,
+            COLUMN_CHARACTER_TYPE_STATISTIC_ID,
+            COLUMN_STATISTIC_TYPE_NAME,
+            New DataStore(connectionSource()),
+            TABLE_CHARACTER_TYPE_STATISTICS)
     End Sub
 
     Public Overrides ReadOnly Property CanDelete As Boolean

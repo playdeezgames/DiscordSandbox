@@ -1,5 +1,5 @@
 ﻿Public Interface IItemTypeGeneratorStore
-    Inherits IBaseTypeStore
+    Inherits IBaseTypeStore(Of IDataStore)
     ReadOnly Property TotalWeight As Integer
     ReadOnly Property HasItemTypes As Boolean
     ReadOnly Property CanAddItemType As Boolean

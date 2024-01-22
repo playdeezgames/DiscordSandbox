@@ -1,8 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
-Imports Microsoft.IdentityModel.Tokens
 
 Friend Class RecipeStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements IRecipeStore
 
     Public Sub New(
@@ -13,7 +12,8 @@ Friend Class RecipeStore
             id,
             TABLE_RECIPES,
             COLUMN_RECIPE_ID,
-            COLUMN_RECIPE_NAME)
+            COLUMN_RECIPE_NAME,
+            New DataStore(connectionSource()))
     End Sub
 
     Public Overrides ReadOnly Property CanDelete As Boolean

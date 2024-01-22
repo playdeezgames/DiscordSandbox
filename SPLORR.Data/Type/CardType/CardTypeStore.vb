@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class CardTypeStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements ICardTypeStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), id As Integer)
@@ -10,7 +10,8 @@ Friend Class CardTypeStore
             id,
             TABLE_CARD_TYPES,
             COLUMN_CARD_TYPE_ID,
-            COLUMN_CARD_TYPE_NAME)
+            COLUMN_CARD_TYPE_NAME,
+            New DataStore(connectionSource()))
     End Sub
 
     Public Overrides ReadOnly Property CanDelete As Boolean

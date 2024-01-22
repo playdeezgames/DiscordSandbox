@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class LocationTypeStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements ILocationTypeStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), locationTypeId As Integer)
@@ -10,7 +10,8 @@ Friend Class LocationTypeStore
             locationTypeId,
             TABLE_LOCATION_TYPES,
             COLUMN_LOCATION_TYPE_ID,
-            COLUMN_LOCATION_TYPE_NAME)
+            COLUMN_LOCATION_TYPE_NAME,
+            New DataStore(connectionSource()))
     End Sub
 
     Public Overrides ReadOnly Property CanDelete As Boolean

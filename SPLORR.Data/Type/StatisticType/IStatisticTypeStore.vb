@@ -1,3 +1,3 @@
 ﻿Public Interface IStatisticTypeStore
-    Inherits IBaseTypeStore
+    Inherits IBaseTypeStore(Of IDataStore)
 End Interface

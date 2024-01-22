@@ -1,5 +1,5 @@
 ﻿Public Interface IRecipeStore
-    Inherits IBaseTypeStore
+    Inherits IBaseTypeStore(Of IDataStore)
     ReadOnly Property ItemTypes As IRelatedTypeStore(Of IRecipeItemTypeStore)
     ReadOnly Property CanAddItemType As Boolean
     ReadOnly Property AvailableItemTypes As IRelatedTypeStore(Of IItemTypeStore)

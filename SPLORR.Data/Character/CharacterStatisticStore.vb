@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class CharacterStatisticStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements ICharacterStatisticStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), id As Integer)
@@ -11,6 +11,7 @@ Friend Class CharacterStatisticStore
             VIEW_CHARACTER_STATISTIC_DETAILS,
             COLUMN_CHARACTER_STATISTIC_ID,
             COLUMN_STATISTIC_TYPE_NAME,
+            New DataStore(connectionSource()),
             TABLE_CHARACTER_STATISTICS)
     End Sub
 

@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class StatisticTypeStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements IStatisticTypeStore
 
     Public Sub New(
@@ -12,7 +12,8 @@ Friend Class StatisticTypeStore
             id,
             TABLE_STATISTIC_TYPES,
             COLUMN_STATISTIC_TYPE_ID,
-            COLUMN_STATISTIC_TYPE_NAME)
+            COLUMN_STATISTIC_TYPE_NAME,
+            New DataStore(connectionSource()))
     End Sub
 
     Public Overrides ReadOnly Property CanDelete As Boolean
@@ -21,7 +22,6 @@ Friend Class StatisticTypeStore
         End Get
     End Property
 
-
     Private ReadOnly Property HasDeltas As Boolean
         Get
             Return connectionSource.CheckForValues(
@@ -29,5 +29,4 @@ Friend Class StatisticTypeStore
                 (COLUMN_STATISTIC_TYPE_ID, Id))
         End Get
     End Property
-
 End Class

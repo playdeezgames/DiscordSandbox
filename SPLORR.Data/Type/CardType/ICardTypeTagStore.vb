@@ -1,4 +1,4 @@
 ﻿Public Interface ICardTypeTagStore
-    Inherits IBaseTypeStore
+    Inherits IBaseTypeStore(Of IDataStore)
     ReadOnly Property CardType As ICardTypeStore
 End Interface

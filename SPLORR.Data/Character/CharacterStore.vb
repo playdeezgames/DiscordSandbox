@@ -50,11 +50,11 @@ Friend Class CharacterStore
             })
     End Sub
 
-    Public Sub Delete() Implements IBaseTypeStore.Delete
+    Public Sub Delete() Implements IBaseTypeStore(Of IDataStore).Delete
         connectionSource.DeleteForValues(TABLE_CHARACTERS, (COLUMN_CHARACTER_ID, Id))
     End Sub
 
-    Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
+    Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore(Of IDataStore).CanRenameTo
         Return True
     End Function
 
@@ -150,7 +150,7 @@ Friend Class CharacterStore
         End Get
     End Property
 
-    Public ReadOnly Property Store As IDataStore Implements IBaseTypeStore.Store
+    Public ReadOnly Property Store As IDataStore Implements IBaseTypeStore(Of IDataStore).Store
         Get
             Return New DataStore(connectionSource())
         End Get

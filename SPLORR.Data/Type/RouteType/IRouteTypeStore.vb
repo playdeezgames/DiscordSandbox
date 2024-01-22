@@ -1,3 +1,3 @@
 ﻿Public Interface IRouteTypeStore
-    Inherits IBaseTypeStore
+    Inherits IBaseTypeStore(Of IDataStore)
 End Interface

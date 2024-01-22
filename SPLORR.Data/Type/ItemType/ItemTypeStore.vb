@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class ItemTypeStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements IItemTypeStore
 
 
@@ -11,7 +11,8 @@ Friend Class ItemTypeStore
             itemTypeId,
             TABLE_ITEM_TYPES,
             COLUMN_ITEM_TYPE_ID,
-            COLUMN_ITEM_TYPE_NAME)
+            COLUMN_ITEM_TYPE_NAME,
+            New DataStore(connectionSource()))
     End Sub
 
     Public Overrides ReadOnly Property CanDelete As Boolean

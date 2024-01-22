@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class ItemTypeGeneratorStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements IItemTypeGeneratorStore
     Const NOTHING_GENERATOR_WEIGHT_MINIMUM = 0
 
@@ -11,7 +11,8 @@ Friend Class ItemTypeGeneratorStore
             itemTypeGeneratorId,
             TABLE_ITEM_TYPE_GENERATORS,
             COLUMN_ITEM_TYPE_GENERATOR_ID,
-            COLUMN_ITEM_TYPE_GENERATOR_NAME)
+            COLUMN_ITEM_TYPE_GENERATOR_NAME,
+            New DataStore(connectionSource()))
     End Sub
 
     Public Overrides ReadOnly Property CanDelete As Boolean

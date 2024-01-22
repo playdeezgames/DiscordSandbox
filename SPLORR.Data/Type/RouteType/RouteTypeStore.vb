@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class RouteTypeStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements IRouteTypeStore
 
     Public Sub New(
@@ -12,7 +12,8 @@ Friend Class RouteTypeStore
             id,
             TABLE_ROUTE_TYPES,
             COLUMN_ROUTE_TYPE_ID,
-            COLUMN_ROUTE_TYPE_NAME)
+            COLUMN_ROUTE_TYPE_NAME,
+            New DataStore(connectionSource()))
     End Sub
 
     Public Overrides ReadOnly Property CanDelete As Boolean

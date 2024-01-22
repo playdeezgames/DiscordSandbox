@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class ItemStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements IItemStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), itemId As Integer)
@@ -11,6 +11,7 @@ Friend Class ItemStore
             VIEW_ITEM_DETAILS,
             COLUMN_ITEM_ID,
             COLUMN_ITEM_NAME,
+            New DataStore(connectionSource()),
             TABLE_ITEMS)
     End Sub
 

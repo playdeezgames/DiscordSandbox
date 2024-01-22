@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class CardTypeTagStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements ICardTypeTagStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), id As Integer)
@@ -10,7 +10,8 @@ Friend Class CardTypeTagStore
             id,
             TABLE_CARD_TYPE_TAGS,
             COLUMN_CARD_TYPE_TAG_ID,
-            COLUMN_TAG_NAME)
+            COLUMN_TAG_NAME,
+            New DataStore(connectionSource()))
     End Sub
 
     Public ReadOnly Property CardType As ICardTypeStore Implements ICardTypeTagStore.CardType

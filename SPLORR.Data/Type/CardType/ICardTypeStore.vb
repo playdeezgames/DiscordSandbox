@@ -1,5 +1,5 @@
 ﻿Public Interface ICardTypeStore
-    Inherits IBaseTypeStore
+    Inherits IBaseTypeStore(Of IDataStore)
     Function CreateCard(store As ICharacterStore) As ICardStore
     Function AddStatisticDelta(statisticType As IStatisticTypeStore, delta As Integer) As ICardTypeStatisticDeltaStore
     Function TagExists(tagName As String) As Boolean

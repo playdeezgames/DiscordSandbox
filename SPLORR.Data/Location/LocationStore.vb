@@ -83,7 +83,7 @@ Friend Class LocationStore
         End Set
     End Property
 
-    Public ReadOnly Property CanDelete As Boolean Implements IBaseTypeStore.CanDelete
+    Public ReadOnly Property CanDelete As Boolean Implements IBaseTypeStore(Of IDataStore).CanDelete
         Get
             Return Not HasCharacters AndAlso
                 Not HasRoutes AndAlso
@@ -110,7 +110,7 @@ Friend Class LocationStore
         End Get
     End Property
 
-    Public ReadOnly Property Store As IDataStore Implements IBaseTypeStore.Store
+    Public ReadOnly Property Store As IDataStore Implements IBaseTypeStore(Of IDataStore).Store
         Get
             Return New DataStore(connectionSource())
         End Get
@@ -154,7 +154,7 @@ Friend Class LocationStore
         End Get
     End Property
 
-    Public Sub Delete() Implements IBaseTypeStore.Delete
+    Public Sub Delete() Implements IBaseTypeStore(Of IDataStore).Delete
         connectionSource.DeleteForValues(TABLE_LOCATIONS, (COLUMN_LOCATION_ID, Id))
     End Sub
 
@@ -170,7 +170,7 @@ Friend Class LocationStore
         Return Nothing
     End Function
 
-    Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore.CanRenameTo
+    Public Function CanRenameTo(x As String) As Boolean Implements IBaseTypeStore(Of IDataStore).CanRenameTo
         Return True
     End Function
 

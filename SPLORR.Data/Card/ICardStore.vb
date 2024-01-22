@@ -1,5 +1,5 @@
 ﻿Public Interface ICardStore
-    Inherits IBaseTypeStore
+    Inherits IBaseTypeStore(Of IDataStore)
     ReadOnly Property Character As ICharacterStore
     WriteOnly Property DrawOrder As Integer
     ReadOnly Property InHand As Boolean

@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class CharacterTypeStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements ICharacterTypeStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), id As Integer)
@@ -10,7 +10,8 @@ Friend Class CharacterTypeStore
             id,
             TABLE_CHARACTER_TYPES,
             COLUMN_CHARACTER_TYPE_ID,
-            COLUMN_CHARACTER_TYPE_NAME)
+            COLUMN_CHARACTER_TYPE_NAME,
+            New DataStore(connectionSource()))
     End Sub
 
     Public Overrides ReadOnly Property CanDelete As Boolean

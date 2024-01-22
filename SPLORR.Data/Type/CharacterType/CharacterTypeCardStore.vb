@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class CharacterTypeCardStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements ICharacterTypeCardStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), id As Integer)
@@ -11,6 +11,7 @@ Friend Class CharacterTypeCardStore
             VIEW_CHARACTER_TYPE_CARD_DETAILS,
             COLUMN_CHARACTER_TYPE_CARD_ID,
             COLUMN_CARD_TYPE_NAME,
+            New DataStore(connectionSource()),
             TABLE_CHARACTER_TYPE_CARDS)
     End Sub
 

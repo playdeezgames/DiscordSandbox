@@ -1,5 +1,5 @@
 ﻿Public Interface ICharacterStatisticStore
-    Inherits IBaseTypeStore
+    Inherits IBaseTypeStore(Of IDataStore)
     Property Value As Integer
     Property Minimum As Integer?
     Property Maximum As Integer?

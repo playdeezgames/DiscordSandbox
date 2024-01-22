@@ -1,5 +1,5 @@
 ﻿Public Interface ILocationStore
-    Inherits IBaseTypeStore
+    Inherits IBaseTypeStore(Of IDataStore)
     ReadOnly Property HasRoutes As Boolean
     ReadOnly Property Routes As IRelatedTypeStore(Of IRouteStore)
     ReadOnly Property Inventory As IInventoryStore

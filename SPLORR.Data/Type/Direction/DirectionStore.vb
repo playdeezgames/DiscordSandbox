@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 
 Friend Class DirectionStore
-    Inherits BaseTypeStore
+    Inherits BaseTypeStore(Of IDataStore)
     Implements IDirectionStore
 
     Public Sub New(connectionSource As Func(Of SqlConnection), directionId As Integer)
@@ -10,7 +10,8 @@ Friend Class DirectionStore
             directionId,
             TABLE_DIRECTIONS,
             COLUMN_DIRECTION_ID,
-            COLUMN_DIRECTION_NAME)
+            COLUMN_DIRECTION_NAME,
+            New DataStore(connectionSource()))
     End Sub
 
     Public Overrides ReadOnly Property CanDelete As Boolean

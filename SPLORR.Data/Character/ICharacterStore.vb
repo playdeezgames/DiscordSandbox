@@ -1,5 +1,5 @@
 ﻿Public Interface ICharacterStore
-    Inherits IBaseTypeStore
+    Inherits IBaseTypeStore(Of IDataStore)
     ReadOnly Property Location As ILocationStore
     Sub SetLocation(location As ILocationStore, lastModified As DateTimeOffset)
     Sub ClearPlayer()
