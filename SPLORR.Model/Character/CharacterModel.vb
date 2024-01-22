@@ -221,35 +221,6 @@ Friend Class CharacterModel
         Return New CardModel(card)
     End Function
 
-    Public Function CanPlay(card As ICardModel) As Boolean Implements ICharacterModel.CanPlay
-        If Not card.Character.Store.Id = store.Id Then
-            Return False
-        End If
-        If Not card.InHand Then
-            Return False
-        End If
-        For Each delta In card.StatisticDeltas.Where(Function(x) Not x.Store.AllowOverage)
-            Dim deltaStore = delta.Store
-            Dim statistic = Store.Statistics.FromName(deltaStore.Name)
-            Dim newValue = statistic.Value + deltaStore.Delta
-            If newValue > statistic.Maximum OrElse newValue < statistic.Minimum Then
-                Return False
-            End If
-        Next
-        Return True
-    End Function
-
-    Public Function Play(card As ICardModel) As IEnumerable(Of String) Implements ICharacterModel.Play
-        Dim result As New List(Of String)
-        For Each delta In card.StatisticDeltas
-            Dim deltaStore = delta.Store
-            Dim statistic = Store.Statistics.FromName(deltaStore.Name)
-            statistic.Value += deltaStore.Delta
-        Next
-        card.Discard()
-        Return result
-    End Function
-
     Public Function Rest() As IEnumerable(Of String) Implements ICharacterModel.Rest
         Dim result As New List(Of String)
         Dim energy = Store.Statistics.FromName(STATISTIC_TYPE_ENERGY)

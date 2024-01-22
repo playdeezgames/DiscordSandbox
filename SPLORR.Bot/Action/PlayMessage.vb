@@ -16,15 +16,12 @@ Friend Module PlayMessage
                             outputter($"{character.Name} has no such card.")
                             Return
                         End If
-                        If Not character.CanPlay(card) Then
+                        If Not card.CanPlay Then
                             outputter($"{character.Name} cannot play {card.Name} at this time.")
                             Return
                         End If
                         outputter($"{character.Name} plays {card.Name}.")
-                        Dim messages As IEnumerable(Of String) = character.Play(card)
-                        For Each message In messages
-                            outputter(message)
-                        Next
+                        card.Play(outputter)
                     End Sub)
             End Sub)
     End Sub

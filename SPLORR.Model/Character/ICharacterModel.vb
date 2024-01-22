@@ -13,8 +13,6 @@ Public Interface ICharacterModel
     Sub RefreshHand()
     Sub Die()
     Function HandCardByName(cardName As String) As ICardModel
-    Function CanPlay(card As ICardModel) As Boolean
-    Function Play(card As ICardModel) As IEnumerable(Of String)
     ReadOnly Property Cards As IEnumerable(Of ICardModel)
     ReadOnly Property Hand As IEnumerable(Of ICardModel)
     ReadOnly Property Health As Integer

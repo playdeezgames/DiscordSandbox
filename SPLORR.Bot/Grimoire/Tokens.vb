@@ -2,7 +2,6 @@
     Friend Const TOKEN_CHARACTER As String = "character"
     Friend Const TOKEN_CREATE As String = "create"
     Friend Const TOKEN_DROP As String = "drop"
-    Friend Const TOKEN_FORAGE As String = "forage"
     Friend Const TOKEN_GO As String = "go"
     Friend Const TOKEN_GROUND As String = "ground"
     Friend Const TOKEN_HAND As String = "hand"

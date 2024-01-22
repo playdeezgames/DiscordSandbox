@@ -11,7 +11,6 @@ Friend Module HelpMessage
             {TOKEN_CREATE, "Allows you to create stuff."},
             {TOKEN_DIE, "Causes yer character to die."},
             {TOKEN_DROP, "Drops items from yer inventory to the ground."},
-            {TOKEN_FORAGE, "Forages for items."},
             {TOKEN_GO, "Allows you to move yer character in a direction."},
             {TOKEN_GROUND, "Looks at the items on the ground."},
             {TOKEN_HAND, "Looks at the cards in yer hand."},
@@ -32,7 +31,6 @@ Friend Module HelpMessage
             {TOKEN_CREATE, AddressOf HelpCreate},
             {TOKEN_DIE, AddressOf HelpDie},
             {TOKEN_DROP, AddressOf HelpDrop},
-            {TOKEN_FORAGE, AddressOf HelpForage},
             {TOKEN_GO, AddressOf HelpGo},
             {TOKEN_GROUND, AddressOf HelpGround},
             {TOKEN_HAND, AddressOf HelpHand},
@@ -125,15 +123,6 @@ Friend Module HelpMessage
         End If
         outputter($"Help for {TOKEN_GROUND}:")
         outputter($"- usage: {TOKEN_GROUND}")
-    End Sub
-
-    Private Sub HelpForage(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
-        If tokens.Length <> 0 Then
-            InvalidMessage.Handle(player, tokens, outputter)
-            Return
-        End If
-        outputter($"Help for {TOKEN_FORAGE}:")
-        outputter($"- usage: {TOKEN_FORAGE}")
     End Sub
 
     Private Sub HelpDrop(player As IPlayerModel, tokens() As String, outputter As Action(Of String))

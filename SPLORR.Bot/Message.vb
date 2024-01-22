@@ -10,7 +10,6 @@ Friend Module Message
             {TOKEN_CREATE, AddressOf CreateMessage.Handle},
             {TOKEN_DIE, AddressOf DieMessage.Handle},
             {TOKEN_DROP, AddressOf DropMessage.Handle},
-            {TOKEN_FORAGE, AddressOf ForageMessage.Handle},
             {TOKEN_GO, AddressOf GoMessage.Handle},
             {TOKEN_GROUND, AddressOf GroundMessage.Handle},
             {TOKEN_HAND, AddressOf HandMessage.Handle},
