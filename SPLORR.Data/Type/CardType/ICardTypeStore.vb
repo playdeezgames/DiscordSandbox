@@ -8,4 +8,5 @@
     ReadOnly Property AvailableStatisticDeltas As IRelatedTypeStore(Of IStatisticTypeStore)
     ReadOnly Property CanAddStatisticDelta As Boolean
     ReadOnly Property Tags As IRelatedTypeStore(Of ICardTypeTagStore)
+    Property DeleteOnPlay As Boolean
 End Interface

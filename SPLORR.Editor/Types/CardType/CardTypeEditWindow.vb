@@ -31,6 +31,14 @@ Friend Class CardTypeEditWindow
                     "Tags...",
                     Function() True,
                     Sub() Program.GoToWindow(New CardTypeTagListWindow(store))
+                ),
+                (
+                    $"Delete On Discard: {store.DeleteOnPlay}",
+                    Function() True,
+                    Sub()
+                        store.DeleteOnPlay = Not store.DeleteOnPlay
+                        Program.GoToWindow(New CardTypeEditWindow(store))
+                    End Sub
                 )
             })
     End Sub

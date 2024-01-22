@@ -55,4 +55,5 @@
     Friend Const COLUMN_ALLOW_OVERAGE = "AllowOverage"
     Friend Const COLUMN_CARD_TYPE_TAG_ID = "CardTypeTagId"
     Friend Const COLUMN_TAG_NAME = "TagName"
+    Friend Const COLUMN_DELETE_ON_DISCARD = "DeleteOnDiscard"
 End Module

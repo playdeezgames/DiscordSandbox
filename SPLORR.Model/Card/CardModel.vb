@@ -65,7 +65,12 @@ Friend Class CardModel
             ExecuteTag(tag, outputter)
         Next
         Discard()
+        If Store.CardType.DeleteOnPlay Then
+            Store.Delete()
+            Return
+        End If
     End Sub
+
     Private Const CARD_TYPE_TAG_FORAGE = "forage"
     Private Sub ExecuteTag(tag As ICardTypeTagStore, outputter As Action(Of String))
         Select Case tag.Name

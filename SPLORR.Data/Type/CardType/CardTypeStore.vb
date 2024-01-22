@@ -61,6 +61,21 @@ Friend Class CardTypeStore
         End Get
     End Property
 
+    Public Property DeleteOnPlay As Boolean Implements ICardTypeStore.DeleteOnPlay
+        Get
+            Return connectionSource.CheckForValues(
+                TABLE_CARD_TYPES,
+                (COLUMN_CARD_TYPE_ID, Id),
+                (COLUMN_DELETE_ON_DISCARD, 1))
+        End Get
+        Set(value As Boolean)
+            connectionSource.WriteValuesForValues(
+                TABLE_CARD_TYPES,
+                {(COLUMN_CARD_TYPE_ID, Id)},
+                {(COLUMN_DELETE_ON_DISCARD, If(value, 1, 0))})
+        End Set
+    End Property
+
     Private ReadOnly Property HasDeltas As Boolean
         Get
             Return connectionSource.CheckForValues(
