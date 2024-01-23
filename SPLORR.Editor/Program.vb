@@ -15,6 +15,8 @@ Module Program
     Private Const TEXT_ENTITIES = "Entities"
     Private Const TEXT_LOCATIONS = "Locations"
     Private Const TEXT_CHARACTERS = "Characters"
+    Private Const TEXT_GENERATORS = "Generators"
+    Private Const TEXT_CARD_TYPE_GENERATORS = "Card Type Generators"
     Private dataStore As IDataStore = Nothing
     Public window As Window = Nothing
     Sub Main(args As String())
@@ -37,6 +39,10 @@ Module Program
                     New MenuItem(TEXT_ROUTE_TYPES, String.Empty, AddressOf DoRouteTypesList),
                     New MenuItem(TEXT_STATISTIC_TYPES, String.Empty, AddressOf DoStatisticTypesList)
                 }),
+                New MenuBarItem(TEXT_GENERATORS,
+                {
+                    New MenuItem(TEXT_CARD_TYPE_GENERATORS, String.Empty, AddressOf DoCardTypeGeneratorsList)
+                }),
                 New MenuBarItem(TEXT_ENTITIES,
                 {
                     New MenuItem(TEXT_CHARACTERS, String.Empty, AddressOf DoCharactersList),
@@ -46,6 +52,10 @@ Module Program
         Application.Run()
         Application.Shutdown()
         dataStore.CleanUp()
+    End Sub
+
+    Private Sub DoCardTypeGeneratorsList()
+        GoToWindow(New CardTypeGeneratorListWindow(dataStore))
     End Sub
 
     Private Sub DoCardTypesList()

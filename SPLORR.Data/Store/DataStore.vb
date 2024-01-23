@@ -111,6 +111,17 @@ Public Class DataStore
         End Get
     End Property
 
+    Public ReadOnly Property CardTypeGenerators As ITypeStore(Of ICardTypeGeneratorStore) Implements IDataStore.CardTypeGenerators
+        Get
+            Return New TypeStore(Of ICardTypeGeneratorStore)(
+                ConnectionSource,
+                TABLE_CARD_TYPE_GENERATORS,
+                COLUMN_CARD_TYPE_GENERATOR_ID,
+                COLUMN_CARD_TYPE_GENERATOR_NAME,
+                Function(x, y) New CardTypeGeneratorStore(x, y))
+        End Get
+    End Property
+
     Public Sub CleanUp() Implements IDataStore.CleanUp
         If _connection IsNot Nothing Then
             _connection.Close()

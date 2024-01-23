@@ -1,5 +1,6 @@
 Public Interface IDataStore
     Sub CleanUp()
+    ReadOnly Property CardTypeGenerators As ITypeStore(Of ICardTypeGeneratorStore)
     ReadOnly Property CardTypes As ITypeStore(Of ICardTypeStore)
     ReadOnly Property Characters As ITypeStore(Of ICharacterStore)
     ReadOnly Property Locations As ITypeStore(Of ILocationStore)
