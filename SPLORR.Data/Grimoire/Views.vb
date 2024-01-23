@@ -18,4 +18,6 @@
     Friend Const VIEW_CHARACTER_TYPE_AVAILABLE_CARD_TYPES = "CharacterTypeAvailableCards"
     Friend Const VIEW_CARD_TYPE_STATISTIC_DELTA_DETAILS = "CardTypeStatisticDeltaDetails"
     Friend Const VIEW_CARD_TYPE_AVAILABLE_STATISTIC_DELTAS = "CardTypeAvailableStatisticDeltas"
+    Friend Const VIEW_CARD_TYPE_GENERATOR_CARD_TYPE_DETAILS = "CardTypeGeneratorCardTypeDetails"
+    Friend Const VIEW_CARD_TYPE_GENERATOR_AVAILABLE_CARD_TYPE = "CardTypeGeneratorAvailableCardTypes"
 End Module

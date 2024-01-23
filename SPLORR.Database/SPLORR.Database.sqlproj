@@ -101,6 +101,8 @@
     <Build Include="dbo\Tables\Card\CardType\CardTypeTags.sql" />
     <Build Include="dbo\Tables\CardTypeGenerators.sql" />
     <Build Include="dbo\Tables\CardTypeGeneratorCardTypes.sql" />
+    <Build Include="dbo\Views\CardTypeGeneratorCardTypeDetails.sql" />
+    <Build Include="dbo\Views\CardTypeGeneratorAvailableCardTypes.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />

@@ -34,6 +34,12 @@ Friend Class CardTypeGeneratorEditWindow
             (
                 "Cancel",
                 Function() New CardTypeGeneratorListWindow(store.Store)
-            ))
+            ),
+            {
+                (
+                    "Card Types...",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CardTypeGeneratorCardTypeListWindow(store)))
+            })
     End Sub
 End Class

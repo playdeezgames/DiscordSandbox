@@ -22,6 +22,38 @@ Friend Class CardTypeGeneratorStore
         End Get
     End Property
 
+    Public ReadOnly Property CardTypes As IRelatedTypeStore(Of ICardTypeGeneratorCardTypeStore) Implements ICardTypeGeneratorStore.CardTypes
+        Get
+            Return New RelatedTypeStore(Of ICardTypeGeneratorCardTypeStore, Integer)(
+                connectionSource,
+                VIEW_CARD_TYPE_GENERATOR_CARD_TYPE_DETAILS,
+                COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID,
+                COLUMN_CARD_TYPE_NAME,
+                (COLUMN_CARD_TYPE_GENERATOR_ID, Id),
+                Function(x, y) New CardTypeGeneratorCardTypeStore(x, y))
+        End Get
+    End Property
+
+    Public ReadOnly Property CanAddCardType As Boolean Implements ICardTypeGeneratorStore.CanAddCardType
+        Get
+            Return connectionSource.CheckForValues(
+                VIEW_CARD_TYPE_GENERATOR_AVAILABLE_CARD_TYPE,
+                (COLUMN_CARD_TYPE_GENERATOR_ID, Id))
+        End Get
+    End Property
+
+    Public ReadOnly Property AvailableCardTypes As IRelatedTypeStore(Of ICardTypeStore) Implements ICardTypeGeneratorStore.AvailableCardTypes
+        Get
+            Return New RelatedTypeStore(Of ICardTypeStore, Integer)(
+                connectionSource,
+                VIEW_CARD_TYPE_GENERATOR_AVAILABLE_CARD_TYPE,
+                COLUMN_CARD_TYPE_ID,
+                COLUMN_CARD_TYPE_NAME,
+                (COLUMN_CARD_TYPE_GENERATOR_ID, Id),
+                Function(x, y) New CardTypeStore(x, y))
+        End Get
+    End Property
+
     Private ReadOnly Property HasCardTypes As Boolean
         Get
             Return connectionSource.CheckForValues(
@@ -29,4 +61,14 @@ Friend Class CardTypeGeneratorStore
                 (COLUMN_CARD_TYPE_GENERATOR_ID, Id))
         End Get
     End Property
+
+    Public Function AddCardType(cardType As ICardTypeStore, generatorWeight As Integer) As ICardTypeGeneratorCardTypeStore Implements ICardTypeGeneratorStore.AddCardType
+        Return New CardTypeGeneratorCardTypeStore(
+            connectionSource,
+            connectionSource.Insert(
+                TABLE_CARD_TYPE_GENERATOR_CARD_TYPES,
+                (COLUMN_CARD_TYPE_GENERATOR_ID, Id),
+                (COLUMN_CARD_TYPE_ID, cardType.Id),
+                (COLUMN_GENERATOR_WEIGHT, generatorWeight)))
+    End Function
 End Class
