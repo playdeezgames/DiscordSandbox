@@ -4,5 +4,5 @@
     ReadOnly Property CanDelete As Boolean
     ReadOnly Property Store As TStore
     Sub Delete()
-    Function CanRenameTo(x As String) As Boolean
+    Function CanRenameTo(newName As String) As Boolean
 End Interface
