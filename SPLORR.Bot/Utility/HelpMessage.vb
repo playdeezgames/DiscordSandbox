@@ -1,5 +1,4 @@
-﻿Imports System.Text
-Imports SPLORR.Model
+﻿Imports SPLORR.Model
 
 Friend Module HelpMessage
     Private ReadOnly helps As IReadOnlyDictionary(Of String, String) =
