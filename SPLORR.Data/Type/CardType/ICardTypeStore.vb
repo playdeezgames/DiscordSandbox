@@ -7,4 +7,5 @@
     ReadOnly Property CanAddStatisticDelta As Boolean
     Property DeleteOnPlay As Boolean
     Property Generator As ICardTypeGeneratorStore
+    Property Location As ILocationStore
 End Interface

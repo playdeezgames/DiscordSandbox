@@ -92,6 +92,33 @@ Friend Class CardTypeStore
         End Set
     End Property
 
+    Public Property Location As ILocationStore Implements ICardTypeStore.Location
+        Get
+            Dim locationId As Integer? =
+                connectionSource.FindIntegerForValues(
+                    TABLE_CARD_TYPES,
+                    {(COLUMN_CARD_TYPE_ID, Id)},
+                    COLUMN_LOCATION_ID)
+            If locationId.HasValue Then
+                Return New LocationStore(connectionSource, locationId.Value)
+            End If
+            Return Nothing
+        End Get
+        Set(value As ILocationStore)
+            If value Is Nothing Then
+                connectionSource.ClearColumnForValues(
+                    TABLE_CARD_TYPES,
+                    {(COLUMN_CARD_TYPE_ID, Id)},
+                    COLUMN_LOCATION_ID)
+                Return
+            End If
+            connectionSource.WriteValuesForValues(
+                TABLE_CARD_TYPES,
+                    {(COLUMN_CARD_TYPE_ID, Id)},
+                    {(COLUMN_LOCATION_ID, value.Id)})
+        End Set
+    End Property
+
     Private ReadOnly Property HasDeltas As Boolean
         Get
             Return connectionSource.CheckForValues(

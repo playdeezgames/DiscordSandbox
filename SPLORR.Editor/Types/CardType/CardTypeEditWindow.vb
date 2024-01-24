@@ -39,6 +39,11 @@ Friend Class CardTypeEditWindow
                     $"Generator: {If(store.Generator Is Nothing, "n/a", store.Generator.Name)}",
                     Function() True,
                     Sub() Program.GoToWindow(New CardTypeCardTypeGeneratorEditWindow(store))
+                ),
+                (
+                    $"Destination: {If(store.Location Is Nothing, "n/a", store.Location.Name)}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CardTypeLocationEditWindow(store))
                 )
             })
     End Sub
