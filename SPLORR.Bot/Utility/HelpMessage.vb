@@ -9,7 +9,6 @@ Friend Module HelpMessage
             {TOKEN_CHARACTER, "Shows yer character's vital statistics."},
             {TOKEN_CREATE, "Allows you to create stuff."},
             {TOKEN_DIE, "Causes yer character to die."},
-            {TOKEN_GO, "Allows you to move yer character in a direction."},
             {TOKEN_HAND, "Looks at the cards in yer hand."},
             {TOKEN_HELP, "Shows help."},
             {TOKEN_INVENTORY, "Shows yer inventory."},
@@ -25,7 +24,6 @@ Friend Module HelpMessage
             {TOKEN_CHARACTER, AddressOf HelpCharacter},
             {TOKEN_CREATE, AddressOf HelpCreate},
             {TOKEN_DIE, AddressOf HelpDie},
-            {TOKEN_GO, AddressOf HelpGo},
             {TOKEN_HAND, AddressOf HelpHand},
             {TOKEN_HELP, AddressOf HelpHelp},
             {TOKEN_INVENTORY, AddressOf HelpInventory},
@@ -124,15 +122,6 @@ Friend Module HelpMessage
         End If
         outputter($"Help for {TOKEN_HELP}:")
         outputter($"- usage: {TOKEN_HELP} <topic>")
-    End Sub
-
-    Private Sub HelpGo(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
-        If tokens.Length <> 0 Then
-            InvalidMessage.Handle(player, tokens, outputter)
-            Return
-        End If
-        outputter($"Help for {TOKEN_GO}:")
-        outputter($"- usage: {TOKEN_GO} <direction>")
     End Sub
 
     Private Sub HelpCreate(player As IPlayerModel, tokens() As String, outputter As Action(Of String))

@@ -153,17 +153,6 @@ Friend Class CharacterModel
         Next
     End Sub
 
-    Public Function UseRoute(route As IRouteModel) As (Result As Boolean, Messages As String()) Implements ICharacterModel.UseRoute
-        If route Is Nothing Then
-            Return (False, {"The route does not exist!"})
-        End If
-        If Not route.FromLocation.IsSameAs(Location) Then
-            Return (False, {"The route is not available!"})
-        End If
-        Location = route.ToLocation
-        Return (True, Array.Empty(Of String))
-    End Function
-
     Public Sub Die() Implements ICharacterModel.Die
         Dim location = store.Location
         For Each card In store.Cards.All

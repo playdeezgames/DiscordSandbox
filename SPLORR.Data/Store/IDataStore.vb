@@ -5,13 +5,9 @@ Public Interface IDataStore
     ReadOnly Property Characters As ITypeStore(Of ICharacterStore)
     ReadOnly Property Locations As ITypeStore(Of ILocationStore)
     ReadOnly Property CharacterTypes As ITypeStore(Of ICharacterTypeStore)
-    ReadOnly Property RouteTypes As ITypeStore(Of IRouteTypeStore)
     ReadOnly Property StatisticTypes As ITypeStore(Of IStatisticTypeStore)
-    ReadOnly Property Directions As ITypeStore(Of IDirectionStore)
     'Location Type
     ReadOnly Property LocationTypes As ITypeStore(Of ILocationTypeStore)
-    'Item Type
-
     'Character Type
     Function GetCharacterType(characterTypeId As Integer) As ICharacterTypeStore
 

@@ -34,17 +34,6 @@ Public Class DataStore
         End Get
     End Property
 
-    Public ReadOnly Property Directions As ITypeStore(Of IDirectionStore) Implements IDataStore.Directions
-        Get
-            Return New TypeStore(Of IDirectionStore)(
-                ConnectionSource,
-                TABLE_DIRECTIONS,
-                COLUMN_DIRECTION_ID,
-                COLUMN_DIRECTION_NAME,
-                Function(x, y) New DirectionStore(x, y))
-        End Get
-    End Property
-
     Public ReadOnly Property StatisticTypes As ITypeStore(Of IStatisticTypeStore) Implements IDataStore.StatisticTypes
         Get
             Return New TypeStore(Of IStatisticTypeStore)(
@@ -64,17 +53,6 @@ Public Class DataStore
                 COLUMN_CHARACTER_TYPE_ID,
                 COLUMN_CHARACTER_TYPE_NAME,
                 Function(x, y) New CharacterTypeStore(x, y))
-        End Get
-    End Property
-
-    Public ReadOnly Property RouteTypes As ITypeStore(Of IRouteTypeStore) Implements IDataStore.RouteTypes
-        Get
-            Return New TypeStore(Of IRouteTypeStore)(
-                ConnectionSource,
-                TABLE_ROUTE_TYPES,
-                COLUMN_ROUTE_TYPE_ID,
-                COLUMN_ROUTE_TYPE_NAME,
-                Function(x, y) New RouteTypeStore(x, y))
         End Get
     End Property
 

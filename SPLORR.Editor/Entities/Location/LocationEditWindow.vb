@@ -31,11 +31,6 @@ Friend Class LocationEditWindow
                     "Characters...",
                     Function() store.HasCharacter,
                     Sub() Program.GoToWindow(New LocationCharacterListWindow(store))
-                ),
-                (
-                    "Routes...",
-                    Function() True,
-                    Sub() Program.GoToWindow(New LocationRouteListWindow(store))
                 )
             })
     End Sub

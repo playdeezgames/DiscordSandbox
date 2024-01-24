@@ -1,7 +1,6 @@
 ﻿Friend Module Tokens
     Friend Const TOKEN_CHARACTER As String = "character"
     Friend Const TOKEN_CREATE As String = "create"
-    Friend Const TOKEN_GO As String = "go"
     Friend Const TOKEN_HAND As String = "hand"
     Friend Const TOKEN_HELP As String = "help"
     Friend Const TOKEN_INVENTORY As String = "inventory"

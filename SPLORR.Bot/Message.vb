@@ -8,7 +8,6 @@ Friend Module Message
             {TOKEN_CHARACTER, AddressOf CharacterMessage.Handle},
             {TOKEN_CREATE, AddressOf CreateMessage.Handle},
             {TOKEN_DIE, AddressOf DieMessage.Handle},
-            {TOKEN_GO, AddressOf GoMessage.Handle},
             {TOKEN_HAND, AddressOf HandMessage.Handle},
             {TOKEN_HELP, AddressOf HelpMessage.Handle},
             {TOKEN_INVENTORY, AddressOf InventoryMessage.Handle},

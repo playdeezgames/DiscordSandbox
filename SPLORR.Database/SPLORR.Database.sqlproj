@@ -62,7 +62,6 @@
     <Folder Include="dbo\Tables\Character" />
     <Folder Include="dbo\Tables\Location" />
     <Folder Include="dbo\Tables\Player" />
-    <Folder Include="dbo\Tables\Route" />
     <Folder Include="dbo\Tables\Card" />
     <Folder Include="dbo\Tables\Character\Type" />
     <Folder Include="dbo\Tables\Character\Player" />
@@ -77,10 +76,7 @@
     <Build Include="dbo\Tables\Location\LocationTypes.sql" />
     <Build Include="dbo\Tables\Player\PlayerMoney.sql" />
     <Build Include="dbo\Tables\Player\Players.sql" />
-    <Build Include="dbo\Tables\Route\Routes.sql" />
     <Build Include="dbo\Tables\StatisticTypes.sql" />
-    <Build Include="dbo\Views\RouteDetails.sql" />
-    <Build Include="dbo\Views\LocationAvailableDirections.sql" />
     <Build Include="dbo\Views\CardDetails.sql" />
     <Build Include="dbo\Views\CharacterTypeAvailableStatisticTypes.sql" />
     <Build Include="dbo\Views\CharacterTypeStatisticDetails.sql" />
@@ -106,9 +102,5 @@
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="dbo\Tables\Route\RouteTypes.sql" />
-    <Build Include="dbo\Tables\Route\Directions.sql" />
   </ItemGroup>
 </Project>

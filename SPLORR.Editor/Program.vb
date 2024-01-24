@@ -7,10 +7,8 @@ Module Program
     Private Const TEXT_TYPES As String = "Types"
     Private Const TEXT_QUIT As String = "Quit"
     Private Const TEXT_LOCATION_TYPES = "Location Types"
-    Private Const TEXT_DIRECTIONS = "Directions"
     Private Const TEXT_STATISTIC_TYPES = "Statistic Types"
     Private Const TEXT_CHARACTER_TYPES = "Character Types"
-    Private Const TEXT_ROUTE_TYPES = "Route Types"
     Private Const TEXT_CARD_TYPES = "Card Types"
     Private Const TEXT_ENTITIES = "Entities"
     Private Const TEXT_LOCATIONS = "Locations"
@@ -34,9 +32,7 @@ Module Program
                 {
                     New MenuItem(TEXT_CARD_TYPES, String.Empty, AddressOf DoCardTypesList),
                     New MenuItem(TEXT_CHARACTER_TYPES, String.Empty, AddressOf DoCharacterTypesList),
-                    New MenuItem(TEXT_DIRECTIONS, String.Empty, AddressOf DoDirectionsList),
                     New MenuItem(TEXT_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList),
-                    New MenuItem(TEXT_ROUTE_TYPES, String.Empty, AddressOf DoRouteTypesList),
                     New MenuItem(TEXT_STATISTIC_TYPES, String.Empty, AddressOf DoStatisticTypesList)
                 }),
                 New MenuBarItem(TEXT_GENERATORS,
@@ -70,20 +66,12 @@ Module Program
         GoToWindow(New CharacterListWindow(dataStore))
     End Sub
 
-    Private Sub DoRouteTypesList()
-        GoToWindow(New RouteTypeListWindow(dataStore))
-    End Sub
-
     Private Sub DoCharacterTypesList()
         GoToWindow(New CharacterTypeListWindow(dataStore))
     End Sub
 
     Private Sub DoStatisticTypesList()
         GoToWindow(New StatisticTypeListWindow(dataStore))
-    End Sub
-
-    Private Sub DoDirectionsList()
-        GoToWindow(New DirectionListWindow(dataStore))
     End Sub
 
     Private Sub DoLocationTypesList()

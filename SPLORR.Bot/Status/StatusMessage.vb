@@ -14,12 +14,6 @@ Friend Module StatusMessage
                     Dim location = character.Location
                     outputter($"Character Name: {character.Name}")
                     outputter($"Location Name: {location.Name}")
-                    If location.HasRoutes Then
-                        outputter($"Exits:")
-                        For Each route In location.Routes
-                            outputter($"- {route.RouteType.Name} going {route.Direction.Name}")
-                        Next
-                    End If
                     If character.HasOtherCharacters Then
                         outputter($"Other Characters:")
                         For Each otherCharacter In character.OtherCharacters
