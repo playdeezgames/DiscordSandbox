@@ -1,4 +1,5 @@
 ﻿Imports SPLORR.Data
+Imports SPLORR.Game
 
 Friend Class CardModel
     Implements ICardModel
@@ -61,9 +62,12 @@ Friend Class CardModel
             outputter($"{deltaDelta} {deltaName}")
             statistic.Value += deltaDelta
         Next
-        For Each tag In Store.CardType.Tags.All
-            ExecuteTag(tag, outputter)
-        Next
+        Dim generator = Store.CardType.Generator
+        If generator IsNot Nothing Then
+            Dim cardType = RNG.FromGenerator(generator.CardTypes.All.ToDictionary(Function(x) x.CardType, Function(x) x.GeneratorWeight))
+            outputter($"{Store.Character.Name} gains card `{cardType.Name}`!")
+            cardType.CreateCard(Store.Character)
+        End If
         Discard()
         If Store.CardType.DeleteOnPlay Then
             Store.Delete()
@@ -71,16 +75,4 @@ Friend Class CardModel
         End If
     End Sub
 
-    Private Const CARD_TYPE_TAG_FORAGE = "forage"
-    Private Sub ExecuteTag(tag As ICardTypeTagStore, outputter As Action(Of String))
-        Select Case tag.Name
-            Case CARD_TYPE_TAG_FORAGE
-                ExecuteForageTag(outputter)
-        End Select
-    End Sub
-
-    Private Sub ExecuteForageTag(outputter As Action(Of String))
-        Dim character = New CharacterModel(Store.Character)
-        outputter($"{character.Name} finds nothing!")
-    End Sub
 End Class
