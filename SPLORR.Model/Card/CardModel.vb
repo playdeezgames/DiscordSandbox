@@ -68,6 +68,11 @@ Friend Class CardModel
             outputter($"{Store.Character.Name} gains card `{cardType.Name}`!")
             cardType.CreateCard(Store.Character)
         End If
+        Dim location = Store.CardType.Location
+        If location IsNot Nothing Then
+            Store.Character.Location = location
+            outputter($"{Store.Character.Name} moves to {location.Name}.")
+        End If
         Discard()
         If Store.CardType.DeleteOnPlay Then
             Store.Delete()

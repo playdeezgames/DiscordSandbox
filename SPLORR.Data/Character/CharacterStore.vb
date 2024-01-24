@@ -27,7 +27,7 @@ Friend Class CharacterStore
         End Set
     End Property
 
-    Public ReadOnly Property Location As ILocationStore Implements ICharacterStore.Location
+    Public Property Location As ILocationStore Implements ICharacterStore.Location
         Get
             Return New LocationStore(
                 connectionSource,
@@ -36,6 +36,12 @@ Friend Class CharacterStore
                     {(COLUMN_CHARACTER_ID, Id)},
                     COLUMN_LOCATION_ID))
         End Get
+        Set(value As ILocationStore)
+            connectionSource.WriteValuesForValues(
+                TABLE_CHARACTERS,
+                {(COLUMN_CHARACTER_ID, Id)},
+                {(COLUMN_LOCATION_ID, value.Id)})
+        End Set
     End Property
 
     Public Sub SetLocation(location As ILocationStore, lastModified As DateTimeOffset) Implements ICharacterStore.SetLocation

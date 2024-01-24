@@ -47,7 +47,13 @@ Friend Class LocationStore
 
     Public ReadOnly Property CanDelete As Boolean Implements IBaseTypeStore(Of IDataStore).CanDelete
         Get
-            Return Not HasCharacters
+            Return Not HasCharacters AndAlso Not HasCardTypes
+        End Get
+    End Property
+
+    Private ReadOnly Property HasCardTypes As Boolean
+        Get
+            Return connectionSource.CheckForValues(TABLE_CARD_TYPES, (COLUMN_LOCATION_ID, Id))
         End Get
     End Property
 

@@ -1,6 +1,6 @@
 ﻿Public Interface ICharacterStore
     Inherits IBaseTypeStore(Of IDataStore)
-    ReadOnly Property Location As ILocationStore
+    Property Location As ILocationStore
     Sub SetLocation(location As ILocationStore, lastModified As DateTimeOffset)
     Sub ClearPlayer()
     Function AddStatistic(statisticType As IStatisticTypeStore, statisticValue As Integer, minimumValue As Integer?, maximumValue As Integer?) As ICharacterStatisticStore
