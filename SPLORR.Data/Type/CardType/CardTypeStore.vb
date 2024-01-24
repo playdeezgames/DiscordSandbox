@@ -16,7 +16,7 @@ Friend Class CardTypeStore
 
     Public Overrides ReadOnly Property CanDelete As Boolean
         Get
-            Return Not HasDeltas AndAlso Not HasTags
+            Return Not HasDeltas
         End Get
     End Property
 
@@ -47,18 +47,6 @@ Friend Class CardTypeStore
                 COLUMN_STATISTIC_TYPE_NAME,
                 (COLUMN_CARD_TYPE_ID, Id),
                 Function(x, y) New StatisticTypeStore(x, y))
-        End Get
-    End Property
-
-    Public ReadOnly Property Tags As IRelatedTypeStore(Of ICardTypeTagStore) Implements ICardTypeStore.Tags
-        Get
-            Return New RelatedTypeStore(Of ICardTypeTagStore, Integer)(
-                connectionSource,
-                TABLE_CARD_TYPE_TAGS,
-                COLUMN_CARD_TYPE_TAG_ID,
-                COLUMN_TAG_NAME,
-                (COLUMN_CARD_TYPE_ID, Id),
-                Function(x, y) New CardTypeTagStore(x, y))
         End Get
     End Property
 
@@ -112,14 +100,6 @@ Friend Class CardTypeStore
         End Get
     End Property
 
-    Private ReadOnly Property HasTags As Boolean
-        Get
-            Return connectionSource.CheckForValues(
-                TABLE_CARD_TYPE_TAGS,
-                (COLUMN_CARD_TYPE_ID, Id))
-        End Get
-    End Property
-
     Public Function CreateCard(store As ICharacterStore) As ICardStore Implements ICardTypeStore.CreateCard
         Return New CardStore(
             connectionSource,
@@ -138,21 +118,5 @@ Friend Class CardTypeStore
                 (COLUMN_STATISTIC_TYPE_ID, statisticType.Id),
                 (COLUMN_ALLOW_OVERAGE, 0),
                 (COLUMN_STATISTIC_DELTA, delta)))
-    End Function
-
-    Public Function TagExists(tagName As String) As Boolean Implements ICardTypeStore.TagExists
-        Return connectionSource.CheckForValues(
-            TABLE_CARD_TYPE_TAGS,
-            {(COLUMN_CARD_TYPE_ID, Id),
-            (COLUMN_TAG_NAME, tagName)})
-    End Function
-
-    Public Function CreateTag(tagName As String) As ICardTypeTagStore Implements ICardTypeStore.CreateTag
-        Return New CardTypeTagStore(
-            connectionSource,
-            connectionSource.Insert(
-                TABLE_CARD_TYPE_TAGS,
-                (COLUMN_CARD_TYPE_ID, Id),
-                (COLUMN_TAG_NAME, tagName)))
     End Function
 End Class

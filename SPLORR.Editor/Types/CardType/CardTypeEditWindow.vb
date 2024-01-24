@@ -28,11 +28,6 @@ Friend Class CardTypeEditWindow
                     Sub() Program.GoToWindow(New CardTypeStatisticDeltaListWindow(store))
                 ),
                 (
-                    "Tags...",
-                    Function() True,
-                    Sub() Program.GoToWindow(New CardTypeTagListWindow(store))
-                ),
-                (
                     $"Delete On Discard: {store.DeleteOnPlay}",
                     Function() True,
                     Sub()
