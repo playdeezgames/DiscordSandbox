@@ -1,6 +1,4 @@
-﻿Imports Microsoft.IdentityModel.Tokens
-
-Friend Class CharacterTypeAddWindow
+﻿Friend Class CharacterTypeAddWindow
     Inherits BaseAddTypeWindow
     Public Sub New(dataStore As Data.IDataStore)
         MyBase.New(

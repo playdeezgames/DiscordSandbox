@@ -100,6 +100,17 @@ Public Class DataStore
         End Get
     End Property
 
+    Public ReadOnly Property EffectTypes As ITypeStore(Of IEffectTypeStore) Implements IDataStore.EffectTypes
+        Get
+            Return New TypeStore(Of IEffectTypeStore)(
+                ConnectionSource,
+                TABLE_EFFECT_TYPES,
+                COLUMN_EFFECT_TYPE_ID,
+                COLUMN_EFFECT_TYPE_NAME,
+                Function(x, y) New EffectTypeStore(x, y))
+        End Get
+    End Property
+
     Public Sub CleanUp() Implements IDataStore.CleanUp
         If _connection IsNot Nothing Then
             _connection.Close()

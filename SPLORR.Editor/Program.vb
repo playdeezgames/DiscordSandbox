@@ -1,3 +1,4 @@
+Imports System.Reflection.Metadata
 Imports SPLORR.Data
 Imports Terminal.Gui
 
@@ -9,6 +10,7 @@ Module Program
     Private Const TEXT_LOCATION_TYPES = "Location Types"
     Private Const TEXT_STATISTIC_TYPES = "Statistic Types"
     Private Const TEXT_CHARACTER_TYPES = "Character Types"
+    Private Const TEXT_EFFECT_TYPES = "Effect Types"
     Private Const TEXT_CARD_TYPES = "Card Types"
     Private Const TEXT_ENTITIES = "Entities"
     Private Const TEXT_LOCATIONS = "Locations"
@@ -32,6 +34,7 @@ Module Program
                 {
                     New MenuItem(TEXT_CARD_TYPES, String.Empty, AddressOf DoCardTypesList),
                     New MenuItem(TEXT_CHARACTER_TYPES, String.Empty, AddressOf DoCharacterTypesList),
+                    New MenuItem(TEXT_EFFECT_TYPES, String.Empty, AddressOf DoEffectTypesList),
                     New MenuItem(TEXT_LOCATION_TYPES, String.Empty, AddressOf DoLocationTypesList),
                     New MenuItem(TEXT_STATISTIC_TYPES, String.Empty, AddressOf DoStatisticTypesList)
                 }),
@@ -48,6 +51,10 @@ Module Program
         Application.Run()
         Application.Shutdown()
         dataStore.CleanUp()
+    End Sub
+
+    Private Sub DoEffectTypesList()
+        GoToWindow(New EffectTypeListWindow(dataStore))
     End Sub
 
     Private Sub DoCardTypeGeneratorsList()
