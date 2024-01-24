@@ -1,4 +1,5 @@
-﻿Imports SPLORR.Model
+﻿Imports System.Numerics
+Imports SPLORR.Model
 
 Friend Module HelpMessage
     Private ReadOnly helps As IReadOnlyDictionary(Of String, String) =
@@ -11,6 +12,7 @@ Friend Module HelpMessage
             {TOKEN_GO, "Allows you to move yer character in a direction."},
             {TOKEN_HAND, "Looks at the cards in yer hand."},
             {TOKEN_HELP, "Shows help."},
+            {TOKEN_INVENTORY, "Shows yer inventory."},
             {TOKEN_PLAY, "Plays a card from yer hand."},
             {TOKEN_RENAME, "Renames stuff."},
             {TOKEN_REST, "Allows yer character to rest."},
@@ -26,11 +28,21 @@ Friend Module HelpMessage
             {TOKEN_GO, AddressOf HelpGo},
             {TOKEN_HAND, AddressOf HelpHand},
             {TOKEN_HELP, AddressOf HelpHelp},
+            {TOKEN_INVENTORY, AddressOf HelpInventory},
             {TOKEN_PLAY, AddressOf HelpPlay},
             {TOKEN_RENAME, AddressOf HelpRename},
             {TOKEN_REST, AddressOf HelpRest},
             {TOKEN_STATUS, AddressOf HelpStatus}
         }
+
+    Private Sub HelpInventory(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
+        If tokens.Length <> 0 Then
+            InvalidMessage.Handle(player, tokens, outputter)
+            Return
+        End If
+        outputter($"Help for {TOKEN_INVENTORY}:")
+        outputter($"- usage: {TOKEN_INVENTORY}")
+    End Sub
 
     Private Sub HelpRest(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length <> 0 Then
@@ -114,16 +126,16 @@ Friend Module HelpMessage
         outputter($"- usage: {TOKEN_HELP} <topic>")
     End Sub
 
-    Private sub HelpGo(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
+    Private Sub HelpGo(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length <> 0 Then
             InvalidMessage.Handle(player, tokens, outputter)
             Return
         End If
         outputter($"Help for {TOKEN_GO}:")
         outputter($"- usage: {TOKEN_GO} <direction>")
-    End sub
+    End Sub
 
-    Private sub HelpCreate(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
+    Private Sub HelpCreate(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length <> 0 Then
             InvalidMessage.Handle(player, tokens, outputter)
             Return
@@ -131,7 +143,7 @@ Friend Module HelpMessage
         outputter($"Help for {TOKEN_CREATE}:")
         outputter($"- usage: {TOKEN_CREATE} <thing>")
         outputter($"- values for <thing>: {TOKEN_CHARACTER}")
-    End sub
+    End Sub
 
     Friend sub Handle(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length = 0 Then

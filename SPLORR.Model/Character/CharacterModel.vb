@@ -90,6 +90,26 @@ Friend Class CharacterModel
         End Get
     End Property
 
+    Private Shared inventoryStatistics As IReadOnlyDictionary(Of String, String) =
+        New Dictionary(Of String, String) From
+        {
+            {"PlantFibers", "Plant Fiber"},
+            {"Rocks", "Rock"}
+        }
+
+    Public ReadOnly Property Inventory As IReadOnlyDictionary(Of String, Integer) Implements ICharacterModel.Inventory
+        Get
+            Dim result As New Dictionary(Of String, Integer)
+            For Each entry In inventoryStatistics
+                Dim statistic = Store.Statistics.Filter(entry.Key).FirstOrDefault
+                If statistic IsNot Nothing AndAlso statistic.Value > 0 Then
+                    result(entry.Value) = statistic.Value
+                End If
+            Next
+            Return result
+        End Get
+    End Property
+
     Public Sub RefreshHand() Implements ICharacterModel.RefreshHand
         DiscardHand()
         DrawHand()
@@ -167,10 +187,6 @@ Friend Class CharacterModel
     Public Function Rest() As IEnumerable(Of String) Implements ICharacterModel.Rest
         Dim result As New List(Of String)
         Dim energy = Store.Statistics.FromName(STATISTIC_TYPE_ENERGY)
-        If energy.Value >= energy.Maximum Then
-            result.Add($"{Store.Name}'s energy is at maximum, so there is no need to rest!")
-            Return result
-        End If
         Dim satiety = Store.Statistics.FromName(STATISTIC_TYPE_SATIETY)
         If satiety.Value = 0 Then
             Dim health = Store.Statistics.FromName(STATISTIC_TYPE_HEALTH)

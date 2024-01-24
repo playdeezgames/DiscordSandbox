@@ -20,4 +20,5 @@ Public Interface ICharacterModel
     ReadOnly Property HandSize As Integer
     ReadOnly Property Store As ICharacterStore
     Function Rest() As IEnumerable(Of String)
+    ReadOnly Property Inventory As IReadOnlyDictionary(Of String, Integer)
 End Interface

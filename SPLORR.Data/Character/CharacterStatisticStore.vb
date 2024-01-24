@@ -56,7 +56,7 @@ Friend Class CharacterStatisticStore
 
     Public Property Minimum As Integer? Implements ICharacterStatisticStore.Minimum
         Get
-            Return connectionSource.ReadIntegerForValues(
+            Return connectionSource.FindIntegerForValues(
                     TABLE_CHARACTER_STATISTICS,
                     {(COLUMN_CHARACTER_STATISTIC_ID, Id)},
                     COLUMN_MINIMUM_VALUE)
@@ -78,7 +78,7 @@ Friend Class CharacterStatisticStore
 
     Public Property Maximum As Integer? Implements ICharacterStatisticStore.Maximum
         Get
-            Return connectionSource.ReadIntegerForValues(
+            Return connectionSource.FindIntegerForValues(
                     TABLE_CHARACTER_STATISTICS,
                     {(COLUMN_CHARACTER_STATISTIC_ID, Id)},
                     COLUMN_MAXIMUM_VALUE)

@@ -11,6 +11,7 @@ Friend Module Message
             {TOKEN_GO, AddressOf GoMessage.Handle},
             {TOKEN_HAND, AddressOf HandMessage.Handle},
             {TOKEN_HELP, AddressOf HelpMessage.Handle},
+            {TOKEN_INVENTORY, AddressOf InventoryMessage.Handle},
             {TOKEN_PLAY, AddressOf PlayMessage.Handle},
             {TOKEN_RENAME, AddressOf RenameMessage.Handle},
             {TOKEN_REST, AddressOf RestMessage.Handle},
