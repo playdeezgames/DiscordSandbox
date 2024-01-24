@@ -77,6 +77,33 @@ Friend Class CardTypeStore
         End Set
     End Property
 
+    Public Property Generator As ICardTypeGeneratorStore Implements ICardTypeStore.Generator
+        Get
+            Dim cardTypeGeneratorId As Integer? =
+                connectionSource.FindIntegerForValues(
+                    TABLE_CARD_TYPES,
+                    {(COLUMN_CARD_TYPE_ID, Id)},
+                    COLUMN_CARD_TYPE_GENERATOR_ID)
+            If cardTypeGeneratorId.HasValue Then
+                Return New CardTypeGeneratorStore(connectionSource, cardTypeGeneratorId.Value)
+            End If
+            Return Nothing
+        End Get
+        Set(value As ICardTypeGeneratorStore)
+            If value Is Nothing Then
+                connectionSource.ClearColumnForValues(
+                    TABLE_CARD_TYPES,
+                    {(COLUMN_CARD_TYPE_ID, Id)},
+                    COLUMN_CARD_TYPE_GENERATOR_ID)
+                Return
+            End If
+            connectionSource.WriteValuesForValues(
+                TABLE_CARD_TYPES,
+                    {(COLUMN_CARD_TYPE_ID, Id)},
+                    {(COLUMN_CARD_TYPE_GENERATOR_ID, value.Id)})
+        End Set
+    End Property
+
     Private ReadOnly Property HasDeltas As Boolean
         Get
             Return connectionSource.CheckForValues(

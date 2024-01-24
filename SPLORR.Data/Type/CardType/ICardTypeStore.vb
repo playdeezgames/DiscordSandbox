@@ -9,4 +9,5 @@
     ReadOnly Property CanAddStatisticDelta As Boolean
     ReadOnly Property Tags As IRelatedTypeStore(Of ICardTypeTagStore)
     Property DeleteOnPlay As Boolean
+    Property Generator As ICardTypeGeneratorStore
 End Interface

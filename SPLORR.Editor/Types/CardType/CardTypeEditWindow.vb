@@ -39,6 +39,11 @@ Friend Class CardTypeEditWindow
                         store.DeleteOnPlay = Not store.DeleteOnPlay
                         Program.GoToWindow(New CardTypeEditWindow(store))
                     End Sub
+                ),
+                (
+                    $"Generator: {If(store.Generator Is Nothing, "n/a", store.Generator.Name)}",
+                    Function() True,
+                    Sub() Program.GoToWindow(New CardTypeCardTypeGeneratorEditWindow(store))
                 )
             })
     End Sub
