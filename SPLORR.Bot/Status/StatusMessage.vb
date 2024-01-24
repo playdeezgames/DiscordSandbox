@@ -8,8 +8,8 @@ Friend Module StatusMessage
             outputter,
             Sub()
                 WithCharacter(
-                player,
-                outputter,
+                (player,
+                outputter),
                 Sub(character)
                     Dim location = character.Location
                     outputter($"Character Name: {character.Name}")

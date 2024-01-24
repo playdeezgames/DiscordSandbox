@@ -7,8 +7,8 @@ Friend Module InventoryMessage
             outputter,
             Sub()
                 WithCharacter(
-                    player,
-                    outputter,
+                    (player,
+                    outputter),
                     Sub(character)
                         outputter("Inventory:")
                         For Each entry In character.Inventory

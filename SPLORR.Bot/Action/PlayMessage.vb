@@ -7,8 +7,8 @@ Friend Module PlayMessage
             outputter,
             Sub()
                 WithCharacter(
-                    player,
-                    outputter,
+                    (player,
+                    outputter),
                     Sub(character)
                         Dim cardName = String.Join(" "c, tokens)
                         Dim card As ICardModel = character.HandCardByName(cardName)

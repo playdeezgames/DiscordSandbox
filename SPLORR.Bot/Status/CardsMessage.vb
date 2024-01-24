@@ -7,8 +7,8 @@ Friend Module CardsMessage
             outputter,
             Sub()
                 WithCharacter(
-                    player,
-                    outputter,
+                    (player,
+                    outputter),
                     Sub(character)
                         outputter("Cards:")
                         For Each card In character.Cards

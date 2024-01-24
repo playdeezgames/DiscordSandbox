@@ -7,8 +7,10 @@ Friend Module RestMessage
             outputter,
             Sub()
                 WithCharacter(
-                    player,
-                    outputter,
+                    (
+                        player,
+                        outputter
+                    ),
                     Sub(character)
                         For Each message In character.Rest()
                             outputter(message)

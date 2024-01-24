@@ -7,8 +7,8 @@ Friend Module DieMessage
             outputter,
             Sub()
                 WithCharacter(
-                    player,
-                    outputter,
+                    (player,
+                    outputter),
                     Sub(character)
                         outputter($"RIP {character.Name}")
                         character.Die()

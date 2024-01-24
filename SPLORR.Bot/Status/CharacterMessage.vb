@@ -7,8 +7,8 @@ Friend Module CharacterMessage
             outputter,
             Sub()
                 WithCharacter(
-                    player,
-                    outputter,
+                    (player,
+                    outputter),
                     Sub(character)
                         outputter($"Vital Statistics:")
                         outputter($"Health: {character.Health}/{character.MaximumHealth}")
