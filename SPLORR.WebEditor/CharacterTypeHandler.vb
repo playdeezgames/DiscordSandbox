@@ -27,10 +27,18 @@ Friend Module CharacterTypeHandler
             ShowList(builder, store)
             Return
         End If
-        builder.Append(HTML_START)
-        builder.Append($"<p>Id: {characterType.Id}</p>")
-        builder.Append($"<p>Name: {characterType.Name} (<a href=""/{TOKEN_CHARACTER_TYPE}/{characterTypeId}/{TOKEN_CHANGE_NAME}"">(change)</a>)</p>")
-        builder.Append($"<p><a href=""/{TOKEN_CHARACTER_TYPES}"">Character Types</a></p>")
-        builder.Append(HTML_END)
+        If Not tokens.Any Then
+            builder.Append(HTML_START)
+            builder.Append($"<p>Id: {characterType.Id}</p>")
+            builder.Append($"<p>Name: {characterType.Name} <a href=""/{TOKEN_CHARACTER_TYPE}/{characterTypeId}/{TOKEN_CHANGE_NAME}"">(change)</a></p>")
+            builder.Append($"<p><a href=""/{TOKEN_CHARACTER_TYPES}"">Character Types</a></p>")
+            builder.Append(HTML_END)
+            Return
+        End If
+        Dim command = tokens.First
+        Select Case command
+            Case Else
+
+        End Select
     End Sub
 End Module
