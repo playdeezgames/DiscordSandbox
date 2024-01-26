@@ -16,9 +16,9 @@
         set rs = cmd.Execute()
         rs.movefirst
         %>
-        <form>
+        <form action="UpdateCardType.asp" method="POST">
             <p>Card Type Id: <%=rs("CardTypeId")%><input name="CardTypeId" type="hidden" value="<%=rs("CardTypeId")%>"/></p>
-            <p>Card Type Name: <input name="CardTypeName" type="text" value="<%=rs("CardTypeName")%>"/></p>
+            <p>Card Type Name: <input name="CardTypeName" type="text" size="100" maxlength="100" value="<%=rs("CardTypeName")%>"/></p>
             <input type="submit"/>
         </form>
         <%
