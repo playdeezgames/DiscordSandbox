@@ -10,7 +10,7 @@
         Set cmd=server.CreateObject("adodb.command")
         Set cmd.activeconnection=conn
         cmd.CommandType=adCmdText
-        cmd.CommandText="SELECT CardTypeId, CardTypeName FROM CardTypes WHERE CardTypeId=?;"
+        cmd.CommandText="SELECT CardTypeId, CardTypeName, DeleteOnPlay FROM CardTypes WHERE CardTypeId=?;"
         cmd.Parameters.Refresh
         cmd.Parameters(0).Value=Request.QueryString("CardTypeId")
         set rs = cmd.Execute()
@@ -19,6 +19,10 @@
         <form action="UpdateCardType.asp" method="POST">
             <p>Card Type Id: <%=rs("CardTypeId")%><input name="CardTypeId" type="hidden" value="<%=rs("CardTypeId")%>"/></p>
             <p>Card Type Name: <input name="CardTypeName" type="text" size="100" maxlength="100" value="<%=rs("CardTypeName")%>"/></p>
+            <p>Delete on Play? <input type="checkbox" name="DeleteOnPlay" value="1" <%
+                if rs("DeleteOnPlay") then 
+                %> checked="checked" <%
+                end if%>/>
             <input type="submit"/>
         </form>
         <%

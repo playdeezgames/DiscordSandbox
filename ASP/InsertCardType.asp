@@ -7,7 +7,11 @@ cmd.CommandType=adCmdText
 cmd.CommandText="INSERT CardTypes(CardTypeName,DeleteOnPlay) VALUES(?,?);"
 cmd.Parameters.Refresh
 cmd.Parameters(0).Value=Request.Form("CardTypeName")
-cmd.Parameters(1).Value=0
+if Request.Form("DeleteOnPlay")=1 then
+    cmd.Parameters(1).Value=True
+else
+    cmd.Parameters(1).Value=False
+end if
 cmd.Execute()
 Response.Redirect "CardTypeList.asp"
 Set cmd=nothing
