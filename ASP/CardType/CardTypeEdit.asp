@@ -23,8 +23,8 @@
             <p>Delete on Play? <input type="checkbox" name="<%=COLUMN_DELETE_ON_PLAY%>" value="1" <%
                 if rs(COLUMN_DELETE_ON_PLAY) then 
                 %> checked="checked" <%
-                end if%>/>
-            <input type="submit"/>
+                end if%>/></p>
+            <p><input type="submit"/></p>
         </form>
         <%
         set rs=nothing  
