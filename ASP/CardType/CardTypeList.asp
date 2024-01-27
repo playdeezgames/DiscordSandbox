@@ -1,3 +1,4 @@
+<!--#include virtual="inc/Grimoire.inc"-->
 <!--#include virtual="inc/openconn.inc"-->
 <html>
     <head>
@@ -15,18 +16,18 @@
             </tr>
         <%
         Set rs = Server.CreateObject("ADODB.RecordSet")
-        rs.Open "SELECT CardTypeId, CardTypeName, CardCount, DeleteOnPlay FROM CardTypeDetails ORDER BY CardTypeName;", conn
+        rs.Open "SELECT " & COLUMN_CARD_TYPE_ID & ", " & COLUMN_CARD_TYPE_NAME & ", " & COLUMN_CARD_COUNT & ", " & COLUMN_DELETE_ON_PLAY & " FROM " & VIEW_CARD_TYPE_DETAILS & " ORDER BY " & COLUMN_CARD_TYPE_NAME & ";", conn
         rs.movefirst
         do until rs.eof
         %>
             <tr>
-                <td><a href="/CardType/CardTypeDelete.asp?CardTypeId=<%=rs("CardTypeId")%>"><%=rs("CardTypeId")%></a></td>
-                <td><%=rs("CardTypeName")%></td>
-                <td><%=rs("DeleteOnPlay")%></td>
-                <td><a href="/CardTypeCard/CardTypeCardList.asp?CardTypeId=<%=rs("CardTypeId")%>"><%=rs("CardCount")%></a></td>
+                <td><a href="/CardType/CardTypeEdit.asp?<%=COLUMN_CARD_TYPE_ID%>=<%=rs(COLUMN_CARD_TYPE_ID)%>"><%=rs(COLUMN_CARD_TYPE_ID)%></a></td>
+                <td><%=rs(COLUMN_CARD_TYPE_NAME)%></td>
+                <td><%=rs(COLUMN_DELETE_ON_PLAY)%></td>
+                <td><a href="/CardTypeCard/CardTypeCardList.asp?<%=COLUMN_CARD_TYPE_ID%>=<%=rs(COLUMN_CARD_TYPE_ID)%>"><%=rs(COLUMN_CARD_COUNT)%></a></td>
                 <td>
-                    <% if rs("CardCount")=0 then %>
-                        <a href="/CardType/CardTypeDelete.asp?CardTypeId=<%=rs("CardTypeId")%>">(delete)</a>
+                    <% if rs(COLUMN_CARD_COUNT)=0 then %>
+                        <a href="/CardType/CardTypeDelete.asp?<%=COLUMN_CARD_TYPE_ID%>=<%=rs(COLUMN_CARD_TYPE_ID)%>">(delete)</a>
                     <% end if %>
                 </td>
             </tr>

@@ -1,3 +1,4 @@
+<!--#include virtual="inc/Grimoire.inc"-->
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/openconn.inc"-->
 <html>
@@ -5,7 +6,7 @@
         <title>SPLORR!!</title>
     </head>
     <body>
-        <p><a href="CardType/CardTypeList.asp">Back to Card Type List</a></p>
+        <p><a href="/CardType/CardTypeList.asp">Back to Card Type List</a></p>
         <%
         Set cmd=server.CreateObject("adodb.command")
         Set cmd.activeconnection=conn
@@ -17,10 +18,10 @@
         rs.movefirst
         %>
         <form action="/CardType/UpdateCardType.asp" method="POST">
-            <p>Card Type Id: <%=rs("CardTypeId")%><input name="CardTypeId" type="hidden" value="<%=rs("CardTypeId")%>"/></p>
-            <p>Card Type Name: <input name="CardTypeName" type="text" size="100" maxlength="100" value="<%=rs("CardTypeName")%>"/></p>
-            <p>Delete on Play? <input type="checkbox" name="DeleteOnPlay" value="1" <%
-                if rs("DeleteOnPlay") then 
+            <p>Card Type Id: <%=rs("CardTypeId")%><input name="<%=COLUMN_CARD_TYPE_ID%>" type="hidden" value="<%=rs(COLUMN_CARD_TYPE_ID)%>"/></p>
+            <p>Card Type Name: <input name="<%=COLUMN_CARD_TYPE_NAME%>" type="text" size="100" maxlength="100" value="<%=rs(COLUMN_CARD_TYPE_NAME)%>"/></p>
+            <p>Delete on Play? <input type="checkbox" name="<%=COLUMN_DELETE_ON_PLAY%>" value="1" <%
+                if rs(COLUMN_DELETE_ON_PLAY) then 
                 %> checked="checked" <%
                 end if%>/>
             <input type="submit"/>
