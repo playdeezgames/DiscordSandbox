@@ -1,5 +1,5 @@
-<!--#include file="inc/AdoVbs.inc"-->
-<!--#include file="inc/openconn.inc"-->
+<!--#include virtual="inc/AdoVbs.inc"-->
+<!--#include virtual="inc/openconn.inc"-->
 <%
 Set cmd = Server.CreateObject("ADODB.Command")
 Set cmd.activeconnection=conn
@@ -13,7 +13,7 @@ else
     cmd.Parameters(1).Value=False
 end if
 cmd.Execute()
-Response.Redirect "CardTypeList.asp"
+Response.Redirect "/CardType/CardTypeList.asp"
 Set cmd=nothing
 %>
-<!--#include file="inc/closeconn.inc"-->
+<!--#include virtual="inc/closeconn.inc"-->

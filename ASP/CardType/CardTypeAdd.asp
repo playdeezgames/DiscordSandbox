@@ -3,8 +3,8 @@
         <title>SPLORR!!</title>
     </head>
     <body>
-        <p><a href="CardTypeList.asp">Back to Card Type List</a></p>
-        <form action="InsertCardType.asp" method="POST">
+        <p><a href="/CardType/CardTypeList.asp">Back to Card Type List</a></p>
+        <form action="/CardType/InsertCardType.asp" method="POST">
             <p>Card Type Name: <input name="CardTypeName" type="text" size="100" maxlength="100" /></p>
             <p>Delete On Play: <input name="DeleteOnPlay" type="checkbox" value="1" /></p>
             <input type="submit"/>

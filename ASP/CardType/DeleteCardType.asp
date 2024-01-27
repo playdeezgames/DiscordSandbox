@@ -1,5 +1,5 @@
-<!--#include file="inc/AdoVbs.inc"-->
-<!--#include file="inc/openconn.inc"-->
+<!--#include virtual="inc/AdoVbs.inc"-->
+<!--#include virtual="inc/openconn.inc"-->
 <%
 if Request.Form("ConfirmDelete")=1 then
     Set cmd = Server.CreateObject("ADODB.Command")
@@ -10,7 +10,7 @@ if Request.Form("ConfirmDelete")=1 then
     cmd.Parameters(0).Value=Request.Form("CardTypeId")
     cmd.Execute()
 end if
-Response.Redirect "CardTypeList.asp"
+Response.Redirect "/CardType/CardTypeList.asp"
 Set cmd=nothing
 %>
-<!--#include file="inc/closeconn.inc"-->
+<!--#include virtual="inc/closeconn.inc"-->

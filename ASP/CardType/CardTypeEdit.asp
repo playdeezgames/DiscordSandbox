@@ -1,11 +1,11 @@
-<!--#include file="inc/AdoVbs.inc"-->
-<!--#include file="inc/openconn.inc"-->
+<!--#include virtual="inc/AdoVbs.inc"-->
+<!--#include virtual="inc/openconn.inc"-->
 <html>
     <head>
         <title>SPLORR!!</title>
     </head>
     <body>
-        <p><a href="CardTypeList.asp">Back to Card Type List</a></p>
+        <p><a href="CardType/CardTypeList.asp">Back to Card Type List</a></p>
         <%
         Set cmd=server.CreateObject("adodb.command")
         Set cmd.activeconnection=conn
@@ -16,7 +16,7 @@
         set rs = cmd.Execute()
         rs.movefirst
         %>
-        <form action="UpdateCardType.asp" method="POST">
+        <form action="/CardType/UpdateCardType.asp" method="POST">
             <p>Card Type Id: <%=rs("CardTypeId")%><input name="CardTypeId" type="hidden" value="<%=rs("CardTypeId")%>"/></p>
             <p>Card Type Name: <input name="CardTypeName" type="text" size="100" maxlength="100" value="<%=rs("CardTypeName")%>"/></p>
             <p>Delete on Play? <input type="checkbox" name="DeleteOnPlay" value="1" <%
@@ -30,4 +30,4 @@
         %>
     </body>
 </html>
-<!--#include file="inc/closeconn.inc"-->
+<!--#include virtual="inc/closeconn.inc"-->

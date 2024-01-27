@@ -8,7 +8,9 @@ SELECT
 	c.InDiscardPile,
 	c.InDrawPile,
 	c.InHand,
-	c.DrawOrder
+	c.DrawOrder,
+	ch.CharacterName
 FROM
 	Cards c
 	JOIN CardTypes ct ON ct.CardTypeId=c.CardTypeId
+	JOIN Characters ch ON c.CharacterId=ch.CharacterId
