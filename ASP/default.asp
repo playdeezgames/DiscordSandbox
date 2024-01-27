@@ -3,7 +3,10 @@
         <title>SPLORR!!</title>
     </head>
     <body>
-        <p><a href="CardType/CardTypeList.asp">Card Types</a></p>
+        <ul>
+            <li><a href="CardType/CardTypeList.asp">Card Types</a></li>
+            <li><a href="EffectType/EffectTypeList.asp">Effect Types</a></li>
+        </ul>
     </body>
 </html>
 
