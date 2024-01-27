@@ -13,6 +13,7 @@ Const COLUMN_IN_HAND = "InHand"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
+Const TABLE_CHARACTERS = "Characters"
 
 Const VIEW_CARD_DETAILS = "CardDetails"
 Const VIEW_CARD_TYPE_DETAILS = "CardTypeDetails"

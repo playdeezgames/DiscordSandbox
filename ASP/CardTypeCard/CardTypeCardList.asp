@@ -16,6 +16,7 @@
                 <th>Draw Order</th>
                 <th>In Hand</th>
                 <th>In Discard Pile</th>
+                <th>Delete?</th>
             </tr>
         <%
         Set cmd = Server.CreateObject("ADODB.command")
@@ -29,13 +30,14 @@
         do until rs.eof
         %>
             <tr>
-                <td><a href="/Card/CardEdit.asp?<%=COLUMN_CARD_ID%>=<%=rs(COLUMN_CARD_ID)%>"><%=rs(COLUMN_CARD_ID)%></a></td>
+                <td><%=rs(COLUMN_CARD_ID)%></td>
                 <td><a href="/CardType/CardTypeEdit.asp?<%=COLUMN_CARD_TYPE_ID%>=<%=rs(COLUMN_CARD_TYPE_ID)%>"><%=rs(COLUMN_CARD_TYPE_NAME)%></a></td>
                 <td><a href="/Character/CharacterEdit.asp?<%=COLUMN_CHARACTER_ID%>=<%=rs(COLUMN_CHARACTER_ID)%>"><%=rs(COLUMN_CHARACTER_NAME)%></a></td>
                 <td><%=rs(COLUMN_IN_DRAW_PILE)%></td>
                 <td><%=rs(COLUMN_DRAW_ORDER)%></td>
                 <td><%=rs(COLUMN_IN_HAND)%></td>
                 <td><%=rs(COLUMN_IN_DISCARD_PILE)%></td>
+                <td><a href="/CardTypeCard/CardTypeCardDelete.asp?<%=COLUMN_CARD_ID%>=<%=rs(COLUMN_CARD_ID)%>&<%=COLUMN_CARD_TYPE_ID%>=<%=rs(COLUMN_CARD_TYPE_ID)%>">(delete)</a></td>
             </tr>
         <%
             rs.movenext
