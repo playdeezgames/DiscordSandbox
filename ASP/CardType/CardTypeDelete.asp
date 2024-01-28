@@ -1,4 +1,4 @@
-<!--#include virtual="inc/Grimoire.inc"-->
+<!--#include virtual="inc/Grimoire.asp"-->
 <html>
     <head>
         <title>SPLORR!!</title>

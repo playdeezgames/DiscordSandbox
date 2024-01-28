@@ -1,4 +1,4 @@
-<!--#include virtual="inc/Grimoire.inc"-->
+<!--#include virtual="inc/Grimoire.asp"-->
 <!--#include virtual="/inc/AdoVbs.inc"-->
 <!--#include virtual="/inc/openconn.inc"-->
 <%

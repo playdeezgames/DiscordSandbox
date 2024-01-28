@@ -1,3 +1,4 @@
+<!--#include virtual="inc/Grimoire.asp"-->
 <html>
     <head>
         <title>SPLORR!!</title>
@@ -5,7 +6,7 @@
     <body>
         <ul>
             <li><a href="CardType/CardTypeList.asp">Card Types</a></li>
-            <li><a href="EffectType/EffectTypeList.asp">Effect Types</a></li>
+            <li><a href="Character/CharacterList.asp">Characters</a></li>
         </ul>
     </body>
 </html>
