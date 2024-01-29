@@ -73,4 +73,21 @@ Function MakeEditComboBox(Conn, TableName, KeyColumnName, DisplayColumnName, Key
     result=result & "</select>"
     MakeEditComboBox=result
 End Function
+
+Function UpdateRecord(Conn, TableName, ColumnNames, FilterColumns, ColumnValues)
+    Dim result
+    result="UPDATE " & TableName & " SET " & Join(ColumnNames," = ?," ) & " = ? WHERE " & Join(FilterColumns," = ? AND ") & " = ?;"
+    Dim cmd
+    Set cmd = Server.CreateObject("ADODB.Command")
+    cmd.activeconnection=Conn
+    cmd.CommandType=adCmdText
+    cmd.CommandText= result
+    cmd.Parameters.Refresh
+    Dim index
+    for index=0 to ubound(ColumnValues)
+        cmd.Parameters(index)=ColumnValues(index)
+    next
+    cmd.Execute()
+    Set cmd = nothing
+End Function
 %>
