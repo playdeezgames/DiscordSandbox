@@ -92,10 +92,7 @@
     <Build Include="dbo\Tables\Character\Type\CharacterTypeCards.sql" />
     <Build Include="dbo\Views\CharacterTypeAvailableCards.sql" />
     <Build Include="dbo\Views\CharacterTypeCardDetails.sql" />
-    <Build Include="dbo\Views\CardTypeStatisticDeltaDetails.sql" />
-    <Build Include="dbo\Views\CardTypeAvailableStatisticDeltas.sql" />
     <Build Include="dbo\Tables\Card\CardType\CardTypes.sql" />
-    <Build Include="dbo\Tables\Card\CardType\CardTypeStatisticDeltas.sql" />
     <Build Include="dbo\Views\CardTypeGeneratorCardTypeDetails.sql" />
     <Build Include="dbo\Views\CardTypeGeneratorAvailableCardTypes.sql" />
     <Build Include="dbo\Tables\CardTypeGenerator\CardTypeGeneratorCardTypes.sql" />
@@ -106,6 +103,7 @@
     <Build Include="dbo\Views\CharacterDetails.sql" />
     <Build Include="dbo\Views\CharacterTypeDetails.sql" />
     <Build Include="dbo\Views\LocationTypeDetails.sql" />
+    <Build Include="dbo\Views\CardTypeGeneratorDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />
