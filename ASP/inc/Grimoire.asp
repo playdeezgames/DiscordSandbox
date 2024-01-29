@@ -14,17 +14,21 @@ Const COLUMN_IN_DRAW_PILE = "InDrawPile"
 Const COLUMN_IN_HAND = "InHand"
 Const COLUMN_LOCATION_ID = "LocationId"
 Const COLUMN_LOCATION_NAME = "LocationName"
+Const COLUMN_LOCATION_TYPE_ID = "LocationTypeId"
+Const COLUMN_LOCATION_TYPE_NAME = "LocationTypeName"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
 Const TABLE_CHARACTERS = "Characters"
 Const TABLE_CHARACTER_TYPES = "CharacterTypes"
 Const TABLE_LOCATIONS = "Locations"
+Const TABLE_LOCATION_TYPES = "LocationTypes"
 
 Const VIEW_CARD_DETAILS = "CardDetails"
 Const VIEW_CARD_TYPE_DETAILS = "CardTypeDetails"
 Const VIEW_CHARACTER_DETAILS = "CharacterDetails"
 Const VIEW_CHARACTER_TYPE_DETAILS = "CharacterTypeDetails"
+Const VIEW_LOCATION_TYPE_DETAILS = "LocationTypeDetails"
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
     Dim result
