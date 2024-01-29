@@ -90,4 +90,46 @@ Function UpdateRecord(Conn, TableName, ColumnNames, FilterColumns, ColumnValues)
     cmd.Execute()
     Set cmd = nothing
 End Function
+
+Function InsertRecord(Conn, TableName, ColumnNames, ColumnValues)
+    Dim result
+    result = "INSERT INTO " & TableName & " (" & Join(ColumnNames,"," ) & ") VALUES("
+    dim index
+    for index=0 to ubound(columnnames)
+        if index>0 then
+        result = result & ","
+        end if
+        result = result & "?"
+    next    
+    result = result & ");"
+    Dim cmd
+    Set cmd = Server.CreateObject("ADODB.Command")
+    cmd.activeconnection=Conn
+    cmd.CommandType=adCmdText
+    cmd.CommandText= result
+    cmd.Parameters.Refresh
+    for index=0 to ubound(ColumnValues)
+        cmd.Parameters(index)=ColumnValues(index)
+    next
+    cmd.Execute()
+    Set cmd = nothing
+End Function
+
+Function DeleteRecord(Conn, TableName, FilterColumns, ColumnValues)
+    Dim result
+    result="DELETE FROM " & TableName & " WHERE " & Join(FilterColumns," = ? AND ") & " = ?;"
+    Dim cmd
+    Set cmd = Server.CreateObject("ADODB.Command")
+    cmd.activeconnection=Conn
+    cmd.CommandType=adCmdText
+    cmd.CommandText= result
+    cmd.Parameters.Refresh
+    Dim index
+    for index=0 to ubound(ColumnValues)
+        cmd.Parameters(index)=ColumnValues(index)
+    next
+    cmd.Execute()
+    Set cmd = nothing
+End Function
+
 %>

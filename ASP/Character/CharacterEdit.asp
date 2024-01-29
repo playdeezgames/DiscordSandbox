@@ -56,6 +56,15 @@ rs.movefirst
 rs.close
 set rs = nothing
 Set cmd = nothing
+%>
+<form action="/Character/DeleteCharacter.asp" method="post">
+    <input type="hidden" name="<%=COLUMN_CHARACTER_ID%>" value="<%=request.querystring(COLUMN_CHARACTER_ID) %>" />
+    <table border="1">
+        <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
+        <tr><td colspan="2"><input type="submit" /></td></tr>
+    </table>
+</form>
+<%
 Server.Execute("/inc/End.asp")
 %>
 <!--#include virtual="inc/closeconn.inc"-->

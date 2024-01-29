@@ -45,4 +45,5 @@ set rs = nothing
 Set cmd = nothing
 Server.Execute("/inc/End.asp")
 %>
+<p><a href="/Character/CharacterAdd.asp">(new)</a></p>
 <!--#include virtual="inc/closeconn.inc"-->
