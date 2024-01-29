@@ -24,6 +24,7 @@ Const TABLE_LOCATIONS = "Locations"
 Const VIEW_CARD_DETAILS = "CardDetails"
 Const VIEW_CARD_TYPE_DETAILS = "CardTypeDetails"
 Const VIEW_CHARACTER_DETAILS = "CharacterDetails"
+Const VIEW_CHARACTER_TYPE_DETAILS = "CharacterTypeDetails"
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
     Dim result

@@ -6,6 +6,7 @@
     <body>
         <ul>
             <li><a href="CardType/CardTypeList.asp">Card Types</a></li>
+            <li><a href="CharacterType/CharacterTypeList.asp">Character Types</a></li>
             <li><a href="Character/CharacterList.asp">Characters</a></li>
         </ul>
     </body>

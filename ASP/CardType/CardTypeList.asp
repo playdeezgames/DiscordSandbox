@@ -5,7 +5,11 @@
 <%
 Server.Execute("/inc/Start.asp")
 Dim cmd
-Set cmd = MakeSelectCommand(conn,VIEW_CARD_TYPE_DETAILS,Array(COLUMN_CARD_TYPE_ID,COLUMN_CARD_TYPE_NAME),Null,Null)
+Set cmd = MakeSelectCommand(conn,_
+    VIEW_CARD_TYPE_DETAILS,_
+    Array(COLUMN_CARD_TYPE_ID,COLUMN_CARD_TYPE_NAME),_
+    Null,_
+    Null)
 Dim rs
 Set rs = cmd.Execute()
 %>
