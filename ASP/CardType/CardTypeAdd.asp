@@ -1,15 +1,29 @@
-
+<%Option Explicit%>
+<!--#include virtual="inc/openconn.inc"-->
+<!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
-<html>
-    <head>
-        <title>SPLORR!!</title>
-    </head>
-    <body>
-        <p><a href="/CardType/CardTypeList.asp">Back to Card Type List</a></p>
-        <form action="/CardType/InsertCardType.asp" method="POST">
-            <p>Card Type Name: <input name="<%=COLUMN_CARD_TYPE_NAME%>" type="text" size="100" maxlength="100" /></p>
-            <p>Delete On Play: <input name="<%=COLUMN_DELETE_ON_PLAY%>" type="checkbox" value="1" /></p>
+<%
+Server.Execute("/inc/Start.asp")
+%>
+<p><a href="/CardType/CardTypeList.asp">Back To Card Type List</a></p>
+<form action="/CardType/InsertCardType.asp" method="POST">
+<table border="1">
+    <tr>
+        <td>
+            <label for="<%=COLUMN_CARD_TYPE_NAME%>">Name: </label>
+        </td>
+        <td>
+            <input name="<%=COLUMN_CARD_TYPE_NAME%>" type="text" maxlength="100"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
             <input type="submit"/>
-        </form>
-    </body>
-</html>
+        </td>
+    </tr>
+</table>
+</form>
+<%
+Server.Execute("/inc/End.asp")
+%>
+<!--#include virtual="inc/closeconn.inc"-->

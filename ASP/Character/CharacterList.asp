@@ -10,7 +10,7 @@ Dim rs
 Set rs = cmd.Execute()
 %>
 <p><a href="/default.asp">Back to Main Menu</a></p>
-<table border="border">
+<table border="1">
     <tr>
         <th>Character Id</th>
         <th>Character Name</th>
@@ -43,7 +43,9 @@ loop
 rs.close
 set rs = nothing
 Set cmd = nothing
-Server.Execute("/inc/End.asp")
 %>
 <p><a href="/Character/CharacterAdd.asp">(new)</a></p>
+<%
+Server.Execute("/inc/End.asp")
+%>
 <!--#include virtual="inc/closeconn.inc"-->

@@ -12,7 +12,7 @@ rs.movefirst
 %>
 <p><a href="/Character/CharacterList.asp">Back To Character List</a></p>
 <form action="/Character/UpdateCharacter.asp" method="POST">
-<table border="border">
+<table border="1">
     <tr>
         <td>
             <label for="<%=COLUMN_CHARACTER_ID%>">Id:</label>

@@ -1,21 +1,13 @@
+<%Option Explicit%>
+<!--#include virtual="inc/openconn.inc"-->
+<!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
-<!--#include virtual="/inc/AdoVbs.inc"-->
-<!--#include virtual="/inc/openconn.inc"-->
 <%
-Set cmd = Server.CreateObject("ADODB.Command")
-Set cmd.activeconnection=conn
-cmd.CommandType=adCmdText
-cmd.CommandText="UPDATE " & TABLE_CARD_TYPES & " SET " & COLUMN_CARD_TYPE_NAME & "=?," & COLUMN_DELETE_ON_PLAY & "=? WHERE " & COLUMN_CARD_TYPE_ID & "=?;"
-cmd.Parameters.Refresh
-cmd.Parameters(0).Value=Request.Form(COLUMN_CARD_TYPE_NAME)
-if Request.Form(COLUMN_DELETE_ON_PLAY)=1 Then
-    cmd.Parameters(1).Value=True
-else
-    cmd.Parameters(1).Value=False
-end if
-cmd.Parameters(2).Value=Request.Form(COLUMN_CARD_TYPE_ID)
-cmd.Execute()
-Response.Redirect "/CardType/CardTypeList.asp"
-Set cmd=nothing
+UpdateRecord Conn, _
+    TABLE_CARD_TYPES, _
+    Array(COLUMN_CARD_TYPE_NAME), _
+    Array(COLUMN_CARD_TYPE_ID), _
+    Array(Request.form(COLUMN_CARD_TYPE_NAME),Request.form(COLUMN_CARD_TYPE_ID))
+Response.Redirect("/CardType/CardTypeEdit.asp?" & COLUMN_CARD_TYPE_ID & "=" & Request.Form(COLUMN_CARD_TYPE_ID))
 %>
-<!--#include virtual="/inc/closeconn.inc"-->
+<!--#include virtual="inc/closeconn.inc"-->

@@ -3,12 +3,10 @@
 SELECT
 	ct.CardTypeId,
 	ct.CardTypeName,
-	ct.DeleteOnPlay,
 	COUNT(c.CardId) CardCount
 FROM
 	CardTypes ct
 	LEFT JOIN Cards c ON c.CardTypeId=ct.CardTypeId
 GROUP BY
 	ct.CardTypeId,
-	ct.CardTypeName,
-	ct.DeleteOnPlay
+	ct.CardTypeName

@@ -1,17 +1,14 @@
-<!--#include virtual="inc/Grimoire.asp"-->
-<!--#include virtual="inc/AdoVbs.inc"-->
+<%Option Explicit%>
 <!--#include virtual="inc/openconn.inc"-->
+<!--#include virtual="inc/AdoVbs.inc"-->
+<!--#include virtual="inc/Grimoire.asp"-->
 <%
-if Request.Form("ConfirmDelete")=1 then
-    Set cmd = Server.CreateObject("ADODB.Command")
-    Set cmd.activeconnection=conn
-    cmd.CommandType=adCmdText
-    cmd.CommandText="DELETE FROM " & TABLE_CARD_TYPES & " WHERE " & COLUMN_CARD_TYPE_ID & "=?;"
-    cmd.Parameters.Refresh
-    cmd.Parameters(0).Value=Request.Form(COLUMN_CARD_TYPE_ID)
-    cmd.Execute()
+if request.form("ConfirmDelete")="1" then
+    DeleteRecord Conn, _
+        TABLE_CARD_TYPES, _
+        Array(COLUMN_CARD_TYPE_ID), _
+        Array(Request.form(COLUMN_CARD_TYPE_ID))
 end if
-Response.Redirect "/CardType/CardTypeList.asp"
-Set cmd=nothing
+Response.Redirect("/CardType/CardTypeList.asp")
 %>
 <!--#include virtual="inc/closeconn.inc"-->

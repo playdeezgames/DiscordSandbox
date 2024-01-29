@@ -7,7 +7,7 @@ Server.Execute("/inc/Start.asp")
 %>
 <p><a href="/Character/CharacterList.asp">Back To Character List</a></p>
 <form action="/Character/InsertCharacter.asp" method="POST">
-<table border="border">
+<table border="1">
     <tr>
         <td>
             <label for="<%=COLUMN_CHARACTER_NAME%>">Name: </label>

@@ -4,7 +4,10 @@
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
 if request.form("ConfirmDelete")="1" then
-    DeleteRecord Conn, TABLE_CHARACTERS, Array(COLUMN_CHARACTER_ID), Array(Request.form(COLUMN_CHARACTER_ID))
+    DeleteRecord Conn, _
+        TABLE_CHARACTERS, _
+        Array(COLUMN_CHARACTER_ID), _
+        Array(Request.form(COLUMN_CHARACTER_ID))
 end if
 Response.Redirect("/Character/CharacterList.asp")
 %>
