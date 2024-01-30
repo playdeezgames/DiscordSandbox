@@ -11,6 +11,7 @@
             <li><a href="Character/CharacterList.asp">Characters</a></li>
             <li><a href="EffectType/EffectTypeList.asp">Effect Types</a></li>
             <li><a href="LocationType/LocationTypeList.asp">Location Types</a></li>
+            <li><a href="StatisticType/StatisticTypeList.asp">Statistic Types</a></li>
         </ul>
     </body>
 </html>

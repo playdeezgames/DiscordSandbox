@@ -76,7 +76,6 @@
     <Build Include="dbo\Tables\Location\Locations.sql" />
     <Build Include="dbo\Tables\Location\LocationStarts.sql" />
     <Build Include="dbo\Tables\Location\LocationTypes.sql" />
-    <Build Include="dbo\Tables\Player\PlayerMoney.sql" />
     <Build Include="dbo\Tables\Player\Players.sql" />
     <Build Include="dbo\Views\CardDetails.sql" />
     <Build Include="dbo\Views\CharacterTypeAvailableStatisticTypes.sql" />
@@ -105,6 +104,7 @@
     <Build Include="dbo\Views\LocationTypeDetails.sql" />
     <Build Include="dbo\Views\CardTypeGeneratorDetails.sql" />
     <Build Include="dbo\Views\EffectTypeDetails.sql" />
+    <Build Include="dbo\Views\StatisticTypeDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />
