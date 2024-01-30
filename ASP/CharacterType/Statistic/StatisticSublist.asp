@@ -54,5 +54,5 @@ rs.close
 set rs = nothing
 Set cmd = nothing
 %>
-<p><a href="/CharacterType/Statistsic/StatisticAdd.asp">(new)</a></p>
+<p><a href="/CharacterType/Statistic/StatisticAdd.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=Request.QueryString(COLUMN_CHARACTER_TYPE_ID)%>">(new statistic)</a></p>
 <!--#include virtual="inc/closeconn.inc"-->
