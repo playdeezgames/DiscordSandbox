@@ -22,6 +22,10 @@ Const COLUMN_EFFECT_TYPE_ID = "EffectTypeId"
 Const COLUMN_EFFECT_TYPE_NAME = "EffectTypeName"
 Const COLUMN_STATISTIC_TYPE_ID = "StatisticTypeId"
 Const COLUMN_STATISTIC_TYPE_NAME = "StatisticTypeName"
+Const COLUMN_CHARACTER_TYPE_STATISTIC_ID = "CharacterTypeStatisticId"
+Const COLUMN_STATISTIC_VALUE = "StatisticValue"
+Const COLUMN_MAXIMUM_VALUE = "MaximumValue"
+Const COLUMN_MINIMUM_VALUE = "MinimumValue"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
@@ -41,6 +45,7 @@ Const VIEW_LOCATION_TYPE_DETAILS = "LocationTypeDetails"
 Const VIEW_EFFECT_TYPE_DETAILS = "EffectTypeDetails"
 Const VIEW_STATISTIC_TYPE_DETAILS = "StatisticTypeDetails"
 Const VIEW_CARD_TYPE_GENERATOR_DETAILS = "CardTypeGeneratorDetails"
+Const VIEW_CHARACTER_TYPE_STATISTIC_DETAILS = "CharacterTypeStatisticDetails"
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
     Dim result

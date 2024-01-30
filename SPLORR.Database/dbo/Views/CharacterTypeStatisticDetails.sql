@@ -3,8 +3,13 @@
 SELECT
 	cts.CharacterTypeStatisticId,
 	cts.CharacterTypeId,
-	st.StatisticTypeId,
-	st.StatisticTypeName
+	cts.MaximumValue,
+	cts.MinimumValue,
+	cts.StatisticValue,
+	cts.StatisticTypeId,
+	st.StatisticTypeName,
+	ct.CharacterTypeName
 FROM
 	CharacterTypeStatistics cts
-	JOIN StatisticTypes st on cts.StatisticTypeId=st.StatisticTypeId
+	JOIN StatisticTypes st ON cts.StatisticTypeId = st.StatisticTypeId
+	JOIN CharacterTypes ct ON cts.CharacterTypeId = ct.CharacterTypeId
