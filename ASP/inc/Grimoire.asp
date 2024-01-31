@@ -192,4 +192,8 @@ End Sub
 Sub StartInsertForm(SubPath)
     response.write("<form action=""/" & SubPath & "/Insert.asp"" method=""POST"">")
 End Sub
+
+Sub EndForm()
+    Response.Write("</form>")
+End Sub
 %>

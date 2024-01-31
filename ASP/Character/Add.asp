@@ -42,7 +42,7 @@ Server.Execute("/inc/Start.asp")
         </td>
     </tr>
 </table>
-</form>
+<%EndForm%>
 <%
 Server.Execute("/inc/End.asp")
 %>

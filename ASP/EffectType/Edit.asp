@@ -41,7 +41,7 @@ rs.movefirst
         </td>
     </tr>
 </table>
-</form>
+<%EndForm%>
 <%
 rs.close
 set rs = nothing
@@ -53,7 +53,7 @@ Set cmd = nothing
         <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
         <tr><td colspan="2"><input type="submit" /></td></tr>
     </table>
-</form>
+<%EndForm%>
 <%
 Server.Execute("/inc/End.asp")
 %>
