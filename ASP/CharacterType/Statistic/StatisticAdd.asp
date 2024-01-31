@@ -14,7 +14,7 @@ Server.Execute("/inc/Start.asp")
             <label for="<%=COLUMN_STATISTIC_TYPE_ID%>">Statistic Type: </label>
         </td>
         <td>
-            <%=MakeEditComboBox(conn,TABLE_STATISTIC_TYPES,COLUMN_STATISTIC_TYPE_ID,COLUMN_STATISTIC_TYPE_NAME,Null)%>
+            <%=MakeFilteredEditComboBox(conn,VIEW_CHARACTER_TYPE_AVAILABLE_STATISTIC_TYPES,COLUMN_STATISTIC_TYPE_ID,COLUMN_STATISTIC_TYPE_NAME,Array(COLUMN_CHARACTER_TYPE_ID),Array(Request.QueryString(COLUMN_CHARACTER_TYPE_ID)))%>
         </td>
     </tr>
     <tr>

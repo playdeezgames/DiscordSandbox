@@ -36,6 +36,7 @@ Const TABLE_LOCATION_TYPES = "LocationTypes"
 Const TABLE_EFFECT_TYPES = "EffectTypes"
 Const TABLE_STATISTIC_TYPES = "StatisticTypes"
 Const TABLE_CARD_TYPE_GENERATORS = "CardTypeGenerators"
+Const TABLE_CHARACTER_TYPE_STATISTICS = "CharacterTypeStatistics"
 
 Const VIEW_CARD_DETAILS = "CardDetails"
 Const VIEW_CARD_TYPE_DETAILS = "CardTypeDetails"
@@ -46,6 +47,7 @@ Const VIEW_EFFECT_TYPE_DETAILS = "EffectTypeDetails"
 Const VIEW_STATISTIC_TYPE_DETAILS = "StatisticTypeDetails"
 Const VIEW_CARD_TYPE_GENERATOR_DETAILS = "CardTypeGeneratorDetails"
 Const VIEW_CHARACTER_TYPE_STATISTIC_DETAILS = "CharacterTypeStatisticDetails"
+Const VIEW_CHARACTER_TYPE_AVAILABLE_STATISTIC_TYPES = "CharacterTypeAvailableStatisticTypes"
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
     Dim result
@@ -69,6 +71,30 @@ Function MakeSelectCommand(Conn, TableName, ShowColumns, FilterColumns, FilterVa
         next
     end if
 End Function
+
+
+Function MakeFilteredEditComboBox(Conn, TableName, KeyColumnName, DisplayColumnName, FilterColumns, FilterValues)
+    Dim result
+    result="<select name=""" & KeyColumnName &  """>"
+    Dim cmd
+    Set cmd = MakeSelectCommand(conn, TableName,Array(KeyColumnName,DisplayColumnName),FilterColumns,FilterValues)
+    Dim rs
+    set rs = cmd.Execute
+    do until rs.eof
+        result = result & "<option value="""
+        result = result & rs(KeyColumnName) 
+        result = result & """>"
+        result = result & rs(DisplayColumnName)
+        result = result & "</option>"
+        rs.movenext
+    loop
+    rs.close
+    set rs=nothing
+    Set cmd = nothing
+    result=result & "</select>"
+    MakeFilteredEditComboBox = result
+End Function
+
 
 Function MakeEditComboBox(Conn, TableName, KeyColumnName, DisplayColumnName, KeyValue)
     Dim result
