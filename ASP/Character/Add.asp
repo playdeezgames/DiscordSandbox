@@ -11,7 +11,7 @@ Server.Execute("/inc/Start.asp")
 <%
     StartInsertForm "Character"
 %>
-<table border="1">
+<%StartTable %>
     <tr>
         <td>
             <label for="<%=COLUMN_CHARACTER_NAME%>">Name: </label>
@@ -36,12 +36,8 @@ Server.Execute("/inc/Start.asp")
             <%=MakeEditComboBox(Conn, TABLE_LOCATIONS, COLUMN_LOCATION_ID, COLUMN_LOCATION_NAME, Null)%>
         </td>
     </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit"/>
-        </td>
-    </tr>
-</table>
+<%SubmitButton %>
+<%EndTable %>
 <%EndForm%>
 <%
 Server.Execute("/inc/End.asp")

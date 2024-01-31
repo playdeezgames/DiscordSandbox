@@ -16,7 +16,7 @@ Set cmd = MakeSelectCommand(conn, _
 Dim rs
 Set rs = cmd.Execute()
 %>
-<table border="1">
+<%StartTable %>
     <tr>
         <th>Character Type Statistic Id</th>
         <th>Statistic Type Name</th>
@@ -48,7 +48,7 @@ do until rs.eof
     rs.movenext
 loop
 %>
-</table>
+<%EndTable %>
 <%
 rs.close
 set rs = nothing

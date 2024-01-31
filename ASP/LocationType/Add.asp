@@ -11,7 +11,7 @@ Server.Execute("/inc/Start.asp")
 <%
     StartInsertForm "LocationType"
 %>
-<table border="1">
+<%StartTable %>
     <tr>
         <td>
             <label for="<%=COLUMN_LOCATION_TYPE_NAME%>">Name: </label>
@@ -20,12 +20,8 @@ Server.Execute("/inc/Start.asp")
             <input name="<%=COLUMN_LOCATION_TYPE_NAME%>" type="text" maxlength="100"/>
         </td>
     </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit"/>
-        </td>
-    </tr>
-</table>
+<%SubmitButton %>
+<%EndTable %>
 <%EndForm%>
 <%
 Server.Execute("/inc/End.asp")

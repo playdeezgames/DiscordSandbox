@@ -17,7 +17,7 @@ Set cmd = MakeSelectCommand(conn, _
 Dim rs
 Set rs = cmd.Execute()
 %>
-<table border="1">
+<%StartTable %>
     <tr>
         <th>Card Type Generator Card Type Id</th>
         <th>Card Type</th>
@@ -41,7 +41,7 @@ do until rs.eof
     rs.movenext
 loop
 %>
-</table>
+<%EndTable %>
 <%
 rs.close
 set rs = nothing

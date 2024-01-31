@@ -17,8 +17,10 @@ rs.movefirst
 <%
     BackToListLink "CardType", "Card Type"
 %>
-<form action="/CardType/Update.asp" method="POST">
-<table border="1">
+<%
+    StartUpdateForm "CardType"
+%>
+<%StartTable %>
     <tr>
         <td>
             <label for="<%=COLUMN_CARD_TYPE_ID%>">Id:</label>
@@ -40,7 +42,7 @@ rs.movefirst
             <input type="submit"/>
         </td>
     </tr>
-</table>
+<%EndTable %>
 <%EndForm%>
 <%
 rs.close
@@ -49,10 +51,10 @@ Set cmd = nothing
 %>
 <form action="/CardType/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CARD_TYPE_ID%>" value="<%=request.querystring(COLUMN_CARD_TYPE_ID) %>" />
-    <table border="1">
+    <%StartTable %>
         <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
         <tr><td colspan="2"><input type="submit" /></td></tr>
-    </table>
+<%EndTable %>
 <%EndForm%>
 <%
 Server.Execute("/inc/End.asp")

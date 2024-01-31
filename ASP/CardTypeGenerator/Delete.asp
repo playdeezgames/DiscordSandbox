@@ -3,12 +3,10 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-if request.form("ConfirmDelete")="1" then
-    DeleteRecord Conn, _
+    DeleteRecordIfConfirmed Conn, _
         TABLE_CARD_TYPE_GENERATORS, _
         Array(COLUMN_CARD_TYPE_GENERATOR_ID), _
         Array(Request.form(COLUMN_CARD_TYPE_GENERATOR_ID))
-end if
 Response.Redirect("/CardTypeGenerator/List.asp")
 %>
 <!--#include virtual="inc/closeconn.inc"-->

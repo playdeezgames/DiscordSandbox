@@ -10,7 +10,7 @@ Server.Execute("/inc/Start.asp")
     StartInsertForm "CharacterType/Statistic"
 %>
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_ID%>" value="<%=Request.QueryString(COLUMN_CHARACTER_TYPE_ID)%>" />
-<table border="1">
+<%StartTable %>
     <tr>
         <td>
             <label for="<%=COLUMN_STATISTIC_TYPE_ID%>">Statistic Type: </label>
@@ -43,12 +43,8 @@ Server.Execute("/inc/Start.asp")
             <input name="<%=COLUMN_MAXIMUM_VALUE%>" type="text"/>
         </td>
     </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit"/>
-        </td>
-    </tr>
-</table>
+<%SubmitButton %>
+<%EndTable %>
 <%EndForm%>
 <%
 Server.Execute("/inc/End.asp")

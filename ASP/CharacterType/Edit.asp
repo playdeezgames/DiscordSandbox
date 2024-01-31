@@ -17,8 +17,10 @@ rs.movefirst
 <%
     BackToListLink "CharacterType", "Character Type"
 %>
-<form action="/CharacterType/Update.asp" method="POST">
-<table border="1">
+<%
+    StartUpdateForm "CharacterType"
+%>
+<%StartTable %>
     <tr>
         <td>
             <label for="<%=COLUMN_CHARACTER_TYPE_ID%>">Id:</label>
@@ -35,12 +37,8 @@ rs.movefirst
             <input name="<%=COLUMN_CHARACTER_TYPE_NAME%>" type="text" maxlength="100" value="<%=rs(COLUMN_CHARACTER_TYPE_NAME)%>"/>
         </td>
     </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit"/>
-        </td>
-    </tr>
-</table>
+<%SubmitButton %>
+<%EndTable %>
 <%EndForm%>
 <%
 rs.close
@@ -49,10 +47,10 @@ Set cmd = nothing
 %>
 <form action="/CharacterType/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_ID%>" value="<%=request.querystring(COLUMN_CHARACTER_TYPE_ID) %>" />
-    <table border="1">
+    <%StartTable %>
         <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
-        <tr><td colspan="2"><input type="submit" /></td></tr>
-    </table>
+<%SubmitButton %>
+    <%EndTable %>
 <%EndForm%>
 <hr />
 <%

@@ -168,7 +168,7 @@ Function InsertRecord(Conn, TableName, ColumnNames, ColumnValues)
     Set cmd = nothing
 End Function
 
-Function DeleteRecord(Conn, TableName, FilterColumns, ColumnValues)
+Sub DeleteRecord(Conn, TableName, FilterColumns, ColumnValues)
     Dim result
     result="DELETE FROM " & TableName & " WHERE " & Join(FilterColumns," = ? AND ") & " = ?;"
     Dim cmd
@@ -183,7 +183,13 @@ Function DeleteRecord(Conn, TableName, FilterColumns, ColumnValues)
     next
     cmd.Execute()
     Set cmd = nothing
-End Function
+End Sub
+
+Sub DeleteRecordIfConfirmed(Conn, TableName, FilterColumns, ColumnValues)
+    if request.form("ConfirmDelete")="1" then
+        DeleteRecord Conn, TableName, FilterColumns, ColumnValues
+    end if
+End Sub
 
 Sub BackToListLink(SubPath,Title)
     Response.Write("<p><a href=""/" & SubPath & "/List.asp"">Back To " & Title & " List</a></p>")
@@ -193,7 +199,35 @@ Sub StartInsertForm(SubPath)
     response.write("<form action=""/" & SubPath & "/Insert.asp"" method=""POST"">")
 End Sub
 
+Sub StartDeleteForm(SubPath)
+    response.write("<form action=""/" & SubPath & "/Delete.asp"" method=""POST"">")
+End Sub
+
+Sub StartUpdateForm(SubPath)
+    response.write("<form action=""/" & SubPath & "/Update.asp"" method=""POST"">")
+End Sub
+
 Sub EndForm()
     Response.Write("</form>")
+End Sub
+
+Sub SubmitButton()
+    Response.Write("<tr><td colspan=""2""><input type=""submit""/></td></tr>")
+End Sub
+
+Sub StartTable()
+    Response.Write("<table border=""1"">")
+End Sub
+
+Sub EndTable()
+    Response.Write("</table>")
+End Sub
+
+Sub StartTable()
+    Response.Write("<table border=""1"">")
+End Sub
+
+Sub NameInput(InputName, DisplayName)
+    Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ type=""text"" maxlength=""100""/></td></tr>")
 End Sub
 %>

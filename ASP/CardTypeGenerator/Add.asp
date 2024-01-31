@@ -11,7 +11,7 @@ Server.Execute("/inc/Start.asp")
 <%
     StartInsertForm "CardTypeGenerator"
 %>
-<table border="1">
+<%StartTable %>
     <tr>
         <td>
             <label for="<%=COLUMN_CARD_TYPE_GENERATOR_NAME%>">Name: </label>
@@ -25,7 +25,7 @@ Server.Execute("/inc/Start.asp")
             <input type="submit"/>
         </td>
     </tr>
-</table>
+<%EndTable %>
 <%EndForm%>
 <%
 Server.Execute("/inc/End.asp")

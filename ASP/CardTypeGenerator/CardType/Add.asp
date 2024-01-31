@@ -10,7 +10,7 @@ Server.Execute("/inc/Start.asp")
     StartInsertForm "CardTypeGenerator/CardType"
 %>
     <input type="hidden" name="<%=COLUMN_CARD_TYPE_GENERATOR_ID%>" value="<%=Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_ID)%>" />
-<table border="1">
+<%StartTable %>
     <tr>
         <td>
             <label for="<%=COLUMN_CARD_TYPE_ID%>">Card Type: </label>
@@ -27,12 +27,8 @@ Server.Execute("/inc/Start.asp")
             <input name="<%=COLUMN_GENERATOR_WEIGHT%>" type="text" value="1"/>
         </td>
     </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit"/>
-        </td>
-    </tr>
-</table>
+<%SubmitButton %>
+<%EndTable %>
 <%EndForm%>
 <%
 Server.Execute("/inc/End.asp")

@@ -17,8 +17,10 @@ Dim CharacterTypeId
 CharacterTypeId = rs(COLUMN_CHARACTER_TYPE_ID)
 %>
 <p><a href="/CharacterType/Edit.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=CharacterTypeId%>">Back To Character Type</a></p>
-<form action="/CharacterType/Statistic/Update.asp" method="POST">
-<table border="1">
+<%
+    StartUpdateForm "CharacterType/Statistic"
+%>
+<%StartTable %>
     <tr>
         <td>
             <label for="<%=COLUMN_CHARACTER_TYPE_STATISTIC_ID%>">Id:</label>
@@ -67,12 +69,8 @@ CharacterTypeId = rs(COLUMN_CHARACTER_TYPE_ID)
             <input name="<%=COLUMN_MAXIMUM_VALUE%>" type="text" value="<%=rs(COLUMN_MAXIMUM_VALUE)%>"/>
         </td>
     </tr>
-    <tr>
-        <td colspan="2">
-            <input type="submit"/>
-        </td>
-    </tr>
-</table>
+<%SubmitButton %>
+<%EndTable %>
 <%EndForm%>
 <%
 rs.close
@@ -82,10 +80,10 @@ Set cmd = nothing
 <form action="/CharacterType/Statistic/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_STATISTIC_ID%>" value="<%=Request.QueryString(COLUMN_CHARACTER_TYPE_STATISTIC_ID)%>" />
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_ID%>" value="<%=CharacterTypeId%>" />
-    <table border="1">
+    <%StartTable %>
         <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
-        <tr><td colspan="2"><input type="submit" /></td></tr>
-    </table>
+<%SubmitButton %>
+    <%EndTable %>
 <%EndForm%>
 <%
 Server.Execute("/inc/End.asp")

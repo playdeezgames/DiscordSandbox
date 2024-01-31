@@ -14,7 +14,7 @@ Dim rs
 Set rs = cmd.Execute()
 %>
 <p><a href="/default.asp">Back to Main Menu</a></p>
-<table border="1">
+<%StartTable %>
     <tr>
         <th>Location Type Id</th>
         <th>Location Type Name</th>
@@ -34,7 +34,7 @@ do until rs.eof
     rs.movenext
 loop
 %>
-</table>
+<%EndTable %>
 <%
 rs.close
 set rs = nothing
