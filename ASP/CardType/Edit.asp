@@ -14,7 +14,9 @@ Dim rs
 Set rs = cmd.Execute()
 rs.movefirst
 %>
-<p><a href="/CardType/List.asp">Back To Card Type List</a></p>
+<%
+    BackToListLink "CardType", "Card Type"
+%>
 <form action="/CardType/Update.asp" method="POST">
 <table border="1">
     <tr>

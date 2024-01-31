@@ -14,7 +14,9 @@ Dim rs
 Set rs = cmd.Execute()
 rs.movefirst
 %>
-<p><a href="/EffectType/List.asp">Back To Effect Type List</a></p>
+<%
+    BackToListLink "EffectType", "Effect Type"
+%>
 <form action="/EffectType/Update.asp" method="POST">
 <table border="1">
     <tr>

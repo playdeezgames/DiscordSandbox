@@ -5,7 +5,9 @@
 <%
 Server.Execute("/inc/Start.asp")
 %>
-<p><a href="/CharacterType/List.asp">Back To Character Type List</a></p>
+<%
+    BackToListLink "CharacterType", "Character Type"
+%>
 <form action="/CharacterType/Insert.asp" method="POST">
 <table border="1">
     <tr>

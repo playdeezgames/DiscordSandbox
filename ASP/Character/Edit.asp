@@ -10,7 +10,9 @@ Dim rs
 Set rs = cmd.Execute()
 rs.movefirst
 %>
-<p><a href="/Character/List.asp">Back To Character List</a></p>
+<%
+    BackToListLink "Character", "Character"
+%>
 <form action="/Character/Update.asp" method="POST">
 <table border="1">
     <tr>

@@ -185,4 +185,7 @@ Function DeleteRecord(Conn, TableName, FilterColumns, ColumnValues)
     Set cmd = nothing
 End Function
 
+Sub BackToListLink(SubPath,Title)
+    Response.Write("<p><a href=""/" & SubPath & "/List.asp"">Back To " & Title & " List</a></p>")
+End Sub
 %>
