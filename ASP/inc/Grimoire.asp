@@ -39,6 +39,7 @@ Const TABLE_EFFECT_TYPES = "EffectTypes"
 Const TABLE_STATISTIC_TYPES = "StatisticTypes"
 Const TABLE_CARD_TYPE_GENERATORS = "CardTypeGenerators"
 Const TABLE_CHARACTER_TYPE_STATISTICS = "CharacterTypeStatistics"
+Const TABLE_CARD_TYPE_GENERATOR_CARD_TYPES = "CardTypeGeneratorCardTypes"
 
 Const VIEW_CARD_DETAILS = "CardDetails"
 Const VIEW_CARD_TYPE_DETAILS = "CardTypeDetails"
@@ -51,6 +52,7 @@ Const VIEW_CARD_TYPE_GENERATOR_DETAILS = "CardTypeGeneratorDetails"
 Const VIEW_CHARACTER_TYPE_STATISTIC_DETAILS = "CharacterTypeStatisticDetails"
 Const VIEW_CHARACTER_TYPE_AVAILABLE_STATISTIC_TYPES = "CharacterTypeAvailableStatisticTypes"
 Const VIEW_CARD_TYPE_GENERATOR_CARD_TYPE_DETAILS = "CardTypeGeneratorCardTypeDetails"
+Const VIEW_CARD_TYPE_GENERATOR_AVAILABLE_CARD_TYPES = "CardTypeGeneratorAvailableCardTypes"
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
     Dim result

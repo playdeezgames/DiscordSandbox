@@ -47,5 +47,5 @@ rs.close
 set rs = nothing
 Set cmd = nothing
 %>
-<p><a href="/CardTypeGenerator/CardType/CardTypeAdd.asp?<%=COLUMN_CARD_TYPE_GENERATOR_ID%>=<%=Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_ID)%>">(new statistic)</a></p>
+<p><a href="/CardTypeGenerator/CardType/CardTypeAdd.asp?<%=COLUMN_CARD_TYPE_GENERATOR_ID%>=<%=Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_ID)%>">(new card type)</a></p>
 <!--#include virtual="inc/closeconn.inc"-->
