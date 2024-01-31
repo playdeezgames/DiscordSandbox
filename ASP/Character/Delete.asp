@@ -9,6 +9,6 @@ if request.form("ConfirmDelete")="1" then
         Array(COLUMN_CHARACTER_ID), _
         Array(Request.form(COLUMN_CHARACTER_ID))
 end if
-Response.Redirect("/Character/CharacterList.asp")
+Response.Redirect("/Character/List.asp")
 %>
 <!--#include virtual="inc/closeconn.inc"-->

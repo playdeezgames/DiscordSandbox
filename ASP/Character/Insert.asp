@@ -7,6 +7,6 @@ InsertRecord Conn, _
     TABLE_CHARACTERS, _
     Array(COLUMN_CHARACTER_NAME,COLUMN_CHARACTER_TYPE_ID,COLUMN_LOCATION_ID), _
     Array(Request.form(COLUMN_CHARACTER_NAME),Request.form(COLUMN_CHARACTER_TYPE_ID),Request.form(COLUMN_LOCATION_ID))
-Response.Redirect("/Character/CharacterList.asp")
+Response.Redirect("/Character/List.asp")
 %>
 <!--#include virtual="inc/closeconn.inc"-->

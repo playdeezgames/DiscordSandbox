@@ -10,8 +10,8 @@ Dim rs
 Set rs = cmd.Execute()
 rs.movefirst
 %>
-<p><a href="/Character/CharacterList.asp">Back To Character List</a></p>
-<form action="/Character/UpdateCharacter.asp" method="POST">
+<p><a href="/Character/List.asp">Back To Character List</a></p>
+<form action="/Character/Update.asp" method="POST">
 <table border="1">
     <tr>
         <td>
@@ -57,7 +57,7 @@ rs.close
 set rs = nothing
 Set cmd = nothing
 %>
-<form action="/Character/DeleteCharacter.asp" method="post">
+<form action="/Character/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CHARACTER_ID%>" value="<%=request.querystring(COLUMN_CHARACTER_ID) %>" />
     <table border="1">
         <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
