@@ -18,6 +18,6 @@ UpdateRecord Conn, _
     Array(COLUMN_STATISTIC_VALUE,COLUMN_MINIMUM_VALUE,COLUMN_MAXIMUM_VALUE), _
     Array(COLUMN_CHARACTER_TYPE_STATISTIC_ID), _
     Array(Request.form(COLUMN_STATISTIC_VALUE),MinimumValue,MaximumValue,Request.form(COLUMN_CHARACTER_TYPE_STATISTIC_ID))
-Response.Redirect("/CharacterType/Statistic/StatisticEdit.asp?" & COLUMN_CHARACTER_TYPE_STATISTIC_ID & "=" & Request.Form(COLUMN_CHARACTER_TYPE_STATISTIC_ID))
+Response.Redirect("/CharacterType/Statistic/Edit.asp?" & COLUMN_CHARACTER_TYPE_STATISTIC_ID & "=" & Request.Form(COLUMN_CHARACTER_TYPE_STATISTIC_ID))
 %>
 <!--#include virtual="inc/closeconn.inc"-->

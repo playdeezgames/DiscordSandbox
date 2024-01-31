@@ -29,7 +29,7 @@ do until rs.eof
 %>
     <tr>
         <td>
-            <a href="/CharacterType/Statistic/StatisticEdit.asp?<%=COLUMN_CHARACTER_TYPE_STATISTIC_ID%>=<%=rs(COLUMN_CHARACTER_TYPE_STATISTIC_ID)%>"><%=rs(COLUMN_CHARACTER_TYPE_STATISTIC_ID)%></a>
+            <a href="/CharacterType/Statistic/Edit.asp?<%=COLUMN_CHARACTER_TYPE_STATISTIC_ID%>=<%=rs(COLUMN_CHARACTER_TYPE_STATISTIC_ID)%>"><%=rs(COLUMN_CHARACTER_TYPE_STATISTIC_ID)%></a>
         </td>
         <td>
             <%=rs(COLUMN_STATISTIC_TYPE_NAME)%>
@@ -54,5 +54,5 @@ rs.close
 set rs = nothing
 Set cmd = nothing
 %>
-<p><a href="/CharacterType/Statistic/StatisticAdd.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=Request.QueryString(COLUMN_CHARACTER_TYPE_ID)%>">(new statistic)</a></p>
+<p><a href="/CharacterType/Statistic/Add.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=Request.QueryString(COLUMN_CHARACTER_TYPE_ID)%>">(new statistic)</a></p>
 <!--#include virtual="inc/closeconn.inc"-->

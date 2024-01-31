@@ -17,7 +17,7 @@ Dim CharacterTypeId
 CharacterTypeId = rs(COLUMN_CHARACTER_TYPE_ID)
 %>
 <p><a href="/CharacterType/Edit.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=CharacterTypeId%>">Back To Character Type</a></p>
-<form action="/CharacterType/Statistic/UpdateStatistic.asp" method="POST">
+<form action="/CharacterType/Statistic/Update.asp" method="POST">
 <table border="1">
     <tr>
         <td>
@@ -79,7 +79,7 @@ rs.close
 set rs = nothing
 Set cmd = nothing
 %>
-<form action="/CharacterType/Statistic/DeleteStatistic.asp" method="post">
+<form action="/CharacterType/Statistic/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_STATISTIC_ID%>" value="<%=Request.QueryString(COLUMN_CHARACTER_TYPE_STATISTIC_ID)%>" />
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_ID%>" value="<%=CharacterTypeId%>" />
     <table border="1">
