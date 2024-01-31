@@ -26,6 +26,8 @@ Const COLUMN_CHARACTER_TYPE_STATISTIC_ID = "CharacterTypeStatisticId"
 Const COLUMN_STATISTIC_VALUE = "StatisticValue"
 Const COLUMN_MAXIMUM_VALUE = "MaximumValue"
 Const COLUMN_MINIMUM_VALUE = "MinimumValue"
+Const COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID = "CardTypeGeneratorCardTypeId"
+Const COLUMN_GENERATOR_WEIGHT = "GeneratorWeight"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
@@ -48,6 +50,7 @@ Const VIEW_STATISTIC_TYPE_DETAILS = "StatisticTypeDetails"
 Const VIEW_CARD_TYPE_GENERATOR_DETAILS = "CardTypeGeneratorDetails"
 Const VIEW_CHARACTER_TYPE_STATISTIC_DETAILS = "CharacterTypeStatisticDetails"
 Const VIEW_CHARACTER_TYPE_AVAILABLE_STATISTIC_TYPES = "CharacterTypeAvailableStatisticTypes"
+Const VIEW_CARD_TYPE_GENERATOR_CARD_TYPE_DETAILS = "CardTypeGeneratorCardTypeDetails"
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
     Dim result

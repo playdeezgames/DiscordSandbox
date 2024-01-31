@@ -52,6 +52,10 @@ Set cmd = nothing
         <tr><td colspan="2"><input type="submit" /></td></tr>
     </table>
 </form>
+<hr />
+<%
+    Server.Execute("/CardTypeGenerator/CardType/CardTypeSublist.asp")
+%>
 <%
 Server.Execute("/inc/End.asp")
 %>
