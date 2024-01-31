@@ -7,6 +7,6 @@ InsertRecord Conn, _
     TABLE_LOCATION_TYPES, _
     Array(COLUMN_LOCATION_TYPE_NAME), _
     Array(Request.form(COLUMN_LOCATION_TYPE_NAME))
-Response.Redirect("/LocationType/List.asp")
+RedirectToList "LocationType"
 %>
 <!--#include virtual="inc/closeconn.inc"-->

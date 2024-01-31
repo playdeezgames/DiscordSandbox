@@ -7,6 +7,6 @@
         TABLE_CHARACTER_TYPES, _
         Array(COLUMN_CHARACTER_TYPE_ID), _
         Array(Request.form(COLUMN_CHARACTER_TYPE_ID))
-Response.Redirect("/CharacterType/List.asp")
+    RedirectToList "CharacterType"
 %>
 <!--#include virtual="inc/closeconn.inc"-->

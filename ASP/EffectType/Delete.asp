@@ -7,6 +7,6 @@
         TABLE_EFFECT_TYPES, _
         Array(COLUMN_EFFECT_TYPE_ID), _
         Array(Request.form(COLUMN_EFFECT_TYPE_ID))
-Response.Redirect("/EffectType/List.asp")
+    RedirectToList "EffectType"
 %>
 <!--#include virtual="inc/closeconn.inc"-->

@@ -7,6 +7,6 @@ InsertRecord Conn, _
     TABLE_CARD_TYPES, _
     Array(COLUMN_CARD_TYPE_NAME), _
     Array(Request.form(COLUMN_CARD_TYPE_NAME))
-Response.Redirect("/CardType/List.asp")
+    RedirectToList "CardType"
 %>
 <!--#include virtual="inc/closeconn.inc"-->

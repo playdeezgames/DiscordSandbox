@@ -7,6 +7,6 @@
         TABLE_CARD_TYPE_GENERATORS, _
         Array(COLUMN_CARD_TYPE_GENERATOR_ID), _
         Array(Request.form(COLUMN_CARD_TYPE_GENERATOR_ID))
-Response.Redirect("/CardTypeGenerator/List.asp")
+    RedirectToList "CardTypeGenerator"
 %>
 <!--#include virtual="inc/closeconn.inc"-->

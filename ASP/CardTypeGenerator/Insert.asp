@@ -7,6 +7,6 @@ InsertRecord Conn, _
     TABLE_CARD_TYPE_GENERATORS, _
     Array(COLUMN_CARD_TYPE_GENERATOR_NAME), _
     Array(Request.form(COLUMN_CARD_TYPE_GENERATOR_NAME))
-Response.Redirect("/CardTypeGenerator/List.asp")
+RedirectToList "CardTypeGenerator"
 %>
 <!--#include virtual="inc/closeconn.inc"-->

@@ -7,6 +7,7 @@
         TABLE_LOCATION_TYPES, _
         Array(COLUMN_LOCATION_TYPE_ID), _
         Array(Request.form(COLUMN_LOCATION_TYPE_ID))
-Response.Redirect("/LocationType/List.asp")
+RedirectToList "LocationType"
+
 %>
 <!--#include virtual="inc/closeconn.inc"-->

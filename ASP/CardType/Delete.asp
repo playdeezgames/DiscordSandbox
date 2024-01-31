@@ -7,6 +7,6 @@
         TABLE_CARD_TYPES, _
         Array(COLUMN_CARD_TYPE_ID), _
         Array(Request.form(COLUMN_CARD_TYPE_ID))
-Response.Redirect("/CardType/List.asp")
+    RedirectToList "CardType"
 %>
 <!--#include virtual="inc/closeconn.inc"-->

@@ -3,24 +3,17 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-StartPage
-Dim cmd
-Set cmd = MakeSelectCommand(conn, _
-    TABLE_CARD_TYPES, _
-    Array(COLUMN_CARD_TYPE_ID,COLUMN_CARD_TYPE_NAME), _
-    Array(COLUMN_CARD_TYPE_ID), _
-    Array(Request.QueryString(COLUMN_CARD_TYPE_ID)))
-Dim rs
-Set rs = cmd.Execute()
-rs.movefirst
-%>
-<%
+    StartPage
+    Dim rs
+    Set rs = ExecuteSelectCommand(conn, _
+        TABLE_CARD_TYPES, _
+        Array(COLUMN_CARD_TYPE_ID,COLUMN_CARD_TYPE_NAME), _
+        Array(COLUMN_CARD_TYPE_ID), _
+        Array(Request.QueryString(COLUMN_CARD_TYPE_ID)))
     BackToListLink "CardType", "Card Type"
-%>
-<%
     StartUpdateForm "CardType"
+    StartTable 
 %>
-<%StartTable %>
     <tr>
         <td>
             <label for="<%=COLUMN_CARD_TYPE_ID%>">Id:</label>
@@ -42,21 +35,20 @@ rs.movefirst
             <input type="submit"/>
         </td>
     </tr>
-<%EndTable %>
-<%EndForm%>
 <%
-rs.close
-set rs = nothing
-Set cmd = nothing
+    EndTable 
+    EndForm
+    rs.close
+    set rs = nothing
 %>
 <form action="/CardType/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CARD_TYPE_ID%>" value="<%=request.querystring(COLUMN_CARD_TYPE_ID) %>" />
-    <%StartTable %>
-        <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
-        <tr><td colspan="2"><input type="submit" /></td></tr>
-<%EndTable %>
-<%EndForm%>
 <%
-EndPage
+    StartTable 
+    ConfirmDeleteCheckbox
+    SubmitButton
+    EndTable 
+    EndForm
+    EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->

@@ -77,6 +77,13 @@ Function MakeSelectCommand(Conn, TableName, ShowColumns, FilterColumns, FilterVa
     end if
 End Function
 
+Function ExecuteSelectCommand(Conn, TableName, ShowColumns, FilterColumns, FilterValues)
+    Dim cmd
+    Set cmd = MakeSelectCommand(Conn, TableName, ShowColumns, FilterColumns, FilterValues)
+    Set ExecuteSelectCommand = cmd.Execute()
+    Set cmd = nothing
+End Function
+
 
 Function MakeFilteredEditComboBox(Conn, TableName, KeyColumnName, DisplayColumnName, FilterColumns, FilterValues)
     Dim result
@@ -237,5 +244,13 @@ End Sub
 
 Sub EndPage()
     Server.Execute("/inc/End.asp")
+End Sub
+
+Sub RedirectToList(SubPath)
+    Response.Redirect("/" & SubPath & "/List.asp")
+End Sub
+
+Sub ConfirmDeleteCheckbox()
+    Response.Write("<tr><td>Delete Record</td><td><input type=""checkbox"" name=""ConfirmDelete"" value=""1""/></td></tr>")
 End Sub
 %>

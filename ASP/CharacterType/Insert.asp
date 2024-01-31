@@ -7,6 +7,6 @@ InsertRecord Conn, _
     TABLE_CHARACTER_TYPES, _
     Array(COLUMN_CHARACTER_TYPE_NAME), _
     Array(Request.form(COLUMN_CHARACTER_TYPE_NAME))
-Response.Redirect("/CharacterType/List.asp")
+RedirectToList "CharacterType"
 %>
 <!--#include virtual="inc/closeconn.inc"-->
