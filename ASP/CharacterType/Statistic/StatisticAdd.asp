@@ -5,7 +5,7 @@
 <%
 Server.Execute("/inc/Start.asp")
 %>
-<p><a href="/CharacterType/CharacterTypeEdit.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=Request.QueryString(COLUMN_CHARACTER_TYPE_ID)%>">Back To Character Type</a></p>
+<p><a href="/CharacterType/Edit.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=Request.QueryString(COLUMN_CHARACTER_TYPE_ID)%>">Back To Character Type</a></p>
 <form action="/CharacterType/Statistic/InsertStatistic.asp" method="POST">
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_ID%>" value="<%=Request.QueryString(COLUMN_CHARACTER_TYPE_ID)%>" />
 <table border="1">

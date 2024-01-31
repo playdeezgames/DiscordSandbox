@@ -24,7 +24,7 @@ do until rs.eof
 %>
     <tr>
         <td>
-            <a href="/CharacterType/CharacterTypeEdit.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=rs(COLUMN_CHARACTER_TYPE_ID)%>"><%=rs(COLUMN_CHARACTER_TYPE_ID)%></a>
+            <a href="/CharacterType/Edit.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=rs(COLUMN_CHARACTER_TYPE_ID)%>"><%=rs(COLUMN_CHARACTER_TYPE_ID)%></a>
         </td>
         <td>
             <%=rs(COLUMN_CHARACTER_TYPE_NAME)%>
@@ -40,7 +40,7 @@ rs.close
 set rs = nothing
 Set cmd = nothing
 %>
-<p><a href="/CharacterType/CharacterTypeAdd.asp">(new)</a></p>
+<p><a href="/CharacterType/Add.asp">(new)</a></p>
 <%
 Server.Execute("/inc/End.asp")
 %>

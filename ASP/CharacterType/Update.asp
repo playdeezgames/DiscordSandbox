@@ -8,6 +8,6 @@ UpdateRecord Conn, _
     Array(COLUMN_CHARACTER_TYPE_NAME), _
     Array(COLUMN_CHARACTER_TYPE_ID), _
     Array(Request.form(COLUMN_CHARACTER_TYPE_NAME),Request.form(COLUMN_CHARACTER_TYPE_ID))
-Response.Redirect("/CharacterType/CharacterTypeEdit.asp?" & COLUMN_CHARACTER_TYPE_ID & "=" & Request.Form(COLUMN_CHARACTER_TYPE_ID))
+Response.Redirect("/CharacterType/Edit.asp?" & COLUMN_CHARACTER_TYPE_ID & "=" & Request.Form(COLUMN_CHARACTER_TYPE_ID))
 %>
 <!--#include virtual="inc/closeconn.inc"-->

@@ -16,7 +16,7 @@ rs.movefirst
 Dim CharacterTypeId
 CharacterTypeId = rs(COLUMN_CHARACTER_TYPE_ID)
 %>
-<p><a href="/CharacterType/CharacterTypeEdit.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=CharacterTypeId%>">Back To Character Type</a></p>
+<p><a href="/CharacterType/Edit.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=CharacterTypeId%>">Back To Character Type</a></p>
 <form action="/CharacterType/Statistic/UpdateStatistic.asp" method="POST">
 <table border="1">
     <tr>

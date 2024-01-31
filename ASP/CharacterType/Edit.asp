@@ -14,8 +14,8 @@ Dim rs
 Set rs = cmd.Execute()
 rs.movefirst
 %>
-<p><a href="/CharacterType/CharacterTypeList.asp">Back To Character Type List</a></p>
-<form action="/CharacterType/UpdateCharacterType.asp" method="POST">
+<p><a href="/CharacterType/List.asp">Back To Character Type List</a></p>
+<form action="/CharacterType/Update.asp" method="POST">
 <table border="1">
     <tr>
         <td>
@@ -45,7 +45,7 @@ rs.close
 set rs = nothing
 Set cmd = nothing
 %>
-<form action="/CharacterType/DeleteCharacterType.asp" method="post">
+<form action="/CharacterType/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_ID%>" value="<%=request.querystring(COLUMN_CHARACTER_TYPE_ID) %>" />
     <table border="1">
         <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
