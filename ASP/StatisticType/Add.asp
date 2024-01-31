@@ -5,8 +5,8 @@
 <%
 Server.Execute("/inc/Start.asp")
 %>
-<p><a href="/StatisticType/StatisticTypeList.asp">Back To Statistic Type List</a></p>
-<form action="/StatisticType/InsertStatisticType.asp" method="POST">
+<p><a href="/StatisticType/List.asp">Back To Statistic Type List</a></p>
+<form action="/StatisticType/Insert.asp" method="POST">
 <table border="1">
     <tr>
         <td>

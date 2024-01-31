@@ -8,6 +8,6 @@ UpdateRecord Conn, _
     Array(COLUMN_STATISTIC_TYPE_NAME), _
     Array(COLUMN_STATISTIC_TYPE_ID), _
     Array(Request.form(COLUMN_STATISTIC_TYPE_NAME),Request.form(COLUMN_STATISTIC_TYPE_ID))
-Response.Redirect("/StatisticType/StatisticTypeEdit.asp?" & COLUMN_STATISTIC_TYPE_ID & "=" & Request.Form(COLUMN_STATISTIC_TYPE_ID))
+Response.Redirect("/StatisticType/Edit.asp?" & COLUMN_STATISTIC_TYPE_ID & "=" & Request.Form(COLUMN_STATISTIC_TYPE_ID))
 %>
 <!--#include virtual="inc/closeconn.inc"-->

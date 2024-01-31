@@ -9,6 +9,6 @@ if request.form("ConfirmDelete")="1" then
         Array(COLUMN_STATISTIC_TYPE_ID), _
         Array(Request.form(COLUMN_STATISTIC_TYPE_ID))
 end if
-Response.Redirect("/StatisticType/StatisticTypeList.asp")
+Response.Redirect("/StatisticType/List.asp")
 %>
 <!--#include virtual="inc/closeconn.inc"-->

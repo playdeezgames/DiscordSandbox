@@ -7,6 +7,6 @@ InsertRecord Conn, _
     TABLE_STATISTIC_TYPES, _
     Array(COLUMN_STATISTIC_TYPE_NAME), _
     Array(Request.form(COLUMN_STATISTIC_TYPE_NAME))
-Response.Redirect("/StatisticType/StatisticTypeList.asp")
+Response.Redirect("/StatisticType/List.asp")
 %>
 <!--#include virtual="inc/closeconn.inc"-->

@@ -24,7 +24,7 @@ do until rs.eof
 %>
     <tr>
         <td>
-            <a href="/StatisticType/StatisticTypeEdit.asp?<%=COLUMN_STATISTIC_TYPE_ID%>=<%=rs(COLUMN_STATISTIC_TYPE_ID)%>"><%=rs(COLUMN_STATISTIC_TYPE_ID)%></a>
+            <a href="/StatisticType/Edit.asp?<%=COLUMN_STATISTIC_TYPE_ID%>=<%=rs(COLUMN_STATISTIC_TYPE_ID)%>"><%=rs(COLUMN_STATISTIC_TYPE_ID)%></a>
         </td>
         <td>
             <%=rs(COLUMN_STATISTIC_TYPE_NAME)%>
@@ -40,7 +40,7 @@ rs.close
 set rs = nothing
 Set cmd = nothing
 %>
-<p><a href="/StatisticType/StatisticTypeAdd.asp">(new)</a></p>
+<p><a href="/StatisticType/Add.asp">(new)</a></p>
 <%
 Server.Execute("/inc/End.asp")
 %>
