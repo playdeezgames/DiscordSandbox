@@ -16,7 +16,7 @@ rs.movefirst
 Dim CardTypeGeneratorId
 CardTypeGeneratorId = rs(COLUMN_CARD_TYPE_GENERATOR_ID)
 %>
-<p><a href="/CardTypeGenerator/CardTypeGeneratorEdit.asp?<%=COLUMN_CARD_TYPE_GENERATOR_ID%>=<%=CardTypeGeneratorId%>">Back To Card Type Generator</a></p>
+<p><a href="/CardTypeGenerator/Edit.asp?<%=COLUMN_CARD_TYPE_GENERATOR_ID%>=<%=CardTypeGeneratorId%>">Back To Card Type Generator</a></p>
 <form action="/CardTypeGenerator/CardType/Update.asp" method="POST">
 <table border="1">
     <tr>

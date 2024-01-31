@@ -5,8 +5,8 @@
 <%
 Server.Execute("/inc/Start.asp")
 %>
-<p><a href="/CardTypeGenerator/CardTypeGeneratorList.asp">Back To Card Type Generator List</a></p>
-<form action="/CardTypeGenerator/InsertCardTypeGenerator.asp" method="POST">
+<p><a href="/CardTypeGenerator/List.asp">Back To Card Type Generator List</a></p>
+<form action="/CardTypeGenerator/Insert.asp" method="POST">
 <table border="1">
     <tr>
         <td>

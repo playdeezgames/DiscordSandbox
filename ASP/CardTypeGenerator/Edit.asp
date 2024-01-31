@@ -14,8 +14,8 @@ Dim rs
 Set rs = cmd.Execute()
 rs.movefirst
 %>
-<p><a href="/CardTypeGenerator/CardTypeGeneratorList.asp">Back To Card Type Generator List</a></p>
-<form action="/CardTypeGenerator/UpdateCardTypeGenerator.asp" method="POST">
+<p><a href="/CardTypeGenerator/List.asp">Back To Card Type Generator List</a></p>
+<form action="/CardTypeGenerator/Update.asp" method="POST">
 <table border="1">
     <tr>
         <td>
@@ -45,7 +45,7 @@ rs.close
 set rs = nothing
 Set cmd = nothing
 %>
-<form action="/CardTypeGenerator/DeleteCardTypeGenerator.asp" method="post">
+<form action="/CardTypeGenerator/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CARD_TYPE_GENERATOR_ID%>" value="<%=request.querystring(COLUMN_CARD_TYPE_GENERATOR_ID) %>" />
     <table border="1">
         <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
