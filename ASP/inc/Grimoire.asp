@@ -230,4 +230,12 @@ End Sub
 Sub NameInput(InputName, DisplayName)
     Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ type=""text"" maxlength=""100""/></td></tr>")
 End Sub
+
+Sub StartPage()
+    Server.Execute("/inc/Start.asp")
+End Sub
+
+Sub EndPage()
+    Server.Execute("/inc/End.asp")
+End Sub
 %>

@@ -3,7 +3,7 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-Server.Execute("/inc/Start.asp")
+StartPage
 Dim cmd
 Set cmd = MakeSelectCommand(conn, _
     VIEW_LOCATION_TYPE_DETAILS,_
@@ -42,6 +42,6 @@ Set cmd = nothing
 %>
 <p><a href="/LocationType/Add.asp">(new)</a></p>
 <%
-Server.Execute("/inc/End.asp")
+EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->

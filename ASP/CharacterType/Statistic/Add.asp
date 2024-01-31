@@ -3,7 +3,7 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-Server.Execute("/inc/Start.asp")
+StartPage
 %>
 <p><a href="/CharacterType/Edit.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=Request.QueryString(COLUMN_CHARACTER_TYPE_ID)%>">Back To Character Type</a></p>
 <%
@@ -47,6 +47,6 @@ Server.Execute("/inc/Start.asp")
 <%EndTable %>
 <%EndForm%>
 <%
-Server.Execute("/inc/End.asp")
+EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->

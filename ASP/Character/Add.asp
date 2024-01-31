@@ -3,7 +3,7 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-Server.Execute("/inc/Start.asp")
+StartPage
 %>
 <%
     BackToListLink "Character", "Character"
@@ -40,6 +40,6 @@ Server.Execute("/inc/Start.asp")
 <%EndTable %>
 <%EndForm%>
 <%
-Server.Execute("/inc/End.asp")
+EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->

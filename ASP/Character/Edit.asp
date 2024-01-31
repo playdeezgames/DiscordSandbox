@@ -3,7 +3,7 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-Server.Execute("/inc/Start.asp")
+StartPage
 Dim cmd
 Set cmd = MakeSelectCommand(conn,TABLE_CHARACTERS,Array(COLUMN_CHARACTER_ID,COLUMN_CHARACTER_NAME,COLUMN_CHARACTER_TYPE_ID,COLUMN_LOCATION_ID),Array(COLUMN_CHARACTER_ID),Array(Request.QueryString(COLUMN_CHARACTER_ID)))
 Dim rs
@@ -65,6 +65,6 @@ Set cmd = nothing
     <%EndTable %>
 <%EndForm%>
 <%
-Server.Execute("/inc/End.asp")
+EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->

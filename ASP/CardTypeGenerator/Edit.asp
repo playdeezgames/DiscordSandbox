@@ -3,7 +3,7 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-Server.Execute("/inc/Start.asp")
+StartPage
 Dim cmd
 Set cmd = MakeSelectCommand(conn, _
     TABLE_CARD_TYPE_GENERATORS, _
@@ -56,6 +56,6 @@ Set cmd = nothing
     Server.Execute("/CardTypeGenerator/CardType/List.asp")
 %>
 <%
-Server.Execute("/inc/End.asp")
+EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->

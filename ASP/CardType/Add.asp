@@ -5,7 +5,7 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-    Server.Execute("/inc/Start.asp")
+    StartPage
     BackToListLink "CardType", "Card Type"
     StartInsertForm "CardType"
     StartTable 
@@ -13,6 +13,6 @@
     SubmitButton 
     EndTable 
     EndForm
-    Server.Execute("/inc/End.asp")
+    EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->

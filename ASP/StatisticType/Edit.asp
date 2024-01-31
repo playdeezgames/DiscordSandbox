@@ -3,7 +3,7 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-Server.Execute("/inc/Start.asp")
+StartPage
 Dim cmd
 Set cmd = MakeSelectCommand(conn, _
     TABLE_STATISTIC_TYPES, _
@@ -53,6 +53,6 @@ Set cmd = nothing
     <%EndTable %>
 <%EndForm%>
 <%
-Server.Execute("/inc/End.asp")
+EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->
