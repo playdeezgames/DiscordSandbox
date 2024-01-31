@@ -54,7 +54,7 @@ Set cmd = nothing
 </form>
 <hr />
 <%
-    Server.Execute("/CardTypeGenerator/CardType/CardTypeSublist.asp")
+    Server.Execute("/CardTypeGenerator/CardType/List.asp")
 %>
 <%
 Server.Execute("/inc/End.asp")

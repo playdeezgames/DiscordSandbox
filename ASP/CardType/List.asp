@@ -24,7 +24,7 @@ do until rs.eof
 %>
     <tr>
         <td>
-            <a href="/CardType/CardTypeEdit.asp?<%=COLUMN_CARD_TYPE_ID%>=<%=rs(COLUMN_CARD_TYPE_ID)%>"><%=rs(COLUMN_CARD_TYPE_ID)%></a>
+            <a href="/CardType/Edit.asp?<%=COLUMN_CARD_TYPE_ID%>=<%=rs(COLUMN_CARD_TYPE_ID)%>"><%=rs(COLUMN_CARD_TYPE_ID)%></a>
         </td>
         <td>
             <%=rs(COLUMN_CARD_TYPE_NAME)%>
@@ -40,7 +40,7 @@ rs.close
 set rs = nothing
 Set cmd = nothing
 %>
-<p><a href="/CardType/CardTypeAdd.asp">(new)</a></p>
+<p><a href="/CardType/Add.asp">(new)</a></p>
 <%
 Server.Execute("/inc/End.asp")
 %>

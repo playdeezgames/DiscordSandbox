@@ -9,6 +9,6 @@ if request.form("ConfirmDelete")="1" then
         Array(COLUMN_CARD_TYPE_ID), _
         Array(Request.form(COLUMN_CARD_TYPE_ID))
 end if
-Response.Redirect("/CardType/CardTypeList.asp")
+Response.Redirect("/CardType/List.asp")
 %>
 <!--#include virtual="inc/closeconn.inc"-->

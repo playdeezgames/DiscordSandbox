@@ -28,7 +28,7 @@ do until rs.eof
 %>
     <tr>
         <td>
-            <a href="/CardTypeGenerator/CardType/CardTypeEdit.asp?<%=COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID%>=<%=rs(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID)%>"><%=rs(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID)%></a>
+            <a href="/CardTypeGenerator/CardType/Edit.asp?<%=COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID%>=<%=rs(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID)%>"><%=rs(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID)%></a>
         </td>
         <td>
             <%=rs(COLUMN_CARD_TYPE_NAME)%>
@@ -47,5 +47,5 @@ rs.close
 set rs = nothing
 Set cmd = nothing
 %>
-<p><a href="/CardTypeGenerator/CardType/CardTypeAdd.asp?<%=COLUMN_CARD_TYPE_GENERATOR_ID%>=<%=Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_ID)%>">(new card type)</a></p>
+<p><a href="/CardTypeGenerator/CardType/Add.asp?<%=COLUMN_CARD_TYPE_GENERATOR_ID%>=<%=Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_ID)%>">(new card type)</a></p>
 <!--#include virtual="inc/closeconn.inc"-->

@@ -8,6 +8,6 @@ UpdateRecord Conn, _
     Array(COLUMN_GENERATOR_WEIGHT), _
     Array(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID), _
     Array(Request.form(COLUMN_GENERATOR_WEIGHT),Request.form(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID))
-Response.Redirect("/CardTypeGenerator/CardType/CardTypeEdit.asp?" & COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID & "=" & Request.Form(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID))
+Response.Redirect("/CardTypeGenerator/CardType/Edit.asp?" & COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID & "=" & Request.Form(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID))
 %>
 <!--#include virtual="inc/closeconn.inc"-->

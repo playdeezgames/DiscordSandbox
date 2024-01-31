@@ -17,7 +17,7 @@ Dim CardTypeGeneratorId
 CardTypeGeneratorId = rs(COLUMN_CARD_TYPE_GENERATOR_ID)
 %>
 <p><a href="/CardTypeGenerator/CardTypeGeneratorEdit.asp?<%=COLUMN_CARD_TYPE_GENERATOR_ID%>=<%=CardTypeGeneratorId%>">Back To Card Type Generator</a></p>
-<form action="/CardTypeGenerator/CardType/UpdateCardType.asp" method="POST">
+<form action="/CardTypeGenerator/CardType/Update.asp" method="POST">
 <table border="1">
     <tr>
         <td>
@@ -63,7 +63,7 @@ rs.close
 set rs = nothing
 Set cmd = nothing
 %>
-<form action="/CardTypeGenerator/CardType/DeleteCardType.asp" method="post">
+<form action="/CardTypeGenerator/CardType/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID%>" value="<%=Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID)%>" />
     <input type="hidden" name="<%=COLUMN_CARD_TYPE_GENERATOR_ID%>" value="<%=CardTypeGeneratorId%>" />
     <table border="1">
