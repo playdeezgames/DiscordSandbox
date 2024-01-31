@@ -8,7 +8,9 @@ Server.Execute("/inc/Start.asp")
 <%
     BackToListLink "CardType", "Card Type"
 %>
-<form action="/CardType/Insert.asp" method="POST">
+<%
+    StartInsertForm "CardType"
+%>
 <table border="1">
     <tr>
         <td>

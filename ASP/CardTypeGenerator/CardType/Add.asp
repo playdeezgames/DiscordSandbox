@@ -6,7 +6,9 @@
 Server.Execute("/inc/Start.asp")
 %>
 <p><a href="/CardTypeGenerator/Edit.asp?<%=COLUMN_CARD_TYPE_GENERATOR_ID%>=<%=Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_ID)%>">Back To Card Type Generator</a></p>
-<form action="/CardTypeGenerator/CardType/Insert.asp" method="POST">
+<%
+    StartInsertForm "CardTypeGenerator/CardType"
+%>
     <input type="hidden" name="<%=COLUMN_CARD_TYPE_GENERATOR_ID%>" value="<%=Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_ID)%>" />
 <table border="1">
     <tr>

@@ -188,4 +188,8 @@ End Function
 Sub BackToListLink(SubPath,Title)
     Response.Write("<p><a href=""/" & SubPath & "/List.asp"">Back To " & Title & " List</a></p>")
 End Sub
+
+Sub StartInsertForm(SubPath)
+    response.write("<form action=""/" & SubPath & "/Insert.asp"" method=""POST"">")
+End Sub
 %>

@@ -8,7 +8,9 @@ Server.Execute("/inc/Start.asp")
 <%
     BackToListLink "CardTypeGenerator", "Card Type Generator"
 %>
-<form action="/CardTypeGenerator/Insert.asp" method="POST">
+<%
+    StartInsertForm "CardTypeGenerator"
+%>
 <table border="1">
     <tr>
         <td>

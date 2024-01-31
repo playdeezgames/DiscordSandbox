@@ -8,7 +8,9 @@ Server.Execute("/inc/Start.asp")
 <%
     BackToListLink "EffectType", "Effect Type"
 %>
-<form action="/EffectType/Insert.asp" method="POST">
+<%
+    StartInsertForm "EffectType"
+%>
 <table border="1">
     <tr>
         <td>

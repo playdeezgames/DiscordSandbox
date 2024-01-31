@@ -8,7 +8,9 @@ Server.Execute("/inc/Start.asp")
 <%
     BackToListLink "StatisticType", "Statistic Type"
 %>
-<form action="/StatisticType/Insert.asp" method="POST">
+<%
+    StartInsertForm "StatisticType"
+%>
 <table border="1">
     <tr>
         <td>

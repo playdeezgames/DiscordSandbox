@@ -8,7 +8,9 @@ Server.Execute("/inc/Start.asp")
 <%
     BackToListLink "CharacterType", "Character Type"
 %>
-<form action="/CharacterType/Insert.asp" method="POST">
+<%
+    StartInsertForm "CharacterType"
+%>
 <table border="1">
     <tr>
         <td>
