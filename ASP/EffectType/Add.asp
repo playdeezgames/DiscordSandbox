@@ -5,8 +5,8 @@
 <%
 Server.Execute("/inc/Start.asp")
 %>
-<p><a href="/EffectType/EffectTypeList.asp">Back To Effect Type List</a></p>
-<form action="/EffectType/InsertEffectType.asp" method="POST">
+<p><a href="/EffectType/List.asp">Back To Effect Type List</a></p>
+<form action="/EffectType/Insert.asp" method="POST">
 <table border="1">
     <tr>
         <td>

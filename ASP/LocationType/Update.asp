@@ -8,6 +8,6 @@ UpdateRecord Conn, _
     Array(COLUMN_LOCATION_TYPE_NAME), _
     Array(COLUMN_LOCATION_TYPE_ID), _
     Array(Request.form(COLUMN_LOCATION_TYPE_NAME),Request.form(COLUMN_LOCATION_TYPE_ID))
-Response.Redirect("/LocationType/LocationTypeEdit.asp?" & COLUMN_LOCATION_TYPE_ID & "=" & Request.Form(COLUMN_LOCATION_TYPE_ID))
+Response.Redirect("/LocationType/Edit.asp?" & COLUMN_LOCATION_TYPE_ID & "=" & Request.Form(COLUMN_LOCATION_TYPE_ID))
 %>
 <!--#include virtual="inc/closeconn.inc"-->

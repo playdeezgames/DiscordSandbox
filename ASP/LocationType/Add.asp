@@ -5,8 +5,8 @@
 <%
 Server.Execute("/inc/Start.asp")
 %>
-<p><a href="/LocationType/LocationTypeList.asp">Back To Location Type List</a></p>
-<form action="/LocationType/InsertLocationType.asp" method="POST">
+<p><a href="/LocationType/List.asp">Back To Location Type List</a></p>
+<form action="/LocationType/Insert.asp" method="POST">
 <table border="1">
     <tr>
         <td>

@@ -8,6 +8,6 @@ UpdateRecord Conn, _
     Array(COLUMN_EFFECT_TYPE_NAME), _
     Array(COLUMN_EFFECT_TYPE_ID), _
     Array(Request.form(COLUMN_EFFECT_TYPE_NAME),Request.form(COLUMN_EFFECT_TYPE_ID))
-Response.Redirect("/EffectType/EffectTypeEdit.asp?" & COLUMN_EFFECT_TYPE_ID & "=" & Request.Form(COLUMN_EFFECT_TYPE_ID))
+Response.Redirect("/EffectType/Edit.asp?" & COLUMN_EFFECT_TYPE_ID & "=" & Request.Form(COLUMN_EFFECT_TYPE_ID))
 %>
 <!--#include virtual="inc/closeconn.inc"-->
