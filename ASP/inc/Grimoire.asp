@@ -84,7 +84,6 @@ Function ExecuteSelectCommand(Conn, TableName, ShowColumns, FilterColumns, Filte
     Set cmd = nothing
 End Function
 
-
 Function MakeFilteredEditComboBox(Conn, TableName, KeyColumnName, DisplayColumnName, FilterColumns, FilterValues)
     Dim result
     result="<select name=""" & KeyColumnName &  """>"
@@ -202,6 +201,10 @@ Sub BackToListLink(SubPath,Title)
     Response.Write("<p><a href=""/" & SubPath & "/List.asp"">Back To " & Title & " List</a></p>")
 End Sub
 
+Sub BackToMainMenuLink()
+    Response.Write("<p><a href=""/default.asp"">Back to Main Menu</a></p>")
+End Sub
+
 Sub StartInsertForm(SubPath)
     response.write("<form action=""/" & SubPath & "/Insert.asp"" method=""POST"">")
 End Sub
@@ -228,6 +231,14 @@ End Sub
 
 Sub EndTable()
     Response.Write("</table>")
+End Sub
+
+Sub StartTableRow()
+    Response.Write("<tr>")
+End Sub
+
+Sub EndTableRow()
+    Response.Write("</tr>")
 End Sub
 
 Sub StartTable()
@@ -262,7 +273,32 @@ Sub RedirectToList(SubPath)
     Response.Redirect("/" & SubPath & "/List.asp")
 End Sub
 
+Sub RedirectToEdit(SubPath,ColumnName,DataSource)
+    Response.Redirect("/" & SubPath & "/Edit.asp?" & ColumnName & "=" & DataSource(ColumnName))
+End Sub
+
 Sub ConfirmDeleteCheckbox()
     Response.Write("<tr><td>Delete Record</td><td><input type=""checkbox"" name=""ConfirmDelete"" value=""1""/></td></tr>")
+End Sub
+
+Sub ShowTableHeaders(Headers)
+    response.write("<tr>")
+    Dim Header
+    For Each Header in Headers
+        response.write("<th>" & header & "</th>")
+    Next
+    response.write("</tr>")
+End Sub
+
+Sub TableCell(ColumnName,DataSource)
+    Response.Write("<td>" & DataSource(ColumnName) & "</td>")
+End Sub
+
+Sub TableCellEditLink(SubPath, ColumnName, DataSource)
+    Response.Write("<td><a href=""/" & SubPath & "/Edit.asp?" & ColumnName & "=" & DataSource(ColumnName) & """>" & DataSource(ColumnName) & "</a></td>")
+End Sub
+
+Sub AddLink(SubPath,LinkText)
+    Response.Write("<p><a href=""/" & SubPath & "/Add.asp"">(" & LinkText & ")</a></p>")
 End Sub
 %>
