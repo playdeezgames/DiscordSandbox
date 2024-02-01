@@ -20,15 +20,9 @@ rs.movefirst
 <%
     StartUpdateForm "StatisticType"
 %>
-<%StartTable %>
-    <tr>
-        <td>
-            <label for="<%=COLUMN_STATISTIC_TYPE_ID%>">Id:</label>
-        </td>
-        <td>
-            <input name="<%=COLUMN_STATISTIC_TYPE_ID%>" value="<%=rs(COLUMN_STATISTIC_TYPE_ID)%>" type="text" readonly="readonly"/>
-        </td>
-    </tr>
+<%StartTable 
+        ReadonlyInput COLUMN_STATISTIC_TYPE_ID, "Id", rs
+    %>
     <tr>
         <td>
             <label for="<%=COLUMN_STATISTIC_TYPE_NAME%>">Name: </label>

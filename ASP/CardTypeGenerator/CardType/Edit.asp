@@ -20,15 +20,11 @@ CardTypeGeneratorId = rs(COLUMN_CARD_TYPE_GENERATOR_ID)
 <%
     StartUpdateForm "CardTypeGenerator/CardType"
 %>
-<%StartTable %>
-    <tr>
-        <td>
-            <label for="<%=COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID%>">Id:</label>
-        </td>
-        <td>
-            <input name="<%=COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID%>" value="<%=rs(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID)%>" type="text" readonly="readonly"/>
-        </td>
-    </tr>
+<%
+    StartTable 
+    ReadonlyInput COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID, "Id", rs
+
+%>
     <tr>
         <td>
             <label for="<%=COLUMN_CARD_TYPE_GENERATOR_NAME%>">Card Type Generator: </label>

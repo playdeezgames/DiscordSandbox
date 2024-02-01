@@ -20,15 +20,9 @@ CharacterTypeId = rs(COLUMN_CHARACTER_TYPE_ID)
 <%
     StartUpdateForm "CharacterType/Statistic"
 %>
-<%StartTable %>
-    <tr>
-        <td>
-            <label for="<%=COLUMN_CHARACTER_TYPE_STATISTIC_ID%>">Id:</label>
-        </td>
-        <td>
-            <input name="<%=COLUMN_CHARACTER_TYPE_STATISTIC_ID%>" value="<%=rs(COLUMN_CHARACTER_TYPE_STATISTIC_ID)%>" type="text" readonly="readonly"/>
-        </td>
-    </tr>
+<%StartTable 
+        ReadonlyInput COLUMN_CHARACTER_TYPE_STATISTIC_ID, "Id", rs
+    %>
     <tr>
         <td>
             <label for="<%=COLUMN_CHARACTER_TYPE_NAME%>">Character Type: </label>

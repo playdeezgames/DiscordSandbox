@@ -238,6 +238,10 @@ Sub NameInput(InputName, DisplayName)
     Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ type=""text"" maxlength=""100""/></td></tr>")
 End Sub
 
+Sub ReadonlyInput(InputName, DisplayName, DataSource)
+    Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ value=""" & DataSource(InputName) & """ type=""text"" readonly=""readonly""/></td></tr>"
+End Sub
+
 Sub StartPage()
     Server.Execute("/inc/Start.asp")
 End Sub
