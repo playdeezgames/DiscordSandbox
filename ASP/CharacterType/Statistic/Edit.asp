@@ -75,8 +75,9 @@ Set cmd = nothing
 %>
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_STATISTIC_ID%>" value="<%=Request.QueryString(COLUMN_CHARACTER_TYPE_STATISTIC_ID)%>" />
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_ID%>" value="<%=CharacterTypeId%>" />
-    <%StartTable %>
-        <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
+    <%StartTable 
+                ConfirmDeleteCheckbox
+%>
 <%SubmitButton %>
     <%EndTable %>
 <%EndForm%>

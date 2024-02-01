@@ -41,8 +41,9 @@ Set cmd = nothing
         StartDeleteForm "StatisticType"
 %>
     <input type="hidden" name="<%=COLUMN_STATISTIC_TYPE_ID%>" value="<%=request.querystring(COLUMN_STATISTIC_TYPE_ID) %>" />
-    <%StartTable %>
-        <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
+    <%StartTable 
+                ConfirmDeleteCheckbox
+%>
 <%SubmitButton %>
     <%EndTable %>
 <%EndForm%>

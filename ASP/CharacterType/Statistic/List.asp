@@ -16,14 +16,9 @@ Set cmd = MakeSelectCommand(conn, _
 Dim rs
 Set rs = cmd.Execute()
 %>
-<%StartTable %>
-    <tr>
-        <th>Character Type Statistic Id</th>
-        <th>Statistic Type Name</th>
-        <th>Statistic Value</th>
-        <th>Minimum Value</th>
-        <th>Maximum Value</th>
-    </tr>
+<%StartTable 
+ShowTableHeaders(Array("Character Type Statistic Id","Statistic Type Name","Statistic Value","Minimum Value","Maximum Value"))
+    %>
 <%
 do until rs.eof
 %>

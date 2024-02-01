@@ -17,13 +17,8 @@ Set cmd = MakeSelectCommand(conn, _
 Dim rs
 Set rs = cmd.Execute()
 %>
-<%StartTable %>
-    <tr>
-        <th>Card Type Generator Card Type Id</th>
-        <th>Card Type</th>
-        <th>Generator Weight</th>
-    </tr>
-<%
+<%StartTable 
+    ShowTableHeaders(Array("Card Type Generator Card Type Id","Card Type","Generator Weight"))
 do until rs.eof
 %>
     <tr>

@@ -61,8 +61,9 @@ Set cmd = nothing
 %>
     <input type="hidden" name="<%=COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID%>" value="<%=Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID)%>" />
     <input type="hidden" name="<%=COLUMN_CARD_TYPE_GENERATOR_ID%>" value="<%=CardTypeGeneratorId%>" />
-    <%StartTable %>
-        <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
+    <%StartTable 
+        ConfirmDeleteCheckbox
+        %>
 <%SubmitButton %>
     <%EndTable %>
 <%EndForm%>

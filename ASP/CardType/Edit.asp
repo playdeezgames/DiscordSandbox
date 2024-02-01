@@ -3,8 +3,10 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
+    Const SubPath = "CardType"
+
     StartPage
-        BackToListLink "CardType", "Card Type"
+        BackToListLink SubPath, "Card Type"
 
         Dim rs
         Set rs = ExecuteSelectCommand(conn, _
@@ -13,7 +15,7 @@
             Array(COLUMN_CARD_TYPE_ID), _
             Array(Request.QueryString(COLUMN_CARD_TYPE_ID)))
 
-        StartUpdateForm "CardType"
+        StartUpdateForm SubPath
             StartTable 
                 ReadonlyTextInput COLUMN_CARD_TYPE_ID, "Id", rs
                 TextInputEdit COLUMN_CARD_TYPE_NAME, "Name", rs
@@ -23,7 +25,7 @@
         rs.close
         set rs = nothing
 
-        StartDeleteForm "CardType"
+        StartDeleteForm SubPath
             HiddenInput COLUMN_CARD_TYPE_ID, Request.QueryString
             StartTable 
                 ConfirmDeleteCheckbox

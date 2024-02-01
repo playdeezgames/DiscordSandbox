@@ -12,15 +12,12 @@ Set cmd = MakeSelectCommand(conn,_
     Null)
 Dim rs
 Set rs = cmd.Execute()
+            BackToMainMenuLink
+
 %>
-<p><a href="/default.asp">Back to Main Menu</a></p>
-<%StartTable %>
-    <tr>
-        <th>Character Id</th>
-        <th>Character Name</th>
-        <th>Character Type</th>
-        <th>Location</th>
-    </tr>
+<%StartTable 
+ShowTableHeaders(Array("Character Id","Character Name","Character Type","Location"))
+    %>
 <%
 do until rs.eof
 %>

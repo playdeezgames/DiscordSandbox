@@ -55,8 +55,9 @@ Set cmd = nothing
 
 %>
     <input type="hidden" name="<%=COLUMN_CHARACTER_ID%>" value="<%=request.querystring(COLUMN_CHARACTER_ID) %>" />
-    <%StartTable %>
-        <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
+    <%StartTable 
+                ConfirmDeleteCheckbox
+%>
 <%SubmitButton %>
     <%EndTable %>
 <%EndForm%>

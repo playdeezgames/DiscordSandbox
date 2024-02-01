@@ -42,8 +42,9 @@ Set cmd = nothing
     StartDeleteForm "EffectType"
 %>
     <input type="hidden" name="<%=COLUMN_EFFECT_TYPE_ID%>" value="<%=request.querystring(COLUMN_EFFECT_TYPE_ID) %>" />
-    <%StartTable %>
-        <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
+    <%StartTable 
+                ConfirmDeleteCheckbox
+%>
 <%SubmitButton %>
     <%EndTable %>
 <%EndForm%>

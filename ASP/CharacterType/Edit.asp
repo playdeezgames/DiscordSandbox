@@ -42,7 +42,9 @@ Set cmd = nothing
     StartDeleteForm "CharacterType"
 %>
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_ID%>" value="<%=request.querystring(COLUMN_CHARACTER_TYPE_ID) %>" />
-    <%StartTable %>
+    <%StartTable 
+        ConfirmDeleteCheckbox
+        %>
         <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
 <%SubmitButton %>
     <%EndTable %>
