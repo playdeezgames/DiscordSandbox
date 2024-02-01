@@ -234,12 +234,20 @@ Sub StartTable()
     Response.Write("<table border=""1"">")
 End Sub
 
-Sub NameInput(InputName, DisplayName)
+Sub TextInputAdd(InputName, DisplayName)
     Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ type=""text"" maxlength=""100""/></td></tr>")
 End Sub
 
-Sub ReadonlyInput(InputName, DisplayName, DataSource)
-    Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ value=""" & DataSource(InputName) & """ type=""text"" readonly=""readonly""/></td></tr>"
+Sub TextInputEdit(InputName, DisplayName, DataSource)
+    Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ value=""" & DataSource(InputName) & """  type=""text"" maxlength=""100""/></td></tr>")
+End Sub
+
+Sub ReadonlyTextInput(InputName, DisplayName, DataSource)
+    Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ value=""" & DataSource(InputName) & """ type=""text"" readonly=""readonly""/></td></tr>")
+End Sub
+
+Sub HiddenInput(InputName, DataSource)
+    Response.Write("<input name=""" & InputName & """ value=""" & DataSource(InputName) & """ type=""hidden""/>")
 End Sub
 
 Sub StartPage()

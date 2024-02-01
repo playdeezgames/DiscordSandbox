@@ -21,7 +21,7 @@ CharacterTypeId = rs(COLUMN_CHARACTER_TYPE_ID)
     StartUpdateForm "CharacterType/Statistic"
 %>
 <%StartTable 
-        ReadonlyInput COLUMN_CHARACTER_TYPE_STATISTIC_ID, "Id", rs
+        ReadonlyTextInput COLUMN_CHARACTER_TYPE_STATISTIC_ID, "Id", rs
     %>
     <tr>
         <td>
@@ -70,8 +70,9 @@ CharacterTypeId = rs(COLUMN_CHARACTER_TYPE_ID)
 rs.close
 set rs = nothing
 Set cmd = nothing
+        StartDeleteForm "CharacterType/Statistic"
+
 %>
-<form action="/CharacterType/Statistic/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_STATISTIC_ID%>" value="<%=Request.QueryString(COLUMN_CHARACTER_TYPE_STATISTIC_ID)%>" />
     <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_ID%>" value="<%=CharacterTypeId%>" />
     <%StartTable %>

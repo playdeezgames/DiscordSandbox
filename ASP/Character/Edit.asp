@@ -17,7 +17,7 @@ rs.movefirst
     StartUpdateForm "Character"
 %>
 <%StartTable 
-        ReadonlyInput COLUMN_CHARACTER_ID, "Id", rs
+        ReadonlyTextInput COLUMN_CHARACTER_ID, "Id", rs
     
     %>
     <tr>
@@ -51,8 +51,9 @@ rs.movefirst
 rs.close
 set rs = nothing
 Set cmd = nothing
+        StartDeleteForm "Character"
+
 %>
-<form action="/Character/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CHARACTER_ID%>" value="<%=request.querystring(COLUMN_CHARACTER_ID) %>" />
     <%StartTable %>
         <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>

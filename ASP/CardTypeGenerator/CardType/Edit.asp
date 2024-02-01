@@ -22,7 +22,7 @@ CardTypeGeneratorId = rs(COLUMN_CARD_TYPE_GENERATOR_ID)
 %>
 <%
     StartTable 
-    ReadonlyInput COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID, "Id", rs
+    ReadonlyTextInput COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID, "Id", rs
 
 %>
     <tr>
@@ -56,8 +56,9 @@ CardTypeGeneratorId = rs(COLUMN_CARD_TYPE_GENERATOR_ID)
 rs.close
 set rs = nothing
 Set cmd = nothing
+        StartDeleteForm "CardTypeGenerator/CardType"
+
 %>
-<form action="/CardTypeGenerator/CardType/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID%>" value="<%=Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID)%>" />
     <input type="hidden" name="<%=COLUMN_CARD_TYPE_GENERATOR_ID%>" value="<%=CardTypeGeneratorId%>" />
     <%StartTable %>

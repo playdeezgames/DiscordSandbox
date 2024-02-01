@@ -9,7 +9,7 @@
         BackToListLink "CardType", "Card Type"
         StartInsertForm "CardType"
             StartTable 
-                NameInput COLUMN_CARD_TYPE_NAME, "Name"
+                TextInputAdd COLUMN_CARD_TYPE_NAME, "Name"
                 SubmitButton 
             EndTable 
         EndForm

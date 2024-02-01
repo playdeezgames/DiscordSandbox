@@ -22,7 +22,7 @@ rs.movefirst
 %>
 <%
     StartTable 
-        ReadonlyInput COLUMN_CARD_TYPE_GENERATOR_ID, "Id", rs
+        ReadonlyTextInput COLUMN_CARD_TYPE_GENERATOR_ID, "Id", rs
     %>
     <tr>
         <td>
@@ -38,8 +38,8 @@ rs.movefirst
 rs.close
 set rs = nothing
 Set cmd = nothing
+    StartDeleteForm "CardTypeGenerator"
 %>
-<form action="/CardTypeGenerator/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_CARD_TYPE_GENERATOR_ID%>" value="<%=request.querystring(COLUMN_CARD_TYPE_GENERATOR_ID) %>" />
     <%StartTable %>
         <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>

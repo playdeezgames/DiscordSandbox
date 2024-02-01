@@ -22,7 +22,7 @@ rs.movefirst
 %>
 <%StartTable 
     
-        ReadonlyInput COLUMN_EFFECT_TYPE_ID, "Id", rs
+        ReadonlyTextInput COLUMN_EFFECT_TYPE_ID, "Id", rs
     %>
     <tr>
         <td>
@@ -39,8 +39,8 @@ rs.movefirst
 rs.close
 set rs = nothing
 Set cmd = nothing
+    StartDeleteForm "EffectType"
 %>
-<form action="/EffectType/Delete.asp" method="post">
     <input type="hidden" name="<%=COLUMN_EFFECT_TYPE_ID%>" value="<%=request.querystring(COLUMN_EFFECT_TYPE_ID) %>" />
     <%StartTable %>
         <tr><td>Delete Record</td><td><input type="checkbox" name="ConfirmDelete" value="1" /></td></tr>
