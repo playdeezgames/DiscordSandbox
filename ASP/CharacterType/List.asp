@@ -3,44 +3,29 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-StartPage
-Dim cmd
-Set cmd = MakeSelectCommand(conn, _
-    VIEW_CHARACTER_TYPE_DETAILS,_
-    Array(COLUMN_CHARACTER_TYPE_ID,COLUMN_CHARACTER_TYPE_NAME),_
-    Null,_
-    Null)
-Dim rs
-Set rs = cmd.Execute()
-            BackToMainMenuLink
+    Const SubPath = "CharacterType"
+    StartPage
+        BackToMainMenuLink
+        Dim rs
+        Set rs = ExecuteSelectCommand(conn, _
+            VIEW_CHARACTER_TYPE_DETAILS,_
+            Array(COLUMN_CHARACTER_TYPE_ID,COLUMN_CHARACTER_TYPE_NAME),_
+            Null,_
+            Null)
+        StartTable 
+            ShowTableHeaders(Array("Character Type Id","Character Type Name"))    
+            do until rs.eof
+                StartTableRow
+                    TableCellEditLink SubPath, COLUMN_CHARACTER_TYPE_ID, rs
+                    TableCell COLUMN_CHARACTER_TYPE_NAME, rs
+                EndTableRow
+                rs.movenext
+            loop
+        EndTable 
+        rs.close
+        set rs = nothing
 
-%>
-<%StartTable 
-ShowTableHeaders(Array("Character Type Id","Character Type Name"))    
-    %>
-<%
-do until rs.eof
-%>
-    <tr>
-        <td>
-            <a href="/CharacterType/Edit.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=rs(COLUMN_CHARACTER_TYPE_ID)%>"><%=rs(COLUMN_CHARACTER_TYPE_ID)%></a>
-        </td>
-        <td>
-            <%=rs(COLUMN_CHARACTER_TYPE_NAME)%>
-        </td>
-    </tr>
-<%
-    rs.movenext
-loop
-%>
-<%EndTable %>
-<%
-rs.close
-set rs = nothing
-Set cmd = nothing
-%>
-<p><a href="/CharacterType/Add.asp">(new)</a></p>
-<%
-EndPage
+        AddLink SubPath, "new"
+    EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->
