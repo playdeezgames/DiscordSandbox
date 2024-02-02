@@ -4,14 +4,12 @@
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
 StartPage
-Dim cmd
-Set cmd = MakeSelectCommand(conn, _
+Dim rs
+Set rs = ExecuteSelectCommand(conn, _
     VIEW_CHARACTER_TYPE_STATISTIC_DETAILS, _
     Array(COLUMN_CHARACTER_TYPE_STATISTIC_ID,COLUMN_CHARACTER_TYPE_ID,COLUMN_STATISTIC_VALUE,COLUMN_MAXIMUM_VALUE,COLUMN_MINIMUM_VALUE,COLUMN_CHARACTER_TYPE_NAME,COLUMN_STATISTIC_TYPE_NAME), _
     Array(COLUMN_CHARACTER_TYPE_STATISTIC_ID), _
     Array(Request.QueryString(COLUMN_CHARACTER_TYPE_STATISTIC_ID)))
-Dim rs
-Set rs = cmd.Execute()
 rs.movefirst
 Dim CharacterTypeId
 CharacterTypeId = rs(COLUMN_CHARACTER_TYPE_ID)
@@ -69,7 +67,6 @@ CharacterTypeId = rs(COLUMN_CHARACTER_TYPE_ID)
 <%
 rs.close
 set rs = nothing
-Set cmd = nothing
         StartDeleteForm "CharacterType/Statistic"
 
 %>

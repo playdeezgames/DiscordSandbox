@@ -3,8 +3,8 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-Dim cmd
-Set cmd = MakeSelectCommand(conn, _
+Dim rs
+Set rs = ExecuteSelectCommand(conn, _
     VIEW_CARD_TYPE_GENERATOR_CARD_TYPE_DETAILS,_
     Array(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID,_
         COLUMN_CARD_TYPE_GENERATOR_ID,_
@@ -14,8 +14,6 @@ Set cmd = MakeSelectCommand(conn, _
         COLUMN_CARD_TYPE_NAME),_
     Array(COLUMN_CARD_TYPE_GENERATOR_ID),_
     Array(Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_ID)))
-Dim rs
-Set rs = cmd.Execute()
 %>
 <%StartTable 
     ShowTableHeaders(Array("Card Type Generator Card Type Id","Card Type","Generator Weight"))
@@ -40,7 +38,6 @@ loop
 <%
 rs.close
 set rs = nothing
-Set cmd = nothing
 %>
 <p><a href="/CardTypeGenerator/CardType/Add.asp?<%=COLUMN_CARD_TYPE_GENERATOR_ID%>=<%=Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_ID)%>">(new card type)</a></p>
 <!--#include virtual="inc/closeconn.inc"-->

@@ -3,8 +3,8 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-Dim cmd
-Set cmd = MakeSelectCommand(conn, _
+Dim rs
+Set rs = ExecuteSelectCommand(conn, _
     VIEW_CHARACTER_TYPE_STATISTIC_DETAILS,_
     Array(COLUMN_CHARACTER_TYPE_STATISTIC_ID,_
         COLUMN_STATISTIC_TYPE_NAME,_
@@ -13,8 +13,6 @@ Set cmd = MakeSelectCommand(conn, _
         COLUMN_MINIMUM_VALUE),_
     Array(COLUMN_CHARACTER_TYPE_ID),_
     Array(Request.QueryString(COLUMN_CHARACTER_TYPE_ID)))
-Dim rs
-Set rs = cmd.Execute()
 %>
 <%StartTable 
 ShowTableHeaders(Array("Character Type Statistic Id","Statistic Type Name","Statistic Value","Minimum Value","Maximum Value"))
@@ -47,7 +45,6 @@ loop
 <%
 rs.close
 set rs = nothing
-Set cmd = nothing
 %>
 <p><a href="/CharacterType/Statistic/Add.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=Request.QueryString(COLUMN_CHARACTER_TYPE_ID)%>">(new statistic)</a></p>
 <!--#include virtual="inc/closeconn.inc"-->

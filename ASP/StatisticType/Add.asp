@@ -3,27 +3,16 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-StartPage
-%>
-<%
-    BackToListLink "StatisticType", "Statistic Type"
-%>
-<%
-    StartInsertForm "StatisticType"
-%>
-<%StartTable %>
-    <tr>
-        <td>
-            <label for="<%=COLUMN_STATISTIC_TYPE_NAME%>">Name: </label>
-        </td>
-        <td>
-            <input name="<%=COLUMN_STATISTIC_TYPE_NAME%>" type="text" maxlength="100"/>
-        </td>
-    </tr>
-<%SubmitButton %>
-<%EndTable %>
-<%EndForm%>
-<%
-EndPage
+    Const SubPath = "StatisticType"
+    StartPage
+        BackToListLink SubPath, "Statistic Type"
+
+        StartInsertForm SubPath
+            StartTable 
+                TextInputAdd COLUMN_STATISTIC_TYPE_NAME, "Name"
+                SubmitButton 
+            EndTable 
+        EndForm
+    EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->

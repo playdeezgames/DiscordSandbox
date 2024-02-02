@@ -4,14 +4,12 @@
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
 StartPage
-Dim cmd
-Set cmd = MakeSelectCommand(conn, _
+Dim rs
+Set rs = ExecuteSelectCommand(conn, _
     VIEW_CARD_TYPE_GENERATOR_CARD_TYPE_DETAILS, _
     Array(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID,COLUMN_CARD_TYPE_GENERATOR_ID,COLUMN_CARD_TYPE_NAME,COLUMN_CARD_TYPE_GENERATOR_NAME,COLUMN_GENERATOR_WEIGHT), _
     Array(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID), _
     Array(Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID)))
-Dim rs
-Set rs = cmd.Execute()
 rs.movefirst
 Dim CardTypeGeneratorId
 CardTypeGeneratorId = rs(COLUMN_CARD_TYPE_GENERATOR_ID)
@@ -55,7 +53,6 @@ CardTypeGeneratorId = rs(COLUMN_CARD_TYPE_GENERATOR_ID)
 <%
 rs.close
 set rs = nothing
-Set cmd = nothing
         StartDeleteForm "CardTypeGenerator/CardType"
 
 %>

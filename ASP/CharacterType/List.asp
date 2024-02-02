@@ -6,6 +6,7 @@
     Const SubPath = "CharacterType"
     StartPage
         BackToMainMenuLink
+
         Dim rs
         Set rs = ExecuteSelectCommand(conn, _
             VIEW_CHARACTER_TYPE_DETAILS,_
