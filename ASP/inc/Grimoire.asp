@@ -327,4 +327,13 @@ Sub FilteredComboBoxAdd(InputName, DisplayName, Conn, TableName, OptionColumnNam
     Response.Write(MakeFilteredEditComboBox(Conn, TableName, InputName, OptionColumnName, Array(FilterColumn), Array(DataSource(FilterColumn))))
     Response.Write("</td></tr>")
 End Sub
+
+Function EmptyStringIsNull(ColumnName, DataSource)
+    Dim result
+    result = DataSource(ColumnName)
+    if len(result)=0 then
+        result = null
+    end if
+    EmptyStringIsNull = result
+End Function
 %>

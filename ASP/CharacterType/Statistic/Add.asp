@@ -3,50 +3,20 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-StartPage
-%>
-<p><a href="/CharacterType/Edit.asp?<%=COLUMN_CHARACTER_TYPE_ID%>=<%=Request.QueryString(COLUMN_CHARACTER_TYPE_ID)%>">Back To Character Type</a></p>
-<%
-    StartInsertForm "CharacterType/Statistic"
-%>
-    <input type="hidden" name="<%=COLUMN_CHARACTER_TYPE_ID%>" value="<%=Request.QueryString(COLUMN_CHARACTER_TYPE_ID)%>" />
-<%StartTable %>
-    <tr>
-        <td>
-            <label for="<%=COLUMN_STATISTIC_TYPE_ID%>">Statistic Type: </label>
-        </td>
-        <td>
-            <%=MakeFilteredEditComboBox(conn,VIEW_CHARACTER_TYPE_AVAILABLE_STATISTIC_TYPES,COLUMN_STATISTIC_TYPE_ID,COLUMN_STATISTIC_TYPE_NAME,Array(COLUMN_CHARACTER_TYPE_ID),Array(Request.QueryString(COLUMN_CHARACTER_TYPE_ID)))%>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <label for="<%=COLUMN_STATISTIC_VALUE%>">Statistic Value: </label>
-        </td>
-        <td>
-            <input name="<%=COLUMN_STATISTIC_VALUE%>" type="text"/>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <label for="<%=COLUMN_MINIMUM_VALUE%>">Minimum Value: </label>
-        </td>
-        <td>
-            <input name="<%=COLUMN_MINIMUM_VALUE%>" type="text"/>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <label for="<%=COLUMN_MAXIMUM_VALUE%>">Maximum Value: </label>
-        </td>
-        <td>
-            <input name="<%=COLUMN_MAXIMUM_VALUE%>" type="text"/>
-        </td>
-    </tr>
-<%SubmitButton %>
-<%EndTable %>
-<%EndForm%>
-<%
-EndPage
+    Const SubPath = "CharacterType/Statistic"
+    StartPage
+        BackToEditLink "CharacterType","CharacterType",COLUMN_CHARACTER_TYPE_ID,Request.QueryString
+
+        StartInsertForm SubPath
+            HiddenInput COLUMN_CHARACTER_TYPE_ID,Request.QueryString
+            StartTable 
+                FilteredComboBoxAdd COLUMN_STATISTIC_TYPE_ID, "Card Type", Conn, VIEW_CHARACTER_TYPE_AVAILABLE_STATISTIC_TYPES, COLUMN_STATISTIC_TYPE_NAME, COLUMN_CHARACTER_TYPE_ID, Request.QueryString
+                TextInputAdd COLUMN_STATISTIC_VALUE, "Statistic Value"
+                TextInputAdd COLUMN_MINIMUM_VALUE, "Minimum Value"
+                TextInputAdd COLUMN_MAXIMUM_VALUE, "Maximum Value"
+                SubmitButton 
+            EndTable 
+        EndForm
+    EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->
