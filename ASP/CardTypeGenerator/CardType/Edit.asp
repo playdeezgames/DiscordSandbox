@@ -3,68 +3,38 @@
 <!--#include virtual="inc/AdoVbs.inc"-->
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
-StartPage
-Dim rs
-Set rs = ExecuteSelectCommand(conn, _
-    VIEW_CARD_TYPE_GENERATOR_CARD_TYPE_DETAILS, _
-    Array(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID,COLUMN_CARD_TYPE_GENERATOR_ID,COLUMN_CARD_TYPE_NAME,COLUMN_CARD_TYPE_GENERATOR_NAME,COLUMN_GENERATOR_WEIGHT), _
-    Array(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID), _
-    Array(Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID)))
-rs.movefirst
-Dim CardTypeGeneratorId
-CardTypeGeneratorId = rs(COLUMN_CARD_TYPE_GENERATOR_ID)
-%>
-<p><a href="/CardTypeGenerator/Edit.asp?<%=COLUMN_CARD_TYPE_GENERATOR_ID%>=<%=CardTypeGeneratorId%>">Back To Card Type Generator</a></p>
-<%
-    StartUpdateForm "CardTypeGenerator/CardType"
-%>
-<%
-    StartTable 
-    ReadonlyTextInput COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID, "Id", rs
+    Const SubPath = "CardTypeGenerator/CardType"
+    Dim rs
+    Set rs = ExecuteSelectCommand(conn, _
+        VIEW_CARD_TYPE_GENERATOR_CARD_TYPE_DETAILS, _
+        Array(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID,COLUMN_CARD_TYPE_GENERATOR_ID,COLUMN_CARD_TYPE_NAME,COLUMN_CARD_TYPE_GENERATOR_NAME,COLUMN_GENERATOR_WEIGHT), _
+        Array(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID), _
+        Array(Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID)))
 
-%>
-    <tr>
-        <td>
-            <label for="<%=COLUMN_CARD_TYPE_GENERATOR_NAME%>">Card Type Generator: </label>
-        </td>
-        <td>
-            <%=rs(COLUMN_CARD_TYPE_GENERATOR_NAME)%>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <label for="<%=COLUMN_CARD_TYPE_NAME%>">Card Type: </label>
-        </td>
-        <td>
-            <%=rs(COLUMN_CARD_TYPE_NAME)%>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <label for="<%=COLUMN_GENERATOR_WEIGHT%>">Generator Weight: </label>
-        </td>
-        <td>
-            <input name="<%=COLUMN_GENERATOR_WEIGHT%>" type="text" value="<%=rs(COLUMN_GENERATOR_WEIGHT)%>"/>
-        </td>
-    </tr>
-<%SubmitButton %>
-<%EndTable %>
-<%EndForm%>
-<%
-rs.close
-set rs = nothing
-        StartDeleteForm "CardTypeGenerator/CardType"
+    StartPage
+        BackToEditLink "CardTypeGenerator", "Card Type Generator",COLUMN_CARD_TYPE_GENERATOR_ID,rs
 
-%>
-    <input type="hidden" name="<%=COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID%>" value="<%=Request.QueryString(COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID)%>" />
-    <input type="hidden" name="<%=COLUMN_CARD_TYPE_GENERATOR_ID%>" value="<%=CardTypeGeneratorId%>" />
-    <%StartTable 
-        ConfirmDeleteCheckbox
-        %>
-<%SubmitButton %>
-    <%EndTable %>
-<%EndForm%>
-<%
-EndPage
+        StartUpdateForm SubPath
+            StartTable 
+                ReadonlyTextInput COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID, "Id", rs
+                ReadonlyTextInput COLUMN_CARD_TYPE_GENERATOR_NAME, "Card Type Generator", rs
+                ReadonlyTextInput COLUMN_CARD_TYPE_NAME, "Card Type", rs
+                TextInputEdit COLUMN_GENERATOR_WEIGHT, "Generator Weight", rs
+                SubmitButton 
+            EndTable 
+        EndForm
+
+        StartDeleteForm SubPath
+            HiddenInput COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID, Request.QueryString
+            HiddenInput COLUMN_CARD_TYPE_GENERATOR_ID, rs
+            StartTable 
+                ConfirmDeleteCheckbox
+                SubmitButton 
+            EndTable 
+        EndForm
+    EndPage
+
+    rs.close
+    set rs = nothing
 %>
 <!--#include virtual="inc/closeconn.inc"-->

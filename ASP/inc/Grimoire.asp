@@ -197,6 +197,10 @@ Sub DeleteRecordIfConfirmed(Conn, TableName, FilterColumns, ColumnValues)
     end if
 End Sub
 
+Sub BackToEditLink(SubPath,Title,ColumnName,DataSource)
+    Response.Write("<p><a href=""/" & SubPath & "/Edit.asp?" & ColumnName & "=" & DataSource(ColumnName) & """>Back To " & Title & "</a></p>")
+End Sub
+
 Sub BackToListLink(SubPath,Title)
     Response.Write("<p><a href=""/" & SubPath & "/List.asp"">Back To " & Title & " List</a></p>")
 End Sub
@@ -302,6 +306,10 @@ Sub AddLink(SubPath,LinkText)
     Response.Write("<p><a href=""/" & SubPath & "/Add.asp"">(" & LinkText & ")</a></p>")
 End Sub
 
+Sub FilterAddLink(SubPath,LinkText, FilterColumn, DataSource)
+    Response.Write("<p><a href=""/" & SubPath & "/Add.asp?" & FilterColumn & "=" & DataSource(FilterColumn) & """>(" & LinkText & ")</a></p>")
+End Sub
+
 Sub ComboBoxAdd(InputName, DisplayName, Conn, TableName, OptionColumnName)
     Response.Write("<tr><td>" & DisplayName & ":</td><td>")
     Response.Write(MakeEditComboBox(Conn, TableName, InputName, OptionColumnName, Null))
@@ -311,6 +319,12 @@ End Sub
 Sub ComboBoxEdit(InputName, DisplayName, Conn, TableName, OptionColumnName, DataSource)
     Response.Write("<tr><td>" & DisplayName & ":</td><td>")
     Response.Write(MakeEditComboBox(Conn, TableName, InputName, OptionColumnName, DataSource(InputName)))
+    Response.Write("</td></tr>")
+End Sub
+
+Sub FilteredComboBoxAdd(InputName, DisplayName, Conn, TableName, OptionColumnName, FilterColumn, DataSource)
+    Response.Write("<tr><td>" & DisplayName & ":</td><td>")
+    Response.Write(MakeFilteredEditComboBox(Conn, TableName, InputName, OptionColumnName, Array(FilterColumn), Array(DataSource(FilterColumn))))
     Response.Write("</td></tr>")
 End Sub
 %>
