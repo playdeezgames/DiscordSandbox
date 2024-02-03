@@ -32,6 +32,8 @@
                 SubmitButton
             EndTable 
         EndForm
+
+        Server.Execute("/CardType/Effect/List.asp")
     EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->

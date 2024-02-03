@@ -29,6 +29,7 @@ Const COLUMN_MINIMUM_VALUE = "MinimumValue"
 Const COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID = "CardTypeGeneratorCardTypeId"
 Const COLUMN_GENERATOR_WEIGHT = "GeneratorWeight"
 Const COLUMN_IS_PLAYER_SELECTABLE = "IsPlayerSelectable"
+Const COLUMN_CARD_TYPE_EFFECT_ID = "CardTypeEffectId"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
@@ -41,6 +42,7 @@ Const TABLE_STATISTIC_TYPES = "StatisticTypes"
 Const TABLE_CARD_TYPE_GENERATORS = "CardTypeGenerators"
 Const TABLE_CHARACTER_TYPE_STATISTICS = "CharacterTypeStatistics"
 Const TABLE_CARD_TYPE_GENERATOR_CARD_TYPES = "CardTypeGeneratorCardTypes"
+Const TABLE_CARD_TYPE_EFFECTS = "CardTypeEffects"
 
 Const VIEW_CARD_DETAILS = "CardDetails"
 Const VIEW_CARD_TYPE_DETAILS = "CardTypeDetails"
@@ -54,6 +56,7 @@ Const VIEW_CHARACTER_TYPE_STATISTIC_DETAILS = "CharacterTypeStatisticDetails"
 Const VIEW_CHARACTER_TYPE_AVAILABLE_STATISTIC_TYPES = "CharacterTypeAvailableStatisticTypes"
 Const VIEW_CARD_TYPE_GENERATOR_CARD_TYPE_DETAILS = "CardTypeGeneratorCardTypeDetails"
 Const VIEW_CARD_TYPE_GENERATOR_AVAILABLE_CARD_TYPES = "CardTypeGeneratorAvailableCardTypes"
+Const VIEW_CARD_TYPE_EFFECT_DETAILS = "CardTypeEffectDetails"
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
     Dim result
@@ -357,4 +360,8 @@ Function EmptyStringIsFalse(ColumnName, DataSource)
     result = DataSource(ColumnName)
     EmptyStringIsFalse = len(result)>0
 End Function
+
+Sub TableCellActionButton(axn)
+    response.write("<td><input name=""axn"" type=""submit"" value=""" & axn & """/></td>")
+End Sub
 %>

@@ -140,4 +140,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="DeleteOnPlay" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="44eb40c6-9871-4500-90ae-c85221691a0f" ChangeDateTime="02/03/2024 11:11:38">
+    <Property Name="ElementName" Value="[dbo].[CardTypeEffects].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CardTypeEffects]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CardTypeEffectId" />
+  </Operation>
 </Operations>
