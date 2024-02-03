@@ -5,8 +5,14 @@
 <%
     InsertRecord Conn, _
         TABLE_CHARACTER_TYPES, _
-        Array(COLUMN_CHARACTER_TYPE_NAME), _
-        Array(Request.form(COLUMN_CHARACTER_TYPE_NAME))
+        Array(_ 
+            COLUMN_CHARACTER_TYPE_NAME, _
+            COLUMN_IS_PLAYER_SELECTABLE, _
+            COLUMN_GENERATOR_WEIGHT), _
+        Array( _
+            Request.Form(COLUMN_CHARACTER_TYPE_NAME), _ 
+            EmptyStringIsFalse(COLUMN_IS_PLAYER_SELECTABLE, Request.Form), _ 
+            Request.Form(COLUMN_GENERATOR_WEIGHT))
     RedirectToList "CharacterType"
 %>
 <!--#include virtual="inc/closeconn.inc"-->

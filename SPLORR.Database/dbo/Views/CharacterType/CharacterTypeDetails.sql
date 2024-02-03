@@ -2,6 +2,8 @@
 	AS
 SELECT
 	ct.CharacterTypeId,
-	ct.CharacterTypeName
+	ct.CharacterTypeName,
+	ct.IsPlayerSelectable,
+	ct.GeneratorWeight
 FROM
 	CharacterTypes ct

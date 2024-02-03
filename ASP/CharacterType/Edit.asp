@@ -11,14 +11,19 @@
         Dim rs
         Set rs = ExecuteSelectCommand(conn, _
             TABLE_CHARACTER_TYPES, _
-            Array(COLUMN_CHARACTER_TYPE_ID,COLUMN_CHARACTER_TYPE_NAME), _
+            Array(COLUMN_CHARACTER_TYPE_ID, _
+            COLUMN_CHARACTER_TYPE_NAME, _
+            COLUMN_IS_PLAYER_SELECTABLE, _
+            COLUMN_GENERATOR_WEIGHT), _
             Array(COLUMN_CHARACTER_TYPE_ID), _
             Array(Request.QueryString(COLUMN_CHARACTER_TYPE_ID)))
         StartUpdateForm SubPath
             StartTable 
                 ReadonlyTextInput COLUMN_CHARACTER_TYPE_ID, "Id", rs
                 TextInputEdit COLUMN_CHARACTER_TYPE_NAME, "Name", rs
-            SubmitButton 
+                CheckboxInputEdit COLUMN_IS_PLAYER_SELECTABLE, "Is Player Selectable?", rs
+                TextInputEdit COLUMN_GENERATOR_WEIGHT, "Generator Weight", rs
+                SubmitButton 
             EndTable 
         EndForm
         rs.close

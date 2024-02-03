@@ -28,6 +28,7 @@ Const COLUMN_MAXIMUM_VALUE = "MaximumValue"
 Const COLUMN_MINIMUM_VALUE = "MinimumValue"
 Const COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID = "CardTypeGeneratorCardTypeId"
 Const COLUMN_GENERATOR_WEIGHT = "GeneratorWeight"
+Const COLUMN_IS_PLAYER_SELECTABLE = "IsPlayerSelectable"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
@@ -249,6 +250,20 @@ Sub StartTable()
     Response.Write("<table border=""1"">")
 End Sub
 
+Sub CheckboxInputAdd(InputName, DisplayName)
+    Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ type=""checkbox"" value=""1""/></td></tr>")
+End Sub
+
+Sub CheckboxInputEdit(InputName, DisplayName, DataSource)
+    Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ type=""checkbox"" value=""1""")
+    Dim x
+    x = DataSource(InputName)
+    If DataSource(InputName) Then
+        Response.Write(" checked=""checked""")
+    End If
+    Response.Write("/></td></tr>")
+End Sub
+
 Sub TextInputAdd(InputName, DisplayName)
     Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ type=""text"" maxlength=""100""/></td></tr>")
 End Sub
@@ -335,5 +350,11 @@ Function EmptyStringIsNull(ColumnName, DataSource)
         result = null
     end if
     EmptyStringIsNull = result
+End Function
+
+Function EmptyStringIsFalse(ColumnName, DataSource)
+    Dim result
+    result = DataSource(ColumnName)
+    EmptyStringIsFalse = len(result)>0
 End Function
 %>
