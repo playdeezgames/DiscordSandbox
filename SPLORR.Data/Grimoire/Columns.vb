@@ -36,7 +36,6 @@
     Friend Const COLUMN_CARD_TYPE_STATISTIC_DELTA_ID = "CardTypeStatisticDeltaId"
     Friend Const COLUMN_STATISTIC_DELTA = "StatisticDelta"
     Friend Const COLUMN_ALLOW_OVERAGE = "AllowOverage"
-    Friend Const COLUMN_DELETE_ON_PLAY = "DeleteOnPlay"
     Friend Const COLUMN_CARD_TYPE_GENERATOR_NAME = "CardTypeGeneratorName"
     Friend Const COLUMN_CARD_TYPE_GENERATOR_ID = "CardTypeGeneratorId"
     Friend Const COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID = "CardTypeGeneratorCardTypeId"
