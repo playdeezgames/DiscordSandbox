@@ -84,6 +84,12 @@ Friend Class CharacterTypeStore
         End Get
     End Property
 
+    Public ReadOnly Property IsPlayerSelectable As Boolean Implements ICharacterTypeStore.IsPlayerSelectable
+        Get
+            Return connectionSource.CheckForValues(TABLE_CHARACTER_TYPES, (COLUMN_CHARACTER_TYPE_ID, Id), (COLUMN_IS_PLAYER_SELECTABLE, 1))
+        End Get
+    End Property
+
     Public Function CreateCharacter(name As String, location As ILocationStore) As ICharacterStore Implements ICharacterTypeStore.CreateCharacter
         Return New CharacterStore(
             connectionSource,

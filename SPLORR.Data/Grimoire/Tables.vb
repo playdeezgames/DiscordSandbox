@@ -13,7 +13,6 @@
     Friend Const TABLE_LOCATION_STARTS = "LocationStarts"
     Friend Const TABLE_LOCATION_TYPES = "LocationTypes"
     Friend Const TABLE_PLAYER_CHARACTERS = "PlayerCharacters"
-    Friend Const TABLE_PLAYER_CHARACTER_TYPES = "PlayerCharacterTypes"
     Friend Const TABLE_PLAYERS = "Players"
     Friend Const TABLE_STATISTIC_TYPES = "StatisticTypes"
 End Module

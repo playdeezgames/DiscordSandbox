@@ -142,7 +142,9 @@ SELECT
     {COLUMN_CHARACTER_TYPE_ID}, 
     {COLUMN_GENERATOR_WEIGHT} 
 FROM 
-    {TABLE_PLAYER_CHARACTER_TYPES};"
+    {TABLE_CHARACTER_TYPES}
+WHERE
+    {COLUMN_GENERATOR_WEIGHT}>0;"
             Using reader = command.ExecuteReader
                 While reader.Read
                     result(GetCharacterType(reader.GetInt32(0))) = reader.GetInt32(1)

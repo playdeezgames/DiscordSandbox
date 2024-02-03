@@ -8,4 +8,5 @@
     Function GetCharacterTypeGenerator() As IReadOnlyDictionary(Of ICharacterTypeStore, Integer)
     Function GetLocationGenerator() As IReadOnlyDictionary(Of ILocationStore, Integer)
     Property Character As ICharacterStore
+    ReadOnly Property Store As IDataStore
 End Interface

@@ -42,4 +42,5 @@
     Friend Const COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID = "CardTypeGeneratorCardTypeId"
     Friend Const COLUMN_EFFECT_TYPE_ID = "EffectTypeId"
     Friend Const COLUMN_EFFECT_TYPE_NAME = "EffectTypeName"
+    Friend Const COLUMN_IS_PLAYER_SELECTABLE = "IsPlayerSelectable"
 End Module

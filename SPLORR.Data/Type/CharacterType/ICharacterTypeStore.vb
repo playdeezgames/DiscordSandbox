@@ -1,5 +1,6 @@
 ﻿Public Interface ICharacterTypeStore
     Inherits IBaseTypeStore(Of IDataStore)
+    ReadOnly Property IsPlayerSelectable As Boolean
     Function CreateCharacter(name As String, location As ILocationStore) As ICharacterStore
     ReadOnly Property Statistics As IRelatedTypeStore(Of ICharacterTypeStatisticStore)
     ReadOnly Property AvailableStatistics As IRelatedTypeStore(Of IStatisticTypeStore)

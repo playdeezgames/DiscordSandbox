@@ -38,7 +38,7 @@ Friend Class PlayerStore
         End Set
     End Property
 
-    Private ReadOnly Property Store As IDataStore
+    Private ReadOnly Property Store As IDataStore Implements IPlayerStore.Store
         Get
             Return New DataStore(connectionSource())
         End Get

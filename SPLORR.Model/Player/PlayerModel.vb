@@ -22,15 +22,15 @@ Friend Class PlayerModel
         End Get
     End Property
 
-    Public Sub CreateCharacter() Implements IPlayerModel.CreateCharacter
-        Dim characterType = GenerateCharacterType()
+    Public Sub CreateCharacter(Optional characterTypeModel As ICharacterTypeModel = Nothing) Implements IPlayerModel.CreateCharacter
+        Dim characterTypeStore = If(characterTypeModel Is Nothing, GenerateCharacterType(), characterTypeModel.Store)
         Dim character = store.CreateCharacter(
             GenerateCharacterName(),
             GenerateStartingLocation(),
-            characterType,
-            characterType.Statistics.Filter("%").ToDictionary(Function(x) x.StatisticType, Function(x) (x.Value, x.Minimum, x.Maximum)))
+            characterTypeStore,
+            characterTypeStore.Statistics.Filter("%").ToDictionary(Function(x) x.StatisticType, Function(x) (x.Value, x.Minimum, x.Maximum)))
         store.Character = character
-        For Each entry In characterType.Cards.Filter("%")
+        For Each entry In characterTypeStore.Cards.Filter("%")
             For Each dummy In Enumerable.Range(0, entry.Quantity)
                 entry.CardType.CreateCard(character)
             Next
@@ -38,6 +38,14 @@ Friend Class PlayerModel
         Dim characterModel As ICharacterModel = New CharacterModel(character)
         characterModel.RefreshHand()
     End Sub
+
+    Public Function FindSelectableCharacterType(characterTypeName As String) As ICharacterTypeModel Implements IPlayerModel.FindSelectableCharacterType
+        Dim characterTypeStore = store.Store.CharacterTypes.Filter(characterTypeName).FirstOrDefault
+        If characterTypeStore IsNot Nothing AndAlso characterTypeStore.IsPlayerSelectable Then
+            Return New CharacterTypeModel(characterTypeStore)
+        End If
+        Return Nothing
+    End Function
 
     Private Function GenerateCharacterType() As ICharacterTypeStore
         Dim generator = store.GetCharacterTypeGenerator()
