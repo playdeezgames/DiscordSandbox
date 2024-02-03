@@ -125,6 +125,16 @@ Friend Module HelpMessage
     End Sub
 
     Private Sub HelpCreate(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
+        If tokens.Length = 1 Then
+            Select Case tokens.First
+                Case TOKEN_CHARACTER
+                    HelpCreateCharacter(player, tokens.Skip(1).ToArray, outputter)
+                    Return
+                Case Else
+                    InvalidMessage.Handle(player, tokens, outputter)
+                    Return
+            End Select
+        End If
         If tokens.Length <> 0 Then
             InvalidMessage.Handle(player, tokens, outputter)
             Return
@@ -132,6 +142,15 @@ Friend Module HelpMessage
         outputter($"Help for {TOKEN_CREATE}:")
         outputter($"- usage: {TOKEN_CREATE} <thing>")
         outputter($"- values for <thing>: {TOKEN_CHARACTER}")
+    End Sub
+
+    Private Sub HelpCreateCharacter(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
+        outputter($"Help for {TOKEN_CREATE} {TOKEN_CHARACTER}:")
+        outputter($"- usage: {TOKEN_CREATE} {TOKEN_CHARACTER} <character-type>")
+        outputter($"- values for <character-type>:")
+        For Each characterType In player.SelectableCharacterTypes
+            outputter($"-- {characterType.Name}")
+        Next
     End Sub
 
     Friend sub Handle(player As IPlayerModel, tokens() As String, outputter As Action(Of String))

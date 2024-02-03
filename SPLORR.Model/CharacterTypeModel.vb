@@ -7,4 +7,10 @@ Friend Class CharacterTypeModel
     End Sub
 
     Public ReadOnly Property Store As ICharacterTypeStore Implements ICharacterTypeModel.Store
+
+    Public ReadOnly Property Name As String Implements ICharacterTypeModel.Name
+        Get
+            Return Store.Name
+        End Get
+    End Property
 End Class

@@ -22,6 +22,12 @@ Friend Class PlayerModel
         End Get
     End Property
 
+    Public ReadOnly Property SelectableCharacterTypes As IEnumerable(Of ICharacterTypeModel) Implements IPlayerModel.SelectableCharacterTypes
+        Get
+            Return store.Store.CharacterTypes.All.Where(Function(x) x.IsPlayerSelectable).Select(Function(x) New CharacterTypeModel(x))
+        End Get
+    End Property
+
     Public Sub CreateCharacter(Optional characterTypeModel As ICharacterTypeModel = Nothing) Implements IPlayerModel.CreateCharacter
         Dim characterTypeStore = If(characterTypeModel Is Nothing, GenerateCharacterType(), characterTypeModel.Store)
         Dim character = store.CreateCharacter(
