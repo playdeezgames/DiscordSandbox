@@ -35,5 +35,6 @@
     EndTable
     rs.Close
     Set rs = nothing
+    Response.Write("<br/>")
 %>
 <!--#include virtual="inc/closeconn.inc"-->

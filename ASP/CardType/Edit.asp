@@ -34,6 +34,8 @@
         EndForm
 
         Server.Execute("/CardType/Effect/List.asp")
+
+        Server.Execute("/CardType/StatisticRequirement/List.asp")
     EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->

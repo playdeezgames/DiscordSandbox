@@ -73,6 +73,7 @@
     <Folder Include="dbo\Views\CharacterType" />
     <Folder Include="dbo\Views\CardTypeGenerator" />
     <Folder Include="dbo\Views\CardType\Effect" />
+    <Folder Include="dbo\Views\CardType\StatistiticRequirement" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Views\CharacterLocationOtherCharacters.sql" />
@@ -110,6 +111,9 @@
     <Build Include="dbo\Views\CardTypeGenerator\CardTypeGeneratorAvailableCardTypes.sql" />
     <Build Include="dbo\Tables\CardTypeEffects.sql" />
     <Build Include="dbo\Views\CardType\Effect\CardTypeEffectDetails.sql" />
+    <Build Include="dbo\Tables\CardTypeStatisticRequirements.sql" />
+    <Build Include="dbo\Views\CardType\StatistiticRequirement\CardTypeStatisticRequirementDetails.sql" />
+    <Build Include="dbo\Views\CardType\StatistiticRequirement\CardTypeAvailableRequirementStatisticTypes.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />

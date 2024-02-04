@@ -30,6 +30,7 @@ Const COLUMN_CARD_TYPE_GENERATOR_CARD_TYPE_ID = "CardTypeGeneratorCardTypeId"
 Const COLUMN_GENERATOR_WEIGHT = "GeneratorWeight"
 Const COLUMN_IS_PLAYER_SELECTABLE = "IsPlayerSelectable"
 Const COLUMN_CARD_TYPE_EFFECT_ID = "CardTypeEffectId"
+Const COLUMN_CARD_TYPE_STATISTIC_REQUIREMENT_ID = "CardTypeStatisticRequirementId"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
@@ -43,6 +44,7 @@ Const TABLE_CARD_TYPE_GENERATORS = "CardTypeGenerators"
 Const TABLE_CHARACTER_TYPE_STATISTICS = "CharacterTypeStatistics"
 Const TABLE_CARD_TYPE_GENERATOR_CARD_TYPES = "CardTypeGeneratorCardTypes"
 Const TABLE_CARD_TYPE_EFFECTS = "CardTypeEffects"
+Const TABLE_CARD_TYPE_STATISTIC_REQUIREMENTS = "CardTypeStatisticRequirements"
 
 Const VIEW_CARD_DETAILS = "CardDetails"
 Const VIEW_CARD_TYPE_DETAILS = "CardTypeDetails"
@@ -57,6 +59,8 @@ Const VIEW_CHARACTER_TYPE_AVAILABLE_STATISTIC_TYPES = "CharacterTypeAvailableSta
 Const VIEW_CARD_TYPE_GENERATOR_CARD_TYPE_DETAILS = "CardTypeGeneratorCardTypeDetails"
 Const VIEW_CARD_TYPE_GENERATOR_AVAILABLE_CARD_TYPES = "CardTypeGeneratorAvailableCardTypes"
 Const VIEW_CARD_TYPE_EFFECT_DETAILS = "CardTypeEffectDetails"
+Const VIEW_CARD_TYPE_STATISTIC_REQUIREMENT_DETAILS = "CardTypeStatisticRequirementDetails"
+Const VIEW_CARD_TYPE_AVAILABLE_REQUIREMENT_STATISTIC_TYPES = "CardTypeAvailableRequirementStatisticTypes"
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
     Dim result
