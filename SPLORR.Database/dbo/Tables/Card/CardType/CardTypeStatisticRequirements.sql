@@ -9,5 +9,5 @@
 	CONSTRAINT FK_CardTypeStatisticRequirements_CardTypes FOREIGN KEY ([CardTypeId]) REFERENCES CardTypes([CardTypeId]),
 	CONSTRAINT FK_CardTypeStatisticRequirements_StatisticTypes FOREIGN KEY ([StatisticTypeId]) REFERENCES StatisticTypes([StatisticTypeId]),
 	CONSTRAINT AK_CardTypeStatisticRequirements_CardTypeId_StatisticTypeId UNIQUE(CardTypeId,StatisticTypeId),
-	CONSTRAINT CK_CardTypeStatisticRequirements_MinimumValue_MaximumValue CHECK (MinimumValue IS NOT NULL OR MaximumValue IS NOT NULL)
+	CONSTRAINT CK_CardTypeStatisticRequirements_MinimumValue_MaximumValue CHECK ((MinimumValue IS NOT NULL AND MaximumValue IS NOT NULL AND MinimumValue <= MaximumValue) OR (MinimumValue IS NULL and MaximumValue IS NOT NULL) OR (MaximumValue IS NULL and MinimumValue IS NOT NULL))
 )

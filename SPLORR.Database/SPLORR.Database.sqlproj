@@ -109,11 +109,11 @@
     <Build Include="dbo\Views\CardTypeGenerator\CardTypeGeneratorDetails.sql" />
     <Build Include="dbo\Views\CardTypeGenerator\CardTypeGeneratorCardTypeDetails.sql" />
     <Build Include="dbo\Views\CardTypeGenerator\CardTypeGeneratorAvailableCardTypes.sql" />
-    <Build Include="dbo\Tables\CardTypeEffects.sql" />
     <Build Include="dbo\Views\CardType\Effect\CardTypeEffectDetails.sql" />
-    <Build Include="dbo\Tables\CardTypeStatisticRequirements.sql" />
     <Build Include="dbo\Views\CardType\StatistiticRequirement\CardTypeStatisticRequirementDetails.sql" />
     <Build Include="dbo\Views\CardType\StatistiticRequirement\CardTypeAvailableRequirementStatisticTypes.sql" />
+    <Build Include="dbo\Tables\Card\CardType\CardTypeEffects.sql" />
+    <Build Include="dbo\Tables\Card\CardType\CardTypeStatisticRequirements.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />
