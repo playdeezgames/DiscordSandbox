@@ -74,6 +74,7 @@
     <Folder Include="dbo\Views\CardTypeGenerator" />
     <Folder Include="dbo\Views\CardType\Effect" />
     <Folder Include="dbo\Views\CardType\StatistiticRequirement" />
+    <Folder Include="dbo\Views\EffectType" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Views\CharacterLocationOtherCharacters.sql" />
@@ -100,7 +101,6 @@
     <Build Include="dbo\Tables\Statistic\StatisticTypes.sql" />
     <Build Include="dbo\Views\CharacterDetails.sql" />
     <Build Include="dbo\Views\LocationTypeDetails.sql" />
-    <Build Include="dbo\Views\EffectTypeDetails.sql" />
     <Build Include="dbo\Views\StatisticTypeDetails.sql" />
     <Build Include="dbo\Views\CardType\CardTypeDetails.sql" />
     <Build Include="dbo\Views\CharacterType\CharacterTypeDetails.sql" />
@@ -114,6 +114,10 @@
     <Build Include="dbo\Views\CardType\StatistiticRequirement\CardTypeAvailableRequirementStatisticTypes.sql" />
     <Build Include="dbo\Tables\Card\CardType\CardTypeEffects.sql" />
     <Build Include="dbo\Tables\Card\CardType\CardTypeStatisticRequirements.sql" />
+    <Build Include="dbo\Views\EffectType\EffectTypeDetails.sql" />
+    <Build Include="dbo\Views\EffectType\EffectTypeStatisticDeltaDetails.sql" />
+    <Build Include="dbo\Tables\Effect\EffectTypeStatisticDeltas.sql" />
+    <Build Include="dbo\Tables\Effect\EffectTypeAvailableDeltaStatisticTypes.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />

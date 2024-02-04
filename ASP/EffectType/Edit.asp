@@ -30,6 +30,8 @@
                 SubmitButton 
             EndTable 
         EndForm
+
+        Server.Execute("/EffectType/StatisticDelta/List.asp")
     EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->
