@@ -32,6 +32,7 @@ Const COLUMN_IS_PLAYER_SELECTABLE = "IsPlayerSelectable"
 Const COLUMN_CARD_TYPE_EFFECT_ID = "CardTypeEffectId"
 Const COLUMN_CARD_TYPE_STATISTIC_REQUIREMENT_ID = "CardTypeStatisticRequirementId"
 Const COLUMN_EFFECT_TYPE_STATISTIC_DELTA_ID = "EffectTypeStatisticDeltaId"
+Const COLUMN_EFFECT_TYPE_CARD_TYPE_GENERATOR_ID = "EffectTypeCardTypeGeneratorId"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
@@ -47,6 +48,7 @@ Const TABLE_CARD_TYPE_GENERATOR_CARD_TYPES = "CardTypeGeneratorCardTypes"
 Const TABLE_CARD_TYPE_EFFECTS = "CardTypeEffects"
 Const TABLE_CARD_TYPE_STATISTIC_REQUIREMENTS = "CardTypeStatisticRequirements"
 Const TABLE_EFFECT_TYPE_STATISTIC_DELTAS = "EffectTypeStatisticDeltas"
+Const TABLE_EFFECT_TYPE_CARD_TYPE_GENERATORS = "EffectTypeCardTypeGenerators"
 
 Const VIEW_CARD_DETAILS = "CardDetails"
 Const VIEW_CARD_TYPE_DETAILS = "CardTypeDetails"
@@ -65,6 +67,8 @@ Const VIEW_CARD_TYPE_STATISTIC_REQUIREMENT_DETAILS = "CardTypeStatisticRequireme
 Const VIEW_CARD_TYPE_AVAILABLE_REQUIREMENT_STATISTIC_TYPES = "CardTypeAvailableRequirementStatisticTypes"
 Const VIEW_EFFECT_TYPE_STATISTIC_DELTA_DETAILS = "EffectTypeStatisticDeltaDetails"
 Const VIEW_EFFECT_TYPE_AVAILABLE_DELTA_STATISTIC_TYPES = "EffectTypeAvailableDeltaStatisticTypes"
+Const VIEW_EFFECT_TYPE_CARD_TYPE_GENERATOR_DETAILS = "EffectTypeCardTypeGeneratorDetails"
+Const VIEW_EFFECT_TYPE_AVAILABLE_CARD_TYPE_GENERATORS = "EffectTypeAvailableCardTypeGenerators"
 
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
