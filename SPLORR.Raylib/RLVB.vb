@@ -1,7 +1,9 @@
 ﻿Imports Raylib_cs
 
 Public Module RLVB
-    Sub InitWindow(size As (Width As Integer, Height As Integer), title As String)
+    Sub InitWindow(
+                  size As (Width As Integer, Height As Integer),
+                  title As String)
         Raylib_cs.Raylib.InitWindow(size.Width, size.Height, title)
     End Sub
     Sub SetTargetFPS(fps As Integer)
@@ -22,10 +24,34 @@ Public Module RLVB
     Sub ClearBackground(color As Color)
         Raylib_cs.Raylib.ClearBackground(color)
     End Sub
-    Sub DrawText(text As String, position As (X As Integer, Y As Integer), fontSize As Integer, color As Color)
-        Raylib_cs.Raylib.DrawText(text, position.X, position.Y, fontSize, color)
+    Sub DrawText(
+                text As String,
+                position As (X As Integer, Y As Integer),
+                fontSize As Integer,
+                color As Color)
+        Raylib_cs.Raylib.DrawText(
+            text,
+            position.X,
+            position.Y,
+            fontSize,
+            color)
     End Sub
-    Function MeasureText(text As String, fontSize As Integer) As Integer
-        Return Raylib_cs.Raylib.MeasureText(text, fontSize)
+    Function MeasureText(
+                        text As String,
+                        fontSize As Integer) As Integer
+        Return Raylib_cs.Raylib.MeasureText(
+            text,
+            fontSize)
     End Function
+    Sub DrawRectangle(
+                     position As (X As Integer, Y As Integer),
+                     size As (Width As Integer, Height As Integer),
+                     color As Color)
+        Raylib_cs.Raylib.DrawRectangle(
+            position.X,
+            position.Y,
+            size.Width,
+            size.Height,
+            color)
+    End Sub
 End Module
