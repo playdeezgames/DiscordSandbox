@@ -20,6 +20,17 @@ Friend Class CardTypeStore
         End Get
     End Property
 
+    Public ReadOnly Property Requirements As IEnumerable(Of ICardTypeStatisticRequirementStore) Implements ICardTypeStore.Requirements
+        Get
+            Return connectionSource.ReadIntegersForValues(
+                TABLE_CARD_TYPE_STATISTIC_REQUIREMENTS,
+                {(COLUMN_CARD_TYPE_ID, Id)},
+                {},
+                COLUMN_CARD_TYPE_STATISTIC_REQUIREMENT_ID).
+                Select(Function(x) New CardTypeStatisticRequirementStore(connectionSource, x))
+        End Get
+    End Property
+
     Public Function CreateCard(store As ICharacterStore) As ICardStore Implements ICardTypeStore.CreateCard
         Return New CardStore(
             connectionSource,

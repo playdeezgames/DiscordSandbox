@@ -15,5 +15,6 @@
     Friend Const TABLE_PLAYER_CHARACTERS = "PlayerCharacters"
     Friend Const TABLE_PLAYERS = "Players"
     Friend Const TABLE_STATISTIC_TYPES = "StatisticTypes"
+    Friend Const TABLE_CARD_TYPE_STATISTIC_REQUIREMENTS = "CardTypeStatisticRequirements"
 End Module
 
