@@ -1,6 +1,12 @@
 ﻿Imports Raylib_cs
 
 Public Module RLVB
+    Function GetKeyPressed() As Integer
+        Return Raylib_cs.Raylib.GetKeyPressed()
+    End Function
+    Function GetGamepadButtonPressed() As Integer
+        Return Raylib_cs.Raylib.GetGamepadButtonPressed()
+    End Function
     Sub InitWindow(
                   size As (Width As Integer, Height As Integer),
                   title As String)

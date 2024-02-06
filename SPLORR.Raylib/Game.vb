@@ -1,4 +1,4 @@
-Module Program
+﻿Public Class Game
     Const CELL_WIDTH = 16
     Const CELL_HEIGHT = 16
     Const CELL_COLUMNS = 80
@@ -7,13 +7,11 @@ Module Program
     Const SCREEN_HEIGHT = CELL_HEIGHT * CELL_ROWS
     Const FPS = 60
     Const WINDOW_TITLE = "SPLORR!!"
+
     Dim lastButton As Integer = -1
     Dim position As (X As Integer, Y As Integer) = (CELL_COLUMNS \ 2, CELL_ROWS \ 2)
-    Sub Main(args As String())
-        Run()
-    End Sub
 
-    Private Sub Run()
+    Public Sub Run()
         InitWindow(
             (SCREEN_WIDTH, SCREEN_HEIGHT),
             WINDOW_TITLE)
@@ -69,4 +67,4 @@ Module Program
             lastButton = button
         End If
     End Sub
-End Module
+End Class
