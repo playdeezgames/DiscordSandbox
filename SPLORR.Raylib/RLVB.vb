@@ -1,8 +1,20 @@
 ﻿Imports Raylib_cs
 
 Public Module RLVB
-    Function GetKeyPressed() As Integer
+    Private Function GetKeyPressed() As Integer
         Return Raylib_cs.Raylib.GetKeyPressed()
+    End Function
+
+    Function GetKeysPressed() As IEnumerable(Of Integer)
+        Dim result As New List(Of Integer)
+        Dim key As Integer
+        Do
+            key = GetKeyPressed()
+            If key <> 0 Then
+                result.Add(key)
+            End If
+        Loop Until key = 0
+        Return result
     End Function
     Function GetGamepadButtonPressed() As Integer
         Return Raylib_cs.Raylib.GetGamepadButtonPressed()
@@ -11,6 +23,7 @@ Public Module RLVB
                   size As (Width As Integer, Height As Integer),
                   title As String)
         Raylib_cs.Raylib.InitWindow(size.Width, size.Height, title)
+        Raylib_cs.Raylib.SetExitKey(KeyboardKey.Null)
     End Sub
     Sub SetTargetFPS(fps As Integer)
         Raylib_cs.Raylib.SetTargetFPS(fps)

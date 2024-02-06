@@ -1,19 +1,17 @@
 ﻿Public Class Game
-    Const CELL_WIDTH = 16
-    Const CELL_HEIGHT = 16
-    Const CELL_COLUMNS = 80
-    Const CELL_ROWS = 45
-    Const SCREEN_WIDTH = CELL_WIDTH * CELL_COLUMNS
-    Const SCREEN_HEIGHT = CELL_HEIGHT * CELL_ROWS
+    ReadOnly CELL_SIZE As (Width As Integer, Height As Integer) = (16, 16)
+    ReadOnly GRID_SIZE As (Width As Integer, Height As Integer) = (80, 45)
+    ReadOnly SCREEN_SIZE As (Width As Integer, Height As Integer) = SizesMultiply(CELL_SIZE, GRID_SIZE)
+
     Const FPS = 60
     Const WINDOW_TITLE = "SPLORR!!"
 
-    Dim lastButton As Integer = -1
-    Dim position As (X As Integer, Y As Integer) = (CELL_COLUMNS \ 2, CELL_ROWS \ 2)
+    Dim lastButton As Integer = 0
+    Dim position As (X As Integer, Y As Integer) = (GRID_SIZE.Width \ 2, GRID_SIZE.Height \ 2)
 
     Public Sub Run()
         InitWindow(
-            (SCREEN_WIDTH, SCREEN_HEIGHT),
+            SCREEN_SIZE,
             WINDOW_TITLE)
         SetTargetFPS(FPS)
         Do Until WindowShouldClose()
@@ -27,44 +25,87 @@
         BeginDrawing()
         ClearBackground(Color.Black)
         DrawRectangle(
-            (position.X * CELL_WIDTH, position.Y * CELL_HEIGHT),
-            (CELL_WIDTH, CELL_HEIGHT),
+            PointSizeMultiply(position, CELL_SIZE),
+            CELL_SIZE,
             Color.Green)
         EndDrawing()
     End Sub
 
+    Private deltas As IReadOnlyDictionary(Of Direction, (X As Integer, Y As Integer)) =
+        New Dictionary(Of Direction, (X As Integer, Y As Integer)) From
+        {
+            {Direction.Up, (0, -1)},
+            {Direction.Right, (1, 0)},
+            {Direction.Down, (0, 1)},
+            {Direction.Left, (-1, 0)}
+        }
+
+    Private Sub MoveUp()
+        position = PointsAdd(position, deltas(Direction.Up))
+    End Sub
+
+    Private Sub MoveDown()
+        position = PointsAdd(position, deltas(Direction.Down))
+    End Sub
+
+    Private Sub MoveLeft()
+        position = PointsAdd(position, deltas(Direction.Left))
+    End Sub
+
+    Private Sub MoveRight()
+        position = PointsAdd(position, deltas(Direction.Right))
+    End Sub
+
+    Private ReadOnly keyHandlers As IReadOnlyDictionary(Of Integer, Action) =
+        New Dictionary(Of Integer, Action) From
+        {
+            {KeyboardKey.Up, AddressOf MoveUp},
+            {KeyboardKey.Down, AddressOf MoveDown},
+            {KeyboardKey.Left, AddressOf MoveLeft},
+            {KeyboardKey.Right, AddressOf MoveRight},
+            {KeyboardKey.Escape, AddressOf RedButton},
+            {KeyboardKey.Space, AddressOf GreenButton}
+        }
+
     Private Sub Update()
-        Dim key = GetKeyPressed()
-        Do Until key = 0
-            Select Case key
-                Case KeyboardKey.Up
-                    position = (position.X, position.Y - 1)
-                Case KeyboardKey.Down
-                    position = (position.X, position.Y + 1)
-                Case KeyboardKey.Left
-                    position = (position.X - 1, position.Y)
-                Case KeyboardKey.Right
-                    position = (position.X + 1, position.Y)
-            End Select
-            key = GetKeyPressed()
-        Loop
+        HandleKeyInput()
+        HandleGamePadInput()
+    End Sub
+
+    Private ReadOnly buttonHandlers As IReadOnlyDictionary(Of Integer, Action) =
+        New Dictionary(Of Integer, Action) From
+        {
+            {1, AddressOf MoveUp},
+            {2, AddressOf MoveRight},
+            {3, AddressOf MoveDown},
+            {4, AddressOf MoveLeft},
+            {6, AddressOf RedButton},
+            {7, AddressOf GreenButton}
+        }
+
+    Private Sub GreenButton()
+    End Sub
+
+    Private Sub RedButton()
+    End Sub
+
+    Private Sub HandleGamePadInput()
         Dim button = GetGamepadButtonPressed()
         If button <> lastButton Then
-            Select Case button
-                Case 1
-                    position = (position.X, position.Y - 1)
-                Case 2
-                    position = (position.X + 1, position.Y)
-                Case 3
-                    position = (position.X, position.Y + 1)
-                Case 4
-                    position = (position.X - 1, position.Y)
-                Case 6
-                        'b button
-                Case 7
-                    'a button
-            End Select
+            Dim axn As Action = Nothing
+            If buttonHandlers.TryGetValue(button, axn) Then
+                axn.Invoke
+            End If
             lastButton = button
         End If
+    End Sub
+
+    Private Sub HandleKeyInput()
+        For Each key In GetKeysPressed()
+            Dim axn As Action = Nothing
+            If keyHandlers.TryGetValue(key, axn) Then
+                axn.Invoke
+            End If
+        Next
     End Sub
 End Class
