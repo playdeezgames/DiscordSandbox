@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[CharacterAvailableStatistics]
+﻿CREATE VIEW [dbo].[CharacterAvailableStatisticTypes]
 	AS
 SELECT
 	c.CharacterId,

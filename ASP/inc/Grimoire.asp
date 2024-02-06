@@ -33,6 +33,7 @@ Const COLUMN_CARD_TYPE_EFFECT_ID = "CardTypeEffectId"
 Const COLUMN_CARD_TYPE_STATISTIC_REQUIREMENT_ID = "CardTypeStatisticRequirementId"
 Const COLUMN_EFFECT_TYPE_STATISTIC_DELTA_ID = "EffectTypeStatisticDeltaId"
 Const COLUMN_EFFECT_TYPE_CARD_TYPE_GENERATOR_ID = "EffectTypeCardTypeGeneratorId"
+Const COLUMN_CHARACTER_STATISTIC_ID = "CharacterStatisticId"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
@@ -49,6 +50,7 @@ Const TABLE_CARD_TYPE_EFFECTS = "CardTypeEffects"
 Const TABLE_CARD_TYPE_STATISTIC_REQUIREMENTS = "CardTypeStatisticRequirements"
 Const TABLE_EFFECT_TYPE_STATISTIC_DELTAS = "EffectTypeStatisticDeltas"
 Const TABLE_EFFECT_TYPE_CARD_TYPE_GENERATORS = "EffectTypeCardTypeGenerators"
+Const TABLE_CHARACTER_STATISTICS = "CharacterStatistics"
 
 Const VIEW_CARD_DETAILS = "CardDetails"
 Const VIEW_CARD_TYPE_DETAILS = "CardTypeDetails"
@@ -69,7 +71,8 @@ Const VIEW_EFFECT_TYPE_STATISTIC_DELTA_DETAILS = "EffectTypeStatisticDeltaDetail
 Const VIEW_EFFECT_TYPE_AVAILABLE_DELTA_STATISTIC_TYPES = "EffectTypeAvailableDeltaStatisticTypes"
 Const VIEW_EFFECT_TYPE_CARD_TYPE_GENERATOR_DETAILS = "EffectTypeCardTypeGeneratorDetails"
 Const VIEW_EFFECT_TYPE_AVAILABLE_CARD_TYPE_GENERATORS = "EffectTypeAvailableCardTypeGenerators"
-
+Const VIEW_CHARACTER_STATISTIC_DETAILS = "CharacterStatisticDetails"
+Const VIEW_CHARACTER_AVAILABLE_STATISTIC_TYPES = "CharacterAvailableStatisticTypes"
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
     Dim result
@@ -89,7 +92,7 @@ Function MakeSelectCommand(Conn, TableName, ShowColumns, FilterColumns, FilterVa
         MakeSelectCommand.Parameters.Refresh
         Dim index
         for index=0 to ubound(FilterValues)
-            MakeSelectCommand.Parameters(index)=FilterValues(index)
+            MakeSelectCommand.Parameters(index) = FilterValues(index)
         next
     end if
 End Function

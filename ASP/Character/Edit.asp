@@ -29,6 +29,8 @@
                 SubmitButton 
             EndTable 
         EndForm
+
+        Server.Execute("/Character/Statistic/List.asp")
     EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->
