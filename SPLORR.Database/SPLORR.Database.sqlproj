@@ -128,7 +128,7 @@
     <Build Include="dbo\Views\LocationType\LocationTypeDetails.sql" />
     <Build Include="dbo\Views\Character\Statistic\CharacterAvailableStatisticTypes.sql" />
     <Build Include="dbo\Views\Character\Statistic\CharacterStatisticDetails.sql" />
-    <Build Include="dbo\Views\CardStatisticDeltas.sql" />
+    <Build Include="dbo\Views\Card\CardStatisticDeltas.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />
