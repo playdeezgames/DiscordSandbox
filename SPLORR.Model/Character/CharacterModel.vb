@@ -110,6 +110,12 @@ Friend Class CharacterModel
         End Get
     End Property
 
+    Public ReadOnly Property GetStatistic(statisticType As IStatisticTypeModel) As ICharacterStatisticModel Implements ICharacterModel.GetStatistic
+        Get
+            Return New CharacterStatisticModel(Store.Statistics.FromName(statisticType.Name))
+        End Get
+    End Property
+
     Public Sub RefreshHand() Implements ICharacterModel.RefreshHand
         DiscardHand()
         DrawHand()

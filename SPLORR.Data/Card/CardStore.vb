@@ -65,6 +65,16 @@ Friend Class CardStore
         End Get
     End Property
 
+    Public ReadOnly Property StatisticDeltas As IEnumerable(Of ICardStatisticDeltaStore) Implements ICardStore.StatisticDeltas
+        Get
+            Return connectionSource.ReadIntegerTuplesForValues(
+                VIEW_CARD_STATISTIC_DELTAS,
+                {(COLUMN_CARD_ID, Id)},
+                {},
+                (COLUMN_STATISTIC_TYPE_ID, COLUMN_STATISTIC_VALUE)).Select(Function(x) New CardStatisticDeltaStore(connectionSource, x))
+        End Get
+    End Property
+
     Public Sub AddToHand() Implements ICardStore.AddToHand
         connectionSource.WriteValuesForValues(
                 TABLE_CARDS,

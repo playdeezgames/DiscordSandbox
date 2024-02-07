@@ -20,4 +20,5 @@ Public Interface ICharacterModel
     ReadOnly Property Store As ICharacterStore
     Function Rest() As IEnumerable(Of String)
     ReadOnly Property Inventory As IReadOnlyDictionary(Of String, Integer)
+    ReadOnly Property GetStatistic(statisticType As IStatisticTypeModel) As ICharacterStatisticModel
 End Interface

@@ -42,6 +42,18 @@ Friend Class CardModel
         End Get
     End Property
 
+    Public ReadOnly Property Character As ICharacterModel Implements ICardModel.Character
+        Get
+            Return New CharacterModel(Store.Character)
+        End Get
+    End Property
+
+    Public ReadOnly Property StatisticDeltas As IEnumerable(Of ICardStatisticDeltaModel) Implements ICardModel.StatisticDeltas
+        Get
+            Return Store.StatisticDeltas.Select(Function(x) New CardStatisticDeltaModel(x))
+        End Get
+    End Property
+
     Public Sub New(store As ICardStore)
         Me.Store = store
     End Sub
@@ -51,6 +63,9 @@ Friend Class CardModel
     End Sub
 
     Public Sub Play(outputter As Action(Of String)) Implements ICardModel.Play
+        For Each statisticDelta In StatisticDeltas
+            Character.GetStatistic(statisticDelta.StatisticType).Value += statisticDelta.Delta
+        Next
         Discard()
     End Sub
 End Class

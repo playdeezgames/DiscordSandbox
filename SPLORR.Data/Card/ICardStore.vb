@@ -6,4 +6,5 @@
     Sub AddToHand()
     Sub Discard()
     ReadOnly Property CardType As ICardTypeStore
+    ReadOnly Property StatisticDeltas As IEnumerable(Of ICardStatisticDeltaStore)
 End Interface

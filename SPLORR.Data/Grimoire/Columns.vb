@@ -34,7 +34,6 @@
     Friend Const COLUMN_MINIMUM_VALUE = "MinimumValue"
     Friend Const COLUMN_MAXIMUM_VALUE = "MaximumValue"
     Friend Const COLUMN_CARD_TYPE_STATISTIC_DELTA_ID = "CardTypeStatisticDeltaId"
-    Friend Const COLUMN_STATISTIC_DELTA = "StatisticDelta"
     Friend Const COLUMN_ALLOW_OVERAGE = "AllowOverage"
     Friend Const COLUMN_CARD_TYPE_GENERATOR_NAME = "CardTypeGeneratorName"
     Friend Const COLUMN_CARD_TYPE_GENERATOR_ID = "CardTypeGeneratorId"

@@ -5,4 +5,6 @@ Public Interface ICardModel
     ReadOnly Property Store As ICardStore
     ReadOnly Property CanPlay As Boolean
     Sub Play(outputter As Action(Of String))
+    ReadOnly Property Character As ICharacterModel
+    ReadOnly Property StatisticDeltas As IEnumerable(Of ICardStatisticDeltaModel)
 End Interface
