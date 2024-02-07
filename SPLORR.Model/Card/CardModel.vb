@@ -64,6 +64,7 @@ Friend Class CardModel
 
     Public Sub Play(outputter As Action(Of String)) Implements ICardModel.Play
         For Each statisticDelta In StatisticDeltas
+            outputter($"{statisticDelta.Delta} {statisticDelta.StatisticType.Name}")
             Character.GetStatistic(statisticDelta.StatisticType).Value += statisticDelta.Delta
         Next
         Discard()
