@@ -14,6 +14,8 @@ Friend Module CharacterMessage
                         outputter($"Health: {character.Health}/{character.MaximumHealth}")
                         outputter($"Satiety: {character.Satiety}/{character.MaximumSatiety}")
                         outputter($"Energy: {character.Energy}/{character.MaximumEnergy}")
+                        outputter($"Rocks: {character.Rocks}")
+                        outputter($"Plant Fibers: {character.PlantFibers}")
                     End Sub)
             End Sub)
     End Sub

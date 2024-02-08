@@ -17,6 +17,8 @@ Public Interface ICharacterModel
     ReadOnly Property Energy As Integer
     ReadOnly Property MaximumEnergy As Integer
     ReadOnly Property HandSize As Integer
+    ReadOnly Property Rocks As Integer
+    ReadOnly Property PlantFibers As Integer
     ReadOnly Property Store As ICharacterStore
     Function Rest() As IEnumerable(Of String)
     Sub AddCard(cardType As ICardTypeModel)

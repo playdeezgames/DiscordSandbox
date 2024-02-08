@@ -116,6 +116,18 @@ Friend Class CharacterModel
         End Get
     End Property
 
+    Public ReadOnly Property Rocks As Integer Implements ICharacterModel.Rocks
+        Get
+            Return Store.Statistics.FromName(STATISTIC_TYPE_ROCKS).Value
+        End Get
+    End Property
+
+    Public ReadOnly Property PlantFibers As Integer Implements ICharacterModel.PlantFibers
+        Get
+            Return Store.Statistics.FromName(STATISTIC_TYPE_PLANT_FIBERS).Value
+        End Get
+    End Property
+
     Public Sub RefreshHand() Implements ICharacterModel.RefreshHand
         DiscardHand()
         DrawHand()
