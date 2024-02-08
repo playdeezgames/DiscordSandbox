@@ -11,7 +11,10 @@
         Dim rs
         Set rs = ExecuteSelectCommand(conn, _
             TABLE_CARD_TYPES, _
-            Array(COLUMN_CARD_TYPE_ID,COLUMN_CARD_TYPE_NAME), _
+            Array( _
+                COLUMN_CARD_TYPE_ID, _
+                COLUMN_CARD_TYPE_NAME, _
+                COLUMN_SELF_DESTRUCT), _
             Array(COLUMN_CARD_TYPE_ID), _
             Array(Request.QueryString(COLUMN_CARD_TYPE_ID)))
 
@@ -19,6 +22,7 @@
             StartTable 
                 ReadonlyTextInput COLUMN_CARD_TYPE_ID, "Id", rs
                 TextInputEdit COLUMN_CARD_TYPE_NAME, "Name", rs
+                CheckboxInputEdit COLUMN_SELF_DESTRUCT, "Self Destruct", rs
                 SubmitButton
             EndTable 
         EndForm

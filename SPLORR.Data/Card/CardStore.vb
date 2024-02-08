@@ -86,6 +86,12 @@ Friend Class CardStore
         End Get
     End Property
 
+    Public ReadOnly Property SelfDestructs As Boolean Implements ICardStore.SelfDestructs
+        Get
+            Return CardType.SelfDestructs
+        End Get
+    End Property
+
     Public Sub AddToHand() Implements ICardStore.AddToHand
         connectionSource.WriteValuesForValues(
                 TABLE_CARDS,

@@ -9,16 +9,20 @@
         Dim rs
         Set rs = ExecuteSelectCommand(conn, _
             VIEW_CARD_TYPE_DETAILS,_
-            Array(COLUMN_CARD_TYPE_ID,COLUMN_CARD_TYPE_NAME),_
+            Array( _
+                COLUMN_CARD_TYPE_ID, _
+                COLUMN_CARD_TYPE_NAME, _
+                COLUMN_SELF_DESTRUCT),_
             Null,_
             Null)
 
         StartTable 
-            ShowTableHeaders(Array("Card Type Id","Card Type Name"))
+            ShowTableHeaders(Array("Card Type Id","Card Type Name","Self Destruct"))
             do until rs.eof
                 StartTableRow
                     TableCellEditLink "CardType", COLUMN_CARD_TYPE_ID, rs
                     TableCell COLUMN_CARD_TYPE_NAME, rs
+                    TableCell COLUMN_SELF_DESTRUCT, rs
                 EndTableRow
                 rs.movenext
             loop

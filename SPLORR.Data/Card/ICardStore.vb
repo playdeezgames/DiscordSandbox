@@ -3,6 +3,7 @@
     ReadOnly Property Character As ICharacterStore
     WriteOnly Property DrawOrder As Integer
     ReadOnly Property InHand As Boolean
+    ReadOnly Property SelfDestructs As Boolean
     Sub AddToHand()
     Sub Discard()
     ReadOnly Property CardType As ICardTypeStore

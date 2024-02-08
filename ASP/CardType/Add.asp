@@ -10,6 +10,7 @@
         StartInsertForm "CardType"
             StartTable 
                 TextInputAdd COLUMN_CARD_TYPE_NAME, "Name"
+                CheckboxInputAdd COLUMN_SELF_DESTRUCT, "Self Destruct"
                 SubmitButton 
             EndTable 
         EndForm

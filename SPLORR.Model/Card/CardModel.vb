@@ -64,6 +64,10 @@ Friend Class CardModel
     End Sub
 
     Private Sub Discard()
+        If Store.SelfDestructs Then
+            Store.Delete()
+            Return
+        End If
         Store.Discard()
     End Sub
 
