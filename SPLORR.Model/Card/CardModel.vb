@@ -59,6 +59,12 @@ Friend Class CardModel
         End Get
     End Property
 
+    Public ReadOnly Property Destinations As IEnumerable(Of ILocationModel) Implements ICardModel.Destinations
+        Get
+            Return Store.Destinations.Select(Function(x) New LocationModel(x))
+        End Get
+    End Property
+
     Public Sub New(store As ICardStore)
         Me.Store = store
     End Sub
@@ -81,6 +87,10 @@ Friend Class CardModel
             outputter($"*NEW CARD!* {cardType.Name}")
             Character.AddCard(cardType)
         Next
+        Dim destinationLocations As IEnumerable(Of ILocationModel) = Me.Destinations
+        If destinationLocations.Any Then
+            Character.Location = RNG.FromEnumerable(destinationLocations)
+        End If
         Discard()
     End Sub
 End Class

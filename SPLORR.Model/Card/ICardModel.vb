@@ -8,4 +8,5 @@ Public Interface ICardModel
     ReadOnly Property Character As ICharacterModel
     ReadOnly Property StatisticDeltas As IEnumerable(Of ICardStatisticDeltaModel)
     ReadOnly Property CardTypeGenerators As IEnumerable(Of ICardTypeGeneratorModel)
+    ReadOnly Property Destinations As IEnumerable(Of ILocationModel)
 End Interface

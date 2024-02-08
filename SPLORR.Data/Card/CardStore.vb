@@ -92,6 +92,16 @@ Friend Class CardStore
         End Get
     End Property
 
+    Public ReadOnly Property Destinations As IEnumerable(Of ILocationStore) Implements ICardStore.Destinations
+        Get
+            Return connectionSource.ReadIntegersForValues(
+                VIEW_CARD_LOCATIONS,
+                {(COLUMN_CARD_ID, Id)},
+                {},
+                COLUMN_LOCATION_ID).Select(Function(x) New LocationStore(connectionSource, x))
+        End Get
+    End Property
+
     Public Sub AddToHand() Implements ICardStore.AddToHand
         connectionSource.WriteValuesForValues(
                 TABLE_CARDS,
