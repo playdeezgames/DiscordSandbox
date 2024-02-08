@@ -75,6 +75,17 @@ Friend Class CardStore
         End Get
     End Property
 
+    Public ReadOnly Property CardTypeGenerators As IEnumerable(Of ICardTypeGeneratorStore) Implements ICardStore.CardTypeGenerators
+        Get
+            Return connectionSource.ReadIntegersForValues(
+                VIEW_CARD_CARD_TYPE_GENERATORS,
+                {(COLUMN_CARD_ID, Id)},
+                {},
+                COLUMN_CARD_TYPE_GENERATOR_ID).
+                    Select(Function(x) New CardTypeGeneratorStore(connectionSource, x))
+        End Get
+    End Property
+
     Public Sub AddToHand() Implements ICardStore.AddToHand
         connectionSource.WriteValuesForValues(
                 TABLE_CARDS,

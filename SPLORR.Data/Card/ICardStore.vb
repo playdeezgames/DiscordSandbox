@@ -7,4 +7,5 @@
     Sub Discard()
     ReadOnly Property CardType As ICardTypeStore
     ReadOnly Property StatisticDeltas As IEnumerable(Of ICardStatisticDeltaStore)
+    ReadOnly Property CardTypeGenerators As IEnumerable(Of ICardTypeGeneratorStore)
 End Interface

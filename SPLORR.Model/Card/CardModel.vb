@@ -3,7 +3,6 @@ Imports SPLORR.Game
 
 Friend Class CardModel
     Implements ICardModel
-
     Public ReadOnly Property Store As ICardStore Implements ICardModel.Store
 
     Public ReadOnly Property Name As String Implements ICardModel.Name
@@ -54,6 +53,12 @@ Friend Class CardModel
         End Get
     End Property
 
+    Public ReadOnly Property CardTypeGenerators As IEnumerable(Of ICardTypeGeneratorModel) Implements ICardModel.CardTypeGenerators
+        Get
+            Return Store.CardTypeGenerators.Select(Function(x) New CardTypeGeneratorModel(x))
+        End Get
+    End Property
+
     Public Sub New(store As ICardStore)
         Me.Store = store
     End Sub
@@ -66,6 +71,11 @@ Friend Class CardModel
         For Each statisticDelta In StatisticDeltas
             outputter($"{statisticDelta.Delta} {statisticDelta.StatisticType.Name}")
             Character.GetStatistic(statisticDelta.StatisticType).Value += statisticDelta.Delta
+        Next
+        For Each cardTypeGenerator In CardTypeGenerators
+            Dim cardType = cardTypeGenerator.GenerateCardType()
+            outputter($"*NEW CARD!* {cardType.Name}")
+            Character.AddCard(cardType)
         Next
         Discard()
     End Sub

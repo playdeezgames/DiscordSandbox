@@ -202,4 +202,8 @@ Friend Class CharacterModel
         RefreshHand()
         Return result
     End Function
+
+    Public Sub AddCard(cardType As ICardTypeModel) Implements ICharacterModel.AddCard
+        cardType.Store.CreateCard(Store)
+    End Sub
 End Class

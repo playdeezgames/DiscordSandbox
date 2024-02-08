@@ -19,6 +19,7 @@ Public Interface ICharacterModel
     ReadOnly Property HandSize As Integer
     ReadOnly Property Store As ICharacterStore
     Function Rest() As IEnumerable(Of String)
+    Sub AddCard(cardType As ICardTypeModel)
     ReadOnly Property Inventory As IReadOnlyDictionary(Of String, Integer)
     ReadOnly Property GetStatistic(statisticType As IStatisticTypeModel) As ICharacterStatisticModel
 End Interface
