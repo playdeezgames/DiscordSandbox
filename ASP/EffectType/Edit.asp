@@ -34,6 +34,8 @@
         Server.Execute("/EffectType/StatisticDelta/List.asp")
 
         Server.Execute("/EffectType/CardTypeGenerator/List.asp")
+
+        Server.Execute("/EffectType/Location/List.asp")
     EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->

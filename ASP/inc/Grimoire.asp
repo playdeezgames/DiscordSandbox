@@ -35,6 +35,7 @@ Const COLUMN_EFFECT_TYPE_STATISTIC_DELTA_ID = "EffectTypeStatisticDeltaId"
 Const COLUMN_EFFECT_TYPE_CARD_TYPE_GENERATOR_ID = "EffectTypeCardTypeGeneratorId"
 Const COLUMN_CHARACTER_STATISTIC_ID = "CharacterStatisticId"
 Const COLUMN_SELF_DESTRUCT = "SelfDestruct"
+Const COLUMN_EFFECT_TYPE_LOCATION_ID = "EffectTypeLocationId"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
@@ -52,6 +53,7 @@ Const TABLE_CARD_TYPE_STATISTIC_REQUIREMENTS = "CardTypeStatisticRequirements"
 Const TABLE_EFFECT_TYPE_STATISTIC_DELTAS = "EffectTypeStatisticDeltas"
 Const TABLE_EFFECT_TYPE_CARD_TYPE_GENERATORS = "EffectTypeCardTypeGenerators"
 Const TABLE_CHARACTER_STATISTICS = "CharacterStatistics"
+Const TABLE_EFFECT_TYPE_LOCATIONS = "EffectTypeLocations"
 
 Const VIEW_CARD_DETAILS = "CardDetails"
 Const VIEW_CARD_TYPE_DETAILS = "CardTypeDetails"
@@ -74,6 +76,7 @@ Const VIEW_EFFECT_TYPE_CARD_TYPE_GENERATOR_DETAILS = "EffectTypeCardTypeGenerato
 Const VIEW_EFFECT_TYPE_AVAILABLE_CARD_TYPE_GENERATORS = "EffectTypeAvailableCardTypeGenerators"
 Const VIEW_CHARACTER_STATISTIC_DETAILS = "CharacterStatisticDetails"
 Const VIEW_CHARACTER_AVAILABLE_STATISTIC_TYPES = "CharacterAvailableStatisticTypes"
+Const VIEW_EFFECT_TYPE_LOCATION_DETAILS = "EffectTypeLocationDetails"
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
     Dim result
