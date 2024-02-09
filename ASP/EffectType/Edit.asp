@@ -35,6 +35,8 @@
             EndTable 
         EndForm
 
+        Server.Execute("/EffectType/StatisticRequirement/List.asp")
+
         Server.Execute("/EffectType/StatisticDelta/List.asp")
 
         Server.Execute("/EffectType/CardTypeGenerator/List.asp")
