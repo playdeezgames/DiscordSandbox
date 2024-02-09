@@ -10,7 +10,7 @@
         StartInsertForm SubPath
             HiddenInput COLUMN_EFFECT_TYPE_ID,Request.QueryString
             StartTable 
-                FilteredComboBoxAdd COLUMN_STATISTIC_TYPE_ID, "Statistic Type", Conn, VIEW_EFFECT_TYPE_AVAILABLE_DELTA_STATISTIC_TYPES, COLUMN_STATISTIC_TYPE_NAME, COLUMN_EFFECT_TYPE_ID, Request.QueryString
+                FilteredComboBoxAdd COLUMN_STATISTIC_TYPE_ID, "Statistic Type", Conn, VIEW_EFFECT_TYPE_AVAILABLE_DELTA_STATISTIC_TYPES, COLUMN_STATISTIC_TYPE_NAME, COLUMN_EFFECT_TYPE_ID, Request.QueryString, False
                 TextInputAdd COLUMN_STATISTIC_VALUE, "Statistic Value"
                 SubmitButton 
             EndTable 

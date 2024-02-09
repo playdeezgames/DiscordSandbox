@@ -5,9 +5,15 @@
 <%
     UpdateRecord Conn, _
         TABLE_EFFECT_TYPES, _
-        Array(COLUMN_EFFECT_TYPE_NAME), _
-        Array(COLUMN_EFFECT_TYPE_ID), _
-        Array(Request.form(COLUMN_EFFECT_TYPE_NAME),Request.form(COLUMN_EFFECT_TYPE_ID))
+        Array( _
+            COLUMN_EFFECT_TYPE_NAME, _
+            COLUMN_LOCATION_TYPE_ID), _
+        Array( _
+            COLUMN_EFFECT_TYPE_ID), _
+        Array( _
+            Request.form(COLUMN_EFFECT_TYPE_NAME), _
+            EmptyStringIsNull(COLUMN_LOCATION_TYPE_ID, Request.Form), _
+            Request.form(COLUMN_EFFECT_TYPE_ID))
     RedirectToEdit "EffectType", COLUMN_EFFECT_TYPE_ID, Request.Form
 %>
 <!--#include virtual="inc/closeconn.inc"-->

@@ -10,7 +10,7 @@
         StartInsertForm SubPath
             HiddenInput COLUMN_EFFECT_TYPE_ID,Request.QueryString
             StartTable 
-                ComboBoxAdd COLUMN_LOCATION_ID, "Location", Conn, TABLE_LOCATIONS, COLUMN_LOCATION_NAME
+                ComboBoxAdd COLUMN_LOCATION_ID, "Location", Conn, TABLE_LOCATIONS, COLUMN_LOCATION_NAME, False
                 SubmitButton 
             EndTable 
         EndForm

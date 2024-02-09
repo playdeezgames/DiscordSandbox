@@ -9,8 +9,8 @@
         StartInsertForm SubPath
             StartTable
                 TextInputAdd COLUMN_CHARACTER_NAME, "Name"
-                ComboBoxAdd COLUMN_CHARACTER_TYPE_ID, "Character Type", Conn, TABLE_CHARACTER_TYPES, COLUMN_CHARACTER_TYPE_NAME
-                ComboBoxAdd COLUMN_LOCATION_ID, "Location", Conn, TABLE_LOCATIONS, COLUMN_LOCATION_NAME
+                ComboBoxAdd COLUMN_CHARACTER_TYPE_ID, "Character Type", Conn, TABLE_CHARACTER_TYPES, COLUMN_CHARACTER_TYPE_NAME, False
+                ComboBoxAdd COLUMN_LOCATION_ID, "Location", Conn, TABLE_LOCATIONS, COLUMN_LOCATION_NAME, False
                 SubmitButton 
             EndTable 
         EndForm

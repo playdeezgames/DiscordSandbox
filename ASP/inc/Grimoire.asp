@@ -108,9 +108,12 @@ Function ExecuteSelectCommand(Conn, TableName, ShowColumns, FilterColumns, Filte
     Set cmd = nothing
 End Function
 
-Function MakeFilteredEditComboBox(Conn, TableName, KeyColumnName, DisplayColumnName, FilterColumns, FilterValues)
+Function MakeFilteredEditComboBox(Conn, TableName, KeyColumnName, DisplayColumnName, FilterColumns, FilterValues, IsNullable)
     Dim result
     result="<select name=""" & KeyColumnName &  """>"
+    If IsNullable Then
+        result = result & "<option value="""">(none)</option>"
+    End If
     Dim cmd
     Set cmd = MakeSelectCommand(conn, TableName,Array(KeyColumnName,DisplayColumnName),FilterColumns,FilterValues)
     Dim rs
@@ -131,11 +134,18 @@ Function MakeFilteredEditComboBox(Conn, TableName, KeyColumnName, DisplayColumnN
 End Function
 
 
-Function MakeEditComboBox(Conn, TableName, KeyColumnName, DisplayColumnName, KeyValue)
+Function MakeEditComboBox(Conn, TableName, KeyColumnName, DisplayColumnName, KeyValue, IsNullable)
     Dim result
     result="<select name=""" & KeyColumnName &  """>"
     Dim cmd
     Set cmd = MakeSelectCommand(conn, TableName,Array(KeyColumnName,DisplayColumnName),Null,Null)
+    If IsNullable Then
+        result = result & "<option value="""""
+        if isnull(keyvalue) then
+            result = result & " selected=""selected"""
+        end if
+        result = result & ">(none)</option>"
+    End If
     Dim rs
     set rs = cmd.Execute
     do until rs.eof
@@ -348,21 +358,21 @@ Sub FilterAddLink(SubPath,LinkText, FilterColumn, DataSource)
     Response.Write("<p><a href=""/" & SubPath & "/Add.asp?" & FilterColumn & "=" & DataSource(FilterColumn) & """>(" & LinkText & ")</a></p>")
 End Sub
 
-Sub ComboBoxAdd(InputName, DisplayName, Conn, TableName, OptionColumnName)
+Sub ComboBoxAdd(InputName, DisplayName, Conn, TableName, OptionColumnName, IsNullable)
     Response.Write("<tr><td>" & DisplayName & ":</td><td>")
-    Response.Write(MakeEditComboBox(Conn, TableName, InputName, OptionColumnName, Null))
+    Response.Write(MakeEditComboBox(Conn, TableName, InputName, OptionColumnName, Null, IsNullable))
     Response.Write("</td></tr>")
 End Sub
 
-Sub ComboBoxEdit(InputName, DisplayName, Conn, TableName, OptionColumnName, DataSource)
+Sub ComboBoxEdit(InputName, DisplayName, Conn, TableName, OptionColumnName, DataSource, IsNullable)
     Response.Write("<tr><td>" & DisplayName & ":</td><td>")
-    Response.Write(MakeEditComboBox(Conn, TableName, InputName, OptionColumnName, DataSource(InputName)))
+    Response.Write(MakeEditComboBox(Conn, TableName, InputName, OptionColumnName, DataSource(InputName),IsNullable))
     Response.Write("</td></tr>")
 End Sub
 
-Sub FilteredComboBoxAdd(InputName, DisplayName, Conn, TableName, OptionColumnName, FilterColumn, DataSource)
+Sub FilteredComboBoxAdd(InputName, DisplayName, Conn, TableName, OptionColumnName, FilterColumn, DataSource, IsNullable)
     Response.Write("<tr><td>" & DisplayName & ":</td><td>")
-    Response.Write(MakeFilteredEditComboBox(Conn, TableName, InputName, OptionColumnName, Array(FilterColumn), Array(DataSource(FilterColumn))))
+    Response.Write(MakeFilteredEditComboBox(Conn, TableName, InputName, OptionColumnName, Array(FilterColumn), Array(DataSource(FilterColumn)),IsNullable))
     Response.Write("</td></tr>")
 End Sub
 

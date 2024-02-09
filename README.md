@@ -1,5 +1,5 @@
 # DiscordSandbox
 
 ```
-#ClassicASP #DiscordBot #VisualBasic #VisualStudio2022 #SQLExpress
+Classic ASP with VBScript and SQLExpress backend. Console App/Discord bot in VB.NET frontend.
 ```

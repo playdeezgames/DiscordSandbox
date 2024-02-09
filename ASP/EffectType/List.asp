@@ -10,15 +10,19 @@
         Dim rs
         Set rs = ExecuteSelectCommand(conn, _
             VIEW_EFFECT_TYPE_DETAILS,_
-            Array(COLUMN_EFFECT_TYPE_ID,COLUMN_EFFECT_TYPE_NAME),_
+            Array( _
+                COLUMN_EFFECT_TYPE_ID, _
+                COLUMN_EFFECT_TYPE_NAME, _
+                COLUMN_LOCATION_TYPE_NAME),_
             Null,_
             Null)
         StartTable 
-            ShowTableHeaders(Array("Effect Type Id","Effect Type Name"))    
+            ShowTableHeaders(Array("Effect Type Id","Effect Type Name","Location Type Name"))    
             do until rs.eof
                 StartTableRow
                     TableCellEditLink SubPath, COLUMN_EFFECT_TYPE_ID, rs
                     TableCell COLUMN_EFFECT_TYPE_NAME, rs
+                    TableCell COLUMN_LOCATION_TYPE_NAME, rs
                 EndTableRow
                 rs.movenext
             loop

@@ -10,8 +10,7 @@
         StartInsertForm SubPath
             HiddenInput COLUMN_CARD_TYPE_ID,Request.QueryString
             StartTable 
-                FilteredComboBoxAdd COLUMN_STATISTIC_TYPE_ID, "Statistic Type", Conn, VIEW_CARD_TYPE_AVAILABLE_REQUIREMENT_STATISTIC_TYPES, COLUMN_STATISTIC_TYPE_NAME, COLUMN_CARD_TYPE_ID, Request.QueryString
-                TextInputAdd COLUMN_MINIMUM_VALUE, "Minimum Value"
+                FilteredComboBoxAdd COLUMN_STATISTIC_TYPE_ID, "Statistic Type", Conn, VIEW_CARD_TYPE_AVAILABLE_REQUIREMENT_STATISTIC_TYPES, COLUMN_STATISTIC_TYPE_NAME, COLUMN_CARD_TYPE_ID, Request.QueryString, False                TextInputAdd COLUMN_MINIMUM_VALUE, "Minimum Value"
                 TextInputAdd COLUMN_MAXIMUM_VALUE, "Maximum Value"
                 SubmitButton 
             EndTable 

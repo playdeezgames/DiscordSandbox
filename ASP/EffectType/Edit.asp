@@ -10,13 +10,17 @@
         Dim rs
         Set rs = ExecuteSelectCommand(conn, _
             TABLE_EFFECT_TYPES, _
-            Array(COLUMN_EFFECT_TYPE_ID,COLUMN_EFFECT_TYPE_NAME), _
+            Array( _
+                COLUMN_EFFECT_TYPE_ID, _
+                COLUMN_EFFECT_TYPE_NAME, _
+                COLUMN_LOCATION_TYPE_ID), _
             Array(COLUMN_EFFECT_TYPE_ID), _
             Array(Request.QueryString(COLUMN_EFFECT_TYPE_ID)))
         StartUpdateForm SubPath
             StartTable 
                 ReadonlyTextInput COLUMN_EFFECT_TYPE_ID, "Id", rs
                 TextInputEdit COLUMN_EFFECT_TYPE_NAME, "Name", rs
+                ComboBoxEdit COLUMN_LOCATION_TYPE_ID, "Location Type", Conn, TABLE_LOCATION_TYPES, COLUMN_LOCATION_TYPE_NAME, rs, True
                 SubmitButton 
             EndTable 
         EndForm

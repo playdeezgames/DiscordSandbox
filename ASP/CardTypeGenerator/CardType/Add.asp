@@ -9,7 +9,7 @@
         StartInsertForm SubPath
             HiddenInput COLUMN_CARD_TYPE_GENERATOR_ID,Request.QueryString
             StartTable 
-                FilteredComboBoxAdd COLUMN_CARD_TYPE_ID, "Card Type", Conn, VIEW_CARD_TYPE_GENERATOR_AVAILABLE_CARD_TYPES, COLUMN_CARD_TYPE_NAME, COLUMN_CARD_TYPE_GENERATOR_ID, Request.QueryString
+                FilteredComboBoxAdd COLUMN_CARD_TYPE_ID, "Card Type", Conn, VIEW_CARD_TYPE_GENERATOR_AVAILABLE_CARD_TYPES, COLUMN_CARD_TYPE_NAME, COLUMN_CARD_TYPE_GENERATOR_ID, Request.QueryString, False
                 TextInputAdd COLUMN_GENERATOR_WEIGHT, "Generator Weight"
                 SubmitButton 
             EndTable 

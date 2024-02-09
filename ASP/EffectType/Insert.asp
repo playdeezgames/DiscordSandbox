@@ -5,8 +5,12 @@
 <%
     InsertRecord Conn, _
         TABLE_EFFECT_TYPES, _
-        Array(COLUMN_EFFECT_TYPE_NAME), _
-        Array(Request.form(COLUMN_EFFECT_TYPE_NAME))
+        Array( _
+            COLUMN_EFFECT_TYPE_NAME,  _
+            COLUMN_LOCATION_TYPE_ID), _
+        Array( _
+            Request.form(COLUMN_EFFECT_TYPE_NAME), _
+            EmptyStringIsNull(COLUMN_LOCATION_TYPE_ID, Request.Form))
     RedirectToList "EffectType"
 %>
 <!--#include virtual="inc/closeconn.inc"-->
