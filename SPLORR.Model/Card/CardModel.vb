@@ -19,7 +19,7 @@ Friend Class CardModel
 
     Private ReadOnly Property MeetsRequirements As Boolean
         Get
-            For Each requirement In Store.CardType.Requirements
+            For Each requirement In Store.Requirements
                 Dim characterStatistic = Store.Character.Statistics.FromName(requirement.Statistic.Name)
                 Dim minimum = requirement.Minimum
                 Dim maximum = requirement.Maximum

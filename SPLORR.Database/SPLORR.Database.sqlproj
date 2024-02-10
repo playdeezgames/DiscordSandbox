@@ -136,6 +136,7 @@
     <Build Include="dbo\Tables\Effect\EffectTypeStatisticRequirements.sql" />
     <Build Include="dbo\Views\EffectType\EffectTypeStatisticRequirementDetails.sql" />
     <Build Include="dbo\Views\EffectType\EffectTypeAvailableRequirementStatisticTypes.sql" />
+    <Build Include="dbo\Views\Card\CardStatisticRequirements.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />
