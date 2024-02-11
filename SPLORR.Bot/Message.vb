@@ -7,6 +7,7 @@ Friend Module Message
             {TOKEN_CARDS, AddressOf CardsMessage.Handle},
             {TOKEN_CHARACTER, AddressOf CharacterMessage.Handle},
             {TOKEN_CREATE, AddressOf CreateMessage.Handle},
+            {TOKEN_DESCRIBE, AddressOf DescribeMessage.Handle},
             {TOKEN_DIE, AddressOf DieMessage.Handle},
             {TOKEN_HAND, AddressOf HandMessage.Handle},
             {TOKEN_HELP, AddressOf HelpMessage.Handle},
