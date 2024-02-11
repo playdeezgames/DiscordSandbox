@@ -9,4 +9,5 @@ Public Interface ICardModel
     ReadOnly Property StatisticDeltas As IEnumerable(Of ICardStatisticDeltaModel)
     ReadOnly Property CardTypeGenerators As IEnumerable(Of ICardTypeGeneratorModel)
     ReadOnly Property Destinations As IEnumerable(Of ILocationModel)
+    ReadOnly Property Effects As IEnumerable(Of IEffectTypeModel)
 End Interface

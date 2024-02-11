@@ -121,6 +121,18 @@ Friend Class CardStore
         End Get
     End Property
 
+    Public ReadOnly Property EffectTypes As IEnumerable(Of IEffectTypeStore) Implements ICardStore.EffectTypes
+        Get
+            Return connectionSource.ReadIntegersForValues(
+                VIEW_CARD_EFFECT_TYPES,
+                {(COLUMN_CARD_ID, Id)},
+                {},
+                COLUMN_EFFECT_TYPE_ID).
+                    Select(
+                        Function(x) New EffectTypeStore(connectionSource, x))
+        End Get
+    End Property
+
     Public Sub AddToHand() Implements ICardStore.AddToHand
         connectionSource.WriteValuesForValues(
                 TABLE_CARDS,

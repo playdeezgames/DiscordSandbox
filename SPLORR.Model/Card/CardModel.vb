@@ -73,6 +73,12 @@ Friend Class CardModel
         End Get
     End Property
 
+    Public ReadOnly Property Effects As IEnumerable(Of IEffectTypeModel) Implements ICardModel.Effects
+        Get
+            Return Store.EffectTypes.Select(Function(x) New EffectTypeModel(x))
+        End Get
+    End Property
+
     Public Sub New(store As ICardStore)
         Me.Store = store
     End Sub

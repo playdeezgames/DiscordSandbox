@@ -45,4 +45,5 @@
     Friend Const COLUMN_SELF_DESTRUCT = "SelfDestruct"
     Friend Const COLUMN_EFFECT_TYPE_STATISTIC_REQUIREMENT_ID = "EffectTypeStatisticRequirementId"
     Friend Const COLUMN_EFFECT_COUNT = "EffectCount"
+    Friend Const COLUMN_EFFECT_TYPE_STATISTIC_DELTA_ID = "EffectTypeStatisticDeltaId"
 End Module

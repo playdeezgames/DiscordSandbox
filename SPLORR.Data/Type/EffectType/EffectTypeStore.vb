@@ -30,4 +30,16 @@ Friend Class EffectTypeStore
                 Select(Function(x) New EffectTypeStatisticRequirementStore(connectionSource, x))
         End Get
     End Property
+
+    Public ReadOnly Property StatisticDeltas As IEnumerable(Of IEffectTypeStatisticDeltaStore) Implements IEffectTypeStore.StatisticDeltas
+        Get
+            Return connectionSource.ReadIntegersForValues(
+                TABLE_EFFECT_TYPE_STATISTIC_DELTAS,
+                {(COLUMN_EFFECT_TYPE_ID, Id)},
+                {},
+                COLUMN_EFFECT_TYPE_STATISTIC_DELTA_ID).
+                Select(
+                Function(x) New EffectTypeStatisticDeltaStore(connectionSource, x))
+        End Get
+    End Property
 End Class

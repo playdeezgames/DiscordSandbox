@@ -12,4 +12,5 @@
     ReadOnly Property Destinations As IEnumerable(Of ILocationStore)
     ReadOnly Property Requirements As IEnumerable(Of ICardStatisticRequirementStore)
     ReadOnly Property HasActiveEffects As Boolean
+    ReadOnly Property EffectTypes As IEnumerable(Of IEffectTypeStore)
 End Interface
