@@ -1,5 +1,5 @@
 # DiscordSandbox
 
 ```
-Classic ASP with VBScript and SQLExpress backend. Console App/Discord bot in VB.NET frontend.
+This stream is about a guinea pig and sticking to a single project. The main focus will be a single project, except #dcjam2024 in late March
 ```

@@ -11,4 +11,5 @@
     ReadOnly Property CardTypeGenerators As IEnumerable(Of ICardTypeGeneratorStore)
     ReadOnly Property Destinations As IEnumerable(Of ILocationStore)
     ReadOnly Property Requirements As IEnumerable(Of ICardStatisticRequirementStore)
+    ReadOnly Property HasActiveEffects As Boolean
 End Interface

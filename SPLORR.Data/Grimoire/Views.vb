@@ -22,4 +22,5 @@
     Friend Const VIEW_CARD_CARD_TYPE_GENERATORS = "CardCardTypeGenerators"
     Friend Const VIEW_CARD_LOCATIONS = "CardLocations"
     Friend Const VIEW_CARD_STATISTIC_REQUIREMENTS = "CardStatisticRequirements"
+    Friend Const VIEW_CARD_ACTIVE_EFFECT_COUNTS = "CardActiveEffectCounts"
 End Module

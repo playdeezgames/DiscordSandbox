@@ -1,4 +1,5 @@
-﻿Imports SPLORR.Data
+﻿Imports System.Data
+Imports SPLORR.Data
 Imports SPLORR.Game
 
 Friend Class CardModel
@@ -34,12 +35,19 @@ Friend Class CardModel
 
     Public ReadOnly Property CanPlay As Boolean Implements ICardModel.CanPlay
         Get
-            If Not InHand OrElse Not MeetsRequirements Then
+            If Not InHand OrElse Not HasActiveEffects OrElse Not MeetsRequirements Then
                 Return False
             End If
             Return True
         End Get
     End Property
+
+    Private ReadOnly Property HasActiveEffects As Boolean
+        Get
+            Return Store.HasActiveEffects
+        End Get
+    End Property
+
 
     Public ReadOnly Property Character As ICharacterModel Implements ICardModel.Character
         Get

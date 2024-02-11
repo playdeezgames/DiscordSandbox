@@ -70,7 +70,7 @@ Friend Class CardStore
             Return connectionSource.ReadIntegerTuplesForValues(
                 VIEW_CARD_STATISTIC_DELTAS,
                 {(COLUMN_CARD_ID, Id)},
-                {},
+                Array.Empty(Of (Name As String, Value As String))(),
                 (COLUMN_STATISTIC_TYPE_ID, COLUMN_STATISTIC_VALUE)).Select(Function(x) New CardStatisticDeltaStore(connectionSource, x))
         End Get
     End Property
@@ -80,7 +80,7 @@ Friend Class CardStore
             Return connectionSource.ReadIntegersForValues(
                 VIEW_CARD_CARD_TYPE_GENERATORS,
                 {(COLUMN_CARD_ID, Id)},
-                {},
+                Array.Empty(Of (Name As String, Value As String))(),
                 COLUMN_CARD_TYPE_GENERATOR_ID).
                     Select(Function(x) New CardTypeGeneratorStore(connectionSource, x))
         End Get
@@ -97,7 +97,7 @@ Friend Class CardStore
             Return connectionSource.ReadIntegersForValues(
                 VIEW_CARD_LOCATIONS,
                 {(COLUMN_CARD_ID, Id)},
-                {},
+                Array.Empty(Of (Name As String, Value As String))(),
                 COLUMN_LOCATION_ID).Select(Function(x) New LocationStore(connectionSource, x))
         End Get
     End Property
@@ -107,8 +107,17 @@ Friend Class CardStore
             Return connectionSource.ReadIntegersForValues(
                 VIEW_CARD_STATISTIC_REQUIREMENTS,
                 {(COLUMN_CARD_ID, Id)},
-                {},
+                Array.Empty(Of (Name As String, Value As String))(),
                 (COLUMN_STATISTIC_TYPE_ID)).Select(Function(x) New CardStatisticRequirementStore(connectionSource, Id, x))
+        End Get
+    End Property
+
+    Public ReadOnly Property HasActiveEffects As Boolean Implements ICardStore.HasActiveEffects
+        Get
+            Return connectionSource.ReadIntegerForValues(
+                VIEW_CARD_ACTIVE_EFFECT_COUNTS,
+                {(COLUMN_CARD_ID, Id)},
+                COLUMN_EFFECT_COUNT) > 0
         End Get
     End Property
 

@@ -44,4 +44,5 @@
     Friend Const COLUMN_CARD_TYPE_STATISTIC_REQUIREMENT_ID = "CardTypeStatisticRequirementId"
     Friend Const COLUMN_SELF_DESTRUCT = "SelfDestruct"
     Friend Const COLUMN_EFFECT_TYPE_STATISTIC_REQUIREMENT_ID = "EffectTypeStatisticRequirementId"
+    Friend Const COLUMN_EFFECT_COUNT = "EffectCount"
 End Module
