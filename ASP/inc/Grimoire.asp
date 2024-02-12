@@ -37,6 +37,7 @@ Const COLUMN_CHARACTER_STATISTIC_ID = "CharacterStatisticId"
 Const COLUMN_SELF_DESTRUCT = "SelfDestruct"
 Const COLUMN_EFFECT_TYPE_LOCATION_ID = "EffectTypeLocationId"
 Const COLUMN_EFFECT_TYPE_STATISTIC_REQUIREMENT_ID = "EffectTypeStatisticRequirementId"
+Const COLUMN_CARD_LIMIT = "CardLimit"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"

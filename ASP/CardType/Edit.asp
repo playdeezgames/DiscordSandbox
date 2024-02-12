@@ -14,7 +14,8 @@
             Array( _
                 COLUMN_CARD_TYPE_ID, _
                 COLUMN_CARD_TYPE_NAME, _
-                COLUMN_SELF_DESTRUCT), _
+                COLUMN_SELF_DESTRUCT, _
+                COLUMN_CARD_LIMIT), _
             Array(COLUMN_CARD_TYPE_ID), _
             Array(Request.QueryString(COLUMN_CARD_TYPE_ID)))
 
@@ -23,6 +24,7 @@
                 ReadonlyTextInput COLUMN_CARD_TYPE_ID, "Id", rs
                 TextInputEdit COLUMN_CARD_TYPE_NAME, "Name", rs
                 CheckboxInputEdit COLUMN_SELF_DESTRUCT, "Self Destruct", rs
+                TextInputEdit COLUMN_CARD_LIMIT, "Limit", rs
                 SubmitButton
             EndTable 
         EndForm

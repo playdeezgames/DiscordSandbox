@@ -7,11 +7,13 @@
         TABLE_CARD_TYPES, _
         Array( _
             COLUMN_CARD_TYPE_NAME, _
-            COLUMN_SELF_DESTRUCT), _
+            COLUMN_SELF_DESTRUCT, _
+            COLUMN_CARD_LIMIT), _
         Array(COLUMN_CARD_TYPE_ID), _
         Array( _
             Request.form(COLUMN_CARD_TYPE_NAME), _
             EmptyStringIsFalse(COLUMN_SELF_DESTRUCT,Request.Form), _
+            EmptyStringIsNull(COLUMN_CARD_LIMIT,Request.Form), _
             Request.form(COLUMN_CARD_TYPE_ID))
     RedirectToEdit "CardType", COLUMN_CARD_TYPE_ID, Request.Form
 %>

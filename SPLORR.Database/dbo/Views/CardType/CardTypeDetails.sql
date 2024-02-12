@@ -4,11 +4,13 @@ SELECT
 	ct.CardTypeId,
 	ct.CardTypeName,
 	COUNT(c.CardId) CardCount,
-	ct.SelfDestruct
+	ct.SelfDestruct,
+	ct.CardLimit
 FROM
 	CardTypes ct
 	LEFT JOIN Cards c ON c.CardTypeId=ct.CardTypeId
 GROUP BY
 	ct.CardTypeId,
 	ct.CardTypeName,
-	ct.SelfDestruct
+	ct.SelfDestruct,
+	ct.CardLimit
