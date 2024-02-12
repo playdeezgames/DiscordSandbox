@@ -65,14 +65,13 @@
     <Folder Include="dbo\Tables\Card" />
     <Folder Include="dbo\Tables\Character\Type" />
     <Folder Include="dbo\Tables\Character\Player" />
-    <Folder Include="dbo\Tables\Card\CardType" />
+    <Folder Include="dbo\Tables\Card\Type" />
     <Folder Include="dbo\Tables\CardTypeGenerator" />
     <Folder Include="dbo\Tables\Effect" />
     <Folder Include="dbo\Tables\Statistic" />
     <Folder Include="dbo\Views\CardType" />
     <Folder Include="dbo\Views\CharacterType" />
     <Folder Include="dbo\Views\CardTypeGenerator" />
-    <Folder Include="dbo\Views\CardType\Effect" />
     <Folder Include="dbo\Views\CardType\StatistiticRequirement" />
     <Folder Include="dbo\Views\EffectType" />
     <Folder Include="dbo\Views\EffectType\StatisticDelta" />
@@ -82,9 +81,9 @@
     <Folder Include="dbo\Views\StatisticType" />
     <Folder Include="dbo\Views\LocationType" />
     <Folder Include="dbo\Views\Character\Statistic" />
+    <Folder Include="dbo\Views\CardTypeGenerator\CardType" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Views\CharacterLocationOtherCharacters.sql" />
     <Build Include="dbo\Tables\Character\Characters.sql" />
     <Build Include="dbo\Tables\Location\Locations.sql" />
     <Build Include="dbo\Tables\Location\LocationStarts.sql" />
@@ -96,9 +95,7 @@
     <Build Include="dbo\Tables\Character\Type\CharacterTypeStatistics.sql" />
     <Build Include="dbo\Tables\Character\Player\PlayerCharacters.sql" />
     <Build Include="dbo\Tables\Character\Type\CharacterTypeCards.sql" />
-    <Build Include="dbo\Views\CharacterTypeAvailableCards.sql" />
-    <Build Include="dbo\Views\CharacterTypeCardDetails.sql" />
-    <Build Include="dbo\Tables\Card\CardType\CardTypes.sql" />
+    <Build Include="dbo\Tables\Card\Type\CardTypes.sql" />
     <Build Include="dbo\Tables\CardTypeGenerator\CardTypeGeneratorCardTypes.sql" />
     <Build Include="dbo\Tables\CardTypeGenerator\CardTypeGenerators.sql" />
     <Build Include="dbo\Tables\Effect\EffectTypes.sql" />
@@ -108,13 +105,10 @@
     <Build Include="dbo\Views\CharacterType\CharacterTypeStatisticDetails.sql" />
     <Build Include="dbo\Views\CharacterType\CharacterTypeAvailableStatisticTypes.sql" />
     <Build Include="dbo\Views\CardTypeGenerator\CardTypeGeneratorDetails.sql" />
-    <Build Include="dbo\Views\CardTypeGenerator\CardTypeGeneratorCardTypeDetails.sql" />
-    <Build Include="dbo\Views\CardTypeGenerator\CardTypeGeneratorAvailableCardTypes.sql" />
-    <Build Include="dbo\Views\CardType\Effect\CardTypeEffectDetails.sql" />
     <Build Include="dbo\Views\CardType\StatistiticRequirement\CardTypeStatisticRequirementDetails.sql" />
     <Build Include="dbo\Views\CardType\StatistiticRequirement\CardTypeAvailableRequirementStatisticTypes.sql" />
-    <Build Include="dbo\Tables\Card\CardType\CardTypeEffects.sql" />
-    <Build Include="dbo\Tables\Card\CardType\CardTypeStatisticRequirements.sql" />
+    <Build Include="dbo\Tables\Card\Type\CardTypeEffects.sql" />
+    <Build Include="dbo\Tables\Card\Type\CardTypeStatisticRequirements.sql" />
     <Build Include="dbo\Views\EffectType\EffectTypeDetails.sql" />
     <Build Include="dbo\Tables\Effect\EffectTypeStatisticDeltas.sql" />
     <Build Include="dbo\Tables\Effect\EffectTypeCardTypeGenerators.sql" />
@@ -132,15 +126,21 @@
     <Build Include="dbo\Views\Card\CardCardTypeGenerators.sql" />
     <Build Include="dbo\Tables\Effect\EffectTypeLocations.sql" />
     <Build Include="dbo\Views\EffectType\EffectTypeLocationDetails.sql" />
-    <Build Include="dbo\Views\CardLocations.sql" />
     <Build Include="dbo\Tables\Effect\EffectTypeStatisticRequirements.sql" />
     <Build Include="dbo\Views\EffectType\EffectTypeStatisticRequirementDetails.sql" />
     <Build Include="dbo\Views\EffectType\EffectTypeAvailableRequirementStatisticTypes.sql" />
     <Build Include="dbo\Views\Card\CardStatisticRequirements.sql" />
     <Build Include="dbo\Views\Card\CardActiveEffectCounts.sql" />
-    <Build Include="dbo\Views\CardEffectTypes.sql" />
-    <Build Include="dbo\Views\EffectTypeDestinationDetails.sql" />
-    <Build Include="dbo\Views\EffectTypeCardTypeGeneratorCardTypes.sql" />
+    <Build Include="dbo\Views\Card\CardEffectTypes.sql" />
+    <Build Include="dbo\Views\Character\CharacterLocationOtherCharacters.sql" />
+    <Build Include="dbo\Views\CharacterType\CharacterTypeAvailableCards.sql" />
+    <Build Include="dbo\Views\CharacterType\CharacterTypeCardDetails.sql" />
+    <Build Include="dbo\Views\EffectType\EffectTypeCardTypeGeneratorCardTypes.sql" />
+    <Build Include="dbo\Views\EffectType\EffectTypeDestinationDetails.sql" />
+    <Build Include="dbo\Views\Card\CardLocations.sql" />
+    <Build Include="dbo\Views\CardType\CardTypeEffectDetails.sql" />
+    <Build Include="dbo\Views\CardTypeGenerator\CardType\CardTypeGeneratorAvailableCardTypes.sql" />
+    <Build Include="dbo\Views\CardTypeGenerator\CardType\CardTypeGeneratorCardTypeDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />
