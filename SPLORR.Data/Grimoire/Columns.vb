@@ -46,4 +46,6 @@
     Friend Const COLUMN_EFFECT_TYPE_STATISTIC_REQUIREMENT_ID = "EffectTypeStatisticRequirementId"
     Friend Const COLUMN_EFFECT_COUNT = "EffectCount"
     Friend Const COLUMN_EFFECT_TYPE_STATISTIC_DELTA_ID = "EffectTypeStatisticDeltaId"
+    Friend Const COLUMN_EFFECT_TYPE_CARD_TYPE_GENERATOR_ID = "EffectTypeCardTypeGeneratorId"
+    Friend Const COLUMN_CARD_COUNT = "CardCount"
 End Module

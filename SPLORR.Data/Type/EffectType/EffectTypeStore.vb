@@ -25,7 +25,7 @@ Friend Class EffectTypeStore
             Return connectionSource.ReadIntegersForValues(
                 TABLE_EFFECT_TYPE_STATISTIC_REQUIREMENTS,
                 {(COLUMN_EFFECT_TYPE_ID, Id)},
-                {},
+                Array.Empty(Of (Name As String, Value As String))(),
                 COLUMN_EFFECT_TYPE_STATISTIC_REQUIREMENT_ID).
                 Select(Function(x) New EffectTypeStatisticRequirementStore(connectionSource, x))
         End Get
@@ -36,10 +36,42 @@ Friend Class EffectTypeStore
             Return connectionSource.ReadIntegersForValues(
                 TABLE_EFFECT_TYPE_STATISTIC_DELTAS,
                 {(COLUMN_EFFECT_TYPE_ID, Id)},
-                {},
+                Array.Empty(Of (Name As String, Value As String))(),
                 COLUMN_EFFECT_TYPE_STATISTIC_DELTA_ID).
                 Select(
                 Function(x) New EffectTypeStatisticDeltaStore(connectionSource, x))
+        End Get
+    End Property
+
+    Public ReadOnly Property LocationType As ILocationTypeStore Implements IEffectTypeStore.LocationType
+        Get
+            Dim locationTypeId = connectionSource.FindIntegerForValues(TABLE_EFFECT_TYPES, {(COLUMN_EFFECT_TYPE_ID, Id)}, COLUMN_LOCATION_TYPE_ID)
+            If Not locationTypeId.HasValue Then
+                Return Nothing
+            End If
+            Return New LocationTypeStore(connectionSource, locationTypeId.Value)
+        End Get
+    End Property
+
+    Public ReadOnly Property Destinations As IEnumerable(Of IEffectTypeDestinationStore) Implements IEffectTypeStore.Destinations
+        Get
+            Return connectionSource.ReadIntegersForValues(
+                VIEW_EFFECT_TYPE_DESTINATION_DETAILS,
+                {(COLUMN_EFFECT_TYPE_ID, Id)},
+                Array.Empty(Of (Name As String, Value As String))(),
+                COLUMN_LOCATION_ID).Select(
+                Function(x) New EffectTypeDestinationStore(connectionSource, Id, x))
+        End Get
+    End Property
+
+    Public ReadOnly Property CardTypeGenerators As IEnumerable(Of IEffectTypeCardTypeGeneratorStore) Implements IEffectTypeStore.CardTypeGenerators
+        Get
+            Return connectionSource.ReadIntegersForValues(
+                VIEW_EFFECT_TYPE_CARD_TYPE_GENERATORS,
+                {(COLUMN_EFFECT_TYPE_ID, Id)},
+                Array.Empty(Of (Name As String, Value As String))(),
+                COLUMN_EFFECT_TYPE_CARD_TYPE_GENERATOR_ID).Select(
+                Function(x) New EffectTypeCardTypeGeneratorStore(connectionSource, x))
         End Get
     End Property
 End Class

@@ -17,5 +17,6 @@
     Friend Const TABLE_STATISTIC_TYPES = "StatisticTypes"
     Friend Const TABLE_EFFECT_TYPE_STATISTIC_REQUIREMENTS = "EffectTypeStatisticRequirements"
     Friend Const TABLE_EFFECT_TYPE_STATISTIC_DELTAS = "EffectTypeStatisticDeltas"
+    Friend Const TABLE_EFFECT_TYPE_CARD_TYPE_GENERATORS = "EffectTypeCardTypeGenerators"
 End Module
 

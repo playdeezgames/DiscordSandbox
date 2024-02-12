@@ -139,6 +139,8 @@
     <Build Include="dbo\Views\Card\CardStatisticRequirements.sql" />
     <Build Include="dbo\Views\Card\CardActiveEffectCounts.sql" />
     <Build Include="dbo\Views\CardEffectTypes.sql" />
+    <Build Include="dbo\Views\EffectTypeDestinationDetails.sql" />
+    <Build Include="dbo\Views\EffectTypeCardTypeGeneratorCardTypes.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />

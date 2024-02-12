@@ -20,4 +20,32 @@ Public Class EffectTypeModel
             Return store.StatisticDeltas.Select(Function(x) New EffectTypeStatisticDeltaModel(x))
         End Get
     End Property
+
+    Public ReadOnly Property Requirements As IEnumerable(Of IEffectTypeStatisticRequirementModel) Implements IEffectTypeModel.Requirements
+        Get
+            Return store.Requirements.Select(Function(x) New EffectTypeStatisticRequirementModel(x))
+        End Get
+    End Property
+
+    Public ReadOnly Property LocationType As ILocationTypeModel Implements IEffectTypeModel.LocationType
+        Get
+            Dim locationTypeStore = store.LocationType
+            If locationTypeStore Is Nothing Then
+                Return Nothing
+            End If
+            Return New LocationTypeModel(locationTypeStore)
+        End Get
+    End Property
+
+    Public ReadOnly Property Destinations As IEnumerable(Of IEffectTypeDestinationModel) Implements IEffectTypeModel.Destinations
+        Get
+            Return store.Destinations.Select(Function(x) New EffectTypeDestinationModel(x))
+        End Get
+    End Property
+
+    Public ReadOnly Property CardTypeGenerators As IEnumerable(Of IEffectTypeCardTypeGeneratorModel) Implements IEffectTypeModel.CardTypeGenerators
+        Get
+            Return store.CardTypeGenerators.Select(Function(x) New EffectTypeCardTypeGeneratorModel(x))
+        End Get
+    End Property
 End Class
