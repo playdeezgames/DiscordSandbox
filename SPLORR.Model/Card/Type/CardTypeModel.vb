@@ -11,4 +11,10 @@ Friend Class CardTypeModel
             Return store.Name
         End Get
     End Property
+
+    Public ReadOnly Property Limit As Integer? Implements ICardTypeModel.Limit
+        Get
+            Return Store.Limit
+        End Get
+    End Property
 End Class

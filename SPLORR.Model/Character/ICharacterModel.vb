@@ -9,6 +9,7 @@ Public Interface ICharacterModel
     Sub Die()
     Function HandCardByName(cardName As String) As ICardModel
     ReadOnly Property Cards As IEnumerable(Of ICardModel)
+    ReadOnly Property CardCounts As IEnumerable(Of ICharacterCardCountModel)
     ReadOnly Property Hand As IEnumerable(Of ICardModel)
     ReadOnly Property Health As Integer
     ReadOnly Property MaximumHealth As Integer

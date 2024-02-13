@@ -29,7 +29,7 @@ Friend Class CardTypeStore
         End Get
     End Property
 
-    Public ReadOnly Property CardLimit As Integer? Implements ICardTypeStore.CardLimit
+    Public ReadOnly Property Limit As Integer? Implements ICardTypeStore.Limit
         Get
             Return connectionSource.FindIntegerForValues(
                 TABLE_CARD_TYPES,
@@ -48,6 +48,6 @@ Friend Class CardTypeStore
     End Function
 
     Public Function CanCreateCard(character As ICharacterStore) As Boolean Implements ICardTypeStore.CanCreateCard
-        Return If(CardLimit, Integer.MaxValue) > character.CardTypeCount(Me)
+        Return If(Limit, Integer.MaxValue) > character.CardTypeCount(Me)
     End Function
 End Class

@@ -38,7 +38,7 @@ Friend Class CharacterModel
 
     Public ReadOnly Property Cards As IEnumerable(Of ICardModel) Implements ICharacterModel.Cards
         Get
-            Return store.Cards.All.Select(Function(x) New CardModel(x))
+            Return Store.Cards.All.Select(Function(x) New CardModel(x))
         End Get
     End Property
 
@@ -125,6 +125,12 @@ Friend Class CharacterModel
     Public ReadOnly Property PlantFibers As Integer Implements ICharacterModel.PlantFibers
         Get
             Return Store.Statistics.FromName(STATISTIC_TYPE_PLANT_FIBERS).Value
+        End Get
+    End Property
+
+    Public ReadOnly Property CardCounts As IEnumerable(Of ICharacterCardCountModel) Implements ICharacterModel.CardCounts
+        Get
+            Return Cards.GroupBy(Function(x) x.Name).Select(Function(x) New CharacterCardCountModel(x.Key, x.Count, x.First.CardType.Limit))
         End Get
     End Property
 

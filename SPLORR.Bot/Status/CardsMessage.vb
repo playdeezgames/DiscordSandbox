@@ -11,8 +11,8 @@ Friend Module CardsMessage
                     outputter),
                     Sub(character)
                         outputter("Cards:")
-                        For Each card In character.Cards
-                            outputter($"- {card.Name}")
+                        For Each cardCount In character.CardCounts
+                            outputter($"- {cardCount.Name} x {cardCount.Quantity}{If(cardCount.Limit.HasValue, $"/{cardCount.Limit.Value}", "")}")
                         Next
                     End Sub)
             End Sub)

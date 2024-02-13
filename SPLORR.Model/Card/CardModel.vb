@@ -79,6 +79,12 @@ Friend Class CardModel
         End Get
     End Property
 
+    Public ReadOnly Property CardType As ICardTypeModel Implements ICardModel.CardType
+        Get
+            Return New CardTypeModel(Store.CardType)
+        End Get
+    End Property
+
     Public Sub New(store As ICardStore)
         Me.Store = store
     End Sub
