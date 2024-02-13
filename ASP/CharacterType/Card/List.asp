@@ -9,7 +9,7 @@
         VIEW_CHARACTER_TYPE_CARD_DETAILS,_
         Array(_
             COLUMN_CHARACTER_TYPE_CARD_ID,_
-            COLUMN_CARD_TYPE_NAME,
+            COLUMN_CARD_TYPE_NAME, _
             COLUMN_CARD_QUANTITY),_
         Array(COLUMN_CHARACTER_TYPE_ID),_
         Array(Request.QueryString(COLUMN_CHARACTER_TYPE_ID)))
@@ -27,6 +27,6 @@
     rs.close
     set rs = nothing
 
-    FilterAddLink SubPath, "new statistic", COLUMN_CHARACTER_TYPE_ID, Request.QueryString
+    FilterAddLink SubPath, "new card type", COLUMN_CHARACTER_TYPE_ID, Request.QueryString
 %>
 <!--#include virtual="inc/closeconn.inc"-->

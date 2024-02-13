@@ -12,8 +12,8 @@
         Array(Request.QueryString(COLUMN_CHARACTER_TYPE_STATISTIC_ID)))
 
     StartPage
-        BackToEditLink "CharacterType", "Character Typpe",COLUMN_CHARACTER_TYPE_ID,rs
-        StartUpdateForm "CharacterType/Statistic"
+        BackToEditLink "CharacterType", "Character Type",COLUMN_CHARACTER_TYPE_ID,rs
+        StartUpdateForm SubPath
             StartTable 
                 ReadonlyTextInput COLUMN_CHARACTER_TYPE_STATISTIC_ID, "Id", rs
                 ReadonlyTextInput COLUMN_CHARACTER_TYPE_NAME, "Character Type", rs
@@ -25,7 +25,7 @@
             EndTable 
         EndForm
 
-        StartDeleteForm "CharacterType/Statistic"
+        StartDeleteForm SubPath
             HiddenInput COLUMN_CHARACTER_TYPE_STATISTIC_ID, Request.QueryString
             HiddenInput COLUMN_CHARACTER_TYPE_ID, rs
             StartTable 

@@ -38,6 +38,8 @@ Const COLUMN_SELF_DESTRUCT = "SelfDestruct"
 Const COLUMN_EFFECT_TYPE_LOCATION_ID = "EffectTypeLocationId"
 Const COLUMN_EFFECT_TYPE_STATISTIC_REQUIREMENT_ID = "EffectTypeStatisticRequirementId"
 Const COLUMN_CARD_LIMIT = "CardLimit"
+Const COLUMN_CHARACTER_TYPE_CARD_ID = "CharacterTypeCardId"
+Const COLUMN_CARD_QUANTITY = "CardQuantity"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
@@ -57,6 +59,7 @@ Const TABLE_EFFECT_TYPE_CARD_TYPE_GENERATORS = "EffectTypeCardTypeGenerators"
 Const TABLE_CHARACTER_STATISTICS = "CharacterStatistics"
 Const TABLE_EFFECT_TYPE_LOCATIONS = "EffectTypeLocations"
 Const TABLE_EFFECT_TYPE_STATISTIC_REQUIREMENTS = "EffectTypeStatisticRequirements"
+Const TABLE_CHARACTER_TYPE_CARDS = "CharacterTypeCards"
 
 Const VIEW_CARD_DETAILS = "CardDetails"
 Const VIEW_CARD_TYPE_DETAILS = "CardTypeDetails"
@@ -82,6 +85,8 @@ Const VIEW_CHARACTER_AVAILABLE_STATISTIC_TYPES = "CharacterAvailableStatisticTyp
 Const VIEW_EFFECT_TYPE_LOCATION_DETAILS = "EffectTypeLocationDetails"
 Const VIEW_EFFECT_TYPE_STATISTIC_REQUIREMENT_DETAILS = "EffectTypeStatisticRequirementDetails"
 Const VIEW_EFFECT_TYPE_AVAILABLE_REQUIREMENT_STATISTIC_TYPES = "EffectTypeAvailableRequirementStatisticTypes"
+Const VIEW_CHARACTER_TYPE_CARD_DETAILS = "CharacterTypeCardDetails"
+Const VIEW_CHARACTER_TYPE_AVAILABLE_CARDS = "CharacterTypeAvailableCards"
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
     Dim result

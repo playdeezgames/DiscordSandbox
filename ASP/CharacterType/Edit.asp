@@ -38,6 +38,8 @@
         EndForm
 
         Server.Execute("/CharacterType/Statistic/List.asp")
+
+        Server.Execute("/CharacterType/Card/List.asp")
     EndPage
 %>
 <!--#include virtual="inc/closeconn.inc"-->

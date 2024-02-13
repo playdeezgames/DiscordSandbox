@@ -4,9 +4,9 @@
 <!--#include virtual="inc/Grimoire.asp"-->
 <%
     DeleteRecordIfConfirmed Conn, _
-        TABLE_CHARACTER_TYPE_STATISTICS, _
-        Array(COLUMN_CHARACTER_TYPE_STATISTIC_ID), _
-        Array(Request.form(COLUMN_CHARACTER_TYPE_STATISTIC_ID))
+        TABLE_CHARACTER_TYPE_CARDS, _
+        Array(COLUMN_CHARACTER_TYPE_CARD_ID), _
+        Array(Request.form(COLUMN_CHARACTER_TYPE_CARD_ID))
     RedirectToEdit "CharacterType", COLUMN_CHARACTER_TYPE_ID, Request.Form
 %>
 <!--#include virtual="inc/closeconn.inc"-->
