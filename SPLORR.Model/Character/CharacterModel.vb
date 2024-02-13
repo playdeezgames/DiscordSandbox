@@ -215,7 +215,11 @@ Friend Class CharacterModel
         Return result
     End Function
 
-    Public Sub AddCard(cardType As ICardTypeModel) Implements ICharacterModel.AddCard
-        cardType.Store.CreateCard(Store)
-    End Sub
+    Public Function AddCard(cardType As ICardTypeModel) As Boolean Implements ICharacterModel.AddCard
+        If cardType.Store.CanCreateCard(Store) Then
+            cardType.Store.CreateCard(Store)
+            Return True
+        End If
+        Return False
+    End Function
 End Class

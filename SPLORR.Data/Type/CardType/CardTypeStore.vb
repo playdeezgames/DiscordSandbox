@@ -29,12 +29,25 @@ Friend Class CardTypeStore
         End Get
     End Property
 
-    Public Function CreateCard(store As ICharacterStore) As ICardStore Implements ICardTypeStore.CreateCard
+    Public ReadOnly Property CardLimit As Integer? Implements ICardTypeStore.CardLimit
+        Get
+            Return connectionSource.FindIntegerForValues(
+                TABLE_CARD_TYPES,
+                {(COLUMN_CARD_TYPE_ID, Id)},
+                COLUMN_CARD_LIMIT)
+        End Get
+    End Property
+
+    Public Function CreateCard(character As ICharacterStore) As ICardStore Implements ICardTypeStore.CreateCard
         Return New CardStore(
             connectionSource,
             connectionSource.Insert(
                 TABLE_CARDS,
                 (COLUMN_CARD_TYPE_ID, Id),
-                (COLUMN_CHARACTER_ID, store.Id)))
+                (COLUMN_CHARACTER_ID, character.Id)))
+    End Function
+
+    Public Function CanCreateCard(character As ICharacterStore) As Boolean Implements ICardTypeStore.CanCreateCard
+        Return If(CardLimit, Integer.MaxValue) > character.CardTypeCount(Me)
     End Function
 End Class

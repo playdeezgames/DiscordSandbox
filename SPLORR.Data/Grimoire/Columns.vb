@@ -48,4 +48,5 @@
     Friend Const COLUMN_EFFECT_TYPE_STATISTIC_DELTA_ID = "EffectTypeStatisticDeltaId"
     Friend Const COLUMN_EFFECT_TYPE_CARD_TYPE_GENERATOR_ID = "EffectTypeCardTypeGeneratorId"
     Friend Const COLUMN_CARD_COUNT = "CardCount"
+    Friend Const COLUMN_CARD_LIMIT = "CardLimit"
 End Module

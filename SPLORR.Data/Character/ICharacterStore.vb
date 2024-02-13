@@ -11,4 +11,5 @@
     ReadOnly Property Statistics As IRelatedTypeStore(Of ICharacterStatisticStore)
     ReadOnly Property HasPlayer As Boolean
     ReadOnly Property AvailableStatistics As IRelatedTypeStore(Of IStatisticTypeStore)
+    Function CardTypeCount(cardType As ICardTypeStore) As Integer
 End Interface

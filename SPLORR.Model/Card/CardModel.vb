@@ -98,8 +98,9 @@ Friend Class CardModel
         Next
         For Each cardTypeGenerator In CardTypeGenerators
             Dim cardType = cardTypeGenerator.GenerateCardType()
-            outputter($"*NEW CARD!* {cardType.Name}")
-            Character.AddCard(cardType)
+            If Character.AddCard(cardType) Then
+                outputter($"*NEW CARD!* {cardType.Name}")
+            End If
         Next
         Dim destinationLocations As IEnumerable(Of ILocationModel) = Me.Destinations
         If destinationLocations.Any Then

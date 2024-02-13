@@ -38,7 +38,10 @@ Friend Class PlayerModel
         store.Character = character
         For Each entry In characterTypeStore.Cards.Filter("%")
             For Each dummy In Enumerable.Range(0, entry.Quantity)
-                entry.CardType.CreateCard(character)
+                Dim cardType = entry.CardType
+                If cardType.CanCreateCard(character) Then
+                    cardType.CreateCard(character)
+                End If
             Next
         Next
         Dim characterModel As ICharacterModel = New CharacterModel(character)

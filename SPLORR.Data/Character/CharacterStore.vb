@@ -1,5 +1,4 @@
-﻿Imports System.Reflection.Metadata.Ecma335
-Imports Microsoft.Data.SqlClient
+﻿Imports Microsoft.Data.SqlClient
 
 Friend Class CharacterStore
     Implements ICharacterStore
@@ -92,6 +91,16 @@ Friend Class CharacterStore
             connectionSource.Insert(
                 TABLE_CHARACTER_STATISTICS,
                 columns.ToArray))
+    End Function
+
+    Public Function CardTypeCount(cardType As ICardTypeStore) As Integer Implements ICharacterStore.CardTypeCount
+        Return If(connectionSource.FindIntegerForValues(
+            VIEW_CHARACTER_CARD_TYPE_COUNTS,
+            {
+                (COLUMN_CHARACTER_ID, Id),
+                (COLUMN_CARD_TYPE_ID, cardType.Id)
+            },
+            COLUMN_CARD_COUNT), 0)
     End Function
 
     Public ReadOnly Property HasOtherCharacters As Boolean Implements ICharacterStore.HasOtherCharacters
