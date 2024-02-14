@@ -8,11 +8,13 @@
         Array( _
             COLUMN_CARD_TYPE_NAME, _
             COLUMN_SELF_DESTRUCT, _
-            COLUMN_CARD_LIMIT), _
+            COLUMN_CARD_LIMIT, _
+            COLUMN_ALWAYS_AVAILABLE), _
         Array( _
             Request.form(COLUMN_CARD_TYPE_NAME), _
             EmptyStringIsFalse(COLUMN_SELF_DESTRUCT,Request.Form), _
-            EmptyStringIsNull(COLUMN_CARD_LIMIT,Request.Form))
+            EmptyStringIsNull(COLUMN_CARD_LIMIT,Request.Form), _
+            EmptyStringIsNull(COLUMN_ALWAYS_AVAILABLE,Request.Form))
     RedirectToList "CardType"
 %>
 <!--#include virtual="inc/closeconn.inc"-->
