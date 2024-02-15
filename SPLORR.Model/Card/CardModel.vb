@@ -18,33 +18,28 @@ Friend Class CardModel
         End Get
     End Property
 
-    Private ReadOnly Property MeetsAllRequirements As Boolean
-        Get
-            For Each requirement In Store.Requirements
-                Dim characterStatistic = Store.Character.Statistics.FromName(requirement.Statistic.Name)
-                Dim minimum = requirement.Minimum
-                Dim maximum = requirement.Maximum
-                Dim value = characterStatistic.Value
-                If (minimum.HasValue AndAlso value < minimum.Value) OrElse (maximum.HasValue AndAlso value > maximum.Value) Then
-                    Return False
-                End If
-            Next
-            Return True
-        End Get
-    End Property
-
     Public ReadOnly Property CanPlay As Boolean Implements ICardModel.CanPlay
         Get
-            If Not InHand OrElse Not HasActiveEffects OrElse Not MeetsAllRequirements Then
+            If Not InHand OrElse Not HasLocalEffects Then
                 Return False
             End If
-            Return True
+            Return LocalEffects.Any(AddressOf MeetsEffectTypeRequirements)
         End Get
     End Property
 
-    Private ReadOnly Property HasActiveEffects As Boolean
+    Private Function MeetsEffectTypeRequirements(effectType As IEffectTypeModel) As Boolean
+        Return Character.Store.SatisfiesRequirements(effectType.Store)
+    End Function
+
+    Private ReadOnly Property LocalEffects As IEnumerable(Of IEffectTypeModel)
         Get
-            Return Store.HasActiveEffects
+            Return Store.LocalEffects.Select(Function(x) New EffectTypeModel(x))
+        End Get
+    End Property
+
+    Private ReadOnly Property HasLocalEffects As Boolean
+        Get
+            Return Store.HasLocalEffects
         End Get
     End Property
 

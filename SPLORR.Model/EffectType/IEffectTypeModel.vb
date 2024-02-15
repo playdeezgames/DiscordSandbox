@@ -1,4 +1,7 @@
-﻿Public Interface IEffectTypeModel
+﻿Imports SPLORR.Data
+
+Public Interface IEffectTypeModel
+    ReadOnly Property Store As IEffectTypeStore
     ReadOnly Property Name As String
     ReadOnly Property StatisticDeltas As IEnumerable(Of IEffectTypeStatisticDeltaModel)
     ReadOnly Property Requirements As IEnumerable(Of IEffectTypeStatisticRequirementModel)

@@ -103,6 +103,27 @@ Friend Class CharacterStore
             COLUMN_CARD_COUNT), 0)
     End Function
 
+    Public Function SatisfiesRequirements(effectType As IEffectTypeStore) As Boolean Implements ICharacterStore.SatisfiesRequirements
+        Return effectType.Requirements.All(AddressOf SatisfiesRequirement)
+    End Function
+
+    Private Function SatisfiesRequirement(requirement As IEffectTypeStatisticRequirementStore) As Boolean
+        Dim minimum = requirement.Minimum
+        Dim maximum = requirement.Maximum
+        Dim statisticValue = Statistics.FromName(requirement.Statistic.Name).Value
+        If minimum.HasValue Then
+            If statisticValue < minimum.Value Then
+                Return False
+            End If
+        End If
+        If maximum.HasValue Then
+            If statisticValue > maximum.Value Then
+                Return False
+            End If
+        End If
+        Return True
+    End Function
+
     Public ReadOnly Property HasOtherCharacters As Boolean Implements ICharacterStore.HasOtherCharacters
         Get
             Return connectionSource.ReadIntegerForValues(

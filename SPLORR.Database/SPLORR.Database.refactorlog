@@ -147,4 +147,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CardTypeEffectId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="745c5beb-9949-41e3-bb58-a43d8f531d86" ChangeDateTime="02/15/2024 10:12:10">
+    <Property Name="ElementName" Value="[dbo].[CardActiveEffectCounts]" />
+    <Property Name="ElementType" Value="SqlView" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[CardLocalEffectCounts]" />
+  </Operation>
 </Operations>

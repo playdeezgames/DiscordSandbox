@@ -129,8 +129,7 @@
     <Build Include="dbo\Tables\Effect\EffectTypeStatisticRequirements.sql" />
     <Build Include="dbo\Views\EffectType\EffectTypeStatisticRequirementDetails.sql" />
     <Build Include="dbo\Views\EffectType\EffectTypeAvailableRequirementStatisticTypes.sql" />
-    <Build Include="dbo\Views\Card\CardStatisticRequirements.sql" />
-    <Build Include="dbo\Views\Card\CardActiveEffectCounts.sql" />
+    <Build Include="dbo\Views\Card\CardLocalEffectCounts.sql" />
     <Build Include="dbo\Views\Card\CardEffectTypes.sql" />
     <Build Include="dbo\Views\Character\CharacterLocationOtherCharacters.sql" />
     <Build Include="dbo\Views\CharacterType\CharacterTypeAvailableCards.sql" />
@@ -142,6 +141,7 @@
     <Build Include="dbo\Views\CardTypeGenerator\CardType\CardTypeGeneratorAvailableCardTypes.sql" />
     <Build Include="dbo\Views\CardTypeGenerator\CardType\CardTypeGeneratorCardTypeDetails.sql" />
     <Build Include="dbo\Views\CharacterCardTypeCounts.sql" />
+    <Build Include="dbo\Views\Card\CardLocalEffects.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SPLORR.Database.refactorlog" />

@@ -12,4 +12,5 @@
     ReadOnly Property HasPlayer As Boolean
     ReadOnly Property AvailableStatistics As IRelatedTypeStore(Of IStatisticTypeStore)
     Function CardTypeCount(cardType As ICardTypeStore) As Integer
+    Function SatisfiesRequirements(effectType As IEffectTypeStore) As Boolean
 End Interface

@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[CardActiveEffectCounts]
+﻿CREATE VIEW [dbo].[CardLocalEffectCounts]
 	AS
 SELECT
 	c.CardId,

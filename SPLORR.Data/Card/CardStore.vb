@@ -102,20 +102,10 @@ Friend Class CardStore
         End Get
     End Property
 
-    Public ReadOnly Property Requirements As IEnumerable(Of ICardStatisticRequirementStore) Implements ICardStore.Requirements
-        Get
-            Return connectionSource.ReadIntegersForValues(
-                VIEW_CARD_STATISTIC_REQUIREMENTS,
-                {(COLUMN_CARD_ID, Id)},
-                Array.Empty(Of (Name As String, Value As String))(),
-                (COLUMN_STATISTIC_TYPE_ID)).Select(Function(x) New CardStatisticRequirementStore(connectionSource, Id, x))
-        End Get
-    End Property
-
-    Public ReadOnly Property HasActiveEffects As Boolean Implements ICardStore.HasActiveEffects
+    Public ReadOnly Property HasLocalEffects As Boolean Implements ICardStore.HasLocalEffects
         Get
             Return connectionSource.ReadIntegerForValues(
-                VIEW_CARD_ACTIVE_EFFECT_COUNTS,
+                VIEW_CARD_LOCAL_EFFECT_COUNTS,
                 {(COLUMN_CARD_ID, Id)},
                 COLUMN_EFFECT_COUNT) > 0
         End Get
@@ -126,7 +116,19 @@ Friend Class CardStore
             Return connectionSource.ReadIntegersForValues(
                 VIEW_CARD_EFFECT_TYPES,
                 {(COLUMN_CARD_ID, Id)},
-                {},
+                Array.Empty(Of (Name As String, Value As String))(),
+                COLUMN_EFFECT_TYPE_ID).
+                    Select(
+                        Function(x) New EffectTypeStore(connectionSource, x))
+        End Get
+    End Property
+
+    Public ReadOnly Property LocalEffects As IEnumerable(Of IEffectTypeStore) Implements ICardStore.LocalEffects
+        Get
+            Return connectionSource.ReadIntegersForValues(
+                VIEW_CARD_LOCAL_EFFECTS,
+                {(COLUMN_CARD_ID, Id)},
+                Array.Empty(Of (Name As String, Value As String))(),
                 COLUMN_EFFECT_TYPE_ID).
                     Select(
                         Function(x) New EffectTypeStore(connectionSource, x))

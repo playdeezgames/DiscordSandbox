@@ -3,7 +3,7 @@
 Public Class EffectTypeModel
     Implements IEffectTypeModel
 
-    Private store As IEffectTypeStore
+    Public ReadOnly Property Store As IEffectTypeStore Implements IEffectTypeModel.Store
 
     Public Sub New(store As IEffectTypeStore)
         Me.store = store
