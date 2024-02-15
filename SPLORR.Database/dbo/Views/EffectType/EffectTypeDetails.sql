@@ -4,7 +4,8 @@ SELECT
 	et.EffectTypeId,
 	et.EffectTypeName,
 	lt.LocationTypeId,
-	lt.LocationTypeName
+	lt.LocationTypeName,
+	et.DiscardHand
 FROM
 	EffectTypes et
 	LEFT JOIN LocationTypes lt ON lt.LocationTypeId=et.LocationTypeId

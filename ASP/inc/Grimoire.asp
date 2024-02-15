@@ -41,6 +41,7 @@ Const COLUMN_CARD_LIMIT = "CardLimit"
 Const COLUMN_CHARACTER_TYPE_CARD_ID = "CharacterTypeCardId"
 Const COLUMN_CARD_QUANTITY = "CardQuantity"
 Const COLUMN_ALWAYS_AVAILABLE = "AlwaysAvailable"
+Const COLUMN_DISCARD_HAND = "DiscardHand"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
