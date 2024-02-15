@@ -163,7 +163,10 @@ Friend Class CharacterModel
     End Sub
 
     Private Function TryDrawCard() As Boolean
-        Dim card As ICardStore = store.Cards.TopOfDeck
+        Dim card As ICardStore = Store.Cards.AlwaysAvailableButNotInHand
+        If card Is Nothing Then
+            card = Store.Cards.TopOfDeck
+        End If
         If card Is Nothing Then
             Return False
         End If

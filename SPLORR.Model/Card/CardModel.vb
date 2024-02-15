@@ -18,7 +18,7 @@ Friend Class CardModel
         End Get
     End Property
 
-    Private ReadOnly Property MeetsRequirements As Boolean
+    Private ReadOnly Property MeetsAllRequirements As Boolean
         Get
             For Each requirement In Store.Requirements
                 Dim characterStatistic = Store.Character.Statistics.FromName(requirement.Statistic.Name)
@@ -35,7 +35,7 @@ Friend Class CardModel
 
     Public ReadOnly Property CanPlay As Boolean Implements ICardModel.CanPlay
         Get
-            If Not InHand OrElse Not HasActiveEffects OrElse Not MeetsRequirements Then
+            If Not InHand OrElse Not HasActiveEffects OrElse Not MeetsAllRequirements Then
                 Return False
             End If
             Return True

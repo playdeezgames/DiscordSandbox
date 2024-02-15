@@ -61,6 +61,23 @@ Public Class DeckStore
         End Get
     End Property
 
+    Public ReadOnly Property AlwaysAvailableButNotInHand As ICardStore Implements IDeckStore.AlwaysAvailableButNotInHand
+        Get
+            Dim cardId = connectionSource.FindIntegerForValues(
+                tableName,
+                {
+                    (relatedColumnName, relatedColumnValue),
+                    (COLUMN_ALWAYS_AVAILABLE, 1),
+                    (COLUMN_IN_HAND, 0)
+                },
+                COLUMN_CARD_ID)
+            If cardId.HasValue Then
+                Return New CardStore(connectionSource, cardId.Value)
+            End If
+            Return Nothing
+        End Get
+    End Property
+
     Public Sub AddToDrawPile(card As ICardStore) Implements IDeckStore.AddToDrawPile
         Dim result = connectionSource.FindIntegerForValues(
             tableName,

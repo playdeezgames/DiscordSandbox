@@ -9,7 +9,8 @@ SELECT
 	c.InDrawPile,
 	c.InHand,
 	c.DrawOrder,
-	ch.CharacterName
+	ch.CharacterName,
+	ct.AlwaysAvailable
 FROM
 	Cards c
 	JOIN CardTypes ct ON ct.CardTypeId=c.CardTypeId

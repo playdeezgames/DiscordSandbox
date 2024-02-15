@@ -49,4 +49,5 @@
     Friend Const COLUMN_EFFECT_TYPE_CARD_TYPE_GENERATOR_ID = "EffectTypeCardTypeGeneratorId"
     Friend Const COLUMN_CARD_COUNT = "CardCount"
     Friend Const COLUMN_CARD_LIMIT = "CardLimit"
+    Friend Const COLUMN_ALWAYS_AVAILABLE = "AlwaysAvailable"
 End Module
