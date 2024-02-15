@@ -23,9 +23,44 @@ Friend Class CardModel
             If Not InHand OrElse Not HasLocalEffects Then
                 Return False
             End If
-            Return LocalEffects.Any(AddressOf MeetsEffectTypeRequirements)
+            Dim candidates = LocalEffects.Where(AddressOf MeetsEffectTypeRequirements)
+            If Not candidates.Any Then
+                Return False
+            End If
+            Dim minimums As New Dictionary(Of String, Integer)
+            Dim maximums As New Dictionary(Of String, Integer)
+            For Each candidate In candidates
+                For Each requirement In candidate.Requirements
+                    Dim minimum = requirement.Minimum
+                    Dim maximum = requirement.Maximum
+                    Dim name = requirement.Name
+                    If minimum.HasValue Then
+                        If minimums.ContainsKey(name) Then
+                            minimums(name) += minimum.Value
+                        Else
+                            minimums(name) = minimum.Value
+                        End If
+                    End If
+                    If maximum.HasValue Then
+                        If maximums.ContainsKey(name) Then
+                            maximums(name) = Math.Max(maximums(name), maximum.Value)
+                        Else
+                            maximums(name) = maximum.Value
+                        End If
+                    End If
+                Next
+            Next
+            Return (minimums.Count = 0 OrElse minimums.All(AddressOf CharacterMeetsRequiredMinimum)) AndAlso (maximums.Count = 0 OrElse maximums.All(AddressOf CharacterMeetsRequiredMaximum))
         End Get
     End Property
+
+    Private Function CharacterMeetsRequiredMaximum(pair As KeyValuePair(Of String, Integer)) As Boolean
+        Return Character.Store.Statistics.FromName(pair.Key).Value <= pair.Value
+    End Function
+
+    Private Function CharacterMeetsRequiredMinimum(pair As KeyValuePair(Of String, Integer)) As Boolean
+        Return Character.Store.Statistics.FromName(pair.Key).Value >= pair.Value
+    End Function
 
     Private Function MeetsEffectTypeRequirements(effectType As IEffectTypeModel) As Boolean
         Return Character.Store.SatisfiesRequirements(effectType.Store)
@@ -64,7 +99,16 @@ Friend Class CardModel
 
     Public ReadOnly Property Destinations As IEnumerable(Of ILocationModel) Implements ICardModel.Destinations
         Get
-            Return Store.Destinations.Select(Function(x) New LocationModel(x))
+            Dim effects = LocalEffects.Where(AddressOf MeetsEffectTypeRequirements)
+            Dim result As New List(Of ILocationModel)
+            For Each effect In effects
+                For Each destination In effect.Destinations
+                    For Each index In Enumerable.Range(1, destination.GeneratorWeight)
+                        result.Add(destination.Location)
+                    Next
+                Next
+            Next
+            Return result
         End Get
     End Property
 
@@ -93,15 +137,22 @@ Friend Class CardModel
     End Sub
 
     Public Sub Play(outputter As Action(Of String)) Implements ICardModel.Play
-        For Each statisticDelta In StatisticDeltas
-            outputter($"{statisticDelta.Delta} {statisticDelta.StatisticType.Name}")
-            Character.GetStatistic(statisticDelta.StatisticType).Value += statisticDelta.Delta
-        Next
-        For Each cardTypeGenerator In CardTypeGenerators
-            Dim cardType = cardTypeGenerator.GenerateCardType()
-            If Character.AddCard(cardType) Then
-                outputter($"*NEW CARD!* {cardType.Name}")
-            End If
+        If Not CanPlay Then
+            Return
+        End If
+        Dim effects = LocalEffects.Where(AddressOf MeetsEffectTypeRequirements)
+        For Each effect In effects
+            For Each statisticDelta In effect.StatisticDeltas
+                outputter($"{statisticDelta.Delta} {statisticDelta.StatisticType.Name}")
+                Character.GetStatistic(statisticDelta.StatisticType).Value += statisticDelta.Delta
+            Next
+            For Each cardTypeGenerator In effect.CardTypeGenerators
+                Dim generator = cardTypeGenerator.CardTypes.ToDictionary(Function(x) x.CardType, Function(x) x.GeneratorWeight)
+                Dim cardType = RNG.FromGenerator(generator)
+                If Character.AddCard(cardType) Then
+                    outputter($"*NEW CARD!* {cardType.Name}")
+                End If
+            Next
         Next
         Dim destinationLocations As IEnumerable(Of ILocationModel) = Me.Destinations
         If destinationLocations.Any Then

@@ -20,4 +20,10 @@ Public Class EffectTypeStatisticDeltaModel
             Return store.Delta
         End Get
     End Property
+
+    Public ReadOnly Property StatisticType As IStatisticTypeModel Implements IEffectTypeStatisticDeltaModel.StatisticType
+        Get
+            Return New StatisticTypeModel(store.StatisticType)
+        End Get
+    End Property
 End Class

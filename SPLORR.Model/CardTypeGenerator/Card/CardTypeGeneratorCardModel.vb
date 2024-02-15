@@ -21,6 +21,12 @@ Friend Class CardTypeGeneratorCardModel
         End Get
     End Property
 
+    Public ReadOnly Property CardType As ICardTypeModel Implements ICardTypeGeneratorCardModel.CardType
+        Get
+            Return New CardTypeModel(store.CardType)
+        End Get
+    End Property
+
     Public Function AsPercentage(totalWeight As Integer) As Double Implements ICardTypeGeneratorCardModel.AsPercentage
         Return GeneratorWeight * 100.0 / totalWeight
     End Function

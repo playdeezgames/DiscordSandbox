@@ -21,6 +21,12 @@ Friend Class EffectTypeDestinationModel
         End Get
     End Property
 
+    Public ReadOnly Property Location As ILocationModel Implements IEffectTypeDestinationModel.Location
+        Get
+            Return New LocationModel(store.Location)
+        End Get
+    End Property
+
     Public Function AsPercentage(totalWeight As Integer) As Double Implements IEffectTypeDestinationModel.AsPercentage
         Return GeneratorWeight * 100.0 / totalWeight
     End Function

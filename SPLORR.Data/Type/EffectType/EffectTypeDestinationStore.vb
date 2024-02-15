@@ -33,4 +33,10 @@ Friend Class EffectTypeDestinationStore
                 COLUMN_GENERATOR_WEIGHT)
         End Get
     End Property
+
+    Public ReadOnly Property Location As ILocationStore Implements IEffectTypeDestinationStore.Location
+        Get
+            Return New LocationStore(connectionSource, locationId)
+        End Get
+    End Property
 End Class
