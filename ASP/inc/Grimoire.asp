@@ -42,6 +42,7 @@ Const COLUMN_CHARACTER_TYPE_CARD_ID = "CharacterTypeCardId"
 Const COLUMN_CARD_QUANTITY = "CardQuantity"
 Const COLUMN_ALWAYS_AVAILABLE = "AlwaysAvailable"
 Const COLUMN_REFRESH_HAND = "RefreshHand"
+Const COLUMN_HAND_SIZE = "HandSize"
 
 Const TABLE_CARD_TYPES = "CardTypes"
 Const TABLE_CARDS = "Cards"
@@ -296,8 +297,12 @@ Sub StartTable()
     Response.Write("<table border=""1"">")
 End Sub
 
-Sub CheckboxInputAdd(InputName, DisplayName)
-    Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ type=""checkbox"" value=""1""/></td></tr>")
+Sub CheckboxInputAdd(InputName, DisplayName, IsChecked)
+    Response.Write("<tr><td>" & DisplayName & ":</td><td><input name=""" & InputName & """ type=""checkbox"" value=""1""")
+    If IsChecked Then
+        Response.Write(" checked=""checked""")
+    End If
+    Response.Write("/></td></tr>")
 End Sub
 
 Sub CheckboxInputEdit(InputName, DisplayName, DataSource)

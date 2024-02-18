@@ -10,7 +10,7 @@
         StartInsertForm SubPath
             StartTable 
                 TextInputAdd COLUMN_CHARACTER_TYPE_NAME, "Name"
-                CheckboxInputAdd COLUMN_IS_PLAYER_SELECTABLE, "Is Player Selectable?"
+                CheckboxInputAdd COLUMN_IS_PLAYER_SELECTABLE, "Is Player Selectable?", False
                 TextInputAdd COLUMN_GENERATOR_WEIGHT, "Generator Weight"
                 SubmitButton 
             EndTable 

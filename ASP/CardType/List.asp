@@ -14,12 +14,13 @@
                 COLUMN_CARD_TYPE_NAME, _
                 COLUMN_SELF_DESTRUCT, _ 
                 COLUMN_CARD_LIMIT, _
-                COLUMN_ALWAYS_AVAILABLE),_
+                COLUMN_ALWAYS_AVAILABLE, _
+                COLUMN_HAND_SIZE),_
             Null,_
             Null)
 
         StartTable 
-            ShowTableHeaders(Array("Card Type Id","Card Type Name","Self Destruct","Card Limit","Always Available"))
+            ShowTableHeaders(Array("Card Type Id","Card Type Name","Self Destruct","Card Limit","Always Available","Counts Towards Hand Size"))
             do until rs.eof
                 StartTableRow
                     TableCellEditLink "CardType", COLUMN_CARD_TYPE_ID, rs
@@ -27,6 +28,7 @@
                     TableCell COLUMN_SELF_DESTRUCT, rs
                     TableCell COLUMN_CARD_LIMIT, rs
                     TableCell COLUMN_ALWAYS_AVAILABLE, rs
+                    TableCell COLUMN_HAND_SIZE, rs
                 EndTableRow
                 rs.movenext
             loop

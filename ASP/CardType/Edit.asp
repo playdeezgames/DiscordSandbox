@@ -16,7 +16,8 @@
                 COLUMN_CARD_TYPE_NAME, _
                 COLUMN_SELF_DESTRUCT, _
                 COLUMN_CARD_LIMIT, _
-                COLUMN_ALWAYS_AVAILABLE), _
+                COLUMN_ALWAYS_AVAILABLE, _
+                COLUMN_HAND_SIZE), _
             Array(COLUMN_CARD_TYPE_ID), _
             Array(Request.QueryString(COLUMN_CARD_TYPE_ID)))
 
@@ -27,6 +28,7 @@
                 CheckboxInputEdit COLUMN_SELF_DESTRUCT, "Self Destruct", rs
                 TextInputEdit COLUMN_CARD_LIMIT, "Limit", rs
                 CheckboxInputEdit COLUMN_ALWAYS_AVAILABLE, "Always Available", rs
+                CheckboxInputEdit COLUMN_HAND_SIZE, "Counts Towards Hand Size", rs
                 SubmitButton
             EndTable 
         EndForm

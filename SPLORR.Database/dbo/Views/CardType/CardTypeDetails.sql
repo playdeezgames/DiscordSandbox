@@ -6,7 +6,8 @@ SELECT
 	COUNT(c.CardId) CardCount,
 	ct.SelfDestruct,
 	ct.CardLimit,
-	ct.AlwaysAvailable
+	ct.AlwaysAvailable,
+	ct.HandSize
 FROM
 	CardTypes ct
 	LEFT JOIN Cards c ON c.CardTypeId=ct.CardTypeId
@@ -15,4 +16,5 @@ GROUP BY
 	ct.CardTypeName,
 	ct.SelfDestruct,
 	ct.CardLimit,
-	ct.AlwaysAvailable
+	ct.AlwaysAvailable,
+	ct.HandSize
