@@ -16,6 +16,7 @@ Friend Module CharacterMessage
                         outputter($"Energy: {character.Energy}/{character.MaximumEnergy}")
                         outputter($"Rocks: {character.Rocks}")
                         outputter($"Plant Fibers: {character.PlantFibers}")
+                        outputter($"Chewed-Up Bubblegum: {character.ChewedUpBubblegum}")
                     End Sub)
             End Sub)
     End Sub

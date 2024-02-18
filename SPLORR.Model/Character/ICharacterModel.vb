@@ -20,6 +20,7 @@ Public Interface ICharacterModel
     ReadOnly Property HandSize As Integer
     ReadOnly Property Rocks As Integer
     ReadOnly Property PlantFibers As Integer
+    ReadOnly Property ChewedUpBubblegum As Integer
     ReadOnly Property Store As ICharacterStore
     Function AddCard(cardType As ICardTypeModel) As Boolean
     ReadOnly Property Inventory As IReadOnlyDictionary(Of String, Integer)

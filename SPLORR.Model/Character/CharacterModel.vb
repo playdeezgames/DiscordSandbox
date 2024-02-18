@@ -134,6 +134,12 @@ Friend Class CharacterModel
         End Get
     End Property
 
+    Public ReadOnly Property ChewedUpBubblegum As Integer Implements ICharacterModel.ChewedUpBubblegum
+        Get
+            Return Store.Statistics.FromName(STATISTIC_TYPE_CHEWED_UP_BUBBLEGUM).Value
+        End Get
+    End Property
+
     Public Sub RefreshHand() Implements ICharacterModel.RefreshHand
         DiscardHand()
         DrawHand()
