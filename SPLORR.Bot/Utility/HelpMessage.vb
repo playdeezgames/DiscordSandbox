@@ -13,7 +13,6 @@ Friend Module HelpMessage
             {TOKEN_HELP, "Shows help."},
             {TOKEN_PLAY, "Plays a card from yer hand."},
             {TOKEN_RENAME, "Renames stuff."},
-            {TOKEN_REST, "Allows yer character to rest."},
             {TOKEN_STATUS, "Shows yer status."}
         }
     Private ReadOnly helpTopics As IReadOnlyDictionary(Of String, Action(Of IPlayerModel, String(), Action(Of String))) =
@@ -27,18 +26,8 @@ Friend Module HelpMessage
             {TOKEN_HELP, AddressOf HelpHelp},
             {TOKEN_PLAY, AddressOf HelpPlay},
             {TOKEN_RENAME, AddressOf HelpRename},
-            {TOKEN_REST, AddressOf HelpRest},
             {TOKEN_STATUS, AddressOf HelpStatus}
         }
-
-    Private Sub HelpRest(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
-        If tokens.Length <> 0 Then
-            InvalidMessage.Handle(player, tokens, outputter)
-            Return
-        End If
-        outputter($"Help for {TOKEN_REST}:")
-        outputter($"- usage: {TOKEN_REST}")
-    End Sub
 
     Private Sub HelpPlay(player As IPlayerModel, tokens() As String, outputter As Action(Of String))
         If tokens.Length <> 0 Then

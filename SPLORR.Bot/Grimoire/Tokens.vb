@@ -8,6 +8,5 @@
     Friend Const TOKEN_STATUS As String = "status"
     Friend Const TOKEN_CARDS As String = "cards"
     Friend Const TOKEN_DIE As String = "die"
-    Friend Const TOKEN_REST As String = "rest"
     Friend Const TOKEN_DESCRIBE As String = "describe"
 End Module

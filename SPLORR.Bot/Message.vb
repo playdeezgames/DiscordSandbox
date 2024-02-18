@@ -13,7 +13,6 @@ Friend Module Message
             {TOKEN_HELP, AddressOf HelpMessage.Handle},
             {TOKEN_PLAY, AddressOf PlayMessage.Handle},
             {TOKEN_RENAME, AddressOf RenameMessage.Handle},
-            {TOKEN_REST, AddressOf RestMessage.Handle},
             {TOKEN_STATUS, AddressOf StatusMessage.Handle}
         }
     Friend Sub Handle(player As IPlayerModel, tokens() As String, outputter As Action(Of String))

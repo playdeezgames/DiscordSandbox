@@ -21,7 +21,6 @@ Public Interface ICharacterModel
     ReadOnly Property Rocks As Integer
     ReadOnly Property PlantFibers As Integer
     ReadOnly Property Store As ICharacterStore
-    Function Rest() As IEnumerable(Of String)
     Function AddCard(cardType As ICardTypeModel) As Boolean
     ReadOnly Property Inventory As IReadOnlyDictionary(Of String, Integer)
     ReadOnly Property GetStatistic(statisticType As IStatisticTypeModel) As ICharacterStatisticModel
