@@ -14,17 +14,17 @@
                 COLUMN_EFFECT_TYPE_ID, _
                 COLUMN_EFFECT_TYPE_NAME, _
                 COLUMN_LOCATION_TYPE_NAME, _
-                COLUMN_DISCARD_HAND),_
+                COLUMN_REFRESH_HAND),_
             Null,_
             Null)
         StartTable 
-            ShowTableHeaders(Array("Effect Type Id","Effect Type Name","Location Type Name","Discard Hand"))    
+            ShowTableHeaders(Array("Effect Type Id","Effect Type Name","Location Type Name","Refresh Hand"))    
             do until rs.eof
                 StartTableRow
                     TableCellEditLink SubPath, COLUMN_EFFECT_TYPE_ID, rs
                     TableCell COLUMN_EFFECT_TYPE_NAME, rs
                     TableCell COLUMN_LOCATION_TYPE_NAME, rs
-                    TableCell COLUMN_DISCARD_HAND, rs
+                    TableCell COLUMN_REFRESH_HAND, rs
                 EndTableRow
                 rs.movenext
             loop

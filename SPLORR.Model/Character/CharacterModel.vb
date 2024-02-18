@@ -174,8 +174,8 @@ Friend Class CharacterModel
         Return True
     End Function
 
-    Private Sub DiscardHand()
-        For Each card In store.Cards.Hand
+    Public Sub DiscardHand() Implements ICharacterModel.DiscardHand
+        For Each card In Store.Cards.Hand
             card.Discard()
         Next
     End Sub

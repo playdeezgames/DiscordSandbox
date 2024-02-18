@@ -74,4 +74,13 @@ Friend Class EffectTypeStore
                 Function(x) New EffectTypeCardTypeGeneratorStore(connectionSource, x))
         End Get
     End Property
+
+    Public ReadOnly Property RefreshHand As Boolean Implements IEffectTypeStore.RefreshHand
+        Get
+            Return connectionSource.ReadIntegerForValues(
+                TABLE_EFFECT_TYPES,
+                {(COLUMN_EFFECT_TYPE_ID, Id)},
+                COLUMN_REFRESH_HAND) <> 0
+        End Get
+    End Property
 End Class

@@ -8,4 +8,5 @@ Public Interface IEffectTypeModel
     ReadOnly Property LocationType As ILocationTypeModel
     ReadOnly Property Destinations As IEnumerable(Of IEffectTypeDestinationModel)
     ReadOnly Property CardTypeGenerators As IEnumerable(Of IEffectTypeCardTypeGeneratorModel)
+    ReadOnly Property RefreshHand As Boolean
 End Interface

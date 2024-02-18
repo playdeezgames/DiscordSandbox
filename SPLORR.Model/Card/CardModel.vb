@@ -141,6 +141,7 @@ Friend Class CardModel
             Return
         End If
         Dim effects = LocalEffects.Where(AddressOf MeetsEffectTypeRequirements)
+        Dim refreshHand As Boolean = False
         For Each effect In effects
             For Each statisticDelta In effect.StatisticDeltas
                 outputter($"{statisticDelta.Delta} {statisticDelta.StatisticType.Name}")
@@ -153,11 +154,17 @@ Friend Class CardModel
                     outputter($"*NEW CARD!* {cardType.Name}")
                 End If
             Next
+            If effect.RefreshHand Then
+                refreshHand = True
+            End If
         Next
         Dim destinationLocations As IEnumerable(Of ILocationModel) = Me.Destinations
         If destinationLocations.Any Then
             Character.Location = RNG.FromEnumerable(destinationLocations)
         End If
         Discard()
+        If refreshHand Then
+            Character.RefreshHand()
+        End If
     End Sub
 End Class

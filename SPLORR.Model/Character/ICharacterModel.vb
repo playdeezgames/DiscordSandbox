@@ -25,4 +25,5 @@ Public Interface ICharacterModel
     Function AddCard(cardType As ICardTypeModel) As Boolean
     ReadOnly Property Inventory As IReadOnlyDictionary(Of String, Integer)
     ReadOnly Property GetStatistic(statisticType As IStatisticTypeModel) As ICharacterStatisticModel
+    Sub DiscardHand()
 End Interface

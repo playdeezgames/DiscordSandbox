@@ -50,4 +50,5 @@
     Friend Const COLUMN_CARD_COUNT = "CardCount"
     Friend Const COLUMN_CARD_LIMIT = "CardLimit"
     Friend Const COLUMN_ALWAYS_AVAILABLE = "AlwaysAvailable"
+    Friend Const COLUMN_REFRESH_HAND = "RefreshHand"
 End Module

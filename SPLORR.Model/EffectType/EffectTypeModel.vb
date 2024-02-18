@@ -48,4 +48,10 @@ Public Class EffectTypeModel
             Return store.CardTypeGenerators.Select(Function(x) New EffectTypeCardTypeGeneratorModel(x))
         End Get
     End Property
+
+    Public ReadOnly Property RefreshHand As Boolean Implements IEffectTypeModel.RefreshHand
+        Get
+            Return Store.RefreshHand
+        End Get
+    End Property
 End Class

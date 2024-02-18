@@ -5,4 +5,5 @@
     ReadOnly Property LocationType As ILocationTypeStore
     ReadOnly Property Destinations As IEnumerable(Of IEffectTypeDestinationStore)
     ReadOnly Property CardTypeGenerators As IEnumerable(Of IEffectTypeCardTypeGeneratorStore)
+    ReadOnly Property RefreshHand As Boolean
 End Interface

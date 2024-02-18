@@ -11,7 +11,7 @@
             StartTable 
                 TextInputAdd COLUMN_EFFECT_TYPE_NAME, "Name"
                 ComboBoxAdd COLUMN_LOCATION_TYPE_ID, "Location Type", Conn, TABLE_LOCATION_TYPES, COLUMN_LOCATION_TYPE_NAME, True
-                CheckboxInputAdd COLUMN_DISCARD_HAND, "Discard Hand"
+                CheckboxInputAdd COLUMN_REFRESH_HAND, "Refresh Hand"
                 SubmitButton 
             EndTable 
         EndForm

@@ -154,4 +154,18 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[CardLocalEffectCounts]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="08812b13-4804-4b9a-8bf7-637a5766d86c" ChangeDateTime="02/18/2024 09:56:50">
+    <Property Name="ElementName" Value="[dbo].[EffectTypes].[DiscardHand]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[EffectTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[RefreshHand]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d4803606-2bc2-46e0-aa5a-6f8b376a7c27" ChangeDateTime="02/18/2024 09:57:00">
+    <Property Name="ElementName" Value="[dbo].[DF_EffectTypes_DiscardHand]" />
+    <Property Name="ElementType" Value="SqlDefaultConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[EffectTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DF_EffectTypes_RefreshHand" />
+  </Operation>
 </Operations>

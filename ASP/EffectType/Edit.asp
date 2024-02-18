@@ -14,7 +14,7 @@
                 COLUMN_EFFECT_TYPE_ID, _
                 COLUMN_EFFECT_TYPE_NAME, _
                 COLUMN_LOCATION_TYPE_ID, _
-                COLUMN_DISCARD_HAND), _
+                COLUMN_REFRESH_HAND), _
             Array(COLUMN_EFFECT_TYPE_ID), _
             Array(Request.QueryString(COLUMN_EFFECT_TYPE_ID)))
         StartUpdateForm SubPath
@@ -22,7 +22,7 @@
                 ReadonlyTextInput COLUMN_EFFECT_TYPE_ID, "Id", rs
                 TextInputEdit COLUMN_EFFECT_TYPE_NAME, "Name", rs
                 ComboBoxEdit COLUMN_LOCATION_TYPE_ID, "Location Type", Conn, TABLE_LOCATION_TYPES, COLUMN_LOCATION_TYPE_NAME, rs, True
-                CheckboxInputEdit COLUMN_DISCARD_HAND, "Discard Hand", rs
+                CheckboxInputEdit COLUMN_REFRESH_HAND, "Refresh Hand", rs
                 SubmitButton 
             EndTable 
         EndForm
