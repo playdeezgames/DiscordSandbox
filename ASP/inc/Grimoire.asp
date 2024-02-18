@@ -89,6 +89,7 @@ Const VIEW_EFFECT_TYPE_STATISTIC_REQUIREMENT_DETAILS = "EffectTypeStatisticRequi
 Const VIEW_EFFECT_TYPE_AVAILABLE_REQUIREMENT_STATISTIC_TYPES = "EffectTypeAvailableRequirementStatisticTypes"
 Const VIEW_CHARACTER_TYPE_CARD_DETAILS = "CharacterTypeCardDetails"
 Const VIEW_CHARACTER_TYPE_AVAILABLE_CARDS = "CharacterTypeAvailableCards"
+Const VIEW_LOCATION_DETAILS = "LocationDetails"
 
 Function MakeSelectCommandText(TableName, ShowColumns, FilterColumns)
     Dim result

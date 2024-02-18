@@ -147,6 +147,12 @@ Friend Class CardModel
                 outputter($"{statisticDelta.Delta} {statisticDelta.StatisticType.Name}")
                 Character.GetStatistic(statisticDelta.StatisticType).Value += statisticDelta.Delta
             Next
+            Dim health = Character.Store.Statistics.FromName(STATISTIC_TYPE_HEALTH)
+            If health.Value < 1 Then
+                outputter($"{Character.Name} dies!")
+                Character.Die()
+                Return
+            End If
             For Each cardTypeGenerator In effect.CardTypeGenerators
                 Dim generator = cardTypeGenerator.CardTypes.ToDictionary(Function(x) x.CardType, Function(x) x.GeneratorWeight)
                 Dim cardType = RNG.FromGenerator(generator)

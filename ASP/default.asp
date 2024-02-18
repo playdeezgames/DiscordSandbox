@@ -10,6 +10,7 @@
             <li><a href="CharacterType/List.asp">Character Types</a></li>
             <li><a href="Character/List.asp">Characters</a></li>
             <li><a href="EffectType/List.asp">Effect Types</a></li>
+            <li><a href="Location/List.asp">Locations</a></li>
             <li><a href="LocationType/List.asp">Location Types</a></li>
             <li><a href="StatisticType/List.asp">Statistic Types</a></li>
         </ul>
