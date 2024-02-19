@@ -218,4 +218,13 @@ Friend Class CharacterStore
                 Function(x, y) New StatisticTypeStore(x, y))
         End Get
     End Property
+
+    Public ReadOnly Property EffectiveHandSize As Integer Implements ICharacterStore.EffectiveHandSize
+        Get
+            Return If(connectionSource.FindIntegerForValues(
+                VIEW_CHARACTER_EFFECTIVE_HAND_SIZES,
+                {(COLUMN_CHARACTER_ID, Id)},
+                COLUMN_HAND_SIZE), 0)
+        End Get
+    End Property
 End Class

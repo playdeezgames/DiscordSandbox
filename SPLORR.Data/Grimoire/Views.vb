@@ -29,4 +29,5 @@
     Friend Const VIEW_EFFECT_TYPE_CARD_TYPE_GENERATOR_CARD_TYPES = "EffectTypeCardTypeGeneratorCardTypes"
     Friend Const VIEW_CHARACTER_CARD_TYPE_COUNTS = "CharacterCardTypeCounts"
     Friend Const VIEW_CARD_LOCAL_EFFECTS = "CardLocalEffects"
+    Friend Const VIEW_CHARACTER_EFFECTIVE_HAND_SIZES = "CharacterEffectiveHandSizes"
 End Module

@@ -84,6 +84,12 @@ Friend Class CharacterModel
         End Get
     End Property
 
+    Private ReadOnly Property EffectiveHandSize As Integer
+        Get
+            Return Store.EffectiveHandSize
+        End Get
+    End Property
+
     Public ReadOnly Property Hand As IEnumerable(Of ICardModel) Implements ICharacterModel.Hand
         Get
             Return store.Cards.Hand.Select(Function(x) New CardModel(x))
@@ -146,11 +152,11 @@ Friend Class CharacterModel
     End Sub
 
     Private Sub DrawHand()
-        For Each dummy In Enumerable.Range(0, HandSize)
+        While HandSize > EffectiveHandSize
             If Not DrawCard() Then
-                Exit For
+                Exit While
             End If
-        Next
+        End While
     End Sub
 
     Private Function DrawCard() As Boolean

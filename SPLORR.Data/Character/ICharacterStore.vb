@@ -13,4 +13,5 @@
     ReadOnly Property AvailableStatistics As IRelatedTypeStore(Of IStatisticTypeStore)
     Function CardTypeCount(cardType As ICardTypeStore) As Integer
     Function SatisfiesRequirements(effectType As IEffectTypeStore) As Boolean
+    ReadOnly Property EffectiveHandSize As Integer
 End Interface
